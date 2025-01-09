@@ -18,22 +18,6 @@ Create world-class API Docs with a built-in interactive playground which seamles
 - **Created:** 2025-01-08 
 - **Modified:** 2025-01-08 
 
-## APIs
-
-### Scalar
-Create world-class API Docs with a built-in interactive playground which seamlessly turns to a full featured API Client.  Works with your OpenAPI document.
-
-**Human URL:** [https://scalar.com/](https://scalar.com/)
-
-
-#### Tags:
-
- - API
-
-#### Properties
-
-- [Documentation](https://scalar.com/)
-
 ## Maintainers
 
 **FN:** Kin Lane
