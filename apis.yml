@@ -4,6 +4,11 @@ url: >-
 apis:
   - aid: undefined:scalar
     name: Scalar
+    tags:
+      - Documentation
+      - Clients
+      - SDKs
+      - Registries
     humanURL: https://scalar.com/
     properties:
       - url: https://scalar.com/
@@ -13,11 +18,6 @@ apis:
       interactive API documentation, an embedded API client, and managing the
       API lifecycle. It offers a modern, customizable alternative to traditional
       tools like Swagger UI. 
-    tags:
-      - Documentation
-      - Clients
-      - SDKs
-      - Registries
 name: Scalar
 tags:
   - Documentation
@@ -40,3 +40,24 @@ maintainers:
   - FN: Kin Lane
     email: info@apievangelist.com
 specificationVersion: '0.19'
+common:
+  - name: Introduction | Scalar
+    description: 'null'
+    url: https://guides.scalar.com/scalar/introduction
+    type: Documentation
+  - name: Pricing | Scalar
+    description: 'null'
+    url: https://guides.scalar.com/scalar/pricing
+    type: Pricing
+  - name: Getting started | Scalar
+    description: 'null'
+    url: https://guides.scalar.com/scalar/scalar-sdks/getting-started
+    type: Code
+  - name: Getting Started | Scalar
+    description: 'null'
+    url: https://guides.scalar.com/scalar/scalar-cli/getting-started
+    type: CLI
+  - name: Getting Started | Scalar
+    description: 'null'
+    url: https://guides.scalar.com/scalar/scalar-api-references/getting-started
+    type: GettingStarted
