@@ -1,12 +1,23 @@
 aid: scalar
 url: >-
   https://raw.githubusercontent.com/api-evangelist/scalar/refs/heads/main/apis.yml
+apis:
+  - aid: undefined:scalar
+    name: Scalar
+    humanURL: https://scalar.com/
+    description: >-
+      Scalar is an open-source API platform that provides tools for creating
+      interactive API documentation, an embedded API client, and managing the
+      API lifecycle. It offers a modern, customizable alternative to traditional
+      tools like Swagger UI. 
 name: Scalar
 tags:
   - Documentation
   - Clients
   - Interactive
   - Platform
+  - SDKs
+  - Registries
 type: Index
 image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
 access: 3rd-Party
@@ -21,12 +32,3 @@ maintainers:
   - FN: Kin Lane
     email: info@apievangelist.com
 specificationVersion: '0.19'
-apis:
-  - name: Scalar
-    description: >-
-      Scalar is an open-source API platform that provides tools for creating
-      interactive API documentation, an embedded API client, and managing the
-      API lifecycle. It offers a modern, customizable alternative to traditional
-      tools like Swagger UI. 
-    humanURL: https://scalar.com/
-    aid: undefined:scalar
