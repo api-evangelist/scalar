@@ -10,6 +10,9 @@ apis:
       interactive API documentation, an embedded API client, and managing the
       API lifecycle. It offers a modern, customizable alternative to traditional
       tools like Swagger UI. 
+    properties:
+      - url: https://scalar.com/
+        type: Documentation
 name: Scalar
 tags:
   - Documentation
