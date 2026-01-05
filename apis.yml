@@ -5,14 +5,19 @@ apis:
   - aid: undefined:scalar
     name: Scalar
     humanURL: https://scalar.com/
+    properties:
+      - url: https://scalar.com/
+        type: Documentation
     description: >-
       Scalar is an open-source API platform that provides tools for creating
       interactive API documentation, an embedded API client, and managing the
       API lifecycle. It offers a modern, customizable alternative to traditional
       tools like Swagger UI. 
-    properties:
-      - url: https://scalar.com/
-        type: Documentation
+    tags:
+      - Documentation
+      - Clients
+      - SDKs
+      - Registries
 name: Scalar
 tags:
   - Documentation
