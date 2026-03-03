@@ -32,6 +32,10 @@ access: 3rd-Party
 created: '2025-01-08'
 modified: '2026-01-04'
 position: Consumer
+segments:
+  - SDKs
+  - Clients
+  - Documentation
 description: >-
   Create world-class API Docs with a built-in interactive playground which
   seamlessly turns to a full featured API Client.  Works with your OpenAPI
