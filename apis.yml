@@ -29,7 +29,8 @@ apis:
     properties:
       - url: https://scalar.com/products/api-references/getting-started
         type: GettingStarted
-      - url: https://guides.scalar.com/scalar/scalar-api-references/getting-started
+      - url: 
+          https://guides.scalar.com/scalar/scalar-api-references/getting-started
         type: Documentation
       - url: https://guides.scalar.com/scalar/scalar-api-references/themes
         type: Documentation
@@ -139,9 +140,8 @@ segments:
   - Registries
   - Developer Tools
 description: >-
-  Create world-class API Docs with a built-in interactive playground which
-  seamlessly turns to a full featured API Client.  Works with your OpenAPI
-  document.
+  Create world-class API Docs with a built-in interactive playground which seamlessly
+  turns to a full featured API Client. Works with your OpenAPI document.
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
