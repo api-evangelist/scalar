@@ -1,0 +1,14 @@
+{
+  "example": {
+    "title": "Scalar API Reference Configuration",
+    "description": "Example of embedding Scalar API References in an HTML page or framework.",
+    "type": "code",
+    "language": "html",
+    "code": "<!doctype html>\n<html>\n  <head>\n    <title>Payments API Reference</title>\n    <meta charset=\"utf-8\" />\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\" />\n  </head>\n  <body>\n    <script\n      id=\"api-reference\"\n      data-url=\"https://registry.scalar.com/my-org/payments-api\"\n      data-configuration='{\n        \"theme\": \"purple\",\n        \"darkMode\": true,\n        \"hiddenClients\": [\"unirest\"],\n        \"defaultHttpClient\": {\n          \"targetKey\": \"javascript\",\n          \"clientKey\": \"fetch\"\n        }\n      }'\n    ></script>\n    <script src=\"https://cdn.jsdelivr.net/npm/@scalar/api-reference\"></script>\n  </body>\n</html>",
+    "notes": [
+      "Set data-url to your OpenAPI spec URL or Scalar Registry URL",
+      "Supported themes: default, alternate, moon, purple, solarized, bluePlanet, deepSpace, saturn, kepler, mars",
+      "See https://guides.scalar.com/scalar/scalar-api-references/getting-started for full configuration options"
+    ]
+  }
+}

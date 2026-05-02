@@ -1,0 +1,130 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://api-evangelist.com/schemas/scalar/openapi-document",
+  "title": "Scalar OpenAPI Document Reference",
+  "description": "Schema representing an OpenAPI document managed in the Scalar Registry, including metadata, registry coordinates, and documentation configuration.",
+  "type": "object",
+  "required": ["namespace", "title", "version", "specUrl"],
+  "properties": {
+    "namespace": {
+      "type": "string",
+      "description": "Scalar Registry namespace (org/project format).",
+      "pattern": "^[a-z0-9-]+/[a-z0-9-]+$",
+      "example": "my-org/payments-api"
+    },
+    "title": {
+      "type": "string",
+      "description": "Human-readable API title.",
+      "example": "Payments API"
+    },
+    "version": {
+      "type": "string",
+      "description": "API version string.",
+      "example": "2.1.0"
+    },
+    "specUrl": {
+      "type": "string",
+      "format": "uri",
+      "description": "URL to the OpenAPI document (YAML or JSON)."
+    },
+    "openAPIVersion": {
+      "type": "string",
+      "enum": ["3.0.0", "3.0.1", "3.0.2", "3.0.3", "3.1.0"],
+      "description": "OpenAPI specification version.",
+      "example": "3.1.0"
+    },
+    "visibility": {
+      "type": "string",
+      "enum": ["public", "private"],
+      "description": "Whether the registry entry is publicly accessible.",
+      "default": "private"
+    },
+    "documentation": {
+      "type": "object",
+      "description": "Scalar documentation configuration.",
+      "properties": {
+        "customDomain": {
+          "type": "string",
+          "description": "Custom domain for the published docs.",
+          "example": "api-docs.example.com"
+        },
+        "theme": {
+          "type": "string",
+          "enum": ["default", "alternate", "moon", "purple", "solarized", "bluePlanet", "deepSpace", "saturn", "kepler", "mars", "none"],
+          "description": "Scalar API Reference display theme.",
+          "default": "default"
+        },
+        "darkMode": {
+          "type": "boolean",
+          "description": "Enable dark mode by default.",
+          "default": false
+        },
+        "gitSync": {
+          "type": "object",
+          "description": "Git synchronization configuration.",
+          "properties": {
+            "enabled": { "type": "boolean" },
+            "repository": {
+              "type": "string",
+              "description": "GitHub repository in owner/repo format."
+            },
+            "branch": {
+              "type": "string",
+              "description": "Branch to sync from.",
+              "default": "main"
+            },
+            "specPath": {
+              "type": "string",
+              "description": "Path to OpenAPI file in the repository."
+            }
+          }
+        }
+      }
+    },
+    "sdks": {
+      "type": "array",
+      "description": "SDK generation configuration for this API.",
+      "items": {
+        "type": "object",
+        "required": ["language"],
+        "properties": {
+          "language": {
+            "type": "string",
+            "enum": ["typescript", "python", "go", "php", "java", "ruby"],
+            "description": "Target programming language."
+          },
+          "packageName": {
+            "type": "string",
+            "description": "Package/module name for the generated SDK.",
+            "example": "payments-client"
+          },
+          "githubRepo": {
+            "type": "string",
+            "description": "GitHub repository for the generated SDK."
+          }
+        }
+      }
+    },
+    "spectralRulesets": {
+      "type": "array",
+      "description": "Spectral rulesets applied to validate this document.",
+      "items": {
+        "type": "string",
+        "format": "uri"
+      }
+    },
+    "tags": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Classification tags."
+    },
+    "createdAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "updatedAt": {
+      "type": "string",
+      "format": "date-time"
+    }
+  }
+}

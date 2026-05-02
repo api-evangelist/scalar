@@ -1,0 +1,49 @@
+{
+  "structure": {
+    "name": "Scalar OpenAPI Document Reference",
+    "description": "Structural documentation for an OpenAPI document managed in the Scalar Registry.",
+    "fields": [
+      { "name": "namespace", "type": "string", "required": true, "description": "Registry namespace in org/project format" },
+      { "name": "title", "type": "string", "required": true, "description": "API display name" },
+      { "name": "version", "type": "string", "required": true, "description": "API version" },
+      { "name": "specUrl", "type": "uri", "required": true, "description": "URL to OpenAPI document" },
+      { "name": "openAPIVersion", "type": "enum[3.0.0,3.0.1,3.0.2,3.0.3,3.1.0]", "required": false },
+      { "name": "visibility", "type": "enum[public,private]", "required": false, "default": "private" },
+      {
+        "name": "documentation",
+        "type": "object",
+        "required": false,
+        "fields": [
+          { "name": "customDomain", "type": "string", "required": false },
+          { "name": "theme", "type": "string", "required": false },
+          { "name": "darkMode", "type": "boolean", "required": false },
+          {
+            "name": "gitSync",
+            "type": "object",
+            "required": false,
+            "fields": [
+              { "name": "enabled", "type": "boolean" },
+              { "name": "repository", "type": "string" },
+              { "name": "branch", "type": "string", "default": "main" },
+              { "name": "specPath", "type": "string" }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "sdks",
+        "type": "array<object>",
+        "required": false,
+        "itemFields": [
+          { "name": "language", "type": "enum[typescript,python,go,php,java,ruby]", "required": true },
+          { "name": "packageName", "type": "string", "required": false },
+          { "name": "githubRepo", "type": "string", "required": false }
+        ]
+      },
+      { "name": "spectralRulesets", "type": "array<uri>", "required": false },
+      { "name": "tags", "type": "array<string>", "required": false },
+      { "name": "createdAt", "type": "date-time", "required": false },
+      { "name": "updatedAt", "type": "date-time", "required": false }
+    ]
+  }
+}

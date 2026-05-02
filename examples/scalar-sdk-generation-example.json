@@ -1,0 +1,23 @@
+{
+  "example": {
+    "title": "Scalar SDK Generation Workflow",
+    "description": "Example of the Scalar SDK generation GitHub Actions workflow for TypeScript.",
+    "type": "github-actions",
+    "language": "yaml",
+    "code": "name: Generate SDKs\n\non:\n  push:\n    branches: [main]\n    paths:\n      - 'openapi.yaml'\n\njobs:\n  generate-typescript-sdk:\n    runs-on: ubuntu-latest\n    steps:\n      - uses: actions/checkout@v4\n\n      - name: Generate TypeScript SDK\n        uses: scalar/sdk-generation-action@v1\n        with:\n          api-key: ${{ secrets.SCALAR_API_KEY }}\n          namespace: my-org/payments-api\n          language: typescript\n          package-name: payments-client\n          output-directory: ./sdk\n\n      - name: Publish SDK to npm\n        run: |\n          cd sdk\n          npm publish\n        env:\n          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}",
+    "output": {
+      "generatedFiles": [
+        "sdk/src/index.ts",
+        "sdk/src/client.ts",
+        "sdk/src/types.ts",
+        "sdk/package.json",
+        "sdk/README.md"
+      ]
+    },
+    "notes": [
+      "Requires a Scalar API key from dashboard.scalar.com/user/api-keys",
+      "SDK generation is $100/month per language",
+      "Supported languages: typescript, python, go, php, java, ruby"
+    ]
+  }
+}

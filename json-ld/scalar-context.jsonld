@@ -1,0 +1,51 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "@vocab": "https://schema.org/",
+    "api": "https://api-evangelist.com/vocabulary/",
+    "scalar": "https://api-evangelist.com/vocabulary/scalar/",
+
+    "APIDocumentationPlatform": "scalar:APIDocumentationPlatform",
+    "APIRegistry": "scalar:APIRegistry",
+    "APIClient": "scalar:APIClient",
+    "SDKGenerator": "scalar:SDKGenerator",
+    "OpenAPIDocument": "scalar:OpenAPIDocument",
+    "SpectralRuleset": "scalar:SpectralRuleset",
+    "APICollection": "scalar:APICollection",
+    "MockServer": "scalar:MockServer",
+
+    "name": "schema:name",
+    "description": "schema:description",
+    "url": "schema:url",
+    "documentation": "schema:documentation",
+    "version": "schema:version",
+    "license": "schema:license",
+    "provider": "schema:provider",
+    "dateCreated": "schema:dateCreated",
+    "dateModified": "schema:dateModified",
+
+    "SoftwareApplication": "schema:SoftwareApplication",
+    "SoftwareSourceCode": "schema:SoftwareSourceCode",
+    "WebAPI": "schema:WebAPI",
+
+    "baseUrl": "api:baseUrl",
+    "apiType": "api:apiType",
+    "tags": "api:tags",
+
+    "openAPIVersion": "scalar:openAPIVersion",
+    "supportedLanguages": "scalar:supportedLanguages",
+    "frameworkIntegrations": "scalar:frameworkIntegrations",
+    "themeSupport": "scalar:themeSupport",
+    "gitSyncEnabled": "scalar:gitSyncEnabled",
+    "offlineFirst": "scalar:offlineFirst",
+    "registryNamespace": "scalar:registryNamespace",
+    "sdkLanguage": "scalar:sdkLanguage",
+    "mockServerPort": "scalar:mockServerPort",
+    "spectralRuleCount": "scalar:spectralRuleCount",
+    "customDomainEnabled": "scalar:customDomainEnabled",
+    "Organization": {
+      "@id": "schema:Organization",
+      "@type": "@id"
+    }
+  }
+}

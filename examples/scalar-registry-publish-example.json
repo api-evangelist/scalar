@@ -1,0 +1,24 @@
+{
+  "example": {
+    "title": "Publish OpenAPI Document to Scalar Registry",
+    "description": "Example of publishing an OpenAPI document to the Scalar Registry using the CLI.",
+    "type": "cli",
+    "command": "scalar registry publish --namespace my-org/payments-api --file ./openapi.yaml --version 2.1.0",
+    "request": {
+      "method": "CLI",
+      "tool": "scalar",
+      "subcommand": "registry publish",
+      "flags": {
+        "--namespace": "my-org/payments-api",
+        "--file": "./openapi.yaml",
+        "--version": "2.1.0"
+      }
+    },
+    "response": {
+      "status": "success",
+      "message": "Successfully published my-org/payments-api@2.1.0 to the Scalar Registry.",
+      "documentUrl": "https://registry.scalar.com/my-org/payments-api",
+      "docsUrl": "https://docs.scalar.com/my-org/payments-api"
+    }
+  }
+}

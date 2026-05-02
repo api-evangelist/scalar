@@ -1,0 +1,167 @@
+extends:
+  - spectral:oas
+
+rules:
+  # Info section completeness
+  scalar-info-title:
+    description: API title must be present and non-empty.
+    message: "{{description}}: {{error}}"
+    severity: error
+    given: $.info
+    then:
+      field: title
+      function: truthy
+
+  scalar-info-description:
+    description: API description should provide meaningful context.
+    message: "{{description}}: {{error}}"
+    severity: warn
+    given: $.info
+    then:
+      field: description
+      function: truthy
+
+  scalar-info-version:
+    description: API version must follow semver (major.minor.patch).
+    message: "{{description}}: {{error}}"
+    severity: warn
+    given: $.info.version
+    then:
+      function: pattern
+      functionOptions:
+        match: "^\\d+\\.\\d+\\.\\d+$"
+
+  # Operation conventions
+  scalar-operation-summary:
+    description: Every operation must have a summary.
+    message: "Operation {{path}} is missing a summary."
+    severity: error
+    given: "$.paths[*][get,post,put,patch,delete,options,head]"
+    then:
+      field: summary
+      function: truthy
+
+  scalar-operation-summary-title-case:
+    description: Operation summaries must use Title Case.
+    message: "Summary '{{value}}' must use Title Case."
+    severity: warn
+    given: "$.paths[*][get,post,put,patch,delete][summary]"
+    then:
+      function: pattern
+      functionOptions:
+        match: "^([A-Z][a-z0-9]*(\\s[A-Z][a-z0-9]*)*|[A-Z]+)$"
+
+  scalar-operation-operationid:
+    description: Every operation must have a unique operationId.
+    message: "Operation {{path}} is missing an operationId."
+    severity: error
+    given: "$.paths[*][get,post,put,patch,delete,options,head]"
+    then:
+      field: operationId
+      function: truthy
+
+  scalar-operation-operationid-kebab:
+    description: operationId should use camelCase or kebab-case.
+    message: "operationId '{{value}}' should use camelCase."
+    severity: warn
+    given: "$.paths[*][get,post,put,patch,delete].operationId"
+    then:
+      function: pattern
+      functionOptions:
+        match: "^[a-z][a-zA-Z0-9]*$"
+
+  scalar-operation-tags:
+    description: Every operation must have at least one tag.
+    message: "Operation {{path}} must have at least one tag."
+    severity: warn
+    given: "$.paths[*][get,post,put,patch,delete]"
+    then:
+      field: tags
+      function: truthy
+
+  # Path conventions
+  scalar-path-kebab-case:
+    description: All path segments must use lowercase kebab-case.
+    message: "Path '{{path}}' must use lowercase kebab-case segments."
+    severity: warn
+    given: "$.paths[*]~"
+    then:
+      function: pattern
+      functionOptions:
+        match: "^(/[a-z0-9][a-z0-9-]*|/\\{[a-zA-Z][a-zA-Z0-9]*\\})*$"
+
+  scalar-no-trailing-slash:
+    description: Paths must not have trailing slashes.
+    message: "Path '{{value}}' must not have a trailing slash."
+    severity: warn
+    given: "$.paths[*]~"
+    then:
+      function: pattern
+      functionOptions:
+        notMatch: "/$"
+
+  # Response conventions
+  scalar-operation-responses:
+    description: Every operation must define at least one response.
+    message: "Operation {{path}} must define at least one response."
+    severity: error
+    given: "$.paths[*][get,post,put,patch,delete]"
+    then:
+      field: responses
+      function: truthy
+
+  scalar-operation-success-response:
+    description: GET operations should define a 200 response.
+    message: "GET operation at {{path}} should have a 200 response."
+    severity: warn
+    given: "$.paths[*].get"
+    then:
+      field: "responses.200"
+      function: truthy
+
+  # Components / schema conventions
+  scalar-schema-description:
+    description: All named schema components should have descriptions.
+    message: "Schema '{{path}}' is missing a description."
+    severity: warn
+    given: "$.components.schemas[*]"
+    then:
+      field: description
+      function: truthy
+
+  scalar-parameter-description:
+    description: All parameters should have descriptions.
+    message: "Parameter '{{path}}' is missing a description."
+    severity: warn
+    given: "$.paths[*][*].parameters[*]"
+    then:
+      field: description
+      function: truthy
+
+  # Security
+  scalar-security-schemes-defined:
+    description: If security is used in operations, securitySchemes must be defined.
+    message: "securitySchemes must be defined in components when security is applied."
+    severity: warn
+    given: "$"
+    then:
+      function: schema
+      functionOptions:
+        schema:
+          if:
+            required: ["security"]
+          then:
+            required: ["components"]
+            properties:
+              components:
+                required: ["securitySchemes"]
+
+  # Servers
+  scalar-servers-present:
+    description: At least one server must be defined.
+    message: "OpenAPI document should define at least one server."
+    severity: warn
+    given: "$"
+    then:
+      field: servers
+      function: truthy

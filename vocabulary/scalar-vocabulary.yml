@@ -1,0 +1,118 @@
+vocabulary:
+  name: Scalar Vocabulary
+  description: >-
+    Domain vocabulary for the Scalar API platform, covering OpenAPI tooling,
+    API documentation, API clients, registries, SDK generation, and the
+    concepts used by API developers working with OpenAPI-first workflows.
+  created: '2026-05-02'
+  modified: '2026-05-02'
+  terms:
+    - term: API Reference
+      definition: >-
+        Interactive documentation for an API generated from an OpenAPI or
+        Swagger specification. Scalar API References render modern, styled
+        API docs with an embedded API client, code samples, and support for
+        multiple themes. The documentation is live and allows users to make
+        real API calls directly from the browser.
+      tags:
+        - Documentation
+        - OpenAPI
+    - term: API Registry
+      definition: >-
+        A centralized repository for storing and versioning API specifications
+        (OpenAPI documents, JSON Schemas, Spectral rules). The Scalar Registry
+        serves as the single source of truth for API definitions across a team
+        or organization, with Git integration and CI/CD support.
+      tags:
+        - Governance
+        - Registry
+        - Versioning
+    - term: Collection
+      definition: >-
+        A group of related API requests organized together in an API client.
+        In the Scalar API Client, collections can be generated automatically
+        from an OpenAPI document, with authentication, parameters, and
+        request bodies pre-configured.
+      tags:
+        - API Client
+        - Testing
+    - term: Environment Variable
+      definition: >-
+        A named value (e.g., base URL, API key) that can be referenced in
+        API requests using double curly brace syntax (`{{variable}}`).
+        In Scalar API Client, environments allow switching between
+        development, staging, and production configurations.
+      tags:
+        - API Client
+        - Configuration
+    - term: Mock Server
+      definition: >-
+        A server that simulates an API by returning example responses defined
+        in an OpenAPI document. The Scalar CLI can run a mock server from
+        an OpenAPI spec, enabling frontend development and testing without
+        a live backend.
+      tags:
+        - Development
+        - Testing
+    - term: Namespace
+      definition: >-
+        A unique identifier for a project or API in the Scalar Registry.
+        Used when publishing API specifications: `scalar registry publish
+        --namespace my-org/my-api`. Namespaces can be private or public.
+      tags:
+        - Registry
+        - Organization
+    - term: OpenAPI
+      definition: >-
+        The OpenAPI Specification (OAS) is a vendor-neutral, language-agnostic
+        interface description for HTTP APIs. Scalar is built entirely around
+        OpenAPI, rendering documentation, powering the API client, and
+        generating SDKs from OpenAPI 3.0 and 3.1 documents.
+      tags:
+        - API Design
+        - Standards
+    - term: Post-Response Script
+      definition: >-
+        A JavaScript script that runs after an API response is received in
+        the Scalar API Client. Used for extracting values from responses
+        (e.g., auth tokens), asserting response properties, and chaining
+        requests together in collection runners.
+      tags:
+        - API Client
+        - Testing
+    - term: SDK Generation
+      definition: >-
+        The automated process of creating type-safe client libraries from
+        an OpenAPI specification. Scalar SDKs generates libraries for
+        TypeScript, Python, Go, PHP, Java, and Ruby at $100/month per language,
+        with automated GitHub workflows for keeping SDKs in sync with API changes.
+      tags:
+        - Code Generation
+        - SDKs
+    - term: Spectral
+      definition: >-
+        An open-source JSON/YAML linter for OpenAPI and AsyncAPI documents.
+        Spectral rules enforce API design standards and naming conventions.
+        The Scalar Registry stores Spectral rulesets alongside OpenAPI documents.
+      tags:
+        - Governance
+        - Linting
+        - OpenAPI
+    - term: $ref Resolution
+      definition: >-
+        The process of resolving JSON Reference (`$ref`) pointers in an
+        OpenAPI document, replacing references with the content of the
+        referenced schema or component. Scalar handles $ref resolution
+        automatically when rendering API documentation.
+      tags:
+        - OpenAPI
+        - Technical
+    - term: WYSIWYG Editor
+      definition: >-
+        What You See Is What You Get — a document editor that shows content
+        as it will appear in the final rendered form. Scalar Docs provides
+        a WYSIWYG editor for writing developer documentation that generates
+        publication-ready documentation without requiring Markdown syntax.
+      tags:
+        - Documentation
+        - Editor
