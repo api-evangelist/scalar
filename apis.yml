@@ -224,12 +224,26 @@ common:
   - type: Examples
     url: https://github.com/api-evangelist/scalar/blob/main/examples/
     name: Scalar Usage Examples
+  - type: Integrations
+    url: https://scalar.com/integrations
 segments:
   - SDKs
   - Clients
   - Documentation
   - Registries
   - Developer Tools
+integrations:
+  - name: API References Animation
+  - name: API Registry Animation
+  - name: SDK Animation
+  - name: Client Animation
+  - name: Registry
+  - name: API Client
+  - name: API Client Preview
+  - name: SDKs Preview
+  - name: API Registry Preview
+  - name: API Docs Preview
+  - name: logo
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
