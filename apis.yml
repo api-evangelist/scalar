@@ -179,6 +179,8 @@ apis:
       - type: NPM
         url: https://www.npmjs.com/package/@scalar/cli
 common:
+  - type: LinkedIn
+    url: https://www.linkedin.com/company/scalar
   - type: Website
     url: https://scalar.com/
     name: Scalar Website
