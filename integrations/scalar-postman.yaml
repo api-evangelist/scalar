@@ -1,0 +1,129 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Export Postman collections as Scalar-rendered API references
+  description: Pull a Postman collection, convert it to OpenAPI, and publish it into a Scalar docs project so teams can host the same contract as interactive Scalar references without leaving their Postman workflow.
+  tags:
+  - Scalar
+  - Integration
+  - API Design
+  - postman
+  created: '2026-05-20'
+  modified: '2026-05-20'
+binds:
+- namespace: env
+  keys:
+    SCALAR_API_KEY: SCALAR_API_KEY
+    POSTMAN_API_KEY: POSTMAN_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: scalar
+    baseUri: https://api.scalar.com
+    description: Scalar API operations consumed by this integration.
+    resources:
+    - name: docs-create-project
+      path: /docs/create-project
+      operations:
+      - name: createdocsproject
+        method: POST
+        description: Create a new Scalar docs project to host an imported reference.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: schemas-namespace
+      path: /schemas/{namespace}
+      operations:
+      - name: createschema
+        method: POST
+        description: Register an OpenAPI document under a namespace in the Scalar schema registry.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: namespace
+          in: path
+          type: string
+          description: Path parameter namespace.
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+  - type: http
+    namespace: postman
+    baseUri: https://api.getpostman.com
+    description: Postman API operations consumed by this integration.
+    resources:
+    - name: collections-collection-id
+      path: /collections/{collection_id}
+      operations:
+      - name: getcollection
+        method: GET
+        description: 'Postman API: getCollection'
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: collection_id
+          in: path
+          type: string
+          description: Path parameter collection_id.
+          required: true
+    - name: collections
+      path: /collections
+      operations:
+      - name: listcollections
+        method: GET
+        description: 'Postman API: listCollections'
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters: []
+  exposes:
+  - type: mcp
+    namespace: scalar-postman-mcp
+    description: MCP adapter for the scalar-postman integration.
+    tools:
+    - name: scalar_postman
+      description: Execute the scalar postman integration end-to-end.
+      inputSchema:
+        type: object
+        properties:
+          trigger_event:
+            type: object
+            description: Triggering event payload.
+        required:
+        - trigger_event
+  - type: rest
+    namespace: scalar-postman-rest
+    port: 8080
+    description: REST adapter for the scalar-postman integration.
+    resources:
+    - path: /scalar-postman
+      name: scalar-postman
+      description: REST surface for the scalar-postman integration.
+      operations:
+      - method: POST
+        name: trigger
+        description: Trigger the scalar-postman integration.
+        call: scalar_postman
+        with:
+          trigger_event: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.

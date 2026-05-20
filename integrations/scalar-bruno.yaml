@@ -1,0 +1,129 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Convert Bruno API collections into Scalar references
+  description: Take a Bruno collection from a Git repo, normalize it into an OpenAPI document, and load it into a Scalar docs project so the same source code drives both local testing and public API documentation.
+  tags:
+  - Scalar
+  - Integration
+  - API Design
+  - bruno
+  created: '2026-05-20'
+  modified: '2026-05-20'
+binds:
+- namespace: env
+  keys:
+    SCALAR_API_KEY: SCALAR_API_KEY
+    BRUNO_API_KEY: BRUNO_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: scalar
+    baseUri: https://api.scalar.com
+    description: Scalar API operations consumed by this integration.
+    resources:
+    - name: schemas-namespace
+      path: /schemas/{namespace}
+      operations:
+      - name: createschema
+        method: POST
+        description: Register the derived OpenAPI document in the Scalar registry.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: namespace
+          in: path
+          type: string
+          description: Path parameter namespace.
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: docs-create-project
+      path: /docs/create-project
+      operations:
+      - name: createdocsproject
+        method: POST
+        description: Create the Scalar docs project that renders the collection.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+  - type: http
+    namespace: bruno
+    baseUri: https://docs.usebruno.com
+    description: Bruno (filesystem-based collections) operations consumed by this integration.
+    resources:
+    - name: collections-collection-slug-raw
+      path: /collections/{collection_slug}/raw
+      operations:
+      - name: getcollectionraw
+        method: GET
+        description: 'Bruno (filesystem-based collections): getCollectionRaw'
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: collection_slug
+          in: path
+          type: string
+          description: Path parameter collection_slug.
+          required: true
+    - name: collections
+      path: /collections
+      operations:
+      - name: listcollections
+        method: GET
+        description: 'Bruno (filesystem-based collections): listCollections'
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters: []
+  exposes:
+  - type: mcp
+    namespace: scalar-bruno-mcp
+    description: MCP adapter for the scalar-bruno integration.
+    tools:
+    - name: scalar_bruno
+      description: Execute the scalar bruno integration end-to-end.
+      inputSchema:
+        type: object
+        properties:
+          trigger_event:
+            type: object
+            description: Triggering event payload.
+        required:
+        - trigger_event
+  - type: rest
+    namespace: scalar-bruno-rest
+    port: 8080
+    description: REST adapter for the scalar-bruno integration.
+    resources:
+    - path: /scalar-bruno
+      name: scalar-bruno
+      description: REST surface for the scalar-bruno integration.
+      operations:
+      - method: POST
+        name: trigger
+        description: Trigger the scalar-bruno integration.
+        call: scalar_bruno
+        with:
+          trigger_event: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.

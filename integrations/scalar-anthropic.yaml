@@ -1,0 +1,124 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Ground Claude agents on Scalar-registered OpenAPI specs
+  description: Resolve an OpenAPI document from the Scalar schema registry, hand it to Claude as a tool definition source, and let the agent answer developer questions or generate client code against the current contract instead of stale embedded knowledge.
+  tags:
+  - Scalar
+  - Integration
+  - AI
+  - anthropic
+  created: '2026-05-20'
+  modified: '2026-05-20'
+binds:
+- namespace: env
+  keys:
+    SCALAR_API_KEY: SCALAR_API_KEY
+    ANTHROPIC_API_KEY: ANTHROPIC_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: scalar
+    baseUri: https://api.scalar.com
+    description: Scalar API operations consumed by this integration.
+    resources:
+    - name: schemas-namespace
+      path: /schemas/{namespace}
+      operations:
+      - name: getschemas
+        method: GET
+        description: List schemas in a namespace so the agent can pick the right one.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: namespace
+          in: path
+          type: string
+          description: Path parameter namespace.
+          required: true
+    - name: managed-doc-namespace
+      path: /managed-doc/{namespace}
+      operations:
+      - name: getmanageddoc
+        method: GET
+        description: Retrieve the OpenAPI document the agent will reason over.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: namespace
+          in: path
+          type: string
+          description: Path parameter namespace.
+          required: true
+  - type: http
+    namespace: anthropic
+    baseUri: https://api.anthropic.com
+    description: Anthropic Messages API operations consumed by this integration.
+    resources:
+    - name: v1-messages
+      path: /v1/messages
+      operations:
+      - name: createmessage
+        method: POST
+        description: 'Anthropic Messages API: createMessage'
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: v1-models
+      path: /v1/models
+      operations:
+      - name: listmodels
+        method: GET
+        description: 'Anthropic Messages API: listModels'
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters: []
+  exposes:
+  - type: mcp
+    namespace: scalar-anthropic-mcp
+    description: MCP adapter for the scalar-anthropic integration.
+    tools:
+    - name: scalar_anthropic
+      description: Execute the scalar anthropic integration end-to-end.
+      inputSchema:
+        type: object
+        properties:
+          trigger_event:
+            type: object
+            description: Triggering event payload.
+        required:
+        - trigger_event
+  - type: rest
+    namespace: scalar-anthropic-rest
+    port: 8080
+    description: REST adapter for the scalar-anthropic integration.
+    resources:
+    - path: /scalar-anthropic
+      name: scalar-anthropic
+      description: REST surface for the scalar-anthropic integration.
+      operations:
+      - method: POST
+        name: trigger
+        description: Trigger the scalar-anthropic integration.
+        call: scalar_anthropic
+        with:
+          trigger_event: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.

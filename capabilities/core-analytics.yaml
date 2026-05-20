@@ -1,0 +1,254 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Core — analytics
+  description: 'Core — analytics. 4 operations. Lead operation: KPI totals + timeseries + consumer breakdown for a docs project. Self-contained Naftiko capability covering one business surface.'
+  tags:
+  - Scalar
+  - analytics
+  created: '2026-05-20'
+  modified: '2026-05-20'
+binds:
+- namespace: env
+  keys:
+    SCALAR_API_KEY: SCALAR_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: core-analytics
+    baseUri: https://example.com
+    description: Core — analytics business capability. Self-contained, no shared references.
+    resources:
+    - name: analytics-projects-projectuid-overview
+      path: /analytics/projects/{projectUid}/overview
+      operations:
+      - name: getanalyticsprojectsprojectuidoverview
+        method: GET
+        description: KPI totals + timeseries + consumer breakdown for a docs project
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: projectUid
+          in: path
+          type: string
+          description: path parameter projectUid.
+          required: true
+        - name: range
+          in: query
+          type: string
+          description: query parameter range.
+          required: true
+        - name: granularity
+          in: query
+          type: string
+          description: query parameter granularity.
+    - name: analytics-projects-projectuid-pages
+      path: /analytics/projects/{projectUid}/pages
+      operations:
+      - name: getanalyticsprojectsprojectuidpages
+        method: GET
+        description: Top pages by views for a docs project
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: projectUid
+          in: path
+          type: string
+          description: path parameter projectUid.
+          required: true
+        - name: range
+          in: query
+          type: string
+          description: query parameter range.
+          required: true
+        - name: limit
+          in: query
+          type: integer
+          description: query parameter limit.
+          required: true
+    - name: analytics-projects-projectuid-referrers
+      path: /analytics/projects/{projectUid}/referrers
+      operations:
+      - name: getanalyticsprojectsprojectuidreferrers
+        method: GET
+        description: Top referrers for a docs project
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: projectUid
+          in: path
+          type: string
+          description: path parameter projectUid.
+          required: true
+        - name: range
+          in: query
+          type: string
+          description: query parameter range.
+          required: true
+        - name: limit
+          in: query
+          type: integer
+          description: query parameter limit.
+          required: true
+    - name: analytics-projects-projectuid-consumers
+      path: /analytics/projects/{projectUid}/consumers
+      operations:
+      - name: getanalyticsprojectsprojectuidconsumers
+        method: GET
+        description: Consumer breakdown (human/bot/llm/mcp) for a docs project
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: projectUid
+          in: path
+          type: string
+          description: path parameter projectUid.
+          required: true
+        - name: range
+          in: query
+          type: string
+          description: query parameter range.
+          required: true
+        - name: granularity
+          in: query
+          type: string
+          description: query parameter granularity.
+  exposes:
+  - type: rest
+    namespace: core-analytics-rest
+    port: 8080
+    description: REST adapter for Core — analytics. One resource per consumed operation, prefixed with /v1.
+    resources:
+    - path: /v1/analytics/projects/{projectUid}/overview
+      name: analytics-projects-projectuid-overview
+      description: REST surface for analytics-projects-projectuid-overview.
+      operations:
+      - method: GET
+        name: getanalyticsprojectsprojectuidoverview
+        description: KPI totals + timeseries + consumer breakdown for a docs project
+        call: core-analytics.getanalyticsprojectsprojectuidoverview
+        with:
+          projectUid: rest.projectUid
+          range: rest.range
+          granularity: rest.granularity
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/analytics/projects/{projectUid}/pages
+      name: analytics-projects-projectuid-pages
+      description: REST surface for analytics-projects-projectuid-pages.
+      operations:
+      - method: GET
+        name: getanalyticsprojectsprojectuidpages
+        description: Top pages by views for a docs project
+        call: core-analytics.getanalyticsprojectsprojectuidpages
+        with:
+          projectUid: rest.projectUid
+          range: rest.range
+          limit: rest.limit
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/analytics/projects/{projectUid}/referrers
+      name: analytics-projects-projectuid-referrers
+      description: REST surface for analytics-projects-projectuid-referrers.
+      operations:
+      - method: GET
+        name: getanalyticsprojectsprojectuidreferrers
+        description: Top referrers for a docs project
+        call: core-analytics.getanalyticsprojectsprojectuidreferrers
+        with:
+          projectUid: rest.projectUid
+          range: rest.range
+          limit: rest.limit
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/analytics/projects/{projectUid}/consumers
+      name: analytics-projects-projectuid-consumers
+      description: REST surface for analytics-projects-projectuid-consumers.
+      operations:
+      - method: GET
+        name: getanalyticsprojectsprojectuidconsumers
+        description: Consumer breakdown (human/bot/llm/mcp) for a docs project
+        call: core-analytics.getanalyticsprojectsprojectuidconsumers
+        with:
+          projectUid: rest.projectUid
+          range: rest.range
+          granularity: rest.granularity
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: core-analytics-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Core — analytics. One tool per consumed operation, routed inline through this capability's consumes block.
+    tools:
+    - name: scalar-getanalyticsprojectsprojectuidoverview
+      description: KPI totals + timeseries + consumer breakdown for a docs project
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: core-analytics.getanalyticsprojectsprojectuidoverview
+      with:
+        projectUid: tools.projectUid
+        range: tools.range
+        granularity: tools.granularity
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: scalar-getanalyticsprojectsprojectuidpages
+      description: Top pages by views for a docs project
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: core-analytics.getanalyticsprojectsprojectuidpages
+      with:
+        projectUid: tools.projectUid
+        range: tools.range
+        limit: tools.limit
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: scalar-getanalyticsprojectsprojectuidreferrers
+      description: Top referrers for a docs project
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: core-analytics.getanalyticsprojectsprojectuidreferrers
+      with:
+        projectUid: tools.projectUid
+        range: tools.range
+        limit: tools.limit
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: scalar-getanalyticsprojectsprojectuidconsumers
+      description: Consumer breakdown (human/bot/llm/mcp) for a docs project
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: core-analytics.getanalyticsprojectsprojectuidconsumers
+      with:
+        projectUid: tools.projectUid
+        range: tools.range
+        granularity: tools.granularity
+      outputParameters:
+      - type: object
+        mapping: $.

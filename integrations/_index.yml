@@ -1,0 +1,65 @@
+- slug: scalar-github
+  label: Sync OpenAPI specs from GitHub repos into Scalar
+  partner: github
+  category: Source Control
+  use_case: When a tracked GitHub repository changes an OpenAPI file, pull the latest commit into the linked Scalar docs project so the rendered API reference stays in lockstep with the source of truth.
+- slug: scalar-gitlab
+  label: Mirror GitLab-hosted OpenAPI specs into Scalar docs projects
+  partner: gitlab
+  category: Source Control
+  use_case: Watch a GitLab repository for changes to an OpenAPI file and push the updated contents into the corresponding Scalar docs project as a new version so customers always see the current contract.
+- slug: scalar-bitbucket
+  label: Pull OpenAPI updates from Bitbucket into Scalar
+  partner: bitbucket
+  category: Source Control
+  use_case: For teams hosting their OpenAPI contracts in Bitbucket, sync each push on the watched branch into a Scalar docs project so the published API reference matches the latest merged spec.
+- slug: scalar-postman
+  label: Export Postman collections as Scalar-rendered API references
+  partner: postman
+  category: API Design
+  use_case: Pull a Postman collection, convert it to OpenAPI, and publish it into a Scalar docs project so teams can host the same contract as interactive Scalar references without leaving their Postman workflow.
+- slug: scalar-bruno
+  label: Convert Bruno API collections into Scalar references
+  partner: bruno
+  category: API Design
+  use_case: Take a Bruno collection from a Git repo, normalize it into an OpenAPI document, and load it into a Scalar docs project so the same source code drives both local testing and public API documentation.
+- slug: scalar-spectral
+  label: Lint OpenAPI documents with Spectral before publishing to Scalar
+  partner: spectral
+  category: Governance
+  use_case: Before promoting an OpenAPI document into a Scalar docs project, run a Spectral ruleset against the spec, surface violations, and only publish to Scalar if the contract passes the team's API style guide.
+- slug: scalar-redocly
+  label: Migrate Redocly-hosted OpenAPI references into Scalar
+  partner: redocly
+  category: Documentation
+  use_case: Pull an OpenAPI document currently served via Redocly, register it in the Scalar schema registry, and stand up an equivalent Scalar docs project so teams can A/B Scalar's reference UX against their existing Redocly site.
+- slug: scalar-mintlify
+  label: Co-publish Scalar API references alongside Mintlify guides
+  partner: mintlify
+  category: Documentation
+  use_case: Pair a Mintlify-hosted guide site with a Scalar API reference by registering the same OpenAPI document in Scalar, deploying the rendered reference, and linking Mintlify navigation entries to the Scalar-hosted URL.
+- slug: scalar-vercel
+  label: Trigger Vercel redeploys when a Scalar docs project changes
+  partner: vercel
+  category: Hosting
+  use_case: When a Scalar docs project publishes a new version, fire a Vercel deploy hook for the public marketing site so embedded references and SDK download links reflect the latest spec without manual intervention.
+- slug: scalar-cloudflare-pages
+  label: Embed Scalar references inside a Cloudflare Pages site
+  partner: cloudflare-pages
+  category: Hosting
+  use_case: When a Scalar docs project is published, purge the matching Cloudflare Pages routes and trigger a fresh build so Pages-hosted developer portals serve the latest Scalar-rendered reference.
+- slug: scalar-linear
+  label: Open Linear issues from Scalar spec validation failures
+  partner: linear
+  category: Project Tracking
+  use_case: When a new OpenAPI version registered in Scalar fails ruleset validation, create a Linear issue assigned to the API owner with a deep link back to the failing rules so spec hygiene is tracked alongside product work.
+- slug: scalar-slack
+  label: Announce Scalar docs publishes into Slack channels
+  partner: slack
+  category: Chat
+  use_case: When a Scalar docs project is published, redeployed, or unpublished, post a structured Slack message into the API platform channel with the spec name, version, and link to the rendered reference.
+- slug: scalar-anthropic
+  label: Ground Claude agents on Scalar-registered OpenAPI specs
+  partner: anthropic
+  category: AI
+  use_case: Resolve an OpenAPI document from the Scalar schema registry, hand it to Claude as a tool definition source, and let the agent answer developer questions or generate client code against the current contract instead of stale embedded knowledge.

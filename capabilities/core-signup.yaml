@@ -1,0 +1,74 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Core — signup
+  description: 'Core — signup. 1 operations. Lead operation: Save docs data on signup. Self-contained Naftiko capability covering one business surface.'
+  tags:
+  - Scalar
+  - signup
+  created: '2026-05-20'
+  modified: '2026-05-20'
+binds:
+- namespace: env
+  keys:
+    SCALAR_API_KEY: SCALAR_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: core-signup
+    baseUri: https://example.com
+    description: Core — signup business capability. Self-contained, no shared references.
+    resources:
+    - name: signup-data
+      path: /signup-data
+      operations:
+      - name: postsignupdata
+        method: POST
+        description: Save docs data on signup
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+  exposes:
+  - type: rest
+    namespace: core-signup-rest
+    port: 8080
+    description: REST adapter for Core — signup. One resource per consumed operation, prefixed with /v1.
+    resources:
+    - path: /v1/signup-data
+      name: signup-data
+      description: REST surface for signup-data.
+      operations:
+      - method: POST
+        name: postsignupdata
+        description: Save docs data on signup
+        call: core-signup.postsignupdata
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: core-signup-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Core — signup. One tool per consumed operation, routed inline through this capability's consumes block.
+    tools:
+    - name: scalar-postsignupdata
+      description: Save docs data on signup
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: core-signup.postsignupdata
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

@@ -1,0 +1,129 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Trigger Vercel redeploys when a Scalar docs project changes
+  description: When a Scalar docs project publishes a new version, fire a Vercel deploy hook for the public marketing site so embedded references and SDK download links reflect the latest spec without manual intervention.
+  tags:
+  - Scalar
+  - Integration
+  - Hosting
+  - vercel
+  created: '2026-05-20'
+  modified: '2026-05-20'
+binds:
+- namespace: env
+  keys:
+    SCALAR_API_KEY: SCALAR_API_KEY
+    VERCEL_API_KEY: VERCEL_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: scalar
+    baseUri: https://api.scalar.com
+    description: Scalar API operations consumed by this integration.
+    resources:
+    - name: publish-redeploy
+      path: /publish/redeploy
+      operations:
+      - name: redeployscalardocs
+        method: POST
+        description: Redeploy the Scalar-hosted docs project.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: docs-version
+      path: /docs/version
+      operations:
+      - name: createdocsversion
+        method: POST
+        description: Cut a new version of the docs project that triggered the deploy.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+  - type: http
+    namespace: vercel
+    baseUri: https://api.vercel.com
+    description: Vercel REST API operations consumed by this integration.
+    resources:
+    - name: v1-integrations-deploy-hook-id
+      path: /v1/integrations/deploy/{hook_id}
+      operations:
+      - name: firedeployhook
+        method: POST
+        description: 'Vercel REST API: fireDeployHook'
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: hook_id
+          in: path
+          type: string
+          description: Path parameter hook_id.
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: v6-deployments
+      path: /v6/deployments
+      operations:
+      - name: listdeployments
+        method: GET
+        description: 'Vercel REST API: listDeployments'
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters: []
+  exposes:
+  - type: mcp
+    namespace: scalar-vercel-mcp
+    description: MCP adapter for the scalar-vercel integration.
+    tools:
+    - name: scalar_vercel
+      description: Execute the scalar vercel integration end-to-end.
+      inputSchema:
+        type: object
+        properties:
+          trigger_event:
+            type: object
+            description: Triggering event payload.
+        required:
+        - trigger_event
+  - type: rest
+    namespace: scalar-vercel-rest
+    port: 8080
+    description: REST adapter for the scalar-vercel integration.
+    resources:
+    - path: /scalar-vercel
+      name: scalar-vercel
+      description: REST surface for the scalar-vercel integration.
+      operations:
+      - method: POST
+        name: trigger
+        description: Trigger the scalar-vercel integration.
+        call: scalar_vercel
+        with:
+          trigger_event: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.

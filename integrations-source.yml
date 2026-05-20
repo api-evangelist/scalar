@@ -1,0 +1,315 @@
+# Curated Scalar integrations grouped by category.
+# Each entry becomes one Naftiko capability YAML in integrations/.
+# Scalar's domain is API documentation, the OpenAPI registry, and SDK generation.
+# These integrations wire Scalar's Core API (api.scalar.com) into the systems
+# teams actually use to author, lint, mock, and ship their APIs.
+
+# Source control / spec sync (2)
+- partner: github
+  name: Sync OpenAPI specs from GitHub repos into Scalar
+  category: Source Control
+  use_case: When a tracked GitHub repository changes an OpenAPI file, pull the latest commit into the linked Scalar docs project so the rendered API reference stays in lockstep with the source of truth.
+  partner_baseUri: https://api.github.com
+  partner_api: GitHub REST API
+  provider_ops:
+    - method: GET
+      path: /github/repos
+      name: listGithubRepos
+      description: List GitHub repos linked to the Scalar workspace.
+    - method: GET
+      path: /github/docs-project/{uid}/commits
+      name: getDocsProjectCommits
+      description: List commits on the GitHub branch backing a Scalar docs project.
+    - method: POST
+      path: /github/link-repo
+      name: linkGithubRepo
+      description: Link a GitHub repo + branch to a Scalar docs project.
+  partner_ops:
+    - method: GET
+      path: /repos/{owner}/{repo}/contents/{path}
+      name: getFileContents
+    - method: GET
+      path: /repos/{owner}/{repo}/commits
+      name: listCommits
+
+- partner: gitlab
+  name: Mirror GitLab-hosted OpenAPI specs into Scalar docs projects
+  category: Source Control
+  use_case: Watch a GitLab repository for changes to an OpenAPI file and push the updated contents into the corresponding Scalar docs project as a new version so customers always see the current contract.
+  partner_baseUri: https://gitlab.com/api/v4
+  partner_api: GitLab REST API
+  provider_ops:
+    - method: POST
+      path: /docs/version
+      name: createDocsVersion
+      description: Create a new version of a Scalar docs project from supplied content.
+    - method: POST
+      path: /project/update
+      name: updateDocsProject
+      description: Update an existing Scalar docs project.
+  partner_ops:
+    - method: GET
+      path: /projects/{id}/repository/files/{file_path}
+      name: getRepositoryFile
+    - method: GET
+      path: /projects/{id}/repository/commits
+      name: listCommits
+
+# Bitbucket / VCS (1)
+- partner: bitbucket
+  name: Pull OpenAPI updates from Bitbucket into Scalar
+  category: Source Control
+  use_case: For teams hosting their OpenAPI contracts in Bitbucket, sync each push on the watched branch into a Scalar docs project so the published API reference matches the latest merged spec.
+  partner_baseUri: https://api.bitbucket.org/2.0
+  partner_api: Bitbucket Cloud REST API
+  provider_ops:
+    - method: GET
+      path: /vcs/bitbucket/workspaces
+      name: listBitbucketWorkspaces
+      description: List Bitbucket workspaces linked to Scalar.
+    - method: GET
+      path: /vcs/bitbucket/docs-project/{uid}/branches
+      name: listBitbucketProjectBranches
+      description: List branches on the Bitbucket repo backing a docs project.
+  partner_ops:
+    - method: GET
+      path: /repositories/{workspace}/{repo_slug}/src/{commit}/{path}
+      name: getFileContents
+    - method: GET
+      path: /repositories/{workspace}/{repo_slug}/commits
+      name: listCommits
+
+# API design / client tooling (3)
+- partner: postman
+  name: Export Postman collections as Scalar-rendered API references
+  category: API Design
+  use_case: Pull a Postman collection, convert it to OpenAPI, and publish it into a Scalar docs project so teams can host the same contract as interactive Scalar references without leaving their Postman workflow.
+  partner_baseUri: https://api.getpostman.com
+  partner_api: Postman API
+  provider_ops:
+    - method: POST
+      path: /docs/create-project
+      name: createDocsProject
+      description: Create a new Scalar docs project to host an imported reference.
+    - method: POST
+      path: /schemas/{namespace}
+      name: createSchema
+      description: Register an OpenAPI document under a namespace in the Scalar schema registry.
+  partner_ops:
+    - method: GET
+      path: /collections/{collection_id}
+      name: getCollection
+    - method: GET
+      path: /collections
+      name: listCollections
+
+- partner: bruno
+  name: Convert Bruno API collections into Scalar references
+  category: API Design
+  use_case: Take a Bruno collection from a Git repo, normalize it into an OpenAPI document, and load it into a Scalar docs project so the same source code drives both local testing and public API documentation.
+  partner_baseUri: https://docs.usebruno.com
+  partner_api: Bruno (filesystem-based collections)
+  provider_ops:
+    - method: POST
+      path: /schemas/{namespace}
+      name: createSchema
+      description: Register the derived OpenAPI document in the Scalar registry.
+    - method: POST
+      path: /docs/create-project
+      name: createDocsProject
+      description: Create the Scalar docs project that renders the collection.
+  partner_ops:
+    - method: GET
+      path: /collections/{collection_slug}/raw
+      name: getCollectionRaw
+    - method: GET
+      path: /collections
+      name: listCollections
+
+- partner: spectral
+  name: Lint OpenAPI documents with Spectral before publishing to Scalar
+  category: Governance
+  use_case: Before promoting an OpenAPI document into a Scalar docs project, run a Spectral ruleset against the spec, surface violations, and only publish to Scalar if the contract passes the team's API style guide.
+  partner_baseUri: https://github.com/stoplightio/spectral
+  partner_api: Spectral CLI (run as a subprocess)
+  provider_ops:
+    - method: GET
+      path: /rulesets/{namespace}
+      name: listRulesets
+      description: List Spectral-compatible rulesets registered in Scalar.
+    - method: POST
+      path: /rulesets/{namespace}
+      name: createRuleset
+      description: Register a new ruleset version after a successful lint pass.
+  partner_ops:
+    - method: POST
+      path: /lint
+      name: runSpectralLint
+    - method: GET
+      path: /rulesets/{ruleset}
+      name: getRuleset
+
+# Competing / adjacent docs platforms (2)
+- partner: redocly
+  name: Migrate Redocly-hosted OpenAPI references into Scalar
+  category: Documentation
+  use_case: Pull an OpenAPI document currently served via Redocly, register it in the Scalar schema registry, and stand up an equivalent Scalar docs project so teams can A/B Scalar's reference UX against their existing Redocly site.
+  partner_baseUri: https://api.redocly.com
+  partner_api: Redocly Platform API
+  provider_ops:
+    - method: POST
+      path: /schemas/{namespace}
+      name: createSchema
+      description: Register the migrated OpenAPI document in Scalar.
+    - method: POST
+      path: /docs/create-project
+      name: createDocsProject
+      description: Create a Scalar docs project for the migrated spec.
+  partner_ops:
+    - method: GET
+      path: /organizations/{org}/projects/{project}/openapi
+      name: getOpenApiDocument
+    - method: GET
+      path: /organizations/{org}/projects
+      name: listProjects
+
+- partner: mintlify
+  name: Co-publish Scalar API references alongside Mintlify guides
+  category: Documentation
+  use_case: Pair a Mintlify-hosted guide site with a Scalar API reference by registering the same OpenAPI document in Scalar, deploying the rendered reference, and linking Mintlify navigation entries to the Scalar-hosted URL.
+  partner_baseUri: https://api.mintlify.com
+  partner_api: Mintlify API
+  provider_ops:
+    - method: POST
+      path: /docs/create-project
+      name: createDocsProject
+      description: Create a Scalar docs project for the API reference half.
+    - method: POST
+      path: /publish/redeploy
+      name: redeployDocs
+      description: Trigger a redeploy of the Scalar-hosted reference.
+  partner_ops:
+    - method: POST
+      path: /v1/deployments
+      name: triggerDeployment
+    - method: GET
+      path: /v1/projects/{project_id}
+      name: getProject
+
+# Hosting / edge (2)
+- partner: vercel
+  name: Trigger Vercel redeploys when a Scalar docs project changes
+  category: Hosting
+  use_case: When a Scalar docs project publishes a new version, fire a Vercel deploy hook for the public marketing site so embedded references and SDK download links reflect the latest spec without manual intervention.
+  partner_baseUri: https://api.vercel.com
+  partner_api: Vercel REST API
+  provider_ops:
+    - method: POST
+      path: /publish/redeploy
+      name: redeployScalarDocs
+      description: Redeploy the Scalar-hosted docs project.
+    - method: POST
+      path: /docs/version
+      name: createDocsVersion
+      description: Cut a new version of the docs project that triggered the deploy.
+  partner_ops:
+    - method: POST
+      path: /v1/integrations/deploy/{hook_id}
+      name: fireDeployHook
+    - method: GET
+      path: /v6/deployments
+      name: listDeployments
+
+- partner: cloudflare-pages
+  name: Embed Scalar references inside a Cloudflare Pages site
+  category: Hosting
+  use_case: When a Scalar docs project is published, purge the matching Cloudflare Pages routes and trigger a fresh build so Pages-hosted developer portals serve the latest Scalar-rendered reference.
+  partner_baseUri: https://api.cloudflare.com/client/v4
+  partner_api: Cloudflare API
+  provider_ops:
+    - method: POST
+      path: /publish/redeploy
+      name: redeployScalarDocs
+      description: Redeploy the Scalar docs project that backs the Pages embed.
+    - method: GET
+      path: /managed-doc/{namespace}
+      name: getManagedDoc
+      description: Resolve the managed doc that the Pages site embeds.
+  partner_ops:
+    - method: POST
+      path: /accounts/{account_id}/pages/projects/{project_name}/deployments
+      name: createPagesDeployment
+    - method: POST
+      path: /zones/{zone_id}/purge_cache
+      name: purgeCache
+
+# Project tracking + chat (2)
+- partner: linear
+  name: Open Linear issues from Scalar spec validation failures
+  category: Project Tracking
+  use_case: When a new OpenAPI version registered in Scalar fails ruleset validation, create a Linear issue assigned to the API owner with a deep link back to the failing rules so spec hygiene is tracked alongside product work.
+  partner_baseUri: https://api.linear.app
+  partner_api: Linear GraphQL API
+  provider_ops:
+    - method: GET
+      path: /rulesets/{namespace}/{slug}
+      name: getRuleset
+      description: Retrieve the ruleset whose run produced the failure.
+    - method: GET
+      path: /schemas/{namespace}
+      name: listSchemas
+      description: Look up the schema version that triggered the issue.
+  partner_ops:
+    - method: POST
+      path: /graphql
+      name: createIssue
+    - method: POST
+      path: /graphql
+      name: addComment
+
+- partner: slack
+  name: Announce Scalar docs publishes into Slack channels
+  category: Chat
+  use_case: When a Scalar docs project is published, redeployed, or unpublished, post a structured Slack message into the API platform channel with the spec name, version, and link to the rendered reference.
+  partner_baseUri: https://slack.com/api
+  partner_api: Slack Web API
+  provider_ops:
+    - method: POST
+      path: /publish/redeploy
+      name: redeployDocs
+      description: The Scalar event that triggers the Slack announcement.
+    - method: GET
+      path: /managed-doc/{namespace}
+      name: getManagedDoc
+      description: Look up display metadata for the announced doc.
+  partner_ops:
+    - method: POST
+      path: /chat.postMessage
+      name: postMessage
+    - method: POST
+      path: /chat.update
+      name: updateMessage
+
+# AI / agents (1)
+- partner: anthropic
+  name: Ground Claude agents on Scalar-registered OpenAPI specs
+  category: AI
+  use_case: Resolve an OpenAPI document from the Scalar schema registry, hand it to Claude as a tool definition source, and let the agent answer developer questions or generate client code against the current contract instead of stale embedded knowledge.
+  partner_baseUri: https://api.anthropic.com
+  partner_api: Anthropic Messages API
+  provider_ops:
+    - method: GET
+      path: /schemas/{namespace}
+      name: getSchemas
+      description: List schemas in a namespace so the agent can pick the right one.
+    - method: GET
+      path: /managed-doc/{namespace}
+      name: getManagedDoc
+      description: Retrieve the OpenAPI document the agent will reason over.
+  partner_ops:
+    - method: POST
+      path: /v1/messages
+      name: createMessage
+    - method: GET
+      path: /v1/models
+      name: listModels

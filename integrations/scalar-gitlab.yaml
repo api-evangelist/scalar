@@ -1,0 +1,134 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Mirror GitLab-hosted OpenAPI specs into Scalar docs projects
+  description: Watch a GitLab repository for changes to an OpenAPI file and push the updated contents into the corresponding Scalar docs project as a new version so customers always see the current contract.
+  tags:
+  - Scalar
+  - Integration
+  - Source Control
+  - gitlab
+  created: '2026-05-20'
+  modified: '2026-05-20'
+binds:
+- namespace: env
+  keys:
+    SCALAR_API_KEY: SCALAR_API_KEY
+    GITLAB_API_KEY: GITLAB_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: scalar
+    baseUri: https://api.scalar.com
+    description: Scalar API operations consumed by this integration.
+    resources:
+    - name: docs-version
+      path: /docs/version
+      operations:
+      - name: createdocsversion
+        method: POST
+        description: Create a new version of a Scalar docs project from supplied content.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: project-update
+      path: /project/update
+      operations:
+      - name: updatedocsproject
+        method: POST
+        description: Update an existing Scalar docs project.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+  - type: http
+    namespace: gitlab
+    baseUri: https://gitlab.com/api/v4
+    description: GitLab REST API operations consumed by this integration.
+    resources:
+    - name: projects-id-repository-files-file-path
+      path: /projects/{id}/repository/files/{file_path}
+      operations:
+      - name: getrepositoryfile
+        method: GET
+        description: 'GitLab REST API: getRepositoryFile'
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: id
+          in: path
+          type: string
+          description: Path parameter id.
+          required: true
+        - name: file_path
+          in: path
+          type: string
+          description: Path parameter file_path.
+          required: true
+    - name: projects-id-repository-commits
+      path: /projects/{id}/repository/commits
+      operations:
+      - name: listcommits
+        method: GET
+        description: 'GitLab REST API: listCommits'
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: id
+          in: path
+          type: string
+          description: Path parameter id.
+          required: true
+  exposes:
+  - type: mcp
+    namespace: scalar-gitlab-mcp
+    description: MCP adapter for the scalar-gitlab integration.
+    tools:
+    - name: scalar_gitlab
+      description: Execute the scalar gitlab integration end-to-end.
+      inputSchema:
+        type: object
+        properties:
+          trigger_event:
+            type: object
+            description: Triggering event payload.
+        required:
+        - trigger_event
+  - type: rest
+    namespace: scalar-gitlab-rest
+    port: 8080
+    description: REST adapter for the scalar-gitlab integration.
+    resources:
+    - path: /scalar-gitlab
+      name: scalar-gitlab
+      description: REST surface for the scalar-gitlab integration.
+      operations:
+      - method: POST
+        name: trigger
+        description: Trigger the scalar-gitlab integration.
+        call: scalar_gitlab
+        with:
+          trigger_event: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.

@@ -1,0 +1,134 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Lint OpenAPI documents with Spectral before publishing to Scalar
+  description: Before promoting an OpenAPI document into a Scalar docs project, run a Spectral ruleset against the spec, surface violations, and only publish to Scalar if the contract passes the team's API style guide.
+  tags:
+  - Scalar
+  - Integration
+  - Governance
+  - spectral
+  created: '2026-05-20'
+  modified: '2026-05-20'
+binds:
+- namespace: env
+  keys:
+    SCALAR_API_KEY: SCALAR_API_KEY
+    SPECTRAL_API_KEY: SPECTRAL_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: scalar
+    baseUri: https://api.scalar.com
+    description: Scalar API operations consumed by this integration.
+    resources:
+    - name: rulesets-namespace
+      path: /rulesets/{namespace}
+      operations:
+      - name: listrulesets
+        method: GET
+        description: List Spectral-compatible rulesets registered in Scalar.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: namespace
+          in: path
+          type: string
+          description: Path parameter namespace.
+          required: true
+    - name: rulesets-namespace
+      path: /rulesets/{namespace}
+      operations:
+      - name: createruleset
+        method: POST
+        description: Register a new ruleset version after a successful lint pass.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: namespace
+          in: path
+          type: string
+          description: Path parameter namespace.
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+  - type: http
+    namespace: spectral
+    baseUri: https://github.com/stoplightio/spectral
+    description: Spectral CLI (run as a subprocess) operations consumed by this integration.
+    resources:
+    - name: lint
+      path: /lint
+      operations:
+      - name: runspectrallint
+        method: POST
+        description: 'Spectral CLI (run as a subprocess): runSpectralLint'
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: rulesets-ruleset
+      path: /rulesets/{ruleset}
+      operations:
+      - name: getruleset
+        method: GET
+        description: 'Spectral CLI (run as a subprocess): getRuleset'
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: ruleset
+          in: path
+          type: string
+          description: Path parameter ruleset.
+          required: true
+  exposes:
+  - type: mcp
+    namespace: scalar-spectral-mcp
+    description: MCP adapter for the scalar-spectral integration.
+    tools:
+    - name: scalar_spectral
+      description: Execute the scalar spectral integration end-to-end.
+      inputSchema:
+        type: object
+        properties:
+          trigger_event:
+            type: object
+            description: Triggering event payload.
+        required:
+        - trigger_event
+  - type: rest
+    namespace: scalar-spectral-rest
+    port: 8080
+    description: REST adapter for the scalar-spectral integration.
+    resources:
+    - path: /scalar-spectral
+      name: scalar-spectral
+      description: REST surface for the scalar-spectral integration.
+      operations:
+      - method: POST
+        name: trigger
+        description: Trigger the scalar-spectral integration.
+        call: scalar_spectral
+        with:
+          trigger_event: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.

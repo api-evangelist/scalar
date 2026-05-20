@@ -1,0 +1,522 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Core — Untagged
+  description: 'Core — Untagged. 11 operations. Lead operation: Get Forgejo git credentials for the authenticated user. Self-contained Naftiko capability covering one business surface.'
+  tags:
+  - Scalar
+  - Untagged
+  created: '2026-05-20'
+  modified: '2026-05-20'
+binds:
+- namespace: env
+  keys:
+    SCALAR_API_KEY: SCALAR_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: core-untagged
+    baseUri: https://example.com
+    description: Core — Untagged business capability. Self-contained, no shared references.
+    resources:
+    - name: internal-sdk-authorize-github
+      path: /internal/sdk/authorize-github
+      operations:
+      - name: postinternalsdkauthorizegithub
+        method: POST
+        description: Internally get GitHub token for a linked SDK repository
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: forgejo-git-credentials
+      path: /forgejo/git-credentials
+      operations:
+      - name: getforgejogitcredentials
+        method: GET
+        description: Get Forgejo git credentials for the authenticated user
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters: []
+    - name: docs-projects-create
+      path: /docs-projects/create
+      operations:
+      - name: postdocsprojectscreate
+        method: POST
+        description: Create a unified DocsProject backed by the chosen VCS provider (forgejo, github, or bitbucket)
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: docs-projects-delete
+      path: /docs-projects/delete
+      operations:
+      - name: deletedocsprojectsdelete
+        method: DELETE
+        description: Delete a unified DocsProject. Tears down deploys + publish records + cached builds, repoints user activeProjectUid, deletes the Forgejo repo
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: docs-projects-slug
+      path: /docs-projects/{slug}
+      operations:
+      - name: getdocsprojectsslug
+        method: GET
+        description: Get a unified DocsProject by slug for the current team
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: slug
+          in: path
+          type: string
+          description: path parameter slug.
+          required: true
+    - name: docs-projects-update-repo-settings
+      path: /docs-projects/update-repo-settings
+      operations:
+      - name: postdocsprojectsupdatereposettings
+        method: POST
+        description: Update editable repository settings (tracked branch, config path) on a unified DocsProject. Publish flags live in scalar.config.json.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: docs-projects-projectuid-link-github
+      path: /docs-projects/{projectUid}/link-github
+      operations:
+      - name: postdocsprojectsprojectuidlinkgithub
+        method: POST
+        description: Convert a Forgejo-backed DocsProject into a GitHub-backed one. Reads every file from the Forgejo repo and opens a single PR on the chosen Gi
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: projectUid
+          in: path
+          type: string
+          description: path parameter projectUid.
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: docs-projects-projectuid-unlink-github
+      path: /docs-projects/{projectUid}/unlink-github
+      operations:
+      - name: postdocsprojectsprojectuidunlinkgithub
+        method: POST
+        description: Convert a GitHub-backed DocsProject back to a Forgejo-backed one. Migrates the GitHub repository contents into a fresh Forgejo repo and flip
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: projectUid
+          in: path
+          type: string
+          description: path parameter projectUid.
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: docs-projects-projectuid-link-bitbucket
+      path: /docs-projects/{projectUid}/link-bitbucket
+      operations:
+      - name: postdocsprojectsprojectuidlinkbitbucket
+        method: POST
+        description: Convert a Forgejo-backed DocsProject into a Bitbucket-backed one. Reads every file from the Forgejo repo and opens a single PR on the chosen
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: projectUid
+          in: path
+          type: string
+          description: path parameter projectUid.
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: docs-projects-projectuid-unlink-bitbucket
+      path: /docs-projects/{projectUid}/unlink-bitbucket
+      operations:
+      - name: postdocsprojectsprojectuidunlinkbitbucket
+        method: POST
+        description: Convert a Bitbucket-backed DocsProject back to a Forgejo-backed one. Migrates the Bitbucket repository contents into a fresh Forgejo repo an
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: projectUid
+          in: path
+          type: string
+          description: path parameter projectUid.
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: docs-projects-projectuid-bitbucket-refresh-webhook
+      path: /docs-projects/{projectUid}/bitbucket/refresh-webhook
+      operations:
+      - name: postdocsprojectsprojectuidbitbucketrefreshwebhook
+        method: POST
+        description: Re-register the Bitbucket webhook on a Bitbucket-backed DocsProject. Used to recover from a failed initial registration after the linker use
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: projectUid
+          in: path
+          type: string
+          description: path parameter projectUid.
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+  exposes:
+  - type: rest
+    namespace: core-untagged-rest
+    port: 8080
+    description: REST adapter for Core — Untagged. One resource per consumed operation, prefixed with /v1.
+    resources:
+    - path: /v1/internal/sdk/authorize-github
+      name: internal-sdk-authorize-github
+      description: REST surface for internal-sdk-authorize-github.
+      operations:
+      - method: POST
+        name: postinternalsdkauthorizegithub
+        description: Internally get GitHub token for a linked SDK repository
+        call: core-untagged.postinternalsdkauthorizegithub
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/forgejo/git-credentials
+      name: forgejo-git-credentials
+      description: REST surface for forgejo-git-credentials.
+      operations:
+      - method: GET
+        name: getforgejogitcredentials
+        description: Get Forgejo git credentials for the authenticated user
+        call: core-untagged.getforgejogitcredentials
+        with: {}
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/docs-projects/create
+      name: docs-projects-create
+      description: REST surface for docs-projects-create.
+      operations:
+      - method: POST
+        name: postdocsprojectscreate
+        description: Create a unified DocsProject backed by the chosen VCS provider (forgejo, github, or bitbucket)
+        call: core-untagged.postdocsprojectscreate
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/docs-projects/delete
+      name: docs-projects-delete
+      description: REST surface for docs-projects-delete.
+      operations:
+      - method: DELETE
+        name: deletedocsprojectsdelete
+        description: Delete a unified DocsProject. Tears down deploys + publish records + cached builds, repoints user activeProjectUid, deletes the Forgejo repo
+        call: core-untagged.deletedocsprojectsdelete
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/docs-projects/{slug}
+      name: docs-projects-slug
+      description: REST surface for docs-projects-slug.
+      operations:
+      - method: GET
+        name: getdocsprojectsslug
+        description: Get a unified DocsProject by slug for the current team
+        call: core-untagged.getdocsprojectsslug
+        with:
+          slug: rest.slug
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/docs-projects/update-repo-settings
+      name: docs-projects-update-repo-settings
+      description: REST surface for docs-projects-update-repo-settings.
+      operations:
+      - method: POST
+        name: postdocsprojectsupdatereposettings
+        description: Update editable repository settings (tracked branch, config path) on a unified DocsProject. Publish flags live in scalar.config.json.
+        call: core-untagged.postdocsprojectsupdatereposettings
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/docs-projects/{projectUid}/link-github
+      name: docs-projects-projectuid-link-github
+      description: REST surface for docs-projects-projectuid-link-github.
+      operations:
+      - method: POST
+        name: postdocsprojectsprojectuidlinkgithub
+        description: Convert a Forgejo-backed DocsProject into a GitHub-backed one. Reads every file from the Forgejo repo and opens a single PR on the chosen Gi
+        call: core-untagged.postdocsprojectsprojectuidlinkgithub
+        with:
+          projectUid: rest.projectUid
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/docs-projects/{projectUid}/unlink-github
+      name: docs-projects-projectuid-unlink-github
+      description: REST surface for docs-projects-projectuid-unlink-github.
+      operations:
+      - method: POST
+        name: postdocsprojectsprojectuidunlinkgithub
+        description: Convert a GitHub-backed DocsProject back to a Forgejo-backed one. Migrates the GitHub repository contents into a fresh Forgejo repo and flip
+        call: core-untagged.postdocsprojectsprojectuidunlinkgithub
+        with:
+          projectUid: rest.projectUid
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/docs-projects/{projectUid}/link-bitbucket
+      name: docs-projects-projectuid-link-bitbucket
+      description: REST surface for docs-projects-projectuid-link-bitbucket.
+      operations:
+      - method: POST
+        name: postdocsprojectsprojectuidlinkbitbucket
+        description: Convert a Forgejo-backed DocsProject into a Bitbucket-backed one. Reads every file from the Forgejo repo and opens a single PR on the chosen
+        call: core-untagged.postdocsprojectsprojectuidlinkbitbucket
+        with:
+          projectUid: rest.projectUid
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/docs-projects/{projectUid}/unlink-bitbucket
+      name: docs-projects-projectuid-unlink-bitbucket
+      description: REST surface for docs-projects-projectuid-unlink-bitbucket.
+      operations:
+      - method: POST
+        name: postdocsprojectsprojectuidunlinkbitbucket
+        description: Convert a Bitbucket-backed DocsProject back to a Forgejo-backed one. Migrates the Bitbucket repository contents into a fresh Forgejo repo an
+        call: core-untagged.postdocsprojectsprojectuidunlinkbitbucket
+        with:
+          projectUid: rest.projectUid
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/docs-projects/{projectUid}/bitbucket/refresh-webhook
+      name: docs-projects-projectuid-bitbucket-refresh-webhook
+      description: REST surface for docs-projects-projectuid-bitbucket-refresh-webhook.
+      operations:
+      - method: POST
+        name: postdocsprojectsprojectuidbitbucketrefreshwebhook
+        description: Re-register the Bitbucket webhook on a Bitbucket-backed DocsProject. Used to recover from a failed initial registration after the linker use
+        call: core-untagged.postdocsprojectsprojectuidbitbucketrefreshwebhook
+        with:
+          projectUid: rest.projectUid
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: core-untagged-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Core — Untagged. One tool per consumed operation, routed inline through this capability's consumes block.
+    tools:
+    - name: scalar-postinternalsdkauthorizegithub
+      description: Internally get GitHub token for a linked SDK repository
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: core-untagged.postinternalsdkauthorizegithub
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: scalar-getforgejogitcredentials
+      description: Get Forgejo git credentials for the authenticated user
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: core-untagged.getforgejogitcredentials
+      with: {}
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: scalar-postdocsprojectscreate
+      description: Create a unified DocsProject backed by the chosen VCS provider (forgejo, github, or bitbucket)
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: core-untagged.postdocsprojectscreate
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: scalar-deletedocsprojectsdelete
+      description: Delete a unified DocsProject. Tears down deploys + publish records + cached builds, repoints user activeProjectUid, deletes the Forgejo repo
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: core-untagged.deletedocsprojectsdelete
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: scalar-getdocsprojectsslug
+      description: Get a unified DocsProject by slug for the current team
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: core-untagged.getdocsprojectsslug
+      with:
+        slug: tools.slug
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: scalar-postdocsprojectsupdatereposettings
+      description: Update editable repository settings (tracked branch, config path) on a unified DocsProject. Publish flags live in scalar.config.json.
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: core-untagged.postdocsprojectsupdatereposettings
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: scalar-postdocsprojectsprojectuidlinkgithub
+      description: Convert a Forgejo-backed DocsProject into a GitHub-backed one. Reads every file from the Forgejo repo and opens a single PR on the chosen Gi
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: core-untagged.postdocsprojectsprojectuidlinkgithub
+      with:
+        projectUid: tools.projectUid
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: scalar-postdocsprojectsprojectuidunlinkgithub
+      description: Convert a GitHub-backed DocsProject back to a Forgejo-backed one. Migrates the GitHub repository contents into a fresh Forgejo repo and flip
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: core-untagged.postdocsprojectsprojectuidunlinkgithub
+      with:
+        projectUid: tools.projectUid
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: scalar-postdocsprojectsprojectuidlinkbitbucket
+      description: Convert a Forgejo-backed DocsProject into a Bitbucket-backed one. Reads every file from the Forgejo repo and opens a single PR on the chosen
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: core-untagged.postdocsprojectsprojectuidlinkbitbucket
+      with:
+        projectUid: tools.projectUid
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: scalar-postdocsprojectsprojectuidunlinkbitbucket
+      description: Convert a Bitbucket-backed DocsProject back to a Forgejo-backed one. Migrates the Bitbucket repository contents into a fresh Forgejo repo an
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: core-untagged.postdocsprojectsprojectuidunlinkbitbucket
+      with:
+        projectUid: tools.projectUid
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: scalar-postdocsprojectsprojectuidbitbucketrefreshwebhook
+      description: Re-register the Bitbucket webhook on a Bitbucket-backed DocsProject. Used to recover from a failed initial registration after the linker use
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: core-untagged.postdocsprojectsprojectuidbitbucketrefreshwebhook
+      with:
+        projectUid: tools.projectUid
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

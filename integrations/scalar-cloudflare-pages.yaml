@@ -1,0 +1,144 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Embed Scalar references inside a Cloudflare Pages site
+  description: When a Scalar docs project is published, purge the matching Cloudflare Pages routes and trigger a fresh build so Pages-hosted developer portals serve the latest Scalar-rendered reference.
+  tags:
+  - Scalar
+  - Integration
+  - Hosting
+  - cloudflare-pages
+  created: '2026-05-20'
+  modified: '2026-05-20'
+binds:
+- namespace: env
+  keys:
+    SCALAR_API_KEY: SCALAR_API_KEY
+    CLOUDFLARE_PAGES_API_KEY: CLOUDFLARE_PAGES_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: scalar
+    baseUri: https://api.scalar.com
+    description: Scalar API operations consumed by this integration.
+    resources:
+    - name: publish-redeploy
+      path: /publish/redeploy
+      operations:
+      - name: redeployscalardocs
+        method: POST
+        description: Redeploy the Scalar docs project that backs the Pages embed.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: managed-doc-namespace
+      path: /managed-doc/{namespace}
+      operations:
+      - name: getmanageddoc
+        method: GET
+        description: Resolve the managed doc that the Pages site embeds.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: namespace
+          in: path
+          type: string
+          description: Path parameter namespace.
+          required: true
+  - type: http
+    namespace: cloudflare-pages
+    baseUri: https://api.cloudflare.com/client/v4
+    description: Cloudflare API operations consumed by this integration.
+    resources:
+    - name: accounts-account-id-pages-projects-project-name-deployments
+      path: /accounts/{account_id}/pages/projects/{project_name}/deployments
+      operations:
+      - name: createpagesdeployment
+        method: POST
+        description: 'Cloudflare API: createPagesDeployment'
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: account_id
+          in: path
+          type: string
+          description: Path parameter account_id.
+          required: true
+        - name: project_name
+          in: path
+          type: string
+          description: Path parameter project_name.
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: zones-zone-id-purge-cache
+      path: /zones/{zone_id}/purge_cache
+      operations:
+      - name: purgecache
+        method: POST
+        description: 'Cloudflare API: purgeCache'
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: zone_id
+          in: path
+          type: string
+          description: Path parameter zone_id.
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+  exposes:
+  - type: mcp
+    namespace: scalar-cloudflare-pages-mcp
+    description: MCP adapter for the scalar-cloudflare-pages integration.
+    tools:
+    - name: scalar_cloudflare_pages
+      description: Execute the scalar cloudflare pages integration end-to-end.
+      inputSchema:
+        type: object
+        properties:
+          trigger_event:
+            type: object
+            description: Triggering event payload.
+        required:
+        - trigger_event
+  - type: rest
+    namespace: scalar-cloudflare-pages-rest
+    port: 8080
+    description: REST adapter for the scalar-cloudflare-pages integration.
+    resources:
+    - path: /scalar-cloudflare-pages
+      name: scalar-cloudflare-pages
+      description: REST surface for the scalar-cloudflare-pages integration.
+      operations:
+      - method: POST
+        name: trigger
+        description: Trigger the scalar-cloudflare-pages integration.
+        call: scalar_cloudflare_pages
+        with:
+          trigger_event: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.

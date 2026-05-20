@@ -1,0 +1,87 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Core — share
+  description: 'Core — share. 1 operations. Lead operation: Upload a document to the reserved share namespace. Self-contained Naftiko capability covering one business surface.'
+  tags:
+  - Scalar
+  - share
+  created: '2026-05-20'
+  modified: '2026-05-20'
+binds:
+- namespace: env
+  keys:
+    SCALAR_API_KEY: SCALAR_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: core-share
+    baseUri: https://example.com
+    description: Core — share business capability. Self-contained, no shared references.
+    resources:
+    - name: share-upload-namespace
+      path: /share/upload/{namespace}
+      operations:
+      - name: postshareuploadnamespace
+        method: POST
+        description: Upload a document to the reserved share namespace
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: namespace
+          in: path
+          type: string
+          description: path parameter namespace.
+          required: true
+        - name: source
+          in: query
+          type: string
+          description: query parameter source.
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+  exposes:
+  - type: rest
+    namespace: core-share-rest
+    port: 8080
+    description: REST adapter for Core — share. One resource per consumed operation, prefixed with /v1.
+    resources:
+    - path: /v1/share/upload/{namespace}
+      name: share-upload-namespace
+      description: REST surface for share-upload-namespace.
+      operations:
+      - method: POST
+        name: postshareuploadnamespace
+        description: Upload a document to the reserved share namespace
+        call: core-share.postshareuploadnamespace
+        with:
+          namespace: rest.namespace
+          source: rest.source
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: core-share-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Core — share. One tool per consumed operation, routed inline through this capability's consumes block.
+    tools:
+    - name: scalar-postshareuploadnamespace
+      description: Upload a document to the reserved share namespace
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: core-share.postshareuploadnamespace
+      with:
+        namespace: tools.namespace
+        source: tools.source
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

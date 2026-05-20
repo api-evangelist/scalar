@@ -1,0 +1,914 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Core — api-docs
+  description: 'Core — api-docs. 19 operations. Lead operation: Get a list of all documents for the namespace. Self-contained Naftiko capability covering one business surface.'
+  tags:
+  - Scalar
+  - api-docs
+  created: '2026-05-20'
+  modified: '2026-05-20'
+binds:
+- namespace: env
+  keys:
+    SCALAR_API_KEY: SCALAR_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: core-api-docs
+    baseUri: https://example.com
+    description: Core — api-docs business capability. Self-contained, no shared references.
+    resources:
+    - name: managed-doc-access-group
+      path: /managed-doc/access-group
+      operations:
+      - name: postmanageddocaccessgroup
+        method: POST
+        description: Adds an access group to a managed doc
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: deletemanageddocaccessgroup
+        method: DELETE
+        description: Removes an access group from a managed doc
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: managed-doc-available
+      path: /managed-doc/available
+      operations:
+      - name: postmanageddocavailable
+        method: POST
+        description: Checks if a registry slug is available
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: managed-doc-namespace
+      path: /managed-doc/{namespace}
+      operations:
+      - name: getmanageddocnamespace
+        method: GET
+        description: Get a list of all documents for the namespace
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: namespace
+          in: path
+          type: string
+          description: path parameter namespace.
+          required: true
+      - name: postmanageddocnamespace
+        method: POST
+        description: Creates a new api document for the namespace
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: namespace
+          in: path
+          type: string
+          description: path parameter namespace.
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: managed-doc-namespace-slug
+      path: /managed-doc/{namespace}/{slug}
+      operations:
+      - name: patchmanageddocnamespaceslug
+        method: PATCH
+        description: Update metadata for a specific managed document
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: namespace
+          in: path
+          type: string
+          description: path parameter namespace.
+          required: true
+        - name: slug
+          in: path
+          type: string
+          description: path parameter slug.
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: deletemanageddocnamespaceslug
+        method: DELETE
+        description: Delete a specific managed document and all of the related versions
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: namespace
+          in: path
+          type: string
+          description: path parameter namespace.
+          required: true
+        - name: slug
+          in: path
+          type: string
+          description: path parameter slug.
+          required: true
+      - name: getmanageddocnamespaceslug
+        method: GET
+        description: Get a specific managed document
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: namespace
+          in: path
+          type: string
+          description: path parameter namespace.
+          required: true
+        - name: slug
+          in: path
+          type: string
+          description: path parameter slug.
+          required: true
+    - name: managed-doc-namespace-slug-version-semver
+      path: /managed-doc/{namespace}/{slug}/version/{semver}
+      operations:
+      - name: getmanageddocnamespaceslugversionsemver
+        method: GET
+        description: Get a specific managed document version stream
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: namespace
+          in: path
+          type: string
+          description: path parameter namespace.
+          required: true
+        - name: slug
+          in: path
+          type: string
+          description: path parameter slug.
+          required: true
+        - name: semver
+          in: path
+          type: string
+          description: path parameter semver.
+          required: true
+      - name: patchmanageddocnamespaceslugversionsemver
+        method: PATCH
+        description: Update the registry file content for the doc version
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: namespace
+          in: path
+          type: string
+          description: path parameter namespace.
+          required: true
+        - name: slug
+          in: path
+          type: string
+          description: path parameter slug.
+          required: true
+        - name: semver
+          in: path
+          type: string
+          description: path parameter semver.
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: deletemanageddocnamespaceslugversionsemver
+        method: DELETE
+        description: Delete a specific managed document version
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: namespace
+          in: path
+          type: string
+          description: path parameter namespace.
+          required: true
+        - name: slug
+          in: path
+          type: string
+          description: path parameter slug.
+          required: true
+        - name: semver
+          in: path
+          type: string
+          description: path parameter semver.
+          required: true
+    - name: managed-doc-namespace-slug-version-semver-metadata
+      path: /managed-doc/{namespace}/{slug}/version/{semver}/metadata
+      operations:
+      - name: getmanageddocnamespaceslugversionsemvermetadata
+        method: GET
+        description: Get metadata for a specific api document version
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: namespace
+          in: path
+          type: string
+          description: path parameter namespace.
+          required: true
+        - name: slug
+          in: path
+          type: string
+          description: path parameter slug.
+          required: true
+        - name: semver
+          in: path
+          type: string
+          description: path parameter semver.
+          required: true
+    - name: managed-doc-namespace-slug-version
+      path: /managed-doc/{namespace}/{slug}/version
+      operations:
+      - name: postmanageddocnamespaceslugversion
+        method: POST
+        description: Create a new api document version
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: namespace
+          in: path
+          type: string
+          description: path parameter namespace.
+          required: true
+        - name: slug
+          in: path
+          type: string
+          description: path parameter slug.
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: managed-doc
+      path: /managed-doc
+      operations:
+      - name: getmanageddoc
+        method: GET
+        description: Get a list of all documents for a team
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters: []
+    - name: pubsub-api-updated
+      path: /pubsub/api-updated
+      operations:
+      - name: postpubsubapiupdated
+        method: POST
+        description: Registry API updated subscription handler
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: pubsub-api-version-deleted
+      path: /pubsub/api-version-deleted
+      operations:
+      - name: postpubsubapiversiondeleted
+        method: POST
+        description: Registry API updated subscription handler
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: pubsub-api-embed-complete
+      path: /pubsub/api-embed-complete
+      operations:
+      - name: postpubsubapiembedcomplete
+        method: POST
+        description: Registry API Vector embedding complete
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: pubsub-api-embed-failed
+      path: /pubsub/api-embed-failed
+      operations:
+      - name: postpubsubapiembedfailed
+        method: POST
+        description: Registry API Vector embedding failed
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: managed-doc-namespace-slug-version-semver-tools
+      path: /managed-doc/{namespace}/{slug}/version/{semver}/tools
+      operations:
+      - name: postmanageddocnamespaceslugversionsemvertools
+        method: POST
+        description: Update managed docs MCP tools.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: namespace
+          in: path
+          type: string
+          description: path parameter namespace.
+          required: true
+        - name: slug
+          in: path
+          type: string
+          description: path parameter slug.
+          required: true
+        - name: semver
+          in: path
+          type: string
+          description: path parameter semver.
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+  exposes:
+  - type: rest
+    namespace: core-api-docs-rest
+    port: 8080
+    description: REST adapter for Core — api-docs. One resource per consumed operation, prefixed with /v1.
+    resources:
+    - path: /v1/managed-doc/access-group
+      name: managed-doc-access-group
+      description: REST surface for managed-doc-access-group.
+      operations:
+      - method: POST
+        name: postmanageddocaccessgroup
+        description: Adds an access group to a managed doc
+        call: core-api-docs.postmanageddocaccessgroup
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deletemanageddocaccessgroup
+        description: Removes an access group from a managed doc
+        call: core-api-docs.deletemanageddocaccessgroup
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/managed-doc/available
+      name: managed-doc-available
+      description: REST surface for managed-doc-available.
+      operations:
+      - method: POST
+        name: postmanageddocavailable
+        description: Checks if a registry slug is available
+        call: core-api-docs.postmanageddocavailable
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/managed-doc/{namespace}
+      name: managed-doc-namespace
+      description: REST surface for managed-doc-namespace.
+      operations:
+      - method: GET
+        name: getmanageddocnamespace
+        description: Get a list of all documents for the namespace
+        call: core-api-docs.getmanageddocnamespace
+        with:
+          namespace: rest.namespace
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: postmanageddocnamespace
+        description: Creates a new api document for the namespace
+        call: core-api-docs.postmanageddocnamespace
+        with:
+          namespace: rest.namespace
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/managed-doc/{namespace}/{slug}
+      name: managed-doc-namespace-slug
+      description: REST surface for managed-doc-namespace-slug.
+      operations:
+      - method: PATCH
+        name: patchmanageddocnamespaceslug
+        description: Update metadata for a specific managed document
+        call: core-api-docs.patchmanageddocnamespaceslug
+        with:
+          namespace: rest.namespace
+          slug: rest.slug
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deletemanageddocnamespaceslug
+        description: Delete a specific managed document and all of the related versions
+        call: core-api-docs.deletemanageddocnamespaceslug
+        with:
+          namespace: rest.namespace
+          slug: rest.slug
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: GET
+        name: getmanageddocnamespaceslug
+        description: Get a specific managed document
+        call: core-api-docs.getmanageddocnamespaceslug
+        with:
+          namespace: rest.namespace
+          slug: rest.slug
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/managed-doc/{namespace}/{slug}/version/{semver}
+      name: managed-doc-namespace-slug-version-semver
+      description: REST surface for managed-doc-namespace-slug-version-semver.
+      operations:
+      - method: GET
+        name: getmanageddocnamespaceslugversionsemver
+        description: Get a specific managed document version stream
+        call: core-api-docs.getmanageddocnamespaceslugversionsemver
+        with:
+          namespace: rest.namespace
+          slug: rest.slug
+          semver: rest.semver
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PATCH
+        name: patchmanageddocnamespaceslugversionsemver
+        description: Update the registry file content for the doc version
+        call: core-api-docs.patchmanageddocnamespaceslugversionsemver
+        with:
+          namespace: rest.namespace
+          slug: rest.slug
+          semver: rest.semver
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deletemanageddocnamespaceslugversionsemver
+        description: Delete a specific managed document version
+        call: core-api-docs.deletemanageddocnamespaceslugversionsemver
+        with:
+          namespace: rest.namespace
+          slug: rest.slug
+          semver: rest.semver
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/managed-doc/{namespace}/{slug}/version/{semver}/metadata
+      name: managed-doc-namespace-slug-version-semver-metadata
+      description: REST surface for managed-doc-namespace-slug-version-semver-metadata.
+      operations:
+      - method: GET
+        name: getmanageddocnamespaceslugversionsemvermetadata
+        description: Get metadata for a specific api document version
+        call: core-api-docs.getmanageddocnamespaceslugversionsemvermetadata
+        with:
+          namespace: rest.namespace
+          slug: rest.slug
+          semver: rest.semver
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/managed-doc/{namespace}/{slug}/version
+      name: managed-doc-namespace-slug-version
+      description: REST surface for managed-doc-namespace-slug-version.
+      operations:
+      - method: POST
+        name: postmanageddocnamespaceslugversion
+        description: Create a new api document version
+        call: core-api-docs.postmanageddocnamespaceslugversion
+        with:
+          namespace: rest.namespace
+          slug: rest.slug
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/managed-doc
+      name: managed-doc
+      description: REST surface for managed-doc.
+      operations:
+      - method: GET
+        name: getmanageddoc
+        description: Get a list of all documents for a team
+        call: core-api-docs.getmanageddoc
+        with: {}
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/pubsub/api-updated
+      name: pubsub-api-updated
+      description: REST surface for pubsub-api-updated.
+      operations:
+      - method: POST
+        name: postpubsubapiupdated
+        description: Registry API updated subscription handler
+        call: core-api-docs.postpubsubapiupdated
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/pubsub/api-version-deleted
+      name: pubsub-api-version-deleted
+      description: REST surface for pubsub-api-version-deleted.
+      operations:
+      - method: POST
+        name: postpubsubapiversiondeleted
+        description: Registry API updated subscription handler
+        call: core-api-docs.postpubsubapiversiondeleted
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/pubsub/api-embed-complete
+      name: pubsub-api-embed-complete
+      description: REST surface for pubsub-api-embed-complete.
+      operations:
+      - method: POST
+        name: postpubsubapiembedcomplete
+        description: Registry API Vector embedding complete
+        call: core-api-docs.postpubsubapiembedcomplete
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/pubsub/api-embed-failed
+      name: pubsub-api-embed-failed
+      description: REST surface for pubsub-api-embed-failed.
+      operations:
+      - method: POST
+        name: postpubsubapiembedfailed
+        description: Registry API Vector embedding failed
+        call: core-api-docs.postpubsubapiembedfailed
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/managed-doc/{namespace}/{slug}/version/{semver}/tools
+      name: managed-doc-namespace-slug-version-semver-tools
+      description: REST surface for managed-doc-namespace-slug-version-semver-tools.
+      operations:
+      - method: POST
+        name: postmanageddocnamespaceslugversionsemvertools
+        description: Update managed docs MCP tools.
+        call: core-api-docs.postmanageddocnamespaceslugversionsemvertools
+        with:
+          namespace: rest.namespace
+          slug: rest.slug
+          semver: rest.semver
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: core-api-docs-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Core — api-docs. One tool per consumed operation, routed inline through this capability's consumes block.
+    tools:
+    - name: scalar-postmanageddocaccessgroup
+      description: Adds an access group to a managed doc
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: core-api-docs.postmanageddocaccessgroup
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: scalar-deletemanageddocaccessgroup
+      description: Removes an access group from a managed doc
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: core-api-docs.deletemanageddocaccessgroup
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: scalar-postmanageddocavailable
+      description: Checks if a registry slug is available
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: core-api-docs.postmanageddocavailable
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: scalar-getmanageddocnamespace
+      description: Get a list of all documents for the namespace
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: core-api-docs.getmanageddocnamespace
+      with:
+        namespace: tools.namespace
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: scalar-postmanageddocnamespace
+      description: Creates a new api document for the namespace
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: core-api-docs.postmanageddocnamespace
+      with:
+        namespace: tools.namespace
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: scalar-patchmanageddocnamespaceslug
+      description: Update metadata for a specific managed document
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: core-api-docs.patchmanageddocnamespaceslug
+      with:
+        namespace: tools.namespace
+        slug: tools.slug
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: scalar-deletemanageddocnamespaceslug
+      description: Delete a specific managed document and all of the related versions
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: core-api-docs.deletemanageddocnamespaceslug
+      with:
+        namespace: tools.namespace
+        slug: tools.slug
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: scalar-getmanageddocnamespaceslug
+      description: Get a specific managed document
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: core-api-docs.getmanageddocnamespaceslug
+      with:
+        namespace: tools.namespace
+        slug: tools.slug
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: scalar-getmanageddocnamespaceslugversionsemver
+      description: Get a specific managed document version stream
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: core-api-docs.getmanageddocnamespaceslugversionsemver
+      with:
+        namespace: tools.namespace
+        slug: tools.slug
+        semver: tools.semver
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: scalar-patchmanageddocnamespaceslugversionsemver
+      description: Update the registry file content for the doc version
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: core-api-docs.patchmanageddocnamespaceslugversionsemver
+      with:
+        namespace: tools.namespace
+        slug: tools.slug
+        semver: tools.semver
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: scalar-deletemanageddocnamespaceslugversionsemver
+      description: Delete a specific managed document version
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: core-api-docs.deletemanageddocnamespaceslugversionsemver
+      with:
+        namespace: tools.namespace
+        slug: tools.slug
+        semver: tools.semver
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: scalar-getmanageddocnamespaceslugversionsemvermetadata
+      description: Get metadata for a specific api document version
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: core-api-docs.getmanageddocnamespaceslugversionsemvermetadata
+      with:
+        namespace: tools.namespace
+        slug: tools.slug
+        semver: tools.semver
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: scalar-postmanageddocnamespaceslugversion
+      description: Create a new api document version
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: core-api-docs.postmanageddocnamespaceslugversion
+      with:
+        namespace: tools.namespace
+        slug: tools.slug
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: scalar-getmanageddoc
+      description: Get a list of all documents for a team
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: core-api-docs.getmanageddoc
+      with: {}
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: scalar-postpubsubapiupdated
+      description: Registry API updated subscription handler
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: core-api-docs.postpubsubapiupdated
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: scalar-postpubsubapiversiondeleted
+      description: Registry API updated subscription handler
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: core-api-docs.postpubsubapiversiondeleted
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: scalar-postpubsubapiembedcomplete
+      description: Registry API Vector embedding complete
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: core-api-docs.postpubsubapiembedcomplete
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: scalar-postpubsubapiembedfailed
+      description: Registry API Vector embedding failed
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: core-api-docs.postpubsubapiembedfailed
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: scalar-postmanageddocnamespaceslugversionsemvertools
+      description: Update managed docs MCP tools.
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: core-api-docs.postmanageddocnamespaceslugversionsemvertools
+      with:
+        namespace: tools.namespace
+        slug: tools.slug
+        semver: tools.semver
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

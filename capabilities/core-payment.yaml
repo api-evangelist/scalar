@@ -1,0 +1,284 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Core — payment
+  description: 'Core — payment. 6 operations. Lead operation: Stripe webhook handling. Self-contained Naftiko capability covering one business surface.'
+  tags:
+  - Scalar
+  - payment
+  created: '2026-05-20'
+  modified: '2026-05-20'
+binds:
+- namespace: env
+  keys:
+    SCALAR_API_KEY: SCALAR_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: core-payment
+    baseUri: https://example.com
+    description: Core — payment business capability. Self-contained, no shared references.
+    resources:
+    - name: stripe
+      path: /stripe
+      operations:
+      - name: poststripe
+        method: POST
+        description: Stripe webhook handling
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: payment-start
+      path: /payment/start
+      operations:
+      - name: postpaymentstart
+        method: POST
+        description: Create a new stripe checkout session or redirect to the customer billing portal.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: payment-billing-start
+      path: /payment/billing/start
+      operations:
+      - name: postpaymentbillingstart
+        method: POST
+        description: Create a stripe management session for billing management
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: internal-billing-sync-subscription
+      path: /internal/billing/sync-subscription
+      operations:
+      - name: postinternalbillingsyncsubscription
+        method: POST
+        description: Syncs a teams billable resources with stripe
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: internal-billing-increment-agent-messages
+      path: /internal/billing/increment/agent-messages
+      operations:
+      - name: postinternalbillingincrementagentmessages
+        method: POST
+        description: Increments an agent keys message usage in Stripe
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: internal-billing-increment-agent-tokens
+      path: /internal/billing/increment/agent-tokens
+      operations:
+      - name: postinternalbillingincrementagenttokens
+        method: POST
+        description: Increments a teams subscription agent token usage
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+  exposes:
+  - type: rest
+    namespace: core-payment-rest
+    port: 8080
+    description: REST adapter for Core — payment. One resource per consumed operation, prefixed with /v1.
+    resources:
+    - path: /v1/stripe
+      name: stripe
+      description: REST surface for stripe.
+      operations:
+      - method: POST
+        name: poststripe
+        description: Stripe webhook handling
+        call: core-payment.poststripe
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/payment/start
+      name: payment-start
+      description: REST surface for payment-start.
+      operations:
+      - method: POST
+        name: postpaymentstart
+        description: Create a new stripe checkout session or redirect to the customer billing portal.
+        call: core-payment.postpaymentstart
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/payment/billing/start
+      name: payment-billing-start
+      description: REST surface for payment-billing-start.
+      operations:
+      - method: POST
+        name: postpaymentbillingstart
+        description: Create a stripe management session for billing management
+        call: core-payment.postpaymentbillingstart
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/internal/billing/sync-subscription
+      name: internal-billing-sync-subscription
+      description: REST surface for internal-billing-sync-subscription.
+      operations:
+      - method: POST
+        name: postinternalbillingsyncsubscription
+        description: Syncs a teams billable resources with stripe
+        call: core-payment.postinternalbillingsyncsubscription
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/internal/billing/increment/agent-messages
+      name: internal-billing-increment-agent-messages
+      description: REST surface for internal-billing-increment-agent-messages.
+      operations:
+      - method: POST
+        name: postinternalbillingincrementagentmessages
+        description: Increments an agent keys message usage in Stripe
+        call: core-payment.postinternalbillingincrementagentmessages
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/internal/billing/increment/agent-tokens
+      name: internal-billing-increment-agent-tokens
+      description: REST surface for internal-billing-increment-agent-tokens.
+      operations:
+      - method: POST
+        name: postinternalbillingincrementagenttokens
+        description: Increments a teams subscription agent token usage
+        call: core-payment.postinternalbillingincrementagenttokens
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: core-payment-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Core — payment. One tool per consumed operation, routed inline through this capability's consumes block.
+    tools:
+    - name: scalar-poststripe
+      description: Stripe webhook handling
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: core-payment.poststripe
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: scalar-postpaymentstart
+      description: Create a new stripe checkout session or redirect to the customer billing portal.
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: core-payment.postpaymentstart
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: scalar-postpaymentbillingstart
+      description: Create a stripe management session for billing management
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: core-payment.postpaymentbillingstart
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: scalar-postinternalbillingsyncsubscription
+      description: Syncs a teams billable resources with stripe
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: core-payment.postinternalbillingsyncsubscription
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: scalar-postinternalbillingincrementagentmessages
+      description: Increments an agent keys message usage in Stripe
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: core-payment.postinternalbillingincrementagentmessages
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: scalar-postinternalbillingincrementagenttokens
+      description: Increments a teams subscription agent token usage
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: core-payment.postinternalbillingincrementagenttokens
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

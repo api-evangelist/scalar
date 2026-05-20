@@ -1,0 +1,347 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Core — themes
+  description: 'Core — themes. 8 operations. Lead operation: Get a theme document by slug. Self-contained Naftiko capability covering one business surface.'
+  tags:
+  - Scalar
+  - themes
+  created: '2026-05-20'
+  modified: '2026-05-20'
+binds:
+- namespace: env
+  keys:
+    SCALAR_API_KEY: SCALAR_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: core-themes
+    baseUri: https://example.com
+    description: Core — themes business capability. Self-contained, no shared references.
+    resources:
+    - name: themes-slug
+      path: /themes/{slug}
+      operations:
+      - name: getthemesslug
+        method: GET
+        description: Get a theme document by slug
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: slug
+          in: path
+          type: string
+          description: path parameter slug.
+          required: true
+      - name: patchthemesslug
+        method: PATCH
+        description: Update themes metadata
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: slug
+          in: path
+          type: string
+          description: path parameter slug.
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: putthemesslug
+        method: PUT
+        description: Update themes document
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: slug
+          in: path
+          type: string
+          description: path parameter slug.
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: deletethemesslug
+        method: DELETE
+        description: Delete a specific themes
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: slug
+          in: path
+          type: string
+          description: path parameter slug.
+          required: true
+    - name: themes
+      path: /themes
+      operations:
+      - name: getthemes
+        method: GET
+        description: Get a list of all themes for the team
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters: []
+      - name: postthemes
+        method: POST
+        description: Create a new theme for the team
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: pubsub-theme-updated
+      path: /pubsub/theme-updated
+      operations:
+      - name: postpubsubthemeupdated
+        method: POST
+        description: PubSub theme updated route
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: pubsub-theme-deleted
+      path: /pubsub/theme-deleted
+      operations:
+      - name: postpubsubthemedeleted
+        method: POST
+        description: PubSub theme deleted route
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+  exposes:
+  - type: rest
+    namespace: core-themes-rest
+    port: 8080
+    description: REST adapter for Core — themes. One resource per consumed operation, prefixed with /v1.
+    resources:
+    - path: /v1/themes/{slug}
+      name: themes-slug
+      description: REST surface for themes-slug.
+      operations:
+      - method: GET
+        name: getthemesslug
+        description: Get a theme document by slug
+        call: core-themes.getthemesslug
+        with:
+          slug: rest.slug
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PATCH
+        name: patchthemesslug
+        description: Update themes metadata
+        call: core-themes.patchthemesslug
+        with:
+          slug: rest.slug
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PUT
+        name: putthemesslug
+        description: Update themes document
+        call: core-themes.putthemesslug
+        with:
+          slug: rest.slug
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deletethemesslug
+        description: Delete a specific themes
+        call: core-themes.deletethemesslug
+        with:
+          slug: rest.slug
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/themes
+      name: themes
+      description: REST surface for themes.
+      operations:
+      - method: GET
+        name: getthemes
+        description: Get a list of all themes for the team
+        call: core-themes.getthemes
+        with: {}
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: postthemes
+        description: Create a new theme for the team
+        call: core-themes.postthemes
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/pubsub/theme-updated
+      name: pubsub-theme-updated
+      description: REST surface for pubsub-theme-updated.
+      operations:
+      - method: POST
+        name: postpubsubthemeupdated
+        description: PubSub theme updated route
+        call: core-themes.postpubsubthemeupdated
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/pubsub/theme-deleted
+      name: pubsub-theme-deleted
+      description: REST surface for pubsub-theme-deleted.
+      operations:
+      - method: POST
+        name: postpubsubthemedeleted
+        description: PubSub theme deleted route
+        call: core-themes.postpubsubthemedeleted
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: core-themes-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Core — themes. One tool per consumed operation, routed inline through this capability's consumes block.
+    tools:
+    - name: scalar-getthemesslug
+      description: Get a theme document by slug
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: core-themes.getthemesslug
+      with:
+        slug: tools.slug
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: scalar-patchthemesslug
+      description: Update themes metadata
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: core-themes.patchthemesslug
+      with:
+        slug: tools.slug
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: scalar-putthemesslug
+      description: Update themes document
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: core-themes.putthemesslug
+      with:
+        slug: tools.slug
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: scalar-deletethemesslug
+      description: Delete a specific themes
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: core-themes.deletethemesslug
+      with:
+        slug: tools.slug
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: scalar-getthemes
+      description: Get a list of all themes for the team
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: core-themes.getthemes
+      with: {}
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: scalar-postthemes
+      description: Create a new theme for the team
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: core-themes.postthemes
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: scalar-postpubsubthemeupdated
+      description: PubSub theme updated route
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: core-themes.postpubsubthemeupdated
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: scalar-postpubsubthemedeleted
+      description: PubSub theme deleted route
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: core-themes.postpubsubthemedeleted
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

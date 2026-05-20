@@ -1,0 +1,74 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Core — waitlist
+  description: 'Core — waitlist. 1 operations. Lead operation: Submit app feedback. Self-contained Naftiko capability covering one business surface.'
+  tags:
+  - Scalar
+  - waitlist
+  created: '2026-05-20'
+  modified: '2026-05-20'
+binds:
+- namespace: env
+  keys:
+    SCALAR_API_KEY: SCALAR_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: core-waitlist
+    baseUri: https://example.com
+    description: Core — waitlist business capability. Self-contained, no shared references.
+    resources:
+    - name: waitlist
+      path: /waitlist
+      operations:
+      - name: postwaitlist
+        method: POST
+        description: Submit app feedback
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+  exposes:
+  - type: rest
+    namespace: core-waitlist-rest
+    port: 8080
+    description: REST adapter for Core — waitlist. One resource per consumed operation, prefixed with /v1.
+    resources:
+    - path: /v1/waitlist
+      name: waitlist
+      description: REST surface for waitlist.
+      operations:
+      - method: POST
+        name: postwaitlist
+        description: Submit app feedback
+        call: core-waitlist.postwaitlist
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: core-waitlist-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Core — waitlist. One tool per consumed operation, routed inline through this capability's consumes block.
+    tools:
+    - name: scalar-postwaitlist
+      description: Submit app feedback
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: core-waitlist.postwaitlist
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

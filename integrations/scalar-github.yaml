@@ -1,0 +1,156 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Sync OpenAPI specs from GitHub repos into Scalar
+  description: When a tracked GitHub repository changes an OpenAPI file, pull the latest commit into the linked Scalar docs project so the rendered API reference stays in lockstep with the source of truth.
+  tags:
+  - Scalar
+  - Integration
+  - Source Control
+  - github
+  created: '2026-05-20'
+  modified: '2026-05-20'
+binds:
+- namespace: env
+  keys:
+    SCALAR_API_KEY: SCALAR_API_KEY
+    GITHUB_API_KEY: GITHUB_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: scalar
+    baseUri: https://api.scalar.com
+    description: Scalar API operations consumed by this integration.
+    resources:
+    - name: github-repos
+      path: /github/repos
+      operations:
+      - name: listgithubrepos
+        method: GET
+        description: List GitHub repos linked to the Scalar workspace.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters: []
+    - name: github-docs-project-uid-commits
+      path: /github/docs-project/{uid}/commits
+      operations:
+      - name: getdocsprojectcommits
+        method: GET
+        description: List commits on the GitHub branch backing a Scalar docs project.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: uid
+          in: path
+          type: string
+          description: Path parameter uid.
+          required: true
+    - name: github-link-repo
+      path: /github/link-repo
+      operations:
+      - name: linkgithubrepo
+        method: POST
+        description: Link a GitHub repo + branch to a Scalar docs project.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+  - type: http
+    namespace: github
+    baseUri: https://api.github.com
+    description: GitHub REST API operations consumed by this integration.
+    resources:
+    - name: repos-owner-repo-contents-path
+      path: /repos/{owner}/{repo}/contents/{path}
+      operations:
+      - name: getfilecontents
+        method: GET
+        description: 'GitHub REST API: getFileContents'
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: owner
+          in: path
+          type: string
+          description: Path parameter owner.
+          required: true
+        - name: repo
+          in: path
+          type: string
+          description: Path parameter repo.
+          required: true
+        - name: path
+          in: path
+          type: string
+          description: Path parameter path.
+          required: true
+    - name: repos-owner-repo-commits
+      path: /repos/{owner}/{repo}/commits
+      operations:
+      - name: listcommits
+        method: GET
+        description: 'GitHub REST API: listCommits'
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: owner
+          in: path
+          type: string
+          description: Path parameter owner.
+          required: true
+        - name: repo
+          in: path
+          type: string
+          description: Path parameter repo.
+          required: true
+  exposes:
+  - type: mcp
+    namespace: scalar-github-mcp
+    description: MCP adapter for the scalar-github integration.
+    tools:
+    - name: scalar_github
+      description: Execute the scalar github integration end-to-end.
+      inputSchema:
+        type: object
+        properties:
+          trigger_event:
+            type: object
+            description: Triggering event payload.
+        required:
+        - trigger_event
+  - type: rest
+    namespace: scalar-github-rest
+    port: 8080
+    description: REST adapter for the scalar-github integration.
+    resources:
+    - path: /scalar-github
+      name: scalar-github
+      description: REST surface for the scalar-github integration.
+      operations:
+      - method: POST
+        name: trigger
+        description: Trigger the scalar-github integration.
+        call: scalar_github
+        with:
+          trigger_event: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.

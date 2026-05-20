@@ -1,0 +1,144 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Pull OpenAPI updates from Bitbucket into Scalar
+  description: For teams hosting their OpenAPI contracts in Bitbucket, sync each push on the watched branch into a Scalar docs project so the published API reference matches the latest merged spec.
+  tags:
+  - Scalar
+  - Integration
+  - Source Control
+  - bitbucket
+  created: '2026-05-20'
+  modified: '2026-05-20'
+binds:
+- namespace: env
+  keys:
+    SCALAR_API_KEY: SCALAR_API_KEY
+    BITBUCKET_API_KEY: BITBUCKET_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: scalar
+    baseUri: https://api.scalar.com
+    description: Scalar API operations consumed by this integration.
+    resources:
+    - name: vcs-bitbucket-workspaces
+      path: /vcs/bitbucket/workspaces
+      operations:
+      - name: listbitbucketworkspaces
+        method: GET
+        description: List Bitbucket workspaces linked to Scalar.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters: []
+    - name: vcs-bitbucket-docs-project-uid-branches
+      path: /vcs/bitbucket/docs-project/{uid}/branches
+      operations:
+      - name: listbitbucketprojectbranches
+        method: GET
+        description: List branches on the Bitbucket repo backing a docs project.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: uid
+          in: path
+          type: string
+          description: Path parameter uid.
+          required: true
+  - type: http
+    namespace: bitbucket
+    baseUri: https://api.bitbucket.org/2.0
+    description: Bitbucket Cloud REST API operations consumed by this integration.
+    resources:
+    - name: repositories-workspace-repo-slug-src-commit-path
+      path: /repositories/{workspace}/{repo_slug}/src/{commit}/{path}
+      operations:
+      - name: getfilecontents
+        method: GET
+        description: 'Bitbucket Cloud REST API: getFileContents'
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: workspace
+          in: path
+          type: string
+          description: Path parameter workspace.
+          required: true
+        - name: repo_slug
+          in: path
+          type: string
+          description: Path parameter repo_slug.
+          required: true
+        - name: commit
+          in: path
+          type: string
+          description: Path parameter commit.
+          required: true
+        - name: path
+          in: path
+          type: string
+          description: Path parameter path.
+          required: true
+    - name: repositories-workspace-repo-slug-commits
+      path: /repositories/{workspace}/{repo_slug}/commits
+      operations:
+      - name: listcommits
+        method: GET
+        description: 'Bitbucket Cloud REST API: listCommits'
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: workspace
+          in: path
+          type: string
+          description: Path parameter workspace.
+          required: true
+        - name: repo_slug
+          in: path
+          type: string
+          description: Path parameter repo_slug.
+          required: true
+  exposes:
+  - type: mcp
+    namespace: scalar-bitbucket-mcp
+    description: MCP adapter for the scalar-bitbucket integration.
+    tools:
+    - name: scalar_bitbucket
+      description: Execute the scalar bitbucket integration end-to-end.
+      inputSchema:
+        type: object
+        properties:
+          trigger_event:
+            type: object
+            description: Triggering event payload.
+        required:
+        - trigger_event
+  - type: rest
+    namespace: scalar-bitbucket-rest
+    port: 8080
+    description: REST adapter for the scalar-bitbucket integration.
+    resources:
+    - path: /scalar-bitbucket
+      name: scalar-bitbucket
+      description: REST surface for the scalar-bitbucket integration.
+      operations:
+      - method: POST
+        name: trigger
+        description: Trigger the scalar-bitbucket integration.
+        call: scalar_bitbucket
+        with:
+          trigger_event: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.

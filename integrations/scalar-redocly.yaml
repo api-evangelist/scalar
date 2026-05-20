@@ -1,0 +1,139 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Migrate Redocly-hosted OpenAPI references into Scalar
+  description: Pull an OpenAPI document currently served via Redocly, register it in the Scalar schema registry, and stand up an equivalent Scalar docs project so teams can A/B Scalar's reference UX against their existing Redocly site.
+  tags:
+  - Scalar
+  - Integration
+  - Documentation
+  - redocly
+  created: '2026-05-20'
+  modified: '2026-05-20'
+binds:
+- namespace: env
+  keys:
+    SCALAR_API_KEY: SCALAR_API_KEY
+    REDOCLY_API_KEY: REDOCLY_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: scalar
+    baseUri: https://api.scalar.com
+    description: Scalar API operations consumed by this integration.
+    resources:
+    - name: schemas-namespace
+      path: /schemas/{namespace}
+      operations:
+      - name: createschema
+        method: POST
+        description: Register the migrated OpenAPI document in Scalar.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: namespace
+          in: path
+          type: string
+          description: Path parameter namespace.
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: docs-create-project
+      path: /docs/create-project
+      operations:
+      - name: createdocsproject
+        method: POST
+        description: Create a Scalar docs project for the migrated spec.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+  - type: http
+    namespace: redocly
+    baseUri: https://api.redocly.com
+    description: Redocly Platform API operations consumed by this integration.
+    resources:
+    - name: organizations-org-projects-project-openapi
+      path: /organizations/{org}/projects/{project}/openapi
+      operations:
+      - name: getopenapidocument
+        method: GET
+        description: 'Redocly Platform API: getOpenApiDocument'
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: org
+          in: path
+          type: string
+          description: Path parameter org.
+          required: true
+        - name: project
+          in: path
+          type: string
+          description: Path parameter project.
+          required: true
+    - name: organizations-org-projects
+      path: /organizations/{org}/projects
+      operations:
+      - name: listprojects
+        method: GET
+        description: 'Redocly Platform API: listProjects'
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: org
+          in: path
+          type: string
+          description: Path parameter org.
+          required: true
+  exposes:
+  - type: mcp
+    namespace: scalar-redocly-mcp
+    description: MCP adapter for the scalar-redocly integration.
+    tools:
+    - name: scalar_redocly
+      description: Execute the scalar redocly integration end-to-end.
+      inputSchema:
+        type: object
+        properties:
+          trigger_event:
+            type: object
+            description: Triggering event payload.
+        required:
+        - trigger_event
+  - type: rest
+    namespace: scalar-redocly-rest
+    port: 8080
+    description: REST adapter for the scalar-redocly integration.
+    resources:
+    - path: /scalar-redocly
+      name: scalar-redocly
+      description: REST surface for the scalar-redocly integration.
+      operations:
+      - method: POST
+        name: trigger
+        description: Trigger the scalar-redocly integration.
+        call: scalar_redocly
+        with:
+          trigger_event: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.

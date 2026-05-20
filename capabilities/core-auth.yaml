@@ -1,0 +1,1191 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Core — auth
+  description: 'Core — auth. 28 operations. Lead operation: Get a users basic information. Self-contained Naftiko capability covering one business surface.'
+  tags:
+  - Scalar
+  - auth
+  created: '2026-05-20'
+  modified: '2026-05-20'
+binds:
+- namespace: env
+  keys:
+    SCALAR_API_KEY: SCALAR_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: core-auth
+    baseUri: https://example.com
+    description: Core — auth business capability. Self-contained, no shared references.
+    resources:
+    - name: me
+      path: /me
+      operations:
+      - name: getme
+        method: GET
+        description: Get a users basic information
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters: []
+    - name: login-email
+      path: /login/email
+      operations:
+      - name: postloginemail
+        method: POST
+        description: Login with email password flow
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: login-email-signup
+      path: /login/email-signup
+      operations:
+      - name: postloginemailsignup
+        method: POST
+        description: Register with email password flow
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: login-email-otp
+      path: /login/email-otp
+      operations:
+      - name: postloginemailotp
+        method: POST
+        description: Send an OTP verification code to the email
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: login-email-otp-verify
+      path: /login/email-otp/verify
+      operations:
+      - name: postloginemailotpverify
+        method: POST
+        description: Verify OTP
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: login-refresh
+      path: /login/refresh
+      operations:
+      - name: postloginrefresh
+        method: POST
+        description: Refresh an access token and set the team uid token
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: login-exchange
+      path: /login/exchange
+      operations:
+      - name: postloginexchange
+        method: POST
+        description: Exchange the short lived URL token for access/refresh tokens
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: login-get-exchange
+      path: /login/get-exchange
+      operations:
+      - name: postlogingetexchange
+        method: POST
+        description: Gets an exchange token that can be used to redirect a user with auth credentials to different domain
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: login-request-password-reset
+      path: /login/request-password-reset
+      operations:
+      - name: postloginrequestpasswordreset
+        method: POST
+        description: Request reset password
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: login-reset-password
+      path: /login/reset-password
+      operations:
+      - name: postloginresetpassword
+        method: POST
+        description: Verify password reset request
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: login-change-password
+      path: /login/change-password
+      operations:
+      - name: postloginchangepassword
+        method: POST
+        description: Change password for authenticated user
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: login-personal-token-generate
+      path: /login/personal-token/generate
+      operations:
+      - name: postloginpersonaltokengenerate
+        method: POST
+        description: Generate a new personal token
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: login-personal-token-access
+      path: /login/personal-token/access
+      operations:
+      - name: postloginpersonaltokenaccess
+        method: POST
+        description: Generate a new access token from a personal token
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: login-personal-token-uid-revoke
+      path: /login/personal-token/{uid}/revoke
+      operations:
+      - name: postloginpersonaltokenuidrevoke
+        method: POST
+        description: Revoke a personal token
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: uid
+          in: path
+          type: string
+          description: path parameter uid.
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: login-personal-token-uid
+      path: /login/personal-token/{uid}
+      operations:
+      - name: deleteloginpersonaltokenuid
+        method: DELETE
+        description: Delete a personal token
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: uid
+          in: path
+          type: string
+          description: path parameter uid.
+          required: true
+    - name: identity-provider-uid
+      path: /identity-provider/{uid}
+      operations:
+      - name: getidentityprovideruid
+        method: GET
+        description: Get an identity provider configuration for a team
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: uid
+          in: path
+          type: string
+          description: path parameter uid.
+          required: true
+      - name: deleteidentityprovideruid
+        method: DELETE
+        description: Delete an identity provider configuration for a team
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: uid
+          in: path
+          type: string
+          description: path parameter uid.
+          required: true
+    - name: identity-provider
+      path: /identity-provider
+      operations:
+      - name: postidentityprovider
+        method: POST
+        description: Add an identity provider configuration for a team
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: identity-provider-update
+      path: /identity-provider/update
+      operations:
+      - name: postidentityproviderupdate
+        method: POST
+        description: Update an identity provider configuration for a team
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: saml-metadata
+      path: /saml/metadata
+      operations:
+      - name: getsamlmetadata
+        method: GET
+        description: Get base SP SAML metadata
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters: []
+    - name: saml-idp-uid-metadata
+      path: /saml/idp/{uid}/metadata
+      operations:
+      - name: getsamlidpuidmetadata
+        method: GET
+        description: Get SAML IdP-specific connection metadata
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: uid
+          in: path
+          type: string
+          description: path parameter uid.
+          required: true
+    - name: saml-idp-uid-login
+      path: /saml/idp/{uid}/login
+      operations:
+      - name: getsamlidpuidlogin
+        method: GET
+        description: SAML connection login route
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: uid
+          in: path
+          type: string
+          description: path parameter uid.
+          required: true
+        - name: redirect
+          in: query
+          type: string
+          description: query parameter redirect.
+        - name: resource
+          in: query
+          type: string
+          description: query parameter resource.
+        - name: type
+          in: query
+          type: string
+          description: query parameter type.
+    - name: saml-logout
+      path: /saml/logout
+      operations:
+      - name: getsamllogout
+        method: GET
+        description: SAML logout route
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters: []
+    - name: saml-acs
+      path: /saml/acs
+      operations:
+      - name: postsamlacs
+        method: POST
+        description: SAML ACS route
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: saml-initiate
+      path: /saml/initiate
+      operations:
+      - name: postsamlinitiate
+        method: POST
+        description: SAML initiate route
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: saml-cert-signing
+      path: /saml/cert/signing
+      operations:
+      - name: getsamlcertsigning
+        method: GET
+        description: Return SAML public signing cert
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters: []
+    - name: saml-cert-encryption
+      path: /saml/cert/encryption
+      operations:
+      - name: getsamlcertencryption
+        method: GET
+        description: Return SAML public encryption cert
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters: []
+    - name: events-auth-vacuum-refresh-tokens
+      path: /events/auth/vacuum-refresh-tokens
+      operations:
+      - name: posteventsauthvacuumrefreshtokens
+        method: POST
+        description: Clean-up unused refresh tokens
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+  exposes:
+  - type: rest
+    namespace: core-auth-rest
+    port: 8080
+    description: REST adapter for Core — auth. One resource per consumed operation, prefixed with /v1.
+    resources:
+    - path: /v1/me
+      name: me
+      description: REST surface for me.
+      operations:
+      - method: GET
+        name: getme
+        description: Get a users basic information
+        call: core-auth.getme
+        with: {}
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/login/email
+      name: login-email
+      description: REST surface for login-email.
+      operations:
+      - method: POST
+        name: postloginemail
+        description: Login with email password flow
+        call: core-auth.postloginemail
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/login/email-signup
+      name: login-email-signup
+      description: REST surface for login-email-signup.
+      operations:
+      - method: POST
+        name: postloginemailsignup
+        description: Register with email password flow
+        call: core-auth.postloginemailsignup
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/login/email-otp
+      name: login-email-otp
+      description: REST surface for login-email-otp.
+      operations:
+      - method: POST
+        name: postloginemailotp
+        description: Send an OTP verification code to the email
+        call: core-auth.postloginemailotp
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/login/email-otp/verify
+      name: login-email-otp-verify
+      description: REST surface for login-email-otp-verify.
+      operations:
+      - method: POST
+        name: postloginemailotpverify
+        description: Verify OTP
+        call: core-auth.postloginemailotpverify
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/login/refresh
+      name: login-refresh
+      description: REST surface for login-refresh.
+      operations:
+      - method: POST
+        name: postloginrefresh
+        description: Refresh an access token and set the team uid token
+        call: core-auth.postloginrefresh
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/login/exchange
+      name: login-exchange
+      description: REST surface for login-exchange.
+      operations:
+      - method: POST
+        name: postloginexchange
+        description: Exchange the short lived URL token for access/refresh tokens
+        call: core-auth.postloginexchange
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/login/get-exchange
+      name: login-get-exchange
+      description: REST surface for login-get-exchange.
+      operations:
+      - method: POST
+        name: postlogingetexchange
+        description: Gets an exchange token that can be used to redirect a user with auth credentials to different domain
+        call: core-auth.postlogingetexchange
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/login/request-password-reset
+      name: login-request-password-reset
+      description: REST surface for login-request-password-reset.
+      operations:
+      - method: POST
+        name: postloginrequestpasswordreset
+        description: Request reset password
+        call: core-auth.postloginrequestpasswordreset
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/login/reset-password
+      name: login-reset-password
+      description: REST surface for login-reset-password.
+      operations:
+      - method: POST
+        name: postloginresetpassword
+        description: Verify password reset request
+        call: core-auth.postloginresetpassword
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/login/change-password
+      name: login-change-password
+      description: REST surface for login-change-password.
+      operations:
+      - method: POST
+        name: postloginchangepassword
+        description: Change password for authenticated user
+        call: core-auth.postloginchangepassword
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/login/personal-token/generate
+      name: login-personal-token-generate
+      description: REST surface for login-personal-token-generate.
+      operations:
+      - method: POST
+        name: postloginpersonaltokengenerate
+        description: Generate a new personal token
+        call: core-auth.postloginpersonaltokengenerate
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/login/personal-token/access
+      name: login-personal-token-access
+      description: REST surface for login-personal-token-access.
+      operations:
+      - method: POST
+        name: postloginpersonaltokenaccess
+        description: Generate a new access token from a personal token
+        call: core-auth.postloginpersonaltokenaccess
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/login/personal-token/{uid}/revoke
+      name: login-personal-token-uid-revoke
+      description: REST surface for login-personal-token-uid-revoke.
+      operations:
+      - method: POST
+        name: postloginpersonaltokenuidrevoke
+        description: Revoke a personal token
+        call: core-auth.postloginpersonaltokenuidrevoke
+        with:
+          uid: rest.uid
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/login/personal-token/{uid}
+      name: login-personal-token-uid
+      description: REST surface for login-personal-token-uid.
+      operations:
+      - method: DELETE
+        name: deleteloginpersonaltokenuid
+        description: Delete a personal token
+        call: core-auth.deleteloginpersonaltokenuid
+        with:
+          uid: rest.uid
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/identity-provider/{uid}
+      name: identity-provider-uid
+      description: REST surface for identity-provider-uid.
+      operations:
+      - method: GET
+        name: getidentityprovideruid
+        description: Get an identity provider configuration for a team
+        call: core-auth.getidentityprovideruid
+        with:
+          uid: rest.uid
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deleteidentityprovideruid
+        description: Delete an identity provider configuration for a team
+        call: core-auth.deleteidentityprovideruid
+        with:
+          uid: rest.uid
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/identity-provider
+      name: identity-provider
+      description: REST surface for identity-provider.
+      operations:
+      - method: POST
+        name: postidentityprovider
+        description: Add an identity provider configuration for a team
+        call: core-auth.postidentityprovider
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/identity-provider/update
+      name: identity-provider-update
+      description: REST surface for identity-provider-update.
+      operations:
+      - method: POST
+        name: postidentityproviderupdate
+        description: Update an identity provider configuration for a team
+        call: core-auth.postidentityproviderupdate
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/saml/metadata
+      name: saml-metadata
+      description: REST surface for saml-metadata.
+      operations:
+      - method: GET
+        name: getsamlmetadata
+        description: Get base SP SAML metadata
+        call: core-auth.getsamlmetadata
+        with: {}
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/saml/idp/{uid}/metadata
+      name: saml-idp-uid-metadata
+      description: REST surface for saml-idp-uid-metadata.
+      operations:
+      - method: GET
+        name: getsamlidpuidmetadata
+        description: Get SAML IdP-specific connection metadata
+        call: core-auth.getsamlidpuidmetadata
+        with:
+          uid: rest.uid
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/saml/idp/{uid}/login
+      name: saml-idp-uid-login
+      description: REST surface for saml-idp-uid-login.
+      operations:
+      - method: GET
+        name: getsamlidpuidlogin
+        description: SAML connection login route
+        call: core-auth.getsamlidpuidlogin
+        with:
+          uid: rest.uid
+          redirect: rest.redirect
+          resource: rest.resource
+          type: rest.type
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/saml/logout
+      name: saml-logout
+      description: REST surface for saml-logout.
+      operations:
+      - method: GET
+        name: getsamllogout
+        description: SAML logout route
+        call: core-auth.getsamllogout
+        with: {}
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/saml/acs
+      name: saml-acs
+      description: REST surface for saml-acs.
+      operations:
+      - method: POST
+        name: postsamlacs
+        description: SAML ACS route
+        call: core-auth.postsamlacs
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/saml/initiate
+      name: saml-initiate
+      description: REST surface for saml-initiate.
+      operations:
+      - method: POST
+        name: postsamlinitiate
+        description: SAML initiate route
+        call: core-auth.postsamlinitiate
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/saml/cert/signing
+      name: saml-cert-signing
+      description: REST surface for saml-cert-signing.
+      operations:
+      - method: GET
+        name: getsamlcertsigning
+        description: Return SAML public signing cert
+        call: core-auth.getsamlcertsigning
+        with: {}
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/saml/cert/encryption
+      name: saml-cert-encryption
+      description: REST surface for saml-cert-encryption.
+      operations:
+      - method: GET
+        name: getsamlcertencryption
+        description: Return SAML public encryption cert
+        call: core-auth.getsamlcertencryption
+        with: {}
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/events/auth/vacuum-refresh-tokens
+      name: events-auth-vacuum-refresh-tokens
+      description: REST surface for events-auth-vacuum-refresh-tokens.
+      operations:
+      - method: POST
+        name: posteventsauthvacuumrefreshtokens
+        description: Clean-up unused refresh tokens
+        call: core-auth.posteventsauthvacuumrefreshtokens
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: core-auth-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Core — auth. One tool per consumed operation, routed inline through this capability's consumes block.
+    tools:
+    - name: scalar-getme
+      description: Get a users basic information
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: core-auth.getme
+      with: {}
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: scalar-postloginemail
+      description: Login with email password flow
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: core-auth.postloginemail
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: scalar-postloginemailsignup
+      description: Register with email password flow
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: core-auth.postloginemailsignup
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: scalar-postloginemailotp
+      description: Send an OTP verification code to the email
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: core-auth.postloginemailotp
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: scalar-postloginemailotpverify
+      description: Verify OTP
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: core-auth.postloginemailotpverify
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: scalar-postloginrefresh
+      description: Refresh an access token and set the team uid token
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: core-auth.postloginrefresh
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: scalar-postloginexchange
+      description: Exchange the short lived URL token for access/refresh tokens
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: core-auth.postloginexchange
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: scalar-postlogingetexchange
+      description: Gets an exchange token that can be used to redirect a user with auth credentials to different domain
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: core-auth.postlogingetexchange
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: scalar-postloginrequestpasswordreset
+      description: Request reset password
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: core-auth.postloginrequestpasswordreset
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: scalar-postloginresetpassword
+      description: Verify password reset request
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: core-auth.postloginresetpassword
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: scalar-postloginchangepassword
+      description: Change password for authenticated user
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: core-auth.postloginchangepassword
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: scalar-postloginpersonaltokengenerate
+      description: Generate a new personal token
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: core-auth.postloginpersonaltokengenerate
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: scalar-postloginpersonaltokenaccess
+      description: Generate a new access token from a personal token
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: core-auth.postloginpersonaltokenaccess
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: scalar-postloginpersonaltokenuidrevoke
+      description: Revoke a personal token
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: core-auth.postloginpersonaltokenuidrevoke
+      with:
+        uid: tools.uid
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: scalar-deleteloginpersonaltokenuid
+      description: Delete a personal token
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: core-auth.deleteloginpersonaltokenuid
+      with:
+        uid: tools.uid
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: scalar-getidentityprovideruid
+      description: Get an identity provider configuration for a team
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: core-auth.getidentityprovideruid
+      with:
+        uid: tools.uid
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: scalar-deleteidentityprovideruid
+      description: Delete an identity provider configuration for a team
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: core-auth.deleteidentityprovideruid
+      with:
+        uid: tools.uid
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: scalar-postidentityprovider
+      description: Add an identity provider configuration for a team
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: core-auth.postidentityprovider
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: scalar-postidentityproviderupdate
+      description: Update an identity provider configuration for a team
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: core-auth.postidentityproviderupdate
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: scalar-getsamlmetadata
+      description: Get base SP SAML metadata
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: core-auth.getsamlmetadata
+      with: {}
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: scalar-getsamlidpuidmetadata
+      description: Get SAML IdP-specific connection metadata
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: core-auth.getsamlidpuidmetadata
+      with:
+        uid: tools.uid
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: scalar-getsamlidpuidlogin
+      description: SAML connection login route
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: core-auth.getsamlidpuidlogin
+      with:
+        uid: tools.uid
+        redirect: tools.redirect
+        resource: tools.resource
+        type: tools.type
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: scalar-getsamllogout
+      description: SAML logout route
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: core-auth.getsamllogout
+      with: {}
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: scalar-postsamlacs
+      description: SAML ACS route
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: core-auth.postsamlacs
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: scalar-postsamlinitiate
+      description: SAML initiate route
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: core-auth.postsamlinitiate
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: scalar-getsamlcertsigning
+      description: Return SAML public signing cert
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: core-auth.getsamlcertsigning
+      with: {}
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: scalar-getsamlcertencryption
+      description: Return SAML public encryption cert
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: core-auth.getsamlcertencryption
+      with: {}
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: scalar-posteventsauthvacuumrefreshtokens
+      description: Clean-up unused refresh tokens
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: core-auth.posteventsauthvacuumrefreshtokens
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

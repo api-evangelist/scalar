@@ -1,0 +1,459 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Core — rules
+  description: 'Core — rules. 10 operations. Lead operation: Get a the rule document. Self-contained Naftiko capability covering one business surface.'
+  tags:
+  - Scalar
+  - rules
+  created: '2026-05-20'
+  modified: '2026-05-20'
+binds:
+- namespace: env
+  keys:
+    SCALAR_API_KEY: SCALAR_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: core-rules
+    baseUri: https://example.com
+    description: Core — rules business capability. Self-contained, no shared references.
+    resources:
+    - name: rulesets-namespace-slug
+      path: /rulesets/{namespace}/{slug}
+      operations:
+      - name: getrulesetsnamespaceslug
+        method: GET
+        description: Get a the rule document
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: namespace
+          in: path
+          type: string
+          description: path parameter namespace.
+          required: true
+        - name: slug
+          in: path
+          type: string
+          description: path parameter slug.
+          required: true
+      - name: patchrulesetsnamespaceslug
+        method: PATCH
+        description: Update rule metadata
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: namespace
+          in: path
+          type: string
+          description: path parameter namespace.
+          required: true
+        - name: slug
+          in: path
+          type: string
+          description: path parameter slug.
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: deleterulesetsnamespaceslug
+        method: DELETE
+        description: Delete a specific rule
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: namespace
+          in: path
+          type: string
+          description: path parameter namespace.
+          required: true
+        - name: slug
+          in: path
+          type: string
+          description: path parameter slug.
+          required: true
+    - name: rulesets-get-by-id-uid
+      path: /rulesets/get-by-id/{uid}
+      operations:
+      - name: getrulesetsgetbyiduid
+        method: GET
+        description: Get a the rule document
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: uid
+          in: path
+          type: string
+          description: path parameter uid.
+          required: true
+    - name: rulesets-namespace
+      path: /rulesets/{namespace}
+      operations:
+      - name: getrulesetsnamespace
+        method: GET
+        description: Get a list of all rulesets for the namespace
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: namespace
+          in: path
+          type: string
+          description: path parameter namespace.
+          required: true
+      - name: postrulesetsnamespace
+        method: POST
+        description: Create a new rule for the namespace
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: namespace
+          in: path
+          type: string
+          description: path parameter namespace.
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: rulesets-upload
+      path: /rulesets/upload
+      operations:
+      - name: postrulesetsupload
+        method: POST
+        description: Update rule content
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: rules-access-group
+      path: /rules/access-group
+      operations:
+      - name: postrulesaccessgroup
+        method: POST
+        description: Adds an access group to a rule
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: deleterulesaccessgroup
+        method: DELETE
+        description: Removes an access group from a rule
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: rulesets-check-slug
+      path: /rulesets/check-slug
+      operations:
+      - name: postrulesetscheckslug
+        method: POST
+        description: Checks if a ruleset slug is available for the provided namespace
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+  exposes:
+  - type: rest
+    namespace: core-rules-rest
+    port: 8080
+    description: REST adapter for Core — rules. One resource per consumed operation, prefixed with /v1.
+    resources:
+    - path: /v1/rulesets/{namespace}/{slug}
+      name: rulesets-namespace-slug
+      description: REST surface for rulesets-namespace-slug.
+      operations:
+      - method: GET
+        name: getrulesetsnamespaceslug
+        description: Get a the rule document
+        call: core-rules.getrulesetsnamespaceslug
+        with:
+          namespace: rest.namespace
+          slug: rest.slug
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PATCH
+        name: patchrulesetsnamespaceslug
+        description: Update rule metadata
+        call: core-rules.patchrulesetsnamespaceslug
+        with:
+          namespace: rest.namespace
+          slug: rest.slug
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deleterulesetsnamespaceslug
+        description: Delete a specific rule
+        call: core-rules.deleterulesetsnamespaceslug
+        with:
+          namespace: rest.namespace
+          slug: rest.slug
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/rulesets/get-by-id/{uid}
+      name: rulesets-get-by-id-uid
+      description: REST surface for rulesets-get-by-id-uid.
+      operations:
+      - method: GET
+        name: getrulesetsgetbyiduid
+        description: Get a the rule document
+        call: core-rules.getrulesetsgetbyiduid
+        with:
+          uid: rest.uid
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/rulesets/{namespace}
+      name: rulesets-namespace
+      description: REST surface for rulesets-namespace.
+      operations:
+      - method: GET
+        name: getrulesetsnamespace
+        description: Get a list of all rulesets for the namespace
+        call: core-rules.getrulesetsnamespace
+        with:
+          namespace: rest.namespace
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: postrulesetsnamespace
+        description: Create a new rule for the namespace
+        call: core-rules.postrulesetsnamespace
+        with:
+          namespace: rest.namespace
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/rulesets/upload
+      name: rulesets-upload
+      description: REST surface for rulesets-upload.
+      operations:
+      - method: POST
+        name: postrulesetsupload
+        description: Update rule content
+        call: core-rules.postrulesetsupload
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/rules/access-group
+      name: rules-access-group
+      description: REST surface for rules-access-group.
+      operations:
+      - method: POST
+        name: postrulesaccessgroup
+        description: Adds an access group to a rule
+        call: core-rules.postrulesaccessgroup
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deleterulesaccessgroup
+        description: Removes an access group from a rule
+        call: core-rules.deleterulesaccessgroup
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/rulesets/check-slug
+      name: rulesets-check-slug
+      description: REST surface for rulesets-check-slug.
+      operations:
+      - method: POST
+        name: postrulesetscheckslug
+        description: Checks if a ruleset slug is available for the provided namespace
+        call: core-rules.postrulesetscheckslug
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: core-rules-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Core — rules. One tool per consumed operation, routed inline through this capability's consumes block.
+    tools:
+    - name: scalar-getrulesetsnamespaceslug
+      description: Get a the rule document
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: core-rules.getrulesetsnamespaceslug
+      with:
+        namespace: tools.namespace
+        slug: tools.slug
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: scalar-patchrulesetsnamespaceslug
+      description: Update rule metadata
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: core-rules.patchrulesetsnamespaceslug
+      with:
+        namespace: tools.namespace
+        slug: tools.slug
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: scalar-deleterulesetsnamespaceslug
+      description: Delete a specific rule
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: core-rules.deleterulesetsnamespaceslug
+      with:
+        namespace: tools.namespace
+        slug: tools.slug
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: scalar-getrulesetsgetbyiduid
+      description: Get a the rule document
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: core-rules.getrulesetsgetbyiduid
+      with:
+        uid: tools.uid
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: scalar-getrulesetsnamespace
+      description: Get a list of all rulesets for the namespace
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: core-rules.getrulesetsnamespace
+      with:
+        namespace: tools.namespace
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: scalar-postrulesetsnamespace
+      description: Create a new rule for the namespace
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: core-rules.postrulesetsnamespace
+      with:
+        namespace: tools.namespace
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: scalar-postrulesetsupload
+      description: Update rule content
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: core-rules.postrulesetsupload
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: scalar-postrulesaccessgroup
+      description: Adds an access group to a rule
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: core-rules.postrulesaccessgroup
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: scalar-deleterulesaccessgroup
+      description: Removes an access group from a rule
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: core-rules.deleterulesaccessgroup
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: scalar-postrulesetscheckslug
+      description: Checks if a ruleset slug is available for the provided namespace
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: core-rules.postrulesetscheckslug
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

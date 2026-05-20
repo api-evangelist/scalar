@@ -1,0 +1,134 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Open Linear issues from Scalar spec validation failures
+  description: When a new OpenAPI version registered in Scalar fails ruleset validation, create a Linear issue assigned to the API owner with a deep link back to the failing rules so spec hygiene is tracked alongside product work.
+  tags:
+  - Scalar
+  - Integration
+  - Project Tracking
+  - linear
+  created: '2026-05-20'
+  modified: '2026-05-20'
+binds:
+- namespace: env
+  keys:
+    SCALAR_API_KEY: SCALAR_API_KEY
+    LINEAR_API_KEY: LINEAR_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: scalar
+    baseUri: https://api.scalar.com
+    description: Scalar API operations consumed by this integration.
+    resources:
+    - name: rulesets-namespace-slug
+      path: /rulesets/{namespace}/{slug}
+      operations:
+      - name: getruleset
+        method: GET
+        description: Retrieve the ruleset whose run produced the failure.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: namespace
+          in: path
+          type: string
+          description: Path parameter namespace.
+          required: true
+        - name: slug
+          in: path
+          type: string
+          description: Path parameter slug.
+          required: true
+    - name: schemas-namespace
+      path: /schemas/{namespace}
+      operations:
+      - name: listschemas
+        method: GET
+        description: Look up the schema version that triggered the issue.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: namespace
+          in: path
+          type: string
+          description: Path parameter namespace.
+          required: true
+  - type: http
+    namespace: linear
+    baseUri: https://api.linear.app
+    description: Linear GraphQL API operations consumed by this integration.
+    resources:
+    - name: graphql
+      path: /graphql
+      operations:
+      - name: createissue
+        method: POST
+        description: 'Linear GraphQL API: createIssue'
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: graphql
+      path: /graphql
+      operations:
+      - name: addcomment
+        method: POST
+        description: 'Linear GraphQL API: addComment'
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+  exposes:
+  - type: mcp
+    namespace: scalar-linear-mcp
+    description: MCP adapter for the scalar-linear integration.
+    tools:
+    - name: scalar_linear
+      description: Execute the scalar linear integration end-to-end.
+      inputSchema:
+        type: object
+        properties:
+          trigger_event:
+            type: object
+            description: Triggering event payload.
+        required:
+        - trigger_event
+  - type: rest
+    namespace: scalar-linear-rest
+    port: 8080
+    description: REST adapter for the scalar-linear integration.
+    resources:
+    - path: /scalar-linear
+      name: scalar-linear
+      description: REST surface for the scalar-linear integration.
+      operations:
+      - method: POST
+        name: trigger
+        description: Trigger the scalar-linear integration.
+        call: scalar_linear
+        with:
+          trigger_event: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.

@@ -1,0 +1,284 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Core — docs
+  description: 'Core — docs. 6 operations. Lead operation: Creates a new docs version. Self-contained Naftiko capability covering one business surface.'
+  tags:
+  - Scalar
+  - docs
+  created: '2026-05-20'
+  modified: '2026-05-20'
+binds:
+- namespace: env
+  keys:
+    SCALAR_API_KEY: SCALAR_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: core-docs
+    baseUri: https://example.com
+    description: Core — docs business capability. Self-contained, no shared references.
+    resources:
+    - name: docs-version
+      path: /docs/version
+      operations:
+      - name: postdocsversion
+        method: POST
+        description: Creates a new docs version
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: docs-create-project
+      path: /docs/create-project
+      operations:
+      - name: postdocscreateproject
+        method: POST
+        description: Create a WYSIWYG project
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: docs-delete-project
+      path: /docs/delete-project
+      operations:
+      - name: deletedocsdeleteproject
+        method: DELETE
+        description: Deletes a project
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: docs-duplicate
+      path: /docs/duplicate
+      operations:
+      - name: postdocsduplicate
+        method: POST
+        description: Duplicates a page
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: project-update
+      path: /project/update
+      operations:
+      - name: postprojectupdate
+        method: POST
+        description: Update sync or hosted project record
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: docs-project-change-privacy
+      path: /docs/project/change-privacy
+      operations:
+      - name: postdocsprojectchangeprivacy
+        method: POST
+        description: Change the private status of a project
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+  exposes:
+  - type: rest
+    namespace: core-docs-rest
+    port: 8080
+    description: REST adapter for Core — docs. One resource per consumed operation, prefixed with /v1.
+    resources:
+    - path: /v1/docs/version
+      name: docs-version
+      description: REST surface for docs-version.
+      operations:
+      - method: POST
+        name: postdocsversion
+        description: Creates a new docs version
+        call: core-docs.postdocsversion
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/docs/create-project
+      name: docs-create-project
+      description: REST surface for docs-create-project.
+      operations:
+      - method: POST
+        name: postdocscreateproject
+        description: Create a WYSIWYG project
+        call: core-docs.postdocscreateproject
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/docs/delete-project
+      name: docs-delete-project
+      description: REST surface for docs-delete-project.
+      operations:
+      - method: DELETE
+        name: deletedocsdeleteproject
+        description: Deletes a project
+        call: core-docs.deletedocsdeleteproject
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/docs/duplicate
+      name: docs-duplicate
+      description: REST surface for docs-duplicate.
+      operations:
+      - method: POST
+        name: postdocsduplicate
+        description: Duplicates a page
+        call: core-docs.postdocsduplicate
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/project/update
+      name: project-update
+      description: REST surface for project-update.
+      operations:
+      - method: POST
+        name: postprojectupdate
+        description: Update sync or hosted project record
+        call: core-docs.postprojectupdate
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/docs/project/change-privacy
+      name: docs-project-change-privacy
+      description: REST surface for docs-project-change-privacy.
+      operations:
+      - method: POST
+        name: postdocsprojectchangeprivacy
+        description: Change the private status of a project
+        call: core-docs.postdocsprojectchangeprivacy
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: core-docs-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Core — docs. One tool per consumed operation, routed inline through this capability's consumes block.
+    tools:
+    - name: scalar-postdocsversion
+      description: Creates a new docs version
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: core-docs.postdocsversion
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: scalar-postdocscreateproject
+      description: Create a WYSIWYG project
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: core-docs.postdocscreateproject
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: scalar-deletedocsdeleteproject
+      description: Deletes a project
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: core-docs.deletedocsdeleteproject
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: scalar-postdocsduplicate
+      description: Duplicates a page
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: core-docs.postdocsduplicate
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: scalar-postprojectupdate
+      description: Update sync or hosted project record
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: core-docs.postprojectupdate
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: scalar-postdocsprojectchangeprivacy
+      description: Change the private status of a project
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: core-docs.postdocsprojectchangeprivacy
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

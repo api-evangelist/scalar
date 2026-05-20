@@ -1,0 +1,129 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Co-publish Scalar API references alongside Mintlify guides
+  description: Pair a Mintlify-hosted guide site with a Scalar API reference by registering the same OpenAPI document in Scalar, deploying the rendered reference, and linking Mintlify navigation entries to the Scalar-hosted URL.
+  tags:
+  - Scalar
+  - Integration
+  - Documentation
+  - mintlify
+  created: '2026-05-20'
+  modified: '2026-05-20'
+binds:
+- namespace: env
+  keys:
+    SCALAR_API_KEY: SCALAR_API_KEY
+    MINTLIFY_API_KEY: MINTLIFY_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: scalar
+    baseUri: https://api.scalar.com
+    description: Scalar API operations consumed by this integration.
+    resources:
+    - name: docs-create-project
+      path: /docs/create-project
+      operations:
+      - name: createdocsproject
+        method: POST
+        description: Create a Scalar docs project for the API reference half.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: publish-redeploy
+      path: /publish/redeploy
+      operations:
+      - name: redeploydocs
+        method: POST
+        description: Trigger a redeploy of the Scalar-hosted reference.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+  - type: http
+    namespace: mintlify
+    baseUri: https://api.mintlify.com
+    description: Mintlify API operations consumed by this integration.
+    resources:
+    - name: v1-deployments
+      path: /v1/deployments
+      operations:
+      - name: triggerdeployment
+        method: POST
+        description: 'Mintlify API: triggerDeployment'
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: v1-projects-project-id
+      path: /v1/projects/{project_id}
+      operations:
+      - name: getproject
+        method: GET
+        description: 'Mintlify API: getProject'
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: project_id
+          in: path
+          type: string
+          description: Path parameter project_id.
+          required: true
+  exposes:
+  - type: mcp
+    namespace: scalar-mintlify-mcp
+    description: MCP adapter for the scalar-mintlify integration.
+    tools:
+    - name: scalar_mintlify
+      description: Execute the scalar mintlify integration end-to-end.
+      inputSchema:
+        type: object
+        properties:
+          trigger_event:
+            type: object
+            description: Triggering event payload.
+        required:
+        - trigger_event
+  - type: rest
+    namespace: scalar-mintlify-rest
+    port: 8080
+    description: REST adapter for the scalar-mintlify integration.
+    resources:
+    - path: /scalar-mintlify
+      name: scalar-mintlify
+      description: REST surface for the scalar-mintlify integration.
+      operations:
+      - method: POST
+        name: trigger
+        description: Trigger the scalar-mintlify integration.
+        call: scalar_mintlify
+        with:
+          trigger_event: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
