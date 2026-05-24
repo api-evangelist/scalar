@@ -228,6 +228,8 @@ common:
     name: Scalar Usage Examples
   - type: Integrations
     url: https://scalar.com/integrations
+  - type: LLMsTxt
+    url: https://docs.scalar.com/llms.txt
 segments:
   - SDKs
   - Clients
