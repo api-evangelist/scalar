@@ -1,0 +1,4132 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Core",
+    "version": "1.0.1"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "auth",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "getme",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/me"
+          },
+          "docs": "Get a users basic information"
+        },
+        {
+          "info": {
+            "name": "postloginEmail",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/login/email",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Login with email password flow"
+        },
+        {
+          "info": {
+            "name": "postloginEmailSignup",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/login/email-signup",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Register with email password flow"
+        },
+        {
+          "info": {
+            "name": "postloginEmailOtp",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/login/email-otp",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Send an OTP verification code to the email"
+        },
+        {
+          "info": {
+            "name": "postloginEmailOtpVerify",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/login/email-otp/verify",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Verify OTP"
+        },
+        {
+          "info": {
+            "name": "postloginRefresh",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/login/refresh",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Refresh an access token and set the team uid token"
+        },
+        {
+          "info": {
+            "name": "postloginExchange",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/login/exchange",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Exchange the short lived URL token for access/refresh tokens"
+        },
+        {
+          "info": {
+            "name": "postloginGetExchange",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/login/get-exchange",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Gets an exchange token that can be used to redirect a user with auth credentials to different domain"
+        },
+        {
+          "info": {
+            "name": "postloginRequestPasswordReset",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/login/request-password-reset",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Request reset password"
+        },
+        {
+          "info": {
+            "name": "postloginResetPassword",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/login/reset-password",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Verify password reset request"
+        },
+        {
+          "info": {
+            "name": "postloginChangePassword",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/login/change-password",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Change password for authenticated user"
+        },
+        {
+          "info": {
+            "name": "postloginPersonalTokenGenerate",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/login/personal-token/generate",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Generate a new personal token"
+        },
+        {
+          "info": {
+            "name": "postloginPersonalTokenAccess",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/login/personal-token/access",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Generate a new access token from a personal token"
+        },
+        {
+          "info": {
+            "name": "postloginPersonalTokenUidRevoke",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/login/personal-token/:uid/revoke",
+            "params": [
+              {
+                "name": "uid",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Revoke a personal token"
+        },
+        {
+          "info": {
+            "name": "deleteloginPersonalTokenUid",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/login/personal-token/:uid",
+            "params": [
+              {
+                "name": "uid",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Delete a personal token"
+        },
+        {
+          "info": {
+            "name": "getidentityProviderUid",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/identity-provider/:uid",
+            "params": [
+              {
+                "name": "uid",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get an identity provider configuration for a team"
+        },
+        {
+          "info": {
+            "name": "deleteidentityProviderUid",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/identity-provider/:uid",
+            "params": [
+              {
+                "name": "uid",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Delete an identity provider configuration for a team"
+        },
+        {
+          "info": {
+            "name": "postidentityProvider",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/identity-provider",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Add an identity provider configuration for a team"
+        },
+        {
+          "info": {
+            "name": "postidentityProviderUpdate",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/identity-provider/update",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update an identity provider configuration for a team"
+        },
+        {
+          "info": {
+            "name": "getsamlMetadata",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/saml/metadata"
+          },
+          "docs": "Get base SP SAML metadata"
+        },
+        {
+          "info": {
+            "name": "getsamlIdpUidMetadata",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/saml/idp/:uid/metadata",
+            "params": [
+              {
+                "name": "uid",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get SAML IdP-specific connection metadata"
+        },
+        {
+          "info": {
+            "name": "getsamlIdpUidLogin",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/saml/idp/:uid/login",
+            "params": [
+              {
+                "name": "uid",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "redirect",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "resource",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "SAML connection login route"
+        },
+        {
+          "info": {
+            "name": "getsamlLogout",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/saml/logout"
+          },
+          "docs": "SAML logout route"
+        },
+        {
+          "info": {
+            "name": "postsamlAcs",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/saml/acs",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "SAML ACS route"
+        },
+        {
+          "info": {
+            "name": "postsamlInitiate",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/saml/initiate",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "SAML initiate route"
+        },
+        {
+          "info": {
+            "name": "getsamlCertSigning",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/saml/cert/signing"
+          },
+          "docs": "Return SAML public signing cert"
+        },
+        {
+          "info": {
+            "name": "getsamlCertEncryption",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/saml/cert/encryption"
+          },
+          "docs": "Return SAML public encryption cert"
+        },
+        {
+          "info": {
+            "name": "posteventsAuthVacuumRefreshTokens",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/events/auth/vacuum-refresh-tokens",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Clean-up unused refresh tokens"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "docs",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "postdocsVersion",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/docs/version",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new docs version"
+        },
+        {
+          "info": {
+            "name": "postdocsCreateProject",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/docs/create-project",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a WYSIWYG project"
+        },
+        {
+          "info": {
+            "name": "deletedocsDeleteProject",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/docs/delete-project",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Deletes a project"
+        },
+        {
+          "info": {
+            "name": "postdocsDuplicate",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/docs/duplicate",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Duplicates a page"
+        },
+        {
+          "info": {
+            "name": "postprojectUpdate",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/project/update",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update sync or hosted project record"
+        },
+        {
+          "info": {
+            "name": "postdocsProjectChangePrivacy",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/docs/project/change-privacy",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Change the private status of a project"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "team",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "getmeTeams",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/me/teams"
+          },
+          "docs": "List all teams the current user belongs to"
+        },
+        {
+          "info": {
+            "name": "postteamSlug",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/team/slug",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update a team slug"
+        },
+        {
+          "info": {
+            "name": "postteamSlugAvailable",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/team/slug/available",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Check if team slug is available"
+        },
+        {
+          "info": {
+            "name": "postteamCreate",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/team/create",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new team"
+        },
+        {
+          "info": {
+            "name": "postteamInvite",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/team/invite",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Invite a new member to the team"
+        },
+        {
+          "info": {
+            "name": "patchteamInvite",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/team/invite",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Resend an existing team invite"
+        },
+        {
+          "info": {
+            "name": "deleteteamInvite",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/team/invite",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Cancel a team invite"
+        },
+        {
+          "info": {
+            "name": "getteamAcceptInvite",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/team/accept-invite",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Accept an email team invite"
+        },
+        {
+          "info": {
+            "name": "postteamRename",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/team/rename",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Rename a team and handle multiple record updates"
+        },
+        {
+          "info": {
+            "name": "postteamImage",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/team/image",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update a team logo image and handle multiple record updates"
+        },
+        {
+          "info": {
+            "name": "getteamLeave",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/team/leave"
+          },
+          "docs": "Allow a user to leave a team"
+        },
+        {
+          "info": {
+            "name": "deleteteam",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/team"
+          },
+          "docs": "Delete a team"
+        },
+        {
+          "info": {
+            "name": "postteamDeleteMember",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/team/delete-member",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Remove a user from the team"
+        },
+        {
+          "info": {
+            "name": "postteamUpdate",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/team/update",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update a team record"
+        },
+        {
+          "info": {
+            "name": "postteamUpdateUser",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/team/update-user",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update a team user record (safe properties only)"
+        },
+        {
+          "info": {
+            "name": "getteamBilling",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/team/billing"
+          },
+          "docs": "Team billing invoice and plan summary"
+        },
+        {
+          "info": {
+            "name": "postteamBillingEmail",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/team/billing/email",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update a team's billing email"
+        },
+        {
+          "info": {
+            "name": "postteamUpdatePlan",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/team/update/plan",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update a team's billing plan"
+        },
+        {
+          "info": {
+            "name": "postteamUpdateRole",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/team/update-role",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates user role for a team member"
+        },
+        {
+          "info": {
+            "name": "deleteinternalTeamArchive",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/internal/team/archive",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Scheduled internal deletion for premium teams"
+        },
+        {
+          "info": {
+            "name": "postteamNamespaceUpdate",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/team/namespace/update",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update a team namespace"
+        },
+        {
+          "info": {
+            "name": "postteamNamespace",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/team/namespace",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a team namespace"
+        },
+        {
+          "info": {
+            "name": "postteamNamespaceAvailable",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/team/namespace/available",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Check if team namespace is available"
+        },
+        {
+          "info": {
+            "name": "getteamNamespaces",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/team/namespaces"
+          },
+          "docs": "Get all namespaces for the current team"
+        },
+        {
+          "info": {
+            "name": "postteamOnboardingSetup",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/team/onboarding/setup",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Onboarding team setup"
+        },
+        {
+          "info": {
+            "name": "postteamOnboardingComplete",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/team/onboarding/complete"
+          },
+          "docs": "Onboarding team complete"
+        },
+        {
+          "info": {
+            "name": "postinternalTeamFeatures",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/internal/team/features",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Internal endpoint to update feature flags for a team"
+        },
+        {
+          "info": {
+            "name": "postpubsubInviteTeamMember",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/pubsub/invite-team-member",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Pubsub invite a new member to the team"
+        },
+        {
+          "info": {
+            "name": "postpubsubTeamMemberInvited",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/pubsub/team-member-invited",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Pubsub team member invited"
+        },
+        {
+          "info": {
+            "name": "postteamIcon",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/team/icon",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Adds a custom icon to the team"
+        },
+        {
+          "info": {
+            "name": "deleteteamIcon",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/team/icon",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Deletes a custom icon from the team"
+        },
+        {
+          "info": {
+            "name": "postteamAuthenticationDomain",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/team/authentication/domain",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Add a domain to authentication allowlist"
+        },
+        {
+          "info": {
+            "name": "deleteteamAuthenticationDomain",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/team/authentication/domain",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Remove a domain from authentication allowlist"
+        },
+        {
+          "info": {
+            "name": "postteamAuthenticationMethod",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/team/authentication/method",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Enable or disable authentication method for the team"
+        },
+        {
+          "info": {
+            "name": "postteamAuthenticationUser",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/team/authentication/user",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Edit team authentication user controls"
+        },
+        {
+          "info": {
+            "name": "deleteteamAuthenticationUser",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/team/authentication/user",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Remove team authentication user controls"
+        },
+        {
+          "info": {
+            "name": "postteamAuthenticationUserMethod",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/team/authentication/user/method",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Enable or disable authentication method for a user"
+        },
+        {
+          "info": {
+            "name": "postteamExternalAccessMethod",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/team/external-access/method",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Enable or disable external access methods for the team"
+        },
+        {
+          "info": {
+            "name": "postinternalTeamsTeamUidNotifyMcpApprovalRequired",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/internal/teams/:teamUid/notify-mcp-approval-required",
+            "params": [
+              {
+                "name": "teamUid",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Notify a team's admins/owners that an MCP server version is awaiting approval."
+        },
+        {
+          "info": {
+            "name": "postuserUpdate",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/user/update",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update user record"
+        },
+        {
+          "info": {
+            "name": "postinternalUserBan",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/internal/user/ban",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Ban a user by email. Banning will deny a user from creating an account or logging in."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "utility",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "postfeedback",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/feedback",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Submit app feedback"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "signup",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "postsignupData",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/signup-data",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Save docs data on signup"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "waitlist",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "postwaitlist",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/waitlist",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Submit app feedback"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "payment",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "poststripe",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/stripe",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Stripe webhook handling"
+        },
+        {
+          "info": {
+            "name": "postpaymentStart",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/payment/start",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new stripe checkout session or redirect to the customer billing portal."
+        },
+        {
+          "info": {
+            "name": "postpaymentBillingStart",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/payment/billing/start",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a stripe management session for billing management"
+        },
+        {
+          "info": {
+            "name": "postinternalBillingSyncSubscription",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/internal/billing/sync-subscription",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Syncs a teams billable resources with stripe"
+        },
+        {
+          "info": {
+            "name": "postinternalBillingIncrementAgentMessages",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/internal/billing/increment/agent-messages",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Increments an agent keys message usage in Stripe"
+        },
+        {
+          "info": {
+            "name": "postinternalBillingIncrementAgentTokens",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/internal/billing/increment/agent-tokens",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Increments a teams subscription agent token usage"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "github",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "getgithubAuthorize",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/github/authorize",
+            "params": [
+              {
+                "name": "code",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "state",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Get and save a user github token to their database object. This allows subsequent queries for github data from the users scope."
+        },
+        {
+          "info": {
+            "name": "getgithubLinkInitiate",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/github/link/initiate",
+            "params": [
+              {
+                "name": "redirect",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Issue a signed OAuth state token for the GitHub user-authorization flow and return the GitHub authorize URL the client should redirect to. Optionally remembers a dashboard path to return the user to after the round-trip."
+        },
+        {
+          "info": {
+            "name": "getgithubRepos",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/github/repos"
+          },
+          "docs": "Get a list of repositories that can be linked to a project"
+        },
+        {
+          "info": {
+            "name": "getgithubReposId",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/github/repos/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get repository info"
+        },
+        {
+          "info": {
+            "name": "postgithubLinkRepo",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/github/link-repo",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Links a github repo to a Scalar github project"
+        },
+        {
+          "info": {
+            "name": "getgithubDocsProjectUidCommits",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/github/docs-project/:uid/commits",
+            "params": [
+              {
+                "name": "uid",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "branch",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "perPage",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "List commits from the GitHub repo backing a `provider: github` DocsProject"
+        },
+        {
+          "info": {
+            "name": "getgithubDocsProjectUidBranches",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/github/docs-project/:uid/branches",
+            "params": [
+              {
+                "name": "uid",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "query",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "perPage",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "List branches on the GitHub repo backing a `provider: github` DocsProject. Supports prefix search."
+        },
+        {
+          "info": {
+            "name": "postgithubDocsProjectUidPullRequest",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/github/docs-project/:uid/pull-request",
+            "params": [
+              {
+                "name": "uid",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a pull request on the GitHub repo backing a `provider: github` DocsProject"
+        },
+        {
+          "info": {
+            "name": "postgithubSlugAvailable",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/github/slug/available",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Check if github slug is available"
+        },
+        {
+          "info": {
+            "name": "postgithubSlug",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/github/slug",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update a github project slug"
+        },
+        {
+          "info": {
+            "name": "postgithubCreate",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/github/create",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a github project that is not linked to a github repo. This project will be used by the cli flow."
+        },
+        {
+          "info": {
+            "name": "postgithubUnlinkRepo",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/github/unlink-repo",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Unlink a github repo from a Scalar github project"
+        },
+        {
+          "info": {
+            "name": "postgithubConfigValidate",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/github/config/validate",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Validate configuration file for a github project"
+        },
+        {
+          "info": {
+            "name": "getgithubSlug",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/github/:slug",
+            "params": [
+              {
+                "name": "slug",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get a github project."
+        },
+        {
+          "info": {
+            "name": "getgithubListProjects",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/github/list-projects"
+          },
+          "docs": "Get github projects for the team"
+        },
+        {
+          "info": {
+            "name": "postgithubDelete",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/github/delete",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Deletes a Github project"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "vcs",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "getvcsBitbucketAuthorize",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/vcs/bitbucket/authorize",
+            "params": [
+              {
+                "name": "code",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "state",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Get and save a user Bitbucket token to their database object. This allows subsequent queries for Bitbucket data from the user scope."
+        },
+        {
+          "info": {
+            "name": "getvcsBitbucketLinkInitiate",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/vcs/bitbucket/link/initiate",
+            "params": [
+              {
+                "name": "redirect",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Issue a signed OAuth state token for the Bitbucket user-authorization flow and return the Bitbucket authorize URL the client should redirect to. Optionally remembers a dashboard path to return the user to after the round-trip."
+        },
+        {
+          "info": {
+            "name": "getvcsBitbucketWorkspaces",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/vcs/bitbucket/workspaces"
+          },
+          "docs": "List the calling user's Bitbucket workspaces and the repositories they can write to. Used by the link-to-Bitbucket UI."
+        },
+        {
+          "info": {
+            "name": "getvcsBitbucketDocsProjectUidBranches",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/vcs/bitbucket/docs-project/:uid/branches",
+            "params": [
+              {
+                "name": "uid",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "query",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "perPage",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "List branches on the Bitbucket repo backing a `provider: 'bitbucket'` DocsProject. Supports prefix search via the `query` param."
+        },
+        {
+          "info": {
+            "name": "postvcsBitbucketDisconnectAccount",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/vcs/bitbucket/disconnect-account"
+          },
+          "docs": "Wipe the calling user's Bitbucket OAuth tokens. Any DocsProjects this user linked will lose their token and need to be re-linked or have the linker swap accounts on Bitbucket."
+        },
+        {
+          "info": {
+            "name": "postvcsGithubDisconnectAccount",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/vcs/github/disconnect-account"
+          },
+          "docs": "Wipe the calling user's GitHub OAuth tokens. Any DocsProjects this user linked will lose their token; the user can reconnect at any time."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "api-docs",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "postmanagedDocAccessGroup",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/managed-doc/access-group",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Adds an access group to a managed doc"
+        },
+        {
+          "info": {
+            "name": "deletemanagedDocAccessGroup",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/managed-doc/access-group",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Removes an access group from a managed doc"
+        },
+        {
+          "info": {
+            "name": "postmanagedDocAvailable",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/managed-doc/available",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Checks if a registry slug is available"
+        },
+        {
+          "info": {
+            "name": "getmanagedDocNamespace",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/managed-doc/:namespace",
+            "params": [
+              {
+                "name": "namespace",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get a list of all documents for the namespace"
+        },
+        {
+          "info": {
+            "name": "postmanagedDocNamespace",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/managed-doc/:namespace",
+            "params": [
+              {
+                "name": "namespace",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new api document for the namespace"
+        },
+        {
+          "info": {
+            "name": "getmanagedDocNamespaceSlug",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/managed-doc/:namespace/:slug",
+            "params": [
+              {
+                "name": "namespace",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "slug",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get a specific managed document"
+        },
+        {
+          "info": {
+            "name": "patchmanagedDocNamespaceSlug",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/managed-doc/:namespace/:slug",
+            "params": [
+              {
+                "name": "namespace",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "slug",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update metadata for a specific managed document"
+        },
+        {
+          "info": {
+            "name": "deletemanagedDocNamespaceSlug",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/managed-doc/:namespace/:slug",
+            "params": [
+              {
+                "name": "namespace",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "slug",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Delete a specific managed document and all of the related versions"
+        },
+        {
+          "info": {
+            "name": "getmanagedDocNamespaceSlugVersionSemver",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/managed-doc/:namespace/:slug/version/:semver",
+            "params": [
+              {
+                "name": "namespace",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "slug",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "semver",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get a specific managed document version stream"
+        },
+        {
+          "info": {
+            "name": "patchmanagedDocNamespaceSlugVersionSemver",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/managed-doc/:namespace/:slug/version/:semver",
+            "params": [
+              {
+                "name": "namespace",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "slug",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "semver",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update the registry file content for the doc version"
+        },
+        {
+          "info": {
+            "name": "deletemanagedDocNamespaceSlugVersionSemver",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/managed-doc/:namespace/:slug/version/:semver",
+            "params": [
+              {
+                "name": "namespace",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "slug",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "semver",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Delete a specific managed document version"
+        },
+        {
+          "info": {
+            "name": "getmanagedDocNamespaceSlugVersionSemverMetadata",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/managed-doc/:namespace/:slug/version/:semver/metadata",
+            "params": [
+              {
+                "name": "namespace",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "slug",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "semver",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get metadata for a specific api document version"
+        },
+        {
+          "info": {
+            "name": "postmanagedDocNamespaceSlugVersion",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/managed-doc/:namespace/:slug/version",
+            "params": [
+              {
+                "name": "namespace",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "slug",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new api document version"
+        },
+        {
+          "info": {
+            "name": "getmanagedDoc",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/managed-doc"
+          },
+          "docs": "Get a list of all documents for a team"
+        },
+        {
+          "info": {
+            "name": "postpubsubApiUpdated",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/pubsub/api-updated",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Registry API updated subscription handler"
+        },
+        {
+          "info": {
+            "name": "postpubsubApiVersionDeleted",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/pubsub/api-version-deleted",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Registry API updated subscription handler"
+        },
+        {
+          "info": {
+            "name": "postpubsubApiEmbedComplete",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/pubsub/api-embed-complete",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Registry API Vector embedding complete"
+        },
+        {
+          "info": {
+            "name": "postpubsubApiEmbedFailed",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/pubsub/api-embed-failed",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Registry API Vector embedding failed"
+        },
+        {
+          "info": {
+            "name": "postmanagedDocNamespaceSlugVersionSemverTools",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/managed-doc/:namespace/:slug/version/:semver/tools",
+            "params": [
+              {
+                "name": "namespace",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "slug",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "semver",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update managed docs MCP tools."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "rules",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "getrulesetsNamespaceSlug",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/rulesets/:namespace/:slug",
+            "params": [
+              {
+                "name": "namespace",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "slug",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get a the rule document"
+        },
+        {
+          "info": {
+            "name": "patchrulesetsNamespaceSlug",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/rulesets/:namespace/:slug",
+            "params": [
+              {
+                "name": "namespace",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "slug",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update rule metadata"
+        },
+        {
+          "info": {
+            "name": "deleterulesetsNamespaceSlug",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/rulesets/:namespace/:slug",
+            "params": [
+              {
+                "name": "namespace",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "slug",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Delete a specific rule"
+        },
+        {
+          "info": {
+            "name": "getrulesetsGetByIdUid",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/rulesets/get-by-id/:uid",
+            "params": [
+              {
+                "name": "uid",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get a the rule document"
+        },
+        {
+          "info": {
+            "name": "getrulesetsNamespace",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/rulesets/:namespace",
+            "params": [
+              {
+                "name": "namespace",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get a list of all rulesets for the namespace"
+        },
+        {
+          "info": {
+            "name": "postrulesetsNamespace",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/rulesets/:namespace",
+            "params": [
+              {
+                "name": "namespace",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new rule for the namespace"
+        },
+        {
+          "info": {
+            "name": "postrulesetsUpload",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/rulesets/upload",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update rule content"
+        },
+        {
+          "info": {
+            "name": "postrulesAccessGroup",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/rules/access-group",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Adds an access group to a rule"
+        },
+        {
+          "info": {
+            "name": "deleterulesAccessGroup",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/rules/access-group",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Removes an access group from a rule"
+        },
+        {
+          "info": {
+            "name": "postrulesetsCheckSlug",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/rulesets/check-slug",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Checks if a ruleset slug is available for the provided namespace"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "publish",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "postpublishDnsCheck",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/publish/dns-check",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Validates the DNS records for a specified subdomain"
+        },
+        {
+          "info": {
+            "name": "deleteunpublish",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/unpublish",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Removes the active deploy from a project, without deleting cached assets"
+        },
+        {
+          "info": {
+            "name": "deletepublish",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/publish",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Delete a publish record and its cached assets"
+        },
+        {
+          "info": {
+            "name": "postpubsubPublishDeleted",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/pubsub/publish-deleted",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Deletes a cached build from the GCP bucket"
+        },
+        {
+          "info": {
+            "name": "postpublishRedeploy",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/publish/redeploy",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Redeploy a previous publish"
+        },
+        {
+          "info": {
+            "name": "deletepublishBulk",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/publish/bulk",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Bulk delete all non-deployed publish records"
+        },
+        {
+          "info": {
+            "name": "postpublishCancel",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/publish/cancel",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Cancel an in-flight publish before it goes live"
+        },
+        {
+          "info": {
+            "name": "getpublishLogsPublishUid",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/publish/logs/:publishUid",
+            "params": [
+              {
+                "name": "publishUid",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Checks & creates a publish record for a CLI publish"
+        },
+        {
+          "info": {
+            "name": "postpublishDomainsAvailability",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/publish/domains/availability",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Checks availability for publish domain"
+        },
+        {
+          "info": {
+            "name": "postpublishDomainsProject",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/publish/domains/project",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Returns active domains for a project"
+        },
+        {
+          "info": {
+            "name": "getpublishDeployCheck",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/publish/deploy-check",
+            "params": [
+              {
+                "name": "domain",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Verifies a specific site is deployed and SSL certificates can be issued for it. "
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "access-groups",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "getv1AccessGroupsSlug",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v1/access-groups/:slug",
+            "params": [
+              {
+                "name": "slug",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get an access group by slug"
+        },
+        {
+          "info": {
+            "name": "postv1AccessGroups",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/v1/access-groups",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates an access group"
+        },
+        {
+          "info": {
+            "name": "patchv1AccessGroupsUid",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/v1/access-groups/:uid",
+            "params": [
+              {
+                "name": "uid",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates an access group by UID"
+        },
+        {
+          "info": {
+            "name": "deletev1AccessGroupsUid",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/v1/access-groups/:uid",
+            "params": [
+              {
+                "name": "uid",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Deletes an access group by UID"
+        },
+        {
+          "info": {
+            "name": "postv1AccessGroupsUidEmails",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/v1/access-groups/:uid/emails",
+            "params": [
+              {
+                "name": "uid",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Adds a new email to an access group"
+        },
+        {
+          "info": {
+            "name": "deletev1AccessGroupsUidEmails",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/v1/access-groups/:uid/emails",
+            "params": [
+              {
+                "name": "uid",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Removes an existing email from an access group"
+        },
+        {
+          "info": {
+            "name": "postv1AccessGroupsUidDomains",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/v1/access-groups/:uid/domains",
+            "params": [
+              {
+                "name": "uid",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Adds a new domain to an access group"
+        },
+        {
+          "info": {
+            "name": "deletev1AccessGroupsUidDomains",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/v1/access-groups/:uid/domains",
+            "params": [
+              {
+                "name": "uid",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Removes an existing domain from an access group"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "login-portals",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "getloginPortalsSlug",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/login-portals/:slug",
+            "params": [
+              {
+                "name": "slug",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get a login portal"
+        },
+        {
+          "info": {
+            "name": "getloginPortals",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/login-portals"
+          },
+          "docs": "Get a list of all login portals for the team"
+        },
+        {
+          "info": {
+            "name": "postloginPortals",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/login-portals",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new login portal for the team"
+        },
+        {
+          "info": {
+            "name": "deleteloginPortals",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/login-portals",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Delete a specific login portal"
+        },
+        {
+          "info": {
+            "name": "postloginPortalsUpdate",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/login-portals/update",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update login portals metadata"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "schemas",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "postschemasCheckSlug",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/schemas/check-slug",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Checks if a schema slug is available"
+        },
+        {
+          "info": {
+            "name": "postschemasAccessGroup",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/schemas/access-group",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Adds an access group to a managed schema"
+        },
+        {
+          "info": {
+            "name": "deleteschemasAccessGroup",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/schemas/access-group",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Removes an access group from a managed schema"
+        },
+        {
+          "info": {
+            "name": "getschemasNamespace",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/schemas/:namespace",
+            "params": [
+              {
+                "name": "namespace",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get a list of all schemas for the namespace"
+        },
+        {
+          "info": {
+            "name": "postschemasNamespace",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/schemas/:namespace",
+            "params": [
+              {
+                "name": "namespace",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a managed schema"
+        },
+        {
+          "info": {
+            "name": "patchschemasNamespaceSlug",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/schemas/:namespace/:slug",
+            "params": [
+              {
+                "name": "namespace",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "slug",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update schema metadata"
+        },
+        {
+          "info": {
+            "name": "deleteschemasNamespaceSlug",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/schemas/:namespace/:slug",
+            "params": [
+              {
+                "name": "namespace",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "slug",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Delete a specific schema and all of the related versions"
+        },
+        {
+          "info": {
+            "name": "getschemasNamespaceSlugVersionSemver",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/schemas/:namespace/:slug/version/:semver",
+            "params": [
+              {
+                "name": "namespace",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "slug",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "semver",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get a specific schema document"
+        },
+        {
+          "info": {
+            "name": "postschemasNamespaceSlugVersionSemver",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/schemas/:namespace/:slug/version/:semver",
+            "params": [
+              {
+                "name": "namespace",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "slug",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "semver",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update managed schema content in GCS"
+        },
+        {
+          "info": {
+            "name": "deleteschemasNamespaceSlugVersionSemver",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/schemas/:namespace/:slug/version/:semver",
+            "params": [
+              {
+                "name": "namespace",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "slug",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "semver",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Delete a specific schema version"
+        },
+        {
+          "info": {
+            "name": "postschemasNamespaceSlugVersion",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/schemas/:namespace/:slug/version",
+            "params": [
+              {
+                "name": "namespace",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "slug",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new schema version"
+        },
+        {
+          "info": {
+            "name": "postschemasNamespaceSlugVersionVersionDuplicate",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/schemas/:namespace/:slug/version/:version/duplicate",
+            "params": [
+              {
+                "name": "namespace",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "slug",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Duplicate schema version"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "sdks",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "postv1SdksSync",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/v1/sdks/sync",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Manually trigger git sync for SDK build"
+        },
+        {
+          "info": {
+            "name": "postv1Sdks",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/v1/sdks",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new sdk from a registry API"
+        },
+        {
+          "info": {
+            "name": "postv1SdksVersion",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/v1/sdks/version",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new version for SDK"
+        },
+        {
+          "info": {
+            "name": "patchv1SdksUid",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/v1/sdks/:uid",
+            "params": [
+              {
+                "name": "uid",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update an SDK by UID"
+        },
+        {
+          "info": {
+            "name": "deletev1SdksUid",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/v1/sdks/:uid",
+            "params": [
+              {
+                "name": "uid",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Delete an SDK by UID"
+        },
+        {
+          "info": {
+            "name": "postpubsubSdkBuildComplete",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/pubsub/sdk-build-complete",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Side effect processing after SDK generation completes"
+        },
+        {
+          "info": {
+            "name": "postpubsubSdkBuildFailed",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/pubsub/sdk-build-failed",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Side effect processing after SDK generation fails"
+        },
+        {
+          "info": {
+            "name": "postv1SdksBulk",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/v1/sdks/bulk",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates multiple language SDKs from a registry API"
+        },
+        {
+          "info": {
+            "name": "postv1SdksAvailable",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/v1/sdks/available",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Checks if an SDK slug is available"
+        },
+        {
+          "info": {
+            "name": "postv1SdksUidAccessGroup",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/v1/sdks/:uid/access-group",
+            "params": [
+              {
+                "name": "uid",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Adds an access group to an SDK"
+        },
+        {
+          "info": {
+            "name": "deletev1SdksUidAccessGroup",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/v1/sdks/:uid/access-group",
+            "params": [
+              {
+                "name": "uid",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Removes an access group from an SDK"
+        },
+        {
+          "info": {
+            "name": "postv1SdksRepository",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/v1/sdks/repository",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Links an SDK to a github repository"
+        },
+        {
+          "info": {
+            "name": "deletev1SdksRepository",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/v1/sdks/repository",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Unlinks SDK repository"
+        },
+        {
+          "info": {
+            "name": "postv1SdksRepositoryUpdate",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/v1/sdks/repository/update",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates an SDK repository metadata"
+        },
+        {
+          "info": {
+            "name": "postpubsubApiVersionCreatedCreateSdkVersion",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/pubsub/api-version-created/create-sdk-version",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "API version created SDK processing"
+        },
+        {
+          "info": {
+            "name": "postpubsubSdkVersionCreated",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/pubsub/sdk-version-created",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "PubSub SDK version created"
+        },
+        {
+          "info": {
+            "name": "postpubsubSdkRepositoryLinked",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/pubsub/sdk-repository-linked",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Handle side effects for SDK repository linking"
+        },
+        {
+          "info": {
+            "name": "postpubsubSdkGitComplete",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/pubsub/sdk-git-complete",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Side effect processing after SDK git sync succeeds"
+        },
+        {
+          "info": {
+            "name": "postpubsubSdkGitFailed",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/pubsub/sdk-git-failed",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Side effect processing after SDK git sync fails"
+        },
+        {
+          "info": {
+            "name": "postv1SdksBuild",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/v1/sdks/build",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Trigger manual SDK build"
+        },
+        {
+          "info": {
+            "name": "postv1SdksSnippets",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/v1/sdks/snippets",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Generate SDK snippets for a Registry API"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Default",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "postinternalSdkAuthorizeGithub",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/internal/sdk/authorize-github",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Internally get GitHub token for a linked SDK repository"
+        },
+        {
+          "info": {
+            "name": "getforgejoGitCredentials",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/forgejo/git-credentials"
+          },
+          "docs": "Get Forgejo git credentials for the authenticated user"
+        },
+        {
+          "info": {
+            "name": "postdocsProjectsCreate",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/docs-projects/create",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a unified DocsProject backed by the chosen VCS provider (forgejo, github, or bitbucket)"
+        },
+        {
+          "info": {
+            "name": "deletedocsProjectsDelete",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/docs-projects/delete",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Delete a unified DocsProject. Tears down deploys + publish records + cached builds, repoints user activeProjectUid, deletes the Forgejo repo (if any), and notifies subscribers. User-owned GitHub repos are left untouched."
+        },
+        {
+          "info": {
+            "name": "getdocsProjectsSlug",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/docs-projects/:slug",
+            "params": [
+              {
+                "name": "slug",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get a unified DocsProject by slug for the current team"
+        },
+        {
+          "info": {
+            "name": "postdocsProjectsUpdateRepoSettings",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/docs-projects/update-repo-settings",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update editable repository settings (tracked branch, config path) on a unified DocsProject. Publish flags live in scalar.config.json."
+        },
+        {
+          "info": {
+            "name": "postdocsProjectsProjectUidLinkGithub",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/docs-projects/:projectUid/link-github",
+            "params": [
+              {
+                "name": "projectUid",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Convert a Forgejo-backed DocsProject into a GitHub-backed one. Reads every file from the Forgejo repo and opens a single PR on the chosen GitHub repo putting the content under scalar-docs/."
+        },
+        {
+          "info": {
+            "name": "postdocsProjectsProjectUidUnlinkGithub",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/docs-projects/:projectUid/unlink-github",
+            "params": [
+              {
+                "name": "projectUid",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Convert a GitHub-backed DocsProject back to a Forgejo-backed one. Migrates the GitHub repository contents into a fresh Forgejo repo and flips the project provider."
+        },
+        {
+          "info": {
+            "name": "postdocsProjectsProjectUidLinkBitbucket",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/docs-projects/:projectUid/link-bitbucket",
+            "params": [
+              {
+                "name": "projectUid",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Convert a Forgejo-backed DocsProject into a Bitbucket-backed one. Reads every file from the Forgejo repo and opens a single PR on the chosen Bitbucket repo putting the content under scalar-docs/."
+        },
+        {
+          "info": {
+            "name": "postdocsProjectsProjectUidUnlinkBitbucket",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/docs-projects/:projectUid/unlink-bitbucket",
+            "params": [
+              {
+                "name": "projectUid",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Convert a Bitbucket-backed DocsProject back to a Forgejo-backed one. Migrates the Bitbucket repository contents into a fresh Forgejo repo and flips the project provider."
+        },
+        {
+          "info": {
+            "name": "postdocsProjectsProjectUidBitbucketRefreshWebhook",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/docs-projects/:projectUid/bitbucket/refresh-webhook",
+            "params": [
+              {
+                "name": "projectUid",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Re-register the Bitbucket webhook on a Bitbucket-backed DocsProject. Used to recover from a failed initial registration after the linker user is granted repo admin."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "themes",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "getthemesSlug",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/themes/:slug",
+            "params": [
+              {
+                "name": "slug",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get a theme document by slug"
+        },
+        {
+          "info": {
+            "name": "putthemesSlug",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/themes/:slug",
+            "params": [
+              {
+                "name": "slug",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update themes document"
+        },
+        {
+          "info": {
+            "name": "patchthemesSlug",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/themes/:slug",
+            "params": [
+              {
+                "name": "slug",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update themes metadata"
+        },
+        {
+          "info": {
+            "name": "deletethemesSlug",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/themes/:slug",
+            "params": [
+              {
+                "name": "slug",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Delete a specific themes"
+        },
+        {
+          "info": {
+            "name": "getthemes",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/themes"
+          },
+          "docs": "Get a list of all themes for the team"
+        },
+        {
+          "info": {
+            "name": "postthemes",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/themes",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new theme for the team"
+        },
+        {
+          "info": {
+            "name": "postpubsubThemeUpdated",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/pubsub/theme-updated",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "PubSub theme updated route"
+        },
+        {
+          "info": {
+            "name": "postpubsubThemeDeleted",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/pubsub/theme-deleted",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "PubSub theme deleted route"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "share",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "postshareUploadNamespace",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/share/upload/:namespace",
+            "params": [
+              {
+                "name": "namespace",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "source",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Upload a document to the reserved share namespace"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "workspace",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "postworkspacesNamespace",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/workspaces/:namespace",
+            "params": [
+              {
+                "name": "namespace",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new workspace"
+        },
+        {
+          "info": {
+            "name": "patchworkspacesNamespaceSlug",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/workspaces/:namespace/:slug",
+            "params": [
+              {
+                "name": "namespace",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "slug",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update team workspace metadata"
+        },
+        {
+          "info": {
+            "name": "deleteworkspacesNamespaceSlug",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/workspaces/:namespace/:slug",
+            "params": [
+              {
+                "name": "namespace",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "slug",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Delete a team workspace"
+        },
+        {
+          "info": {
+            "name": "postworkspacesNamespaceSlugVersion",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/workspaces/:namespace/:slug/version",
+            "params": [
+              {
+                "name": "namespace",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "slug",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create or update a workspace JSON version"
+        },
+        {
+          "info": {
+            "name": "postworkspacesNamespaceSlugAccessGroup",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/workspaces/:namespace/:slug/access/:group",
+            "params": [
+              {
+                "name": "namespace",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "slug",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "group",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Adds an access group to a workspace"
+        },
+        {
+          "info": {
+            "name": "deleteworkspacesNamespaceSlugAccessGroup",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/workspaces/:namespace/:slug/access/:group",
+            "params": [
+              {
+                "name": "namespace",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "slug",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "group",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Removes an access group from a workspace"
+        },
+        {
+          "info": {
+            "name": "getworkspacesNamespaceSlugAvailable",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/workspaces/:namespace/:slug/available",
+            "params": [
+              {
+                "name": "namespace",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "slug",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Check availability for workspace namespace and slug"
+        },
+        {
+          "info": {
+            "name": "deleteworkspacesNamespaceSlugVersionVersion",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/workspaces/:namespace/:slug/version/:version",
+            "params": [
+              {
+                "name": "namespace",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "slug",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Delete a team workspace version"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "analytics",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "getanalyticsProjectsProjectUidOverview",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/analytics/projects/:projectUid/overview",
+            "params": [
+              {
+                "name": "projectUid",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "range",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "granularity",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "KPI totals + timeseries + consumer breakdown for a docs project"
+        },
+        {
+          "info": {
+            "name": "getanalyticsProjectsProjectUidPages",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/analytics/projects/:projectUid/pages",
+            "params": [
+              {
+                "name": "projectUid",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "range",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Top pages by views for a docs project"
+        },
+        {
+          "info": {
+            "name": "getanalyticsProjectsProjectUidReferrers",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/analytics/projects/:projectUid/referrers",
+            "params": [
+              {
+                "name": "projectUid",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "range",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Top referrers for a docs project"
+        },
+        {
+          "info": {
+            "name": "getanalyticsProjectsProjectUidConsumers",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/analytics/projects/:projectUid/consumers",
+            "params": [
+              {
+                "name": "projectUid",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "range",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "granularity",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Consumer breakdown (human/bot/llm/mcp) for a docs project"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
