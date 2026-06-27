@@ -2,20 +2,13 @@
   "repo": "scalar",
   "feeds": [
     {
-      "source": "https://discord.gg/scalar",
-      "feed_url": "https://discord.gg/scalar",
-      "title": "",
-      "saved": 0,
-      "method": "none"
-    },
-    {
       "source": "https://scalar.com/blog",
-      "feed_url": "https://scalar.com/blog",
-      "title": "",
+      "feed_url": "",
       "saved": 0,
-      "method": "none"
+      "method": "agent-scrape"
     }
   ],
-  "fetched": "2026-06-14T20:42:17Z",
-  "post_count": 0
+  "fetched": "2026-06-27T13:08:52Z",
+  "post_count": 16,
+  "agent_pulled": "2026-06-27"
 }
