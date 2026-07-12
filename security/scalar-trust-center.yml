@@ -1,0 +1,14 @@
+generated: '2026-07-11'
+method: searched
+probe: true
+source: https://scalar.com/trust
+url: https://scalar.com/trust
+certifications:
+- SOC 2
+- GDPR
+evidence:
+- source: https://scalar.com/trust
+  keywords:
+  - soc 2
+  - trust center
+  - gdpr
