@@ -179,6 +179,8 @@ apis:
       - type: NPM
         url: https://www.npmjs.com/package/@scalar/cli
 common:
+  - type: AgenticAccess
+    url: agentic-access/scalar-agentic-access.yml
   - type: TrustCenter
     url: security/scalar-trust-center.yml
   - type: VulnerabilityDisclosure
