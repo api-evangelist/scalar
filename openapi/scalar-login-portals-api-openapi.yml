@@ -1,0 +1,551 @@
+openapi: 3.1.1
+info:
+  title: Core access-groups login-portals API
+  description: Core services for Scalar
+  version: 1.0.1
+  contact:
+    name: Marc from Scalar
+    url: https://scalar.com
+    email: support@scalar.com
+security:
+- BearerAuth: []
+tags:
+- name: login-portals
+paths:
+  /login-portals/{slug}:
+    get:
+      tags:
+      - login-portals
+      description: Get a login portal
+      operationId: getloginPortalsSlug
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/login-portal'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
+      parameters:
+      - schema:
+          type: string
+        in: path
+        name: slug
+        required: true
+  /login-portals:
+    get:
+      tags:
+      - login-portals
+      description: Get a list of all login portals for the team
+      operationId: getloginPortals
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    uid:
+                      $ref: '#/components/schemas/nanoid'
+                    title:
+                      type: string
+                      maxLength: 200
+                    slug:
+                      $ref: '#/components/schemas/slug'
+                  required:
+                  - uid
+                  - title
+                  - slug
+                  additionalProperties: false
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
+    post:
+      tags:
+      - login-portals
+      description: Create a new login portal for the team
+      operationId: postloginPortals
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  uid:
+                    type: string
+                required:
+                - uid
+                additionalProperties: false
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                slug:
+                  type: string
+                email:
+                  $ref: '#/components/schemas/login-portal-email'
+                page:
+                  $ref: '#/components/schemas/login-portal-page'
+              required:
+              - title
+              - slug
+              - email
+              - page
+              additionalProperties: false
+        required: true
+    delete:
+      tags:
+      - login-portals
+      description: Delete a specific login portal
+      operationId: deleteloginPortals
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: 'null'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                slug:
+                  type: string
+              required:
+              - slug
+              additionalProperties: false
+        required: true
+  /login-portals/update:
+    post:
+      tags:
+      - login-portals
+      description: Update login portals metadata
+      operationId: postloginPortalsUpdate
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: 'null'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                slug:
+                  type: string
+                title:
+                  type: string
+              required:
+              - slug
+              additionalProperties: false
+        required: true
+components:
+  schemas:
+    login-portal-email:
+      type: object
+      properties:
+        logo:
+          default: ''
+          type: string
+        logoSize:
+          default: '100'
+          type: string
+        buttonText:
+          default: Login
+          type: string
+          maxLength: 50
+        message:
+          default: Click to access private documentation hosted by scalar.com
+          type: string
+          maxLength: 1000
+        title:
+          default: Private Docs
+          type: string
+          maxLength: 100
+        mainColor:
+          default: '#2a2f45'
+          type: string
+          maxLength: 100
+        mainBackground:
+          default: '#f6f6f6'
+          type: string
+          maxLength: 100
+        cardColor:
+          default: 2a2f45
+          type: string
+          maxLength: 100
+        cardBackground:
+          default: '#fff'
+          type: string
+          maxLength: 100
+        buttonColor:
+          default: '#fff'
+          type: string
+          maxLength: 100
+        buttonBackground:
+          default: '#0f0f0f'
+          type: string
+          maxLength: 100
+      required:
+      - logo
+      - logoSize
+      - buttonText
+      - message
+      - title
+      - mainColor
+      - mainBackground
+      - cardColor
+      - cardBackground
+      - buttonColor
+      - buttonBackground
+      additionalProperties: false
+    login-portal:
+      type: object
+      properties:
+        uid:
+          $ref: '#/components/schemas/nanoid'
+        title:
+          type: string
+          maxLength: 200
+        slug:
+          $ref: '#/components/schemas/slug'
+        email:
+          $ref: '#/components/schemas/login-portal-email'
+        page:
+          $ref: '#/components/schemas/login-portal-page'
+      required:
+      - uid
+      - title
+      - slug
+      - email
+      - page
+      additionalProperties: false
+    nanoid:
+      type: string
+      minLength: 5
+    '404':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+    '401':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+    slug:
+      type: string
+      minLength: 3
+      maxLength: 60
+      pattern: ^[a-z](?:[a-z0-9-]*[a-z0-9])?$
+    '500':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+    '400':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+    '403':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+    login-portal-page:
+      type: object
+      properties:
+        title:
+          default: Scalar Private Docs
+          type: string
+          maxLength: 100
+        description:
+          default: Login to access your documentation
+          type: string
+          maxLength: 500
+        head:
+          default: ''
+          type: string
+        script:
+          default: ''
+          type: string
+        theme:
+          default: ''
+          type: string
+        companyName:
+          default: ''
+          type: string
+          maxLength: 100
+        logo:
+          default: ''
+          type: string
+        logoURL:
+          default: ''
+          type: string
+        favicon:
+          default: ''
+          type: string
+        termsLink:
+          default: ''
+          type: string
+        privacyLink:
+          default: ''
+          type: string
+        formTitle:
+          default: Scalar Private Docs
+          type: string
+          maxLength: 100
+        formDescription:
+          default: Login to access your documentation
+          type: string
+          maxLength: 500
+        formImage:
+          default: ''
+          type: string
+      required:
+      - title
+      - description
+      - head
+      - script
+      - theme
+      - companyName
+      - logo
+      - logoURL
+      - favicon
+      - termsLink
+      - privacyLink
+      - formTitle
+      - formDescription
+      - formImage
+      additionalProperties: false
+    '422':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

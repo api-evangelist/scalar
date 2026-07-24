@@ -1,0 +1,2042 @@
+openapi: 3.1.1
+info:
+  title: Core access-groups auth API
+  description: Core services for Scalar
+  version: 1.0.1
+  contact:
+    name: Marc from Scalar
+    url: https://scalar.com
+    email: support@scalar.com
+security:
+- BearerAuth: []
+tags:
+- name: auth
+paths:
+  /me:
+    get:
+      tags:
+      - auth
+      description: Get a users basic information
+      operationId: getme
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/user'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
+  /login/email:
+    post:
+      tags:
+      - auth
+      description: Login with email password flow
+      operationId: postloginEmail
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/token-response'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
+      security: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  $ref: '#/components/schemas/email'
+                password:
+                  type: string
+              required:
+              - email
+              - password
+              additionalProperties: false
+        required: true
+  /login/email-signup:
+    post:
+      tags:
+      - auth
+      description: Register with email password flow
+      operationId: postloginEmailSignup
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/token-response'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
+      security: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  $ref: '#/components/schemas/email'
+                password:
+                  type: string
+                  minLength: 8
+                displayName:
+                  type: string
+                teamSlug:
+                  $ref: '#/components/schemas/slug'
+                teamName:
+                  type: string
+                signupDataUid:
+                  type: string
+                teamInvite:
+                  type: string
+                otp:
+                  default: ''
+                  type: string
+                  minLength: 6
+                otpClientId:
+                  default: ''
+                  type: string
+                  minLength: 6
+                flow:
+                  type: string
+                  enum:
+                  - oss-agent
+              required:
+              - email
+              - password
+              - otp
+              - otpClientId
+              additionalProperties: false
+        required: true
+  /login/email-otp:
+    post:
+      tags:
+      - auth
+      description: Send an OTP verification code to the email
+      operationId: postloginEmailOtp
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  otpClientId:
+                    type: string
+                required:
+                - otpClientId
+                additionalProperties: false
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
+      security: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  $ref: '#/components/schemas/email'
+              required:
+              - email
+              additionalProperties: false
+        required: true
+  /login/email-otp/verify:
+    post:
+      tags:
+      - auth
+      description: Verify OTP
+      operationId: postloginEmailOtpVerify
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: 'null'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
+      security: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  $ref: '#/components/schemas/email'
+                otp:
+                  type: string
+                  minLength: 6
+                  maxLength: 6
+                otpClientId:
+                  type: string
+                  minLength: 6
+              required:
+              - email
+              - otp
+              - otpClientId
+              additionalProperties: false
+        required: true
+  /login/refresh:
+    post:
+      tags:
+      - auth
+      description: Refresh an access token and set the team uid token
+      operationId: postloginRefresh
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/token-response'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
+      security: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                refreshToken:
+                  type: string
+                teamUid:
+                  type: string
+              required:
+              - refreshToken
+              additionalProperties: false
+        required: true
+  /login/exchange:
+    post:
+      tags:
+      - auth
+      description: Exchange the short lived URL token for access/refresh tokens
+      operationId: postloginExchange
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/token-response'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
+      security: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                exchangeToken:
+                  type: string
+              required:
+              - exchangeToken
+              additionalProperties: false
+        required: true
+  /login/get-exchange:
+    post:
+      tags:
+      - auth
+      description: Gets an exchange token that can be used to redirect a user with auth credentials to different domain
+      operationId: postloginGetExchange
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  exchangeToken:
+                    type: string
+                required:
+                - exchangeToken
+                additionalProperties: false
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                refreshToken:
+                  type: string
+              required:
+              - refreshToken
+              additionalProperties: false
+        required: true
+  /login/request-password-reset:
+    post:
+      tags:
+      - auth
+      description: Request reset password
+      operationId: postloginRequestPasswordReset
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: 'null'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
+      security: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  $ref: '#/components/schemas/email'
+                clientId:
+                  type: string
+              required:
+              - email
+              - clientId
+              additionalProperties: false
+        required: true
+  /login/reset-password:
+    post:
+      tags:
+      - auth
+      description: Verify password reset request
+      operationId: postloginResetPassword
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/token-response'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
+      security: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                clientId:
+                  type: string
+                resetToken:
+                  type: string
+                password:
+                  type: string
+              required:
+              - clientId
+              - resetToken
+              - password
+              additionalProperties: false
+        required: true
+  /login/change-password:
+    post:
+      tags:
+      - auth
+      description: Change password for authenticated user
+      operationId: postloginChangePassword
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: 'null'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                oldPassword:
+                  type: string
+                newPassword:
+                  type: string
+              required:
+              - oldPassword
+              - newPassword
+              additionalProperties: false
+        required: true
+  /login/personal-token/generate:
+    post:
+      tags:
+      - auth
+      description: Generate a new personal token
+      operationId: postloginPersonalTokenGenerate
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  uid:
+                    type: string
+                  personalToken:
+                    type: string
+                required:
+                - uid
+                - personalToken
+                additionalProperties: false
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  minLength: 3
+                  maxLength: 50
+                description:
+                  type: string
+                  maxLength: 200
+                refreshToken:
+                  type: string
+              required:
+              - name
+              - refreshToken
+              additionalProperties: false
+        required: true
+  /login/personal-token/access:
+    post:
+      tags:
+      - auth
+      description: Generate a new access token from a personal token
+      operationId: postloginPersonalTokenAccess
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  accessToken:
+                    type: string
+                required:
+                - accessToken
+                additionalProperties: false
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
+      security: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                personalToken:
+                  type: string
+              required:
+              - personalToken
+              additionalProperties: false
+        required: true
+  /login/personal-token/{uid}/revoke:
+    post:
+      tags:
+      - auth
+      description: Revoke a personal token
+      operationId: postloginPersonalTokenUidRevoke
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: 'null'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
+      parameters:
+      - schema:
+          $ref: '#/components/schemas/nanoid'
+        in: path
+        name: uid
+        required: true
+  /login/personal-token/{uid}:
+    delete:
+      tags:
+      - auth
+      description: Delete a personal token
+      operationId: deleteloginPersonalTokenUid
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: 'null'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
+      parameters:
+      - schema:
+          $ref: '#/components/schemas/nanoid'
+        in: path
+        name: uid
+        required: true
+  /identity-provider/{uid}:
+    get:
+      tags:
+      - auth
+      description: Get an identity provider configuration for a team
+      operationId: getidentityProviderUid
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/identity-provider-record'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
+      parameters:
+      - schema:
+          $ref: '#/components/schemas/nanoid'
+        in: path
+        name: uid
+        required: true
+    delete:
+      tags:
+      - auth
+      description: Delete an identity provider configuration for a team
+      operationId: deleteidentityProviderUid
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: 'null'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
+      parameters:
+      - schema:
+          $ref: '#/components/schemas/nanoid'
+        in: path
+        name: uid
+        required: true
+  /identity-provider:
+    post:
+      tags:
+      - auth
+      description: Add an identity provider configuration for a team
+      operationId: postidentityProvider
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/identity-provider-record'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                issuer:
+                  default: ''
+                  description: This is the URI that identifies your SAML identity provider. Any assertions must use a matching <saml:Issuer> attribute.
+                  type: string
+                ssoUrl:
+                  default: ''
+                  description: This URL is used by Scalar to initiate a SAML login.
+                  type: string
+                x509Cert:
+                  default: ''
+                  description: The authentication certificate issued by your identity provider
+                  type: string
+                provider:
+                  type: string
+                  enum:
+                  - local
+                  - google
+                  - okta
+                  - auth0
+                  - azure
+                  - one-login
+                  - ping-identity
+                signRequests:
+                  default: false
+                  type: boolean
+                consumerOnly:
+                  type: boolean
+              required:
+              - name
+              - provider
+              - consumerOnly
+              additionalProperties: false
+        required: true
+  /identity-provider/update:
+    post:
+      tags:
+      - auth
+      description: Update an identity provider configuration for a team
+      operationId: postidentityProviderUpdate
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/identity-provider-record'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                uid:
+                  $ref: '#/components/schemas/nanoid'
+                name:
+                  type: string
+                  minLength: 3
+                  maxLength: 50
+                ssoUrl:
+                  type: string
+                issuer:
+                  type: string
+                x509Cert:
+                  type: string
+                createUsers:
+                  type: boolean
+                signRequests:
+                  type: boolean
+              required:
+              - uid
+              additionalProperties: false
+        required: true
+  /saml/metadata:
+    get:
+      tags:
+      - auth
+      description: Get base SP SAML metadata
+      operationId: getsamlMetadata
+      responses:
+        '200':
+          description: Default Response
+          content:
+            text/plain:
+              schema:
+                type: string
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
+      security: []
+  /saml/idp/{uid}/metadata:
+    get:
+      tags:
+      - auth
+      description: Get SAML IdP-specific connection metadata
+      operationId: getsamlIdpUidMetadata
+      responses:
+        '200':
+          description: Default Response
+          content:
+            text/plain:
+              schema:
+                type: string
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
+      security: []
+      parameters:
+      - schema:
+          $ref: '#/components/schemas/nanoid'
+        in: path
+        name: uid
+        required: true
+  /saml/idp/{uid}/login:
+    get:
+      tags:
+      - auth
+      description: SAML connection login route
+      operationId: getsamlIdpUidLogin
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: 'null'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
+      security: []
+      parameters:
+      - schema:
+          $ref: '#/components/schemas/nanoid'
+        in: path
+        name: uid
+        required: true
+      - schema:
+          type: string
+        in: query
+        name: redirect
+        required: false
+      - schema:
+          $ref: '#/components/schemas/nanoid'
+        in: query
+        name: resource
+        required: false
+      - schema:
+          $ref: '#/components/schemas/sso-resource'
+        in: query
+        name: type
+        required: false
+  /saml/logout:
+    get:
+      tags:
+      - auth
+      description: SAML logout route
+      operationId: getsamlLogout
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: 'null'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
+  /saml/acs:
+    post:
+      tags:
+      - auth
+      description: SAML ACS route
+      operationId: postsamlAcs
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: 'null'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
+      security: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                SAMLResponse:
+                  type: string
+                RelayState:
+                  type: string
+              required:
+              - SAMLResponse
+              - RelayState
+              additionalProperties: false
+        required: true
+  /saml/initiate:
+    post:
+      tags:
+      - auth
+      description: SAML initiate route
+      operationId: postsamlInitiate
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  options:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        loginUrl:
+                          type: string
+                          format: uri
+                        provider:
+                          type: string
+                          enum:
+                          - local
+                          - google
+                          - okta
+                          - auth0
+                          - azure
+                          - one-login
+                          - ping-identity
+                        teamSlug:
+                          $ref: '#/components/schemas/slug'
+                      required:
+                      - loginUrl
+                      - provider
+                      - teamSlug
+                      additionalProperties: false
+                required:
+                - options
+                additionalProperties: false
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
+      security: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  $ref: '#/components/schemas/email'
+                domain:
+                  type: string
+              required:
+              - email
+              additionalProperties: false
+        required: true
+  /saml/cert/signing:
+    get:
+      tags:
+      - auth
+      description: Return SAML public signing cert
+      operationId: getsamlCertSigning
+      responses:
+        '200':
+          description: Default Response
+          content:
+            text/plain:
+              schema:
+                type: string
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
+      security: []
+  /saml/cert/encryption:
+    get:
+      tags:
+      - auth
+      description: Return SAML public encryption cert
+      operationId: getsamlCertEncryption
+      responses:
+        '200':
+          description: Default Response
+          content:
+            text/plain:
+              schema:
+                type: string
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
+      security: []
+  /events/auth/vacuum-refresh-tokens:
+    post:
+      tags:
+      - auth
+      description: Clean-up unused refresh tokens
+      operationId: posteventsAuthVacuumRefreshTokens
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: 'null'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties: {}
+              additionalProperties: false
+        required: true
+components:
+  schemas:
+    user:
+      type: object
+      properties:
+        uid:
+          default: nanoid()
+          $ref: '#/components/schemas/nanoid'
+        createdAt:
+          default: unixTimestamp()
+          $ref: '#/components/schemas/timestamp'
+        updatedAt:
+          default: unixTimestamp()
+          $ref: '#/components/schemas/timestamp'
+        theme:
+          type: string
+        userIndex:
+          type: string
+        email:
+          $ref: '#/components/schemas/email'
+        teams:
+          type: array
+          items:
+            $ref: '#/components/schemas/team-ref'
+        activeTeamId:
+          anyOf:
+          - type: string
+          - type: 'null'
+        hasGithub:
+          default: false
+          type: boolean
+        hasBitbucket:
+          default: false
+          type: boolean
+        forgejoToken:
+          type: string
+      required:
+      - uid
+      - createdAt
+      - updatedAt
+      - userIndex
+      - email
+      - teams
+      - activeTeamId
+      - hasGithub
+      - hasBitbucket
+      additionalProperties: false
+    team-image:
+      type: string
+    team-ref:
+      type: object
+      properties:
+        teamUid:
+          type: string
+        teamName:
+          $ref: '#/components/schemas/team-name'
+        teamImageUri:
+          $ref: '#/components/schemas/team-image'
+      required:
+      - teamUid
+      - teamName
+      additionalProperties: false
+    sso-resource:
+      type: string
+      enum:
+      - apis
+      - schemas
+      - rules
+      - sdks
+      - workspaces
+      - sync-project
+      - project
+      - publish
+      - mcp
+    nanoid:
+      type: string
+      minLength: 5
+    '404':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+    '401':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+    slug:
+      type: string
+      minLength: 3
+      maxLength: 60
+      pattern: ^[a-z](?:[a-z0-9-]*[a-z0-9])?$
+    token-response:
+      type: object
+      properties:
+        refreshToken:
+          type: string
+        accessToken:
+          type: string
+      required:
+      - refreshToken
+      - accessToken
+      additionalProperties: false
+    '500':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+    email:
+      type: string
+      format: email
+      pattern: ^(?!\.)(?!.*\.\.)([A-Za-z0-9_'+\-\.]*)[A-Za-z0-9_+-]@([A-Za-z0-9][A-Za-z0-9\-]*\.)+[A-Za-z]{2,}$
+    '400':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+    team-name:
+      type: string
+    '403':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+    timestamp:
+      type: integer
+      minimum: 0
+      maximum: 9007199254740991
+    '422':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+    identity-provider-record:
+      type: object
+      properties:
+        uid:
+          $ref: '#/components/schemas/nanoid'
+        createdAt:
+          default: unixTimestamp()
+          $ref: '#/components/schemas/timestamp'
+        updatedAt:
+          default: unixTimestamp()
+          $ref: '#/components/schemas/timestamp'
+        name:
+          type: string
+        provider:
+          type: string
+          enum:
+          - local
+          - google
+          - okta
+          - auth0
+          - azure
+          - one-login
+          - ping-identity
+        createUsers:
+          default: false
+          type: boolean
+        signRequests:
+          default: false
+          type: boolean
+        ssoUrl:
+          default: ''
+          description: This URL is used by Scalar to initiate a SAML login.
+          type: string
+        issuer:
+          default: ''
+          description: This is the URI that identifies your SAML identity provider. Any assertions must use a matching <saml:Issuer> attribute.
+          type: string
+        x509Cert:
+          default: ''
+          description: The authentication certificate issued by your identity provider
+          type: string
+        consumerOnly:
+          type: boolean
+      required:
+      - uid
+      - createdAt
+      - updatedAt
+      - name
+      - provider
+      - createUsers
+      - signRequests
+      - ssoUrl
+      - issuer
+      - x509Cert
+      - consumerOnly
+      additionalProperties: false
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

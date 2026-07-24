@@ -1,0 +1,1012 @@
+openapi: 3.1.1
+info:
+  title: Core access-groups schemas API
+  description: Core services for Scalar
+  version: 1.0.1
+  contact:
+    name: Marc from Scalar
+    url: https://scalar.com
+    email: support@scalar.com
+security:
+- BearerAuth: []
+tags:
+- name: schemas
+paths:
+  /schemas/check-slug:
+    post:
+      tags:
+      - schemas
+      description: Checks if a schema slug is available
+      operationId: postschemasCheckSlug
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  available:
+                    type: boolean
+                required:
+                - available
+                additionalProperties: false
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                namespace:
+                  $ref: '#/components/schemas/namespace'
+                slug:
+                  $ref: '#/components/schemas/slug'
+              required:
+              - namespace
+              - slug
+              additionalProperties: false
+        required: true
+  /schemas/access-group:
+    post:
+      tags:
+      - schemas
+      description: Adds an access group to a managed schema
+      operationId: postschemasAccessGroup
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: 'null'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                namespace:
+                  type: string
+                slug:
+                  type: string
+                groupUid:
+                  $ref: '#/components/schemas/nanoid'
+              required:
+              - namespace
+              - slug
+              - groupUid
+              additionalProperties: false
+        required: true
+    delete:
+      tags:
+      - schemas
+      description: Removes an access group from a managed schema
+      operationId: deleteschemasAccessGroup
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: 'null'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                namespace:
+                  type: string
+                slug:
+                  type: string
+                groupUid:
+                  $ref: '#/components/schemas/nanoid'
+              required:
+              - namespace
+              - slug
+              - groupUid
+              additionalProperties: false
+        required: true
+  /schemas/{namespace}:
+    get:
+      tags:
+      - schemas
+      description: Get a list of all schemas for the namespace
+      operationId: getschemasNamespace
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    uid:
+                      default: nanoid()
+                      $ref: '#/components/schemas/nanoid'
+                    title:
+                      default: ''
+                      type: string
+                      maxLength: 100
+                    description:
+                      default: ''
+                      type: string
+                    slug:
+                      default: randomManagedDocSlug()
+                      $ref: '#/components/schemas/slug'
+                    namespace:
+                      $ref: '#/components/schemas/namespace'
+                    isPrivate:
+                      default: false
+                      type: boolean
+                    versions:
+                      type: array
+                      items:
+                        $ref: '#/components/schemas/managed-schema-version'
+                  required:
+                  - uid
+                  - title
+                  - description
+                  - slug
+                  - namespace
+                  - isPrivate
+                  - versions
+                  additionalProperties: false
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
+      parameters:
+      - schema:
+          type: string
+        in: path
+        name: namespace
+        required: true
+    post:
+      tags:
+      - schemas
+      description: Creates a managed schema
+      operationId: postschemasNamespace
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  uid:
+                    type: string
+                required:
+                - uid
+                additionalProperties: false
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                description:
+                  type: string
+                version:
+                  $ref: '#/components/schemas/version'
+                slug:
+                  type: string
+                isPrivate:
+                  type: boolean
+                document:
+                  type: string
+              required:
+              - title
+              - version
+              - slug
+              additionalProperties: false
+        required: true
+      parameters:
+      - schema:
+          type: string
+        in: path
+        name: namespace
+        required: true
+  /schemas/{namespace}/{slug}:
+    patch:
+      tags:
+      - schemas
+      description: Update schema metadata
+      operationId: patchschemasNamespaceSlug
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: 'null'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                namespace:
+                  type: string
+                slug:
+                  type: string
+                title:
+                  type: string
+                description:
+                  type: string
+                version:
+                  $ref: '#/components/schemas/version'
+                isPrivate:
+                  type: boolean
+                format:
+                  $ref: '#/components/schemas/managed-schema-format'
+              additionalProperties: false
+        required: true
+      parameters:
+      - schema:
+          type: string
+        in: path
+        name: namespace
+        required: true
+      - schema:
+          type: string
+        in: path
+        name: slug
+        required: true
+    delete:
+      tags:
+      - schemas
+      description: Delete a specific schema and all of the related versions
+      operationId: deleteschemasNamespaceSlug
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: 'null'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
+      parameters:
+      - schema:
+          type: string
+        in: path
+        name: namespace
+        required: true
+      - schema:
+          type: string
+        in: path
+        name: slug
+        required: true
+  /schemas/{namespace}/{slug}/version/{semver}:
+    get:
+      tags:
+      - schemas
+      description: Get a specific schema document
+      operationId: getschemasNamespaceSlugVersionSemver
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema: {}
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
+      parameters:
+      - schema:
+          type: string
+        in: path
+        name: namespace
+        required: true
+      - schema:
+          type: string
+        in: path
+        name: slug
+        required: true
+      - schema:
+          type: string
+        in: path
+        name: semver
+        required: true
+    post:
+      tags:
+      - schemas
+      description: Update managed schema content in GCS
+      operationId: postschemasNamespaceSlugVersionSemver
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: 'null'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                content:
+                  type: string
+              required:
+              - content
+              additionalProperties: false
+        required: true
+      parameters:
+      - schema:
+          type: string
+        in: path
+        name: namespace
+        required: true
+      - schema:
+          type: string
+        in: path
+        name: slug
+        required: true
+      - schema:
+          type: string
+        in: path
+        name: semver
+        required: true
+    delete:
+      tags:
+      - schemas
+      description: Delete a specific schema version
+      operationId: deleteschemasNamespaceSlugVersionSemver
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: 'null'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
+      parameters:
+      - schema:
+          type: string
+        in: path
+        name: namespace
+        required: true
+      - schema:
+          type: string
+        in: path
+        name: slug
+        required: true
+      - schema:
+          type: string
+        in: path
+        name: semver
+        required: true
+  /schemas/{namespace}/{slug}/version:
+    post:
+      tags:
+      - schemas
+      description: Create a new schema version
+      operationId: postschemasNamespaceSlugVersion
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  uid:
+                    type: string
+                required:
+                - uid
+                additionalProperties: false
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                version:
+                  $ref: '#/components/schemas/version'
+                document:
+                  type: string
+              required:
+              - version
+              - document
+              additionalProperties: false
+        required: true
+      parameters:
+      - schema:
+          type: string
+        in: path
+        name: namespace
+        required: true
+      - schema:
+          type: string
+        in: path
+        name: slug
+        required: true
+  /schemas/{namespace}/{slug}/version/{version}/duplicate:
+    post:
+      tags:
+      - schemas
+      description: Duplicate schema version
+      operationId: postschemasNamespaceSlugVersionVersionDuplicate
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  uid:
+                    type: string
+                required:
+                - uid
+                additionalProperties: false
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                version:
+                  $ref: '#/components/schemas/version'
+              required:
+              - version
+              additionalProperties: false
+        required: true
+      parameters:
+      - schema:
+          type: string
+        in: path
+        name: namespace
+        required: true
+      - schema:
+          type: string
+        in: path
+        name: slug
+        required: true
+      - schema:
+          $ref: '#/components/schemas/version'
+        in: path
+        name: version
+        required: true
+components:
+  schemas:
+    namespace:
+      type: string
+      minLength: 3
+      maxLength: 50
+      pattern: ^[a-zA-Z0-9-_]+$
+    nanoid:
+      type: string
+      minLength: 5
+    managed-schema-version:
+      type: object
+      properties:
+        uid:
+          default: nanoid()
+          $ref: '#/components/schemas/nanoid'
+        createdAt:
+          default: unixTimestamp()
+          $ref: '#/components/schemas/timestamp'
+        updatedAt:
+          default: unixTimestamp()
+          $ref: '#/components/schemas/timestamp'
+        version:
+          default: 0.0.1
+          $ref: '#/components/schemas/version'
+      required:
+      - uid
+      - createdAt
+      - updatedAt
+      - version
+      additionalProperties: false
+    '401':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+    version:
+      type: string
+      minLength: 1
+    slug:
+      type: string
+      minLength: 3
+      maxLength: 60
+      pattern: ^[a-z](?:[a-z0-9-]*[a-z0-9])?$
+    '500':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+    '404':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+    '400':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+    '403':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+    timestamp:
+      type: integer
+      minimum: 0
+      maximum: 9007199254740991
+    managed-schema-format:
+      type: string
+      enum:
+      - json
+      - yaml
+    '422':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

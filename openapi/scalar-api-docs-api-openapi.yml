@@ -1,0 +1,1750 @@
+openapi: 3.1.1
+info:
+  title: Core access-groups api-docs API
+  description: Core services for Scalar
+  version: 1.0.1
+  contact:
+    name: Marc from Scalar
+    url: https://scalar.com
+    email: support@scalar.com
+security:
+- BearerAuth: []
+tags:
+- name: api-docs
+paths:
+  /managed-doc/access-group:
+    post:
+      tags:
+      - api-docs
+      description: Adds an access group to a managed doc
+      operationId: postmanagedDocAccessGroup
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: 'null'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                namespace:
+                  type: string
+                slug:
+                  type: string
+                groupUid:
+                  $ref: '#/components/schemas/nanoid'
+              required:
+              - namespace
+              - slug
+              - groupUid
+              additionalProperties: false
+        required: true
+    delete:
+      tags:
+      - api-docs
+      description: Removes an access group from a managed doc
+      operationId: deletemanagedDocAccessGroup
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: 'null'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                namespace:
+                  type: string
+                slug:
+                  type: string
+                groupUid:
+                  $ref: '#/components/schemas/nanoid'
+              required:
+              - namespace
+              - slug
+              - groupUid
+              additionalProperties: false
+        required: true
+  /managed-doc/available:
+    post:
+      tags:
+      - api-docs
+      description: Checks if a registry slug is available
+      operationId: postmanagedDocAvailable
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  available:
+                    type: boolean
+                required:
+                - available
+                additionalProperties: false
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                namespace:
+                  $ref: '#/components/schemas/namespace'
+                slug:
+                  $ref: '#/components/schemas/slug'
+              required:
+              - namespace
+              - slug
+              additionalProperties: false
+        required: true
+  /managed-doc/{namespace}:
+    get:
+      tags:
+      - api-docs
+      description: Get a list of all documents for the namespace
+      operationId: getmanagedDocNamespace
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    uid:
+                      default: nanoid()
+                      $ref: '#/components/schemas/nanoid'
+                    version:
+                      $ref: '#/components/schemas/version'
+                    title:
+                      default: ''
+                      type: string
+                      maxLength: 100
+                    slug:
+                      default: randomManagedDocSlug()
+                      $ref: '#/components/schemas/slug'
+                    description:
+                      default: ''
+                      type: string
+                    namespace:
+                      $ref: '#/components/schemas/namespace'
+                    isPrivate:
+                      default: false
+                      type: boolean
+                    tags:
+                      default: []
+                    versions:
+                      type: array
+                      items:
+                        $ref: '#/components/schemas/managed-doc-version'
+                  required:
+                  - uid
+                  - version
+                  - title
+                  - slug
+                  - description
+                  - namespace
+                  - isPrivate
+                  - tags
+                  - versions
+                  additionalProperties: false
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
+      parameters:
+      - schema:
+          type: string
+        in: path
+        name: namespace
+        required: true
+    post:
+      tags:
+      - api-docs
+      description: Creates a new api document for the namespace
+      operationId: postmanagedDocNamespace
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  uid:
+                    type: string
+                  versionUid:
+                    type: string
+                  title:
+                    type: string
+                  jsonSha:
+                    type: string
+                  yamlSha:
+                    type: string
+                  versionSha:
+                    type: string
+                required:
+                - uid
+                - versionUid
+                - title
+                - jsonSha
+                - yamlSha
+                - versionSha
+                additionalProperties: false
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                  minLength: 3
+                description:
+                  type: string
+                version:
+                  $ref: '#/components/schemas/version'
+                document:
+                  type: string
+                slug:
+                  $ref: '#/components/schemas/slug'
+                ruleset:
+                  type: string
+                isPrivate:
+                  type: boolean
+                docsProjectUid:
+                  $ref: '#/components/schemas/nanoid'
+              required:
+              - title
+              - version
+              - document
+              - slug
+              additionalProperties: false
+        required: true
+      parameters:
+      - schema:
+          type: string
+        in: path
+        name: namespace
+        required: true
+  /managed-doc/{namespace}/{slug}:
+    patch:
+      tags:
+      - api-docs
+      description: Update metadata for a specific managed document
+      operationId: patchmanagedDocNamespaceSlug
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: 'null'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                namespace:
+                  type: string
+                slug:
+                  type: string
+                title:
+                  type: string
+                description:
+                  type: string
+                isPrivate:
+                  type: boolean
+                version:
+                  $ref: '#/components/schemas/version'
+                ruleset:
+                  type: string
+                agentEnabled:
+                  type: boolean
+                theme:
+                  type: string
+              additionalProperties: false
+        required: true
+      parameters:
+      - schema:
+          type: string
+        in: path
+        name: namespace
+        required: true
+      - schema:
+          type: string
+        in: path
+        name: slug
+        required: true
+    delete:
+      tags:
+      - api-docs
+      description: Delete a specific managed document and all of the related versions
+      operationId: deletemanagedDocNamespaceSlug
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: 'null'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
+      parameters:
+      - schema:
+          type: string
+        in: path
+        name: namespace
+        required: true
+      - schema:
+          type: string
+        in: path
+        name: slug
+        required: true
+    get:
+      tags:
+      - api-docs
+      description: Get a specific managed document
+      operationId: getmanagedDocNamespaceSlug
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  uid:
+                    default: nanoid()
+                    $ref: '#/components/schemas/nanoid'
+                  version:
+                    $ref: '#/components/schemas/version'
+                  title:
+                    default: ''
+                    type: string
+                    maxLength: 100
+                  slug:
+                    default: randomManagedDocSlug()
+                    $ref: '#/components/schemas/slug'
+                  description:
+                    default: ''
+                    type: string
+                  namespace:
+                    $ref: '#/components/schemas/namespace'
+                  isPrivate:
+                    default: false
+                    type: boolean
+                  tags:
+                    default: []
+                  versions:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/managed-doc-version'
+                required:
+                - uid
+                - version
+                - title
+                - slug
+                - description
+                - namespace
+                - isPrivate
+                - tags
+                - versions
+                additionalProperties: false
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
+      parameters:
+      - schema:
+          type: string
+        in: path
+        name: namespace
+        required: true
+      - schema:
+          type: string
+        in: path
+        name: slug
+        required: true
+  /managed-doc/{namespace}/{slug}/version/{semver}:
+    get:
+      tags:
+      - api-docs
+      description: Get a specific managed document version stream
+      operationId: getmanagedDocNamespaceSlugVersionSemver
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema: {}
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
+      parameters:
+      - schema:
+          type: string
+        in: path
+        name: namespace
+        required: true
+      - schema:
+          type: string
+        in: path
+        name: slug
+        required: true
+      - schema:
+          type: string
+        in: path
+        name: semver
+        required: true
+    patch:
+      tags:
+      - api-docs
+      description: Update the registry file content for the doc version
+      operationId: patchmanagedDocNamespaceSlugVersionSemver
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  jsonSha:
+                    type: string
+                  yamlSha:
+                    type: string
+                  versionSha:
+                    type: string
+                required:
+                - jsonSha
+                - yamlSha
+                - versionSha
+                additionalProperties: false
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                document:
+                  type: string
+                lastKnownVersionSha:
+                  type: string
+              required:
+              - document
+              additionalProperties: false
+        required: true
+      parameters:
+      - schema:
+          type: string
+        in: path
+        name: namespace
+        required: true
+      - schema:
+          type: string
+        in: path
+        name: slug
+        required: true
+      - schema:
+          type: string
+        in: path
+        name: semver
+        required: true
+    delete:
+      tags:
+      - api-docs
+      description: Delete a specific managed document version
+      operationId: deletemanagedDocNamespaceSlugVersionSemver
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: 'null'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
+      parameters:
+      - schema:
+          type: string
+        in: path
+        name: namespace
+        required: true
+      - schema:
+          type: string
+        in: path
+        name: slug
+        required: true
+      - schema:
+          type: string
+        in: path
+        name: semver
+        required: true
+  /managed-doc/{namespace}/{slug}/version/{semver}/metadata:
+    get:
+      tags:
+      - api-docs
+      description: Get metadata for a specific api document version
+      operationId: getmanagedDocNamespaceSlugVersionSemverMetadata
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/managed-doc-version'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
+      parameters:
+      - schema:
+          type: string
+        in: path
+        name: namespace
+        required: true
+      - schema:
+          type: string
+        in: path
+        name: slug
+        required: true
+      - schema:
+          type: string
+        in: path
+        name: semver
+        required: true
+  /managed-doc/{namespace}/{slug}/version:
+    post:
+      tags:
+      - api-docs
+      description: Create a new api document version
+      operationId: postmanagedDocNamespaceSlugVersion
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/managed-doc-version'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                version:
+                  $ref: '#/components/schemas/version'
+                document:
+                  type: string
+                force:
+                  type: boolean
+                isCurrent:
+                  default: true
+                  type: boolean
+                lastKnownVersionSha:
+                  type: string
+                docsProjectUid:
+                  $ref: '#/components/schemas/nanoid'
+              required:
+              - version
+              - document
+              - isCurrent
+              additionalProperties: false
+        required: true
+      parameters:
+      - schema:
+          type: string
+        in: path
+        name: namespace
+        required: true
+      - schema:
+          type: string
+        in: path
+        name: slug
+        required: true
+  /managed-doc:
+    get:
+      tags:
+      - api-docs
+      description: Get a list of all documents for a team
+      operationId: getmanagedDoc
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    uid:
+                      default: nanoid()
+                      $ref: '#/components/schemas/nanoid'
+                    version:
+                      $ref: '#/components/schemas/version'
+                    title:
+                      default: ''
+                      type: string
+                      maxLength: 100
+                    slug:
+                      default: randomManagedDocSlug()
+                      $ref: '#/components/schemas/slug'
+                    description:
+                      default: ''
+                      type: string
+                    namespace:
+                      $ref: '#/components/schemas/namespace'
+                    isPrivate:
+                      default: false
+                      type: boolean
+                    tags:
+                      default: []
+                    versions:
+                      type: array
+                      items:
+                        $ref: '#/components/schemas/managed-doc-version'
+                  required:
+                  - uid
+                  - version
+                  - title
+                  - slug
+                  - description
+                  - namespace
+                  - isPrivate
+                  - tags
+                  - versions
+                  additionalProperties: false
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
+  /pubsub/api-updated:
+    post:
+      tags:
+      - api-docs
+      description: Registry API updated subscription handler
+      operationId: postpubsubApiUpdated
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: 'null'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                teamUid:
+                  $ref: '#/components/schemas/nanoid'
+                before:
+                  $ref: '#/components/schemas/managed-doc'
+                after:
+                  $ref: '#/components/schemas/managed-doc'
+              required:
+              - teamUid
+              - before
+              - after
+              additionalProperties: false
+        required: true
+  /pubsub/api-version-deleted:
+    post:
+      tags:
+      - api-docs
+      description: Registry API updated subscription handler
+      operationId: postpubsubApiVersionDeleted
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: 'null'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                teamUid:
+                  $ref: '#/components/schemas/nanoid'
+                version:
+                  $ref: '#/components/schemas/version'
+                versionUid:
+                  $ref: '#/components/schemas/nanoid'
+                apiUid:
+                  $ref: '#/components/schemas/nanoid'
+                namespace:
+                  $ref: '#/components/schemas/namespace'
+                slug:
+                  $ref: '#/components/schemas/slug'
+                isPrivate:
+                  type: boolean
+              required:
+              - teamUid
+              - version
+              - versionUid
+              - apiUid
+              - namespace
+              - slug
+              - isPrivate
+              additionalProperties: false
+        required: true
+  /pubsub/api-embed-complete:
+    post:
+      tags:
+      - api-docs
+      description: Registry API Vector embedding complete
+      operationId: postpubsubApiEmbedComplete
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: 'null'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                uid:
+                  $ref: '#/components/schemas/nanoid'
+                version:
+                  $ref: '#/components/schemas/version'
+                teamUid:
+                  $ref: '#/components/schemas/nanoid'
+              required:
+              - uid
+              - version
+              - teamUid
+              additionalProperties: false
+        required: true
+  /pubsub/api-embed-failed:
+    post:
+      tags:
+      - api-docs
+      description: Registry API Vector embedding failed
+      operationId: postpubsubApiEmbedFailed
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: 'null'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                uid:
+                  $ref: '#/components/schemas/nanoid'
+                version:
+                  $ref: '#/components/schemas/version'
+                teamUid:
+                  $ref: '#/components/schemas/nanoid'
+              required:
+              - uid
+              - version
+              - teamUid
+              additionalProperties: false
+        required: true
+  /managed-doc/{namespace}/{slug}/version/{semver}/tools:
+    post:
+      tags:
+      - api-docs
+      description: Update managed docs MCP tools.
+      operationId: postmanagedDocNamespaceSlugVersionSemverTools
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: 'null'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: object
+                properties:
+                  path:
+                    type: string
+                  method:
+                    $ref: '#/components/schemas/method'
+                  enabledTools:
+                    type: array
+                    items:
+                      type: string
+                      enum:
+                      - execute-request
+                      - get-mini-openapi-spec
+                required:
+                - path
+                - method
+                - enabledTools
+                additionalProperties: false
+        required: true
+      parameters:
+      - schema:
+          type: string
+        in: path
+        name: namespace
+        required: true
+      - schema:
+          type: string
+        in: path
+        name: slug
+        required: true
+      - schema:
+          type: string
+        in: path
+        name: semver
+        required: true
+components:
+  schemas:
+    namespace:
+      type: string
+      minLength: 3
+      maxLength: 50
+      pattern: ^[a-zA-Z0-9-_]+$
+    managed-doc-version:
+      type: object
+      properties:
+        uid:
+          $ref: '#/components/schemas/nanoid'
+        createdAt:
+          type: number
+        version:
+          $ref: '#/components/schemas/version'
+        upgraded:
+          default: false
+          type: boolean
+        embedStatus:
+          default: null
+          anyOf:
+          - type: string
+            enum:
+            - complete
+            - failed
+          - type: 'null'
+        tags:
+          default: []
+          type: array
+          items:
+            type: string
+        tools:
+          type: array
+          items:
+            type: object
+            properties:
+              path:
+                type: string
+              method:
+                $ref: '#/components/schemas/method'
+              enabledTools:
+                type: array
+                items:
+                  type: string
+                  enum:
+                  - execute-request
+                  - get-mini-openapi-spec
+            required:
+            - path
+            - method
+            - enabledTools
+            additionalProperties: false
+        yamlSha:
+          type: string
+        jsonSha:
+          type: string
+        versionSha:
+          type: string
+      required:
+      - uid
+      - createdAt
+      - version
+      - upgraded
+      - embedStatus
+      - tags
+      additionalProperties: false
+    method:
+      type: string
+      enum:
+      - delete
+      - get
+      - head
+      - options
+      - patch
+      - post
+      - put
+      - trace
+    nanoid:
+      type: string
+      minLength: 5
+    '404':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+    '401':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+    version:
+      type: string
+      minLength: 1
+    slug:
+      type: string
+      minLength: 3
+      maxLength: 60
+      pattern: ^[a-z](?:[a-z0-9-]*[a-z0-9])?$
+    '500':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+    managed-doc:
+      type: object
+      properties:
+        uid:
+          default: nanoid()
+          $ref: '#/components/schemas/nanoid'
+        createdAt:
+          default: unixTimestamp()
+          $ref: '#/components/schemas/timestamp'
+        updatedAt:
+          default: unixTimestamp()
+          $ref: '#/components/schemas/timestamp'
+        namespace:
+          $ref: '#/components/schemas/namespace'
+        title:
+          default: ''
+          type: string
+          maxLength: 100
+        slug:
+          default: randomManagedDocSlug()
+          $ref: '#/components/schemas/slug'
+        description:
+          default: ''
+          type: string
+        isPrivate:
+          default: false
+          type: boolean
+        tags:
+          default: []
+        accessGroups:
+          default: []
+        loginPortalUid:
+          type: string
+        verifiedContent:
+          type: boolean
+        version:
+          $ref: '#/components/schemas/version'
+        isExternal:
+          default: true
+          type: boolean
+        repository:
+          type: object
+          properties:
+            linkedBy:
+              type: string
+            id:
+              type: number
+            name:
+              type: string
+              minLength: 2
+            path:
+              default: ''
+              type: string
+            branch:
+              default: ''
+              type: string
+          required:
+          - linkedBy
+          - id
+          - name
+          - path
+          - branch
+          additionalProperties: false
+        sourceUrl:
+          type: string
+          format: uri
+        theme:
+          default: ''
+          type: string
+        editableUid:
+          type: string
+        ruleset:
+          default: 'extends: spectral:oas
+
+            rules: {}'
+          type: string
+        versions:
+          type: array
+          items:
+            $ref: '#/components/schemas/managed-doc-version'
+        agentEnabled:
+          default: true
+          type: boolean
+        verified:
+          default: false
+          type: boolean
+      required:
+      - uid
+      - createdAt
+      - updatedAt
+      - namespace
+      - title
+      - slug
+      - description
+      - isPrivate
+      - tags
+      - accessGroups
+      - version
+      - isExternal
+      - theme
+      - editableUid
+      - ruleset
+      - versions
+      - agentEnabled
+      - verified
+      additionalProperties: false
+    '400':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+    '403':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+    timestamp:
+      type: integer
+      minimum: 0
+      maximum: 9007199254740991
+    '422':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

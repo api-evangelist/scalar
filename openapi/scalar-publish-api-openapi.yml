@@ -1,0 +1,876 @@
+openapi: 3.1.1
+info:
+  title: Core access-groups publish API
+  description: Core services for Scalar
+  version: 1.0.1
+  contact:
+    name: Marc from Scalar
+    url: https://scalar.com
+    email: support@scalar.com
+security:
+- BearerAuth: []
+tags:
+- name: publish
+paths:
+  /publish/dns-check:
+    post:
+      tags:
+      - publish
+      description: Validates the DNS records for a specified subdomain
+      operationId: postpublishDnsCheck
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  invalidRecords:
+                    type: boolean
+                additionalProperties: false
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                domain:
+                  type: string
+              required:
+              - domain
+              additionalProperties: false
+        required: true
+  /unpublish:
+    delete:
+      tags:
+      - publish
+      description: Removes the active deploy from a project, without deleting cached assets
+      operationId: deleteunpublish
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: 'null'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                projectUid:
+                  type: string
+                githubProjectUid:
+                  type: string
+              additionalProperties: false
+        required: true
+  /publish:
+    delete:
+      tags:
+      - publish
+      description: Delete a publish record and its cached assets
+      operationId: deletepublish
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: 'null'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                publishUid:
+                  type: string
+              required:
+              - publishUid
+              additionalProperties: false
+        required: true
+  /pubsub/publish-deleted:
+    post:
+      tags:
+      - publish
+      description: Deletes a cached build from the GCP bucket
+      operationId: postpubsubPublishDeleted
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: 'null'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                publish:
+                  $ref: '#/components/schemas/publish-record'
+                teamUid:
+                  $ref: '#/components/schemas/nanoid'
+              required:
+              - publish
+              - teamUid
+              additionalProperties: false
+        required: true
+  /publish/redeploy:
+    post:
+      tags:
+      - publish
+      description: Redeploy a previous publish
+      operationId: postpublishRedeploy
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: 'null'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                publishUid:
+                  type: string
+              required:
+              - publishUid
+              additionalProperties: false
+        required: true
+  /publish/bulk:
+    delete:
+      tags:
+      - publish
+      description: Bulk delete all non-deployed publish records
+      operationId: deletepublishBulk
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: 'null'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                projectUid:
+                  type: string
+              required:
+              - projectUid
+              additionalProperties: false
+        required: true
+  /publish/cancel:
+    post:
+      tags:
+      - publish
+      description: Cancel an in-flight publish before it goes live
+      operationId: postpublishCancel
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: 'null'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                publishUid:
+                  type: string
+              required:
+              - publishUid
+              additionalProperties: false
+        required: true
+  /publish/logs/{publishUid}:
+    get:
+      tags:
+      - publish
+      description: Checks & creates a publish record for a CLI publish
+      operationId: getpublishLogsPublishUid
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema: {}
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
+      parameters:
+      - schema:
+          $ref: '#/components/schemas/nanoid'
+        in: path
+        name: publishUid
+        required: true
+  /publish/domains/availability:
+    post:
+      tags:
+      - publish
+      description: Checks availability for publish domain
+      operationId: postpublishDomainsAvailability
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  available:
+                    type: boolean
+                required:
+                - available
+                additionalProperties: false
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                domain:
+                  type: string
+              required:
+              - domain
+              additionalProperties: false
+        required: true
+  /publish/domains/project:
+    post:
+      tags:
+      - publish
+      description: Returns active domains for a project
+      operationId: postpublishDomainsProject
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  scalarDomain:
+                    anyOf:
+                    - type: string
+                    - type: 'null'
+                  customDomain:
+                    anyOf:
+                    - type: string
+                    - type: 'null'
+                required:
+                - scalarDomain
+                - customDomain
+                additionalProperties: false
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                projectUid:
+                  $ref: '#/components/schemas/nanoid'
+              required:
+              - projectUid
+              additionalProperties: false
+        required: true
+  /publish/deploy-check:
+    get:
+      tags:
+      - publish
+      description: 'Verifies a specific site is deployed and SSL certificates can be issued for it. '
+      operationId: getpublishDeployCheck
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: 'null'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
+      security: []
+      parameters:
+      - schema:
+          type: string
+        in: query
+        name: domain
+        required: true
+components:
+  schemas:
+    publish-record:
+      type: object
+      properties:
+        uid:
+          default: nanoid()
+          $ref: '#/components/schemas/nanoid'
+        createdAt:
+          default: unixTimestamp()
+          $ref: '#/components/schemas/timestamp'
+        updatedAt:
+          default: unixTimestamp()
+          $ref: '#/components/schemas/timestamp'
+        projectUid:
+          $ref: '#/components/schemas/nanoid'
+        status:
+          anyOf:
+          - type: string
+            const: pending
+          - type: string
+            const: building
+          - type: string
+            const: deployed
+          - type: string
+            const: inactive
+          - type: string
+            const: error
+          - type: string
+            const: deleted
+          - type: string
+            const: cancelled
+        deployedAt:
+          default: null
+          anyOf:
+          - type: number
+          - type: 'null'
+        message:
+          default: ''
+          type: string
+        domain:
+          default: ''
+          type: string
+        preview:
+          default: false
+          type: boolean
+        commitSha:
+          default: null
+          anyOf:
+          - type: string
+          - type: 'null'
+        version:
+          default: 1.0.0
+          type: string
+          enum:
+          - 1.0.0
+          - 2.0.0
+        isWysiwyg:
+          default: false
+          type: boolean
+        subpath:
+          default: null
+          anyOf:
+          - type: string
+          - type: 'null'
+        configPath:
+          default: scalar.config.json
+          type: string
+        registryApis:
+          default: []
+          type: array
+          items:
+            type: object
+            properties:
+              uid:
+                $ref: '#/components/schemas/nanoid'
+              version:
+                type: string
+            required:
+            - uid
+            - version
+            additionalProperties: false
+        agentToken:
+          default: null
+          anyOf:
+          - type: string
+          - type: 'null'
+      required:
+      - uid
+      - createdAt
+      - updatedAt
+      - projectUid
+      - status
+      - deployedAt
+      - message
+      - domain
+      - preview
+      - commitSha
+      - version
+      - isWysiwyg
+      - subpath
+      - configPath
+      - registryApis
+      - agentToken
+      additionalProperties: false
+    nanoid:
+      type: string
+      minLength: 5
+    '404':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+    '401':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+    '500':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+    '400':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+    '403':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+    timestamp:
+      type: integer
+      minimum: 0
+      maximum: 9007199254740991
+    '422':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

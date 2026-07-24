@@ -1,0 +1,563 @@
+openapi: 3.1.1
+info:
+  title: Core access-groups analytics API
+  description: Core services for Scalar
+  version: 1.0.1
+  contact:
+    name: Marc from Scalar
+    url: https://scalar.com
+    email: support@scalar.com
+security:
+- BearerAuth: []
+tags:
+- name: analytics
+paths:
+  /analytics/projects/{projectUid}/overview:
+    get:
+      tags:
+      - analytics
+      description: KPI totals + timeseries + consumer breakdown for a docs project
+      operationId: getanalyticsProjectsProjectUidOverview
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  totals:
+                    type: object
+                    properties:
+                      views:
+                        type: integer
+                        minimum: 0
+                        maximum: 9007199254740991
+                      unique:
+                        type: integer
+                        minimum: 0
+                        maximum: 9007199254740991
+                      human:
+                        type: integer
+                        minimum: 0
+                        maximum: 9007199254740991
+                      bot:
+                        type: integer
+                        minimum: 0
+                        maximum: 9007199254740991
+                      llm:
+                        type: integer
+                        minimum: 0
+                        maximum: 9007199254740991
+                      mcp:
+                        type: integer
+                        minimum: 0
+                        maximum: 9007199254740991
+                    required:
+                    - views
+                    - unique
+                    - human
+                    - bot
+                    - llm
+                    - mcp
+                    additionalProperties: false
+                  timeseries:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        bucket:
+                          type: string
+                        human:
+                          type: integer
+                          minimum: 0
+                          maximum: 9007199254740991
+                        bot:
+                          type: integer
+                          minimum: 0
+                          maximum: 9007199254740991
+                        llm:
+                          type: integer
+                          minimum: 0
+                          maximum: 9007199254740991
+                        mcp:
+                          type: integer
+                          minimum: 0
+                          maximum: 9007199254740991
+                        unique:
+                          type: integer
+                          minimum: 0
+                          maximum: 9007199254740991
+                      required:
+                      - bucket
+                      - human
+                      - bot
+                      - llm
+                      - mcp
+                      - unique
+                      additionalProperties: false
+                required:
+                - totals
+                - timeseries
+                additionalProperties: false
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
+      parameters:
+      - schema:
+          $ref: '#/components/schemas/nanoid'
+        in: path
+        name: projectUid
+        required: true
+      - schema:
+          default: 7d
+          type: string
+          enum:
+          - 24h
+          - 7d
+          - 30d
+          - 90d
+        in: query
+        name: range
+        required: true
+      - schema:
+          type: string
+          enum:
+          - hour
+          - day
+        in: query
+        name: granularity
+        required: false
+  /analytics/projects/{projectUid}/pages:
+    get:
+      tags:
+      - analytics
+      description: Top pages by views for a docs project
+      operationId: getanalyticsProjectsProjectUidPages
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  pages:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        path:
+                          type: string
+                        views:
+                          type: integer
+                          minimum: 0
+                          maximum: 9007199254740991
+                        unique:
+                          type: integer
+                          minimum: 0
+                          maximum: 9007199254740991
+                      required:
+                      - path
+                      - views
+                      - unique
+                      additionalProperties: false
+                required:
+                - pages
+                additionalProperties: false
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
+      parameters:
+      - schema:
+          $ref: '#/components/schemas/nanoid'
+        in: path
+        name: projectUid
+        required: true
+      - schema:
+          default: 7d
+          type: string
+          enum:
+          - 24h
+          - 7d
+          - 30d
+          - 90d
+        in: query
+        name: range
+        required: true
+      - schema:
+          default: 20
+          type: integer
+          minimum: 1
+          maximum: 100
+        in: query
+        name: limit
+        required: true
+  /analytics/projects/{projectUid}/referrers:
+    get:
+      tags:
+      - analytics
+      description: Top referrers for a docs project
+      operationId: getanalyticsProjectsProjectUidReferrers
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  referrers:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        referrer:
+                          type: string
+                        views:
+                          type: integer
+                          minimum: 0
+                          maximum: 9007199254740991
+                      required:
+                      - referrer
+                      - views
+                      additionalProperties: false
+                required:
+                - referrers
+                additionalProperties: false
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
+      parameters:
+      - schema:
+          $ref: '#/components/schemas/nanoid'
+        in: path
+        name: projectUid
+        required: true
+      - schema:
+          default: 7d
+          type: string
+          enum:
+          - 24h
+          - 7d
+          - 30d
+          - 90d
+        in: query
+        name: range
+        required: true
+      - schema:
+          default: 20
+          type: integer
+          minimum: 1
+          maximum: 100
+        in: query
+        name: limit
+        required: true
+  /analytics/projects/{projectUid}/consumers:
+    get:
+      tags:
+      - analytics
+      description: Consumer breakdown (human/bot/llm/mcp) for a docs project
+      operationId: getanalyticsProjectsProjectUidConsumers
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  totals:
+                    type: object
+                    properties:
+                      human:
+                        type: integer
+                        minimum: 0
+                        maximum: 9007199254740991
+                      bot:
+                        type: integer
+                        minimum: 0
+                        maximum: 9007199254740991
+                      llm:
+                        type: integer
+                        minimum: 0
+                        maximum: 9007199254740991
+                      mcp:
+                        type: integer
+                        minimum: 0
+                        maximum: 9007199254740991
+                    required:
+                    - human
+                    - bot
+                    - llm
+                    - mcp
+                    additionalProperties: false
+                  timeseries:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        bucket:
+                          type: string
+                        human:
+                          type: integer
+                          minimum: 0
+                          maximum: 9007199254740991
+                        bot:
+                          type: integer
+                          minimum: 0
+                          maximum: 9007199254740991
+                        llm:
+                          type: integer
+                          minimum: 0
+                          maximum: 9007199254740991
+                        mcp:
+                          type: integer
+                          minimum: 0
+                          maximum: 9007199254740991
+                        unique:
+                          type: integer
+                          minimum: 0
+                          maximum: 9007199254740991
+                      required:
+                      - bucket
+                      - human
+                      - bot
+                      - llm
+                      - mcp
+                      - unique
+                      additionalProperties: false
+                required:
+                - totals
+                - timeseries
+                additionalProperties: false
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
+      parameters:
+      - schema:
+          $ref: '#/components/schemas/nanoid'
+        in: path
+        name: projectUid
+        required: true
+      - schema:
+          default: 7d
+          type: string
+          enum:
+          - 24h
+          - 7d
+          - 30d
+          - 90d
+        in: query
+        name: range
+        required: true
+      - schema:
+          type: string
+          enum:
+          - hour
+          - day
+        in: query
+        name: granularity
+        required: false
+components:
+  schemas:
+    nanoid:
+      type: string
+      minLength: 5
+    '404':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+    '401':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+    '500':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+    '400':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+    '403':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+    '422':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

@@ -1,0 +1,1422 @@
+openapi: 3.1.1
+info:
+  title: Core access-groups github API
+  description: Core services for Scalar
+  version: 1.0.1
+  contact:
+    name: Marc from Scalar
+    url: https://scalar.com
+    email: support@scalar.com
+security:
+- BearerAuth: []
+tags:
+- name: github
+paths:
+  /github/authorize:
+    get:
+      tags:
+      - github
+      description: Get and save a user github token to their database object. This allows subsequent queries for github data from the users scope.
+      operationId: getgithubAuthorize
+      responses:
+        '200':
+          description: Default Response
+          content:
+            text/plain:
+              schema:
+                type: string
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
+      security: []
+      parameters:
+      - schema:
+          type: string
+        in: query
+        name: code
+        required: true
+      - schema:
+          type: string
+        in: query
+        name: state
+        required: true
+  /github/link/initiate:
+    get:
+      tags:
+      - github
+      description: Issue a signed OAuth state token for the GitHub user-authorization flow and return the GitHub authorize URL the client should redirect to. Optionally remembers a dashboard path to return the user to after the round-trip.
+      operationId: getgithubLinkInitiate
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  url:
+                    type: string
+                required:
+                - url
+                additionalProperties: false
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
+      parameters:
+      - schema:
+          type: string
+        in: query
+        name: redirect
+        required: false
+  /github/repos:
+    get:
+      tags:
+      - github
+      description: Get a list of repositories that can be linked to a project
+      operationId: getgithubRepos
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/github-install'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
+  /github/repos/{id}:
+    get:
+      tags:
+      - github
+      description: Get repository info
+      operationId: getgithubReposId
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  name:
+                    type: string
+                  description:
+                    type: string
+                  private:
+                    type: boolean
+                  url:
+                    type: string
+                  src:
+                    type: string
+                required:
+                - name
+                - private
+                - url
+                additionalProperties: false
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
+      parameters:
+      - schema:
+          type: number
+        in: path
+        name: id
+        required: true
+  /github/link-repo:
+    post:
+      tags:
+      - github
+      description: Links a github repo to a Scalar github project
+      operationId: postgithubLinkRepo
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: 'null'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                uid:
+                  type: string
+                repositoryId:
+                  type: number
+                configPath:
+                  default: ''
+                  type: string
+                branch:
+                  type: string
+                publishOnMerge:
+                  type: boolean
+                publishPreviews:
+                  default: false
+                  type: boolean
+                prComments:
+                  default: false
+                  type: boolean
+                isPrivate:
+                  default: false
+                  type: boolean
+                accessGroups:
+                  default: []
+                  type: array
+                  items:
+                    type: string
+              required:
+              - uid
+              - repositoryId
+              - configPath
+              - branch
+              - publishOnMerge
+              - publishPreviews
+              - prComments
+              - isPrivate
+              - accessGroups
+              additionalProperties: false
+        required: true
+  /github/docs-project/{uid}/commits:
+    get:
+      tags:
+      - github
+      description: 'List commits from the GitHub repo backing a `provider: github` DocsProject'
+      operationId: getgithubDocsProjectUidCommits
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    sha:
+                      type: string
+                    message:
+                      type: string
+                    authorName:
+                      type: string
+                    authorEmail:
+                      type: string
+                    timestamp:
+                      type: number
+                  required:
+                  - sha
+                  - message
+                  - authorName
+                  - authorEmail
+                  - timestamp
+                  additionalProperties: false
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
+      parameters:
+      - schema:
+          type: string
+        in: path
+        name: uid
+        required: true
+      - schema:
+          type: string
+        in: query
+        name: branch
+        required: false
+      - schema:
+          default: 1
+          type: number
+        in: query
+        name: page
+        required: true
+      - schema:
+          default: 50
+          type: number
+        in: query
+        name: perPage
+        required: true
+  /github/docs-project/{uid}/branches:
+    get:
+      tags:
+      - github
+      description: 'List branches on the GitHub repo backing a `provider: github` DocsProject. Supports prefix search.'
+      operationId: getgithubDocsProjectUidBranches
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  branches:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        name:
+                          type: string
+                        isDefault:
+                          type: boolean
+                      required:
+                      - name
+                      - isDefault
+                      additionalProperties: false
+                  hasMore:
+                    type: boolean
+                required:
+                - branches
+                - hasMore
+                additionalProperties: false
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
+      parameters:
+      - schema:
+          type: string
+        in: path
+        name: uid
+        required: true
+      - schema:
+          type: string
+        in: query
+        name: query
+        required: false
+      - schema:
+          default: 1
+          type: number
+        in: query
+        name: page
+        required: true
+      - schema:
+          default: 100
+          type: number
+        in: query
+        name: perPage
+        required: true
+  /github/docs-project/{uid}/pull-request:
+    post:
+      tags:
+      - github
+      description: 'Create a pull request on the GitHub repo backing a `provider: github` DocsProject'
+      operationId: postgithubDocsProjectUidPullRequest
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  url:
+                    type: string
+                  number:
+                    type: number
+                  alreadyExists:
+                    type: boolean
+                required:
+                - url
+                - number
+                - alreadyExists
+                additionalProperties: false
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                head:
+                  type: string
+                  minLength: 1
+                base:
+                  type: string
+                  minLength: 1
+                title:
+                  type: string
+                  minLength: 1
+                body:
+                  type: string
+                draft:
+                  default: false
+                  type: boolean
+              required:
+              - head
+              - base
+              - title
+              - draft
+              additionalProperties: false
+        required: true
+      parameters:
+      - schema:
+          type: string
+        in: path
+        name: uid
+        required: true
+  /github/slug/available:
+    post:
+      tags:
+      - github
+      description: Check if github slug is available
+      operationId: postgithubSlugAvailable
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  isAvailable:
+                    type: boolean
+                required:
+                - isAvailable
+                additionalProperties: false
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                slug:
+                  $ref: '#/components/schemas/slug'
+              required:
+              - slug
+              additionalProperties: false
+        required: true
+  /github/slug:
+    post:
+      tags:
+      - github
+      description: Update a github project slug
+      operationId: postgithubSlug
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: 'null'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                uid:
+                  type: string
+                slug:
+                  type: string
+              required:
+              - uid
+              - slug
+              additionalProperties: false
+        required: true
+  /github/create:
+    post:
+      tags:
+      - github
+      description: Create a github project that is not linked to a github repo. This project will be used by the cli flow.
+      operationId: postgithubCreate
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  uid:
+                    type: string
+                  slug:
+                    type: string
+                required:
+                - uid
+                - slug
+                additionalProperties: false
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                slug:
+                  $ref: '#/components/schemas/slug'
+                isPrivate:
+                  default: false
+                  type: boolean
+                allowedUsers:
+                  default: []
+                  type: array
+                  items:
+                    type: string
+                allowedDomains:
+                  default: []
+                  type: array
+                  items:
+                    type: string
+                accessGroups:
+                  default: []
+                  type: array
+                  items:
+                    type: string
+                repositoryId:
+                  type: number
+              required:
+              - name
+              - isPrivate
+              - allowedUsers
+              - allowedDomains
+              - accessGroups
+              additionalProperties: false
+        required: true
+  /github/unlink-repo:
+    post:
+      tags:
+      - github
+      description: Unlink a github repo from a Scalar github project
+      operationId: postgithubUnlinkRepo
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: 'null'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                uid:
+                  type: string
+              required:
+              - uid
+              additionalProperties: false
+        required: true
+  /github/config/validate:
+    post:
+      tags:
+      - github
+      description: Validate configuration file for a github project
+      operationId: postgithubConfigValidate
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                anyOf:
+                - type: object
+                  properties:
+                    config:
+                      type: string
+                    success:
+                      type: boolean
+                      const: true
+                    version:
+                      type: string
+                    path:
+                      type: string
+                  required:
+                  - config
+                  - success
+                  additionalProperties: false
+                - type: object
+                  properties:
+                    config:
+                      type: string
+                    error:
+                      type: array
+                      items:
+                        type: string
+                    success:
+                      type: boolean
+                      const: false
+                    version:
+                      type: string
+                    path:
+                      type: string
+                  required:
+                  - config
+                  - error
+                  - success
+                  additionalProperties: false
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                projectId:
+                  type: string
+                configPath:
+                  type: string
+              required:
+              - projectId
+              additionalProperties: false
+        required: true
+  /github/{slug}:
+    get:
+      tags:
+      - github
+      description: Get a github project.
+      operationId: getgithubSlug
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/github-project'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
+      parameters:
+      - schema:
+          type: string
+        in: path
+        name: slug
+        required: true
+  /github/list-projects:
+    get:
+      tags:
+      - github
+      description: Get github projects for the team
+      operationId: getgithubListProjects
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/github-project'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
+  /github/delete:
+    post:
+      tags:
+      - github
+      description: Deletes a Github project
+      operationId: postgithubDelete
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: 'null'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                projectUid:
+                  type: string
+              required:
+              - projectUid
+              additionalProperties: false
+        required: true
+components:
+  schemas:
+    github-project-repository:
+      type: object
+      properties:
+        linkedBy:
+          type: string
+        id:
+          type: number
+        name:
+          type: string
+          minLength: 2
+        configPath:
+          default: ''
+          type: string
+        branch:
+          default: ''
+          type: string
+        publishOnMerge:
+          default: false
+          type: boolean
+        publishPreviews:
+          default: false
+          type: boolean
+        prComments:
+          default: false
+          type: boolean
+        expired:
+          default: false
+          type: boolean
+      required:
+      - linkedBy
+      - id
+      - name
+      - configPath
+      - branch
+      - publishOnMerge
+      - publishPreviews
+      - prComments
+      - expired
+      additionalProperties: false
+    github-install:
+      type: object
+      properties:
+        id:
+          type: integer
+          minimum: -9007199254740991
+          maximum: 9007199254740991
+        name:
+          type: string
+        icon:
+          type: string
+        repos:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: integer
+                minimum: -9007199254740991
+                maximum: 9007199254740991
+              name:
+                type: string
+            required:
+            - id
+            - name
+            additionalProperties: false
+      required:
+      - id
+      - name
+      - repos
+      additionalProperties: false
+    github-project:
+      type: object
+      properties:
+        uid:
+          default: nanoid()
+          $ref: '#/components/schemas/nanoid'
+        createdAt:
+          default: unixTimestamp()
+          $ref: '#/components/schemas/timestamp'
+        updatedAt:
+          default: unixTimestamp()
+          $ref: '#/components/schemas/timestamp'
+        name:
+          type: string
+        activeDeployment:
+          default: null
+          anyOf:
+          - $ref: '#/components/schemas/active-deployment'
+          - type: 'null'
+        lastPublished:
+          default: null
+          anyOf:
+          - $ref: '#/components/schemas/timestamp'
+          - type: 'null'
+        lastPublishedUid:
+          default: null
+          anyOf:
+          - type: string
+          - type: 'null'
+        loginPortalUid:
+          default: ''
+          type: string
+        activeThemeId:
+          default: ''
+          type: string
+        typesenseId:
+          type: number
+        isPrivate:
+          default: false
+          type: boolean
+        agentEnabled:
+          default: false
+          type: boolean
+        analyticsEnabled:
+          default: true
+          type: boolean
+        accessGroups:
+          default: []
+        slug:
+          $ref: '#/components/schemas/slug'
+        publishStatus:
+          default: ''
+          type: string
+        publishMessage:
+          default: ''
+          type: string
+        repository:
+          anyOf:
+          - $ref: '#/components/schemas/github-project-repository'
+          - type: 'null'
+      required:
+      - uid
+      - createdAt
+      - updatedAt
+      - name
+      - activeDeployment
+      - lastPublished
+      - lastPublishedUid
+      - loginPortalUid
+      - activeThemeId
+      - isPrivate
+      - agentEnabled
+      - analyticsEnabled
+      - accessGroups
+      - slug
+      - publishStatus
+      - publishMessage
+      additionalProperties: false
+    nanoid:
+      type: string
+      minLength: 5
+    '404':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+    '401':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+    slug:
+      type: string
+      minLength: 3
+      maxLength: 60
+      pattern: ^[a-z](?:[a-z0-9-]*[a-z0-9])?$
+    '500':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+    active-deployment:
+      type: object
+      properties:
+        uid:
+          type: string
+        domain:
+          type: string
+        publishedAt:
+          $ref: '#/components/schemas/timestamp'
+      required:
+      - uid
+      - domain
+      - publishedAt
+      additionalProperties: false
+    '400':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+    '403':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+    timestamp:
+      type: integer
+      minimum: 0
+      maximum: 9007199254740991
+    '422':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

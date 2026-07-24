@@ -1,0 +1,1630 @@
+openapi: 3.1.1
+info:
+  title: Core access-groups sdks API
+  description: Core services for Scalar
+  version: 1.0.1
+  contact:
+    name: Marc from Scalar
+    url: https://scalar.com
+    email: support@scalar.com
+security:
+- BearerAuth: []
+tags:
+- name: sdks
+paths:
+  /v1/sdks/sync:
+    post:
+      tags:
+      - sdks
+      description: Manually trigger git sync for SDK build
+      operationId: postv1SdksSync
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: 'null'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                buildUid:
+                  $ref: '#/components/schemas/nanoid'
+              required:
+              - buildUid
+              additionalProperties: false
+        required: true
+  /v1/sdks:
+    post:
+      tags:
+      - sdks
+      description: Creates a new sdk from a registry API
+      operationId: postv1Sdks
+      responses:
+        '200':
+          description: Default Response
+          content:
+            text/plain:
+              schema:
+                type: string
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                apiUid:
+                  $ref: '#/components/schemas/nanoid'
+                language:
+                  type: string
+                  enum:
+                  - typescript
+                  - python
+                  - csharp
+                  - java
+                  - ruby
+                  - php
+                  - go
+              required:
+              - apiUid
+              - language
+              additionalProperties: false
+        required: true
+  /v1/sdks/version:
+    post:
+      tags:
+      - sdks
+      description: Creates a new version for SDK
+      operationId: postv1SdksVersion
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: 'null'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                apiUid:
+                  type: string
+                teamUid:
+                  $ref: '#/components/schemas/nanoid'
+                apiVersion:
+                  $ref: '#/components/schemas/version'
+                version:
+                  $ref: '#/components/schemas/version'
+              required:
+              - apiUid
+              - teamUid
+              - apiVersion
+              - version
+              additionalProperties: false
+        required: true
+  /v1/sdks/{uid}:
+    patch:
+      tags:
+      - sdks
+      description: Update an SDK by UID
+      operationId: patchv1SdksUid
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: 'null'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                  maxLength: 100
+                config:
+                  type: string
+                namespace:
+                  $ref: '#/components/schemas/namespace'
+                isPrivate:
+                  type: boolean
+                description:
+                  type: string
+                currentVersion:
+                  $ref: '#/components/schemas/nanoid'
+                slug:
+                  $ref: '#/components/schemas/slug'
+              additionalProperties: false
+        required: true
+      parameters:
+      - schema:
+          $ref: '#/components/schemas/nanoid'
+        in: path
+        name: uid
+        required: true
+    delete:
+      tags:
+      - sdks
+      description: Delete an SDK by UID
+      operationId: deletev1SdksUid
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: 'null'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
+      parameters:
+      - schema:
+          $ref: '#/components/schemas/nanoid'
+        in: path
+        name: uid
+        required: true
+  /pubsub/sdk-build-complete:
+    post:
+      tags:
+      - sdks
+      description: Side effect processing after SDK generation completes
+      operationId: postpubsubSdkBuildComplete
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: 'null'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                buildUid:
+                  $ref: '#/components/schemas/nanoid'
+                teamUid:
+                  $ref: '#/components/schemas/nanoid'
+                buildMessage:
+                  type: string
+                apiJsonSha:
+                  type: string
+                apiYamlSha:
+                  type: string
+              required:
+              - buildUid
+              - teamUid
+              additionalProperties: false
+        required: true
+  /pubsub/sdk-build-failed:
+    post:
+      tags:
+      - sdks
+      description: Side effect processing after SDK generation fails
+      operationId: postpubsubSdkBuildFailed
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: 'null'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                buildUid:
+                  $ref: '#/components/schemas/nanoid'
+                teamUid:
+                  $ref: '#/components/schemas/nanoid'
+                generationLog:
+                  type: string
+                buildMessage:
+                  type: string
+              required:
+              - buildUid
+              - teamUid
+              additionalProperties: false
+        required: true
+  /v1/sdks/bulk:
+    post:
+      tags:
+      - sdks
+      description: Creates multiple language SDKs from a registry API
+      operationId: postv1SdksBulk
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  uids:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/nanoid'
+                required:
+                - uids
+                additionalProperties: false
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                apiUid:
+                  $ref: '#/components/schemas/nanoid'
+                languages:
+                  minItems: 1
+                  type: array
+                  items:
+                    type: string
+                    enum:
+                    - typescript
+                    - python
+                    - csharp
+                    - java
+                    - ruby
+                    - php
+                    - go
+                className:
+                  type: string
+              required:
+              - apiUid
+              - languages
+              additionalProperties: false
+        required: true
+  /v1/sdks/available:
+    post:
+      tags:
+      - sdks
+      description: Checks if an SDK slug is available
+      operationId: postv1SdksAvailable
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  available:
+                    type: boolean
+                required:
+                - available
+                additionalProperties: false
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                namespace:
+                  $ref: '#/components/schemas/namespace'
+                slug:
+                  $ref: '#/components/schemas/slug'
+              required:
+              - namespace
+              - slug
+              additionalProperties: false
+        required: true
+  /v1/sdks/{uid}/access-group:
+    post:
+      tags:
+      - sdks
+      description: Adds an access group to an SDK
+      operationId: postv1SdksUidAccessGroup
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: 'null'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                groupUid:
+                  $ref: '#/components/schemas/nanoid'
+              required:
+              - groupUid
+              additionalProperties: false
+        required: true
+      parameters:
+      - schema:
+          $ref: '#/components/schemas/nanoid'
+        in: path
+        name: uid
+        required: true
+    delete:
+      tags:
+      - sdks
+      description: Removes an access group from an SDK
+      operationId: deletev1SdksUidAccessGroup
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: 'null'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                groupUid:
+                  $ref: '#/components/schemas/nanoid'
+              required:
+              - groupUid
+              additionalProperties: false
+        required: true
+      parameters:
+      - schema:
+          $ref: '#/components/schemas/nanoid'
+        in: path
+        name: uid
+        required: true
+  /v1/sdks/repository:
+    post:
+      tags:
+      - sdks
+      description: Links an SDK to a github repository
+      operationId: postv1SdksRepository
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: 'null'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                uid:
+                  $ref: '#/components/schemas/nanoid'
+                repositoryId:
+                  type: number
+                baseBranch:
+                  type: string
+              required:
+              - uid
+              - repositoryId
+              - baseBranch
+              additionalProperties: false
+        required: true
+    delete:
+      tags:
+      - sdks
+      description: Unlinks SDK repository
+      operationId: deletev1SdksRepository
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: 'null'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                uid:
+                  $ref: '#/components/schemas/nanoid'
+              required:
+              - uid
+              additionalProperties: false
+        required: true
+  /v1/sdks/repository/update:
+    post:
+      tags:
+      - sdks
+      description: Updates an SDK repository metadata
+      operationId: postv1SdksRepositoryUpdate
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: 'null'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                uid:
+                  type: string
+                baseBranch:
+                  type: string
+              required:
+              - uid
+              - baseBranch
+              additionalProperties: false
+        required: true
+  /pubsub/api-version-created/create-sdk-version:
+    post:
+      tags:
+      - sdks
+      description: API version created SDK processing
+      operationId: postpubsubApiVersionCreatedCreateSdkVersion
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: 'null'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                description:
+                  type: string
+                teamUid:
+                  $ref: '#/components/schemas/nanoid'
+                version:
+                  $ref: '#/components/schemas/version'
+                versionUid:
+                  $ref: '#/components/schemas/nanoid'
+                apiUid:
+                  $ref: '#/components/schemas/nanoid'
+                namespace:
+                  $ref: '#/components/schemas/namespace'
+                slug:
+                  $ref: '#/components/schemas/slug'
+                isLatest:
+                  type: boolean
+                isPrivate:
+                  type: boolean
+                docsProjectUid:
+                  $ref: '#/components/schemas/nanoid'
+              required:
+              - title
+              - description
+              - teamUid
+              - version
+              - versionUid
+              - apiUid
+              - namespace
+              - slug
+              - isLatest
+              - isPrivate
+              additionalProperties: false
+        required: true
+  /pubsub/sdk-version-created:
+    post:
+      tags:
+      - sdks
+      description: PubSub SDK version created
+      operationId: postpubsubSdkVersionCreated
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: 'null'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                sdk:
+                  type: object
+                  properties:
+                    uid:
+                      $ref: '#/components/schemas/nanoid'
+                    namespace:
+                      $ref: '#/components/schemas/namespace'
+                    slug:
+                      $ref: '#/components/schemas/slug'
+                    version:
+                      $ref: '#/components/schemas/version'
+                  required:
+                  - uid
+                  - namespace
+                  - slug
+                  - version
+                  additionalProperties: false
+                api:
+                  type: object
+                  properties:
+                    uid:
+                      $ref: '#/components/schemas/nanoid'
+                    namespace:
+                      $ref: '#/components/schemas/namespace'
+                    slug:
+                      $ref: '#/components/schemas/slug'
+                    version:
+                      $ref: '#/components/schemas/version'
+                    upgraded:
+                      default: false
+                      type: boolean
+                  required:
+                  - uid
+                  - namespace
+                  - slug
+                  - version
+                  - upgraded
+                  additionalProperties: false
+                config:
+                  type: string
+                repository:
+                  type: string
+                language:
+                  type: string
+                  enum:
+                  - typescript
+                  - python
+                  - csharp
+                  - java
+                  - ruby
+                  - php
+                  - go
+                autoBump:
+                  type: boolean
+                teamUid:
+                  $ref: '#/components/schemas/nanoid'
+              required:
+              - sdk
+              - api
+              - config
+              - language
+              - teamUid
+              additionalProperties: false
+        required: true
+  /pubsub/sdk-repository-linked:
+    post:
+      tags:
+      - sdks
+      description: Handle side effects for SDK repository linking
+      operationId: postpubsubSdkRepositoryLinked
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: 'null'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                sdkUid:
+                  $ref: '#/components/schemas/nanoid'
+                teamUid:
+                  $ref: '#/components/schemas/nanoid'
+              required:
+              - sdkUid
+              - teamUid
+              additionalProperties: false
+        required: true
+  /pubsub/sdk-git-complete:
+    post:
+      tags:
+      - sdks
+      description: Side effect processing after SDK git sync succeeds
+      operationId: postpubsubSdkGitComplete
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: 'null'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                buildUid:
+                  $ref: '#/components/schemas/nanoid'
+                teamUid:
+                  $ref: '#/components/schemas/nanoid'
+                repository:
+                  type: string
+                pullRequest:
+                  type: number
+                commitHash:
+                  type: string
+                gitMessage:
+                  type: string
+              required:
+              - buildUid
+              - teamUid
+              - repository
+              - pullRequest
+              - commitHash
+              additionalProperties: false
+        required: true
+  /pubsub/sdk-git-failed:
+    post:
+      tags:
+      - sdks
+      description: Side effect processing after SDK git sync fails
+      operationId: postpubsubSdkGitFailed
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: 'null'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                buildUid:
+                  $ref: '#/components/schemas/nanoid'
+                teamUid:
+                  $ref: '#/components/schemas/nanoid'
+                gitMessage:
+                  type: string
+              required:
+              - buildUid
+              - teamUid
+              - gitMessage
+              additionalProperties: false
+        required: true
+  /v1/sdks/build:
+    post:
+      tags:
+      - sdks
+      description: Trigger manual SDK build
+      operationId: postv1SdksBuild
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: 'null'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                sdkUid:
+                  $ref: '#/components/schemas/nanoid'
+                version:
+                  $ref: '#/components/schemas/version'
+              required:
+              - sdkUid
+              - version
+              additionalProperties: false
+        required: true
+  /v1/sdks/snippets:
+    post:
+      tags:
+      - sdks
+      description: Generate SDK snippets for a Registry API
+      operationId: postv1SdksSnippets
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/sdk-preview'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                namespace:
+                  $ref: '#/components/schemas/namespace'
+                slug:
+                  $ref: '#/components/schemas/slug'
+                className:
+                  type: string
+                languages:
+                  type: array
+                  items:
+                    type: string
+                    enum:
+                    - typescript
+                    - python
+                    - csharp
+                    - java
+                    - ruby
+                    - php
+                    - go
+              required:
+              - namespace
+              - slug
+              - languages
+              additionalProperties: false
+        required: true
+components:
+  schemas:
+    namespace:
+      type: string
+      minLength: 3
+      maxLength: 50
+      pattern: ^[a-zA-Z0-9-_]+$
+    sdk-preview:
+      type: object
+      properties:
+        code:
+          type: string
+        language:
+          type: string
+        method:
+          type: string
+        operationId:
+          type: string
+        path:
+          type: string
+      required:
+      - code
+      - language
+      - operationId
+      - path
+      additionalProperties: false
+    nanoid:
+      type: string
+      minLength: 5
+    '404':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+    '401':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+    slug:
+      type: string
+      minLength: 3
+      maxLength: 60
+      pattern: ^[a-z](?:[a-z0-9-]*[a-z0-9])?$
+    version:
+      type: string
+      minLength: 1
+    '500':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+    '400':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+    '403':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+    '422':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

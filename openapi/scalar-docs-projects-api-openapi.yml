@@ -1,0 +1,973 @@
+openapi: 3.1.1
+info:
+  title: Core access-groups Docs Projects API
+  description: Core services for Scalar
+  version: 1.0.1
+  contact:
+    name: Marc from Scalar
+    url: https://scalar.com
+    email: support@scalar.com
+security:
+- BearerAuth: []
+tags:
+- name: Docs Projects
+paths:
+  /docs-projects/create:
+    post:
+      description: Create a unified DocsProject backed by the chosen VCS provider (forgejo, github, or bitbucket)
+      operationId: postdocsProjectsCreate
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/docs-project'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  minLength: 1
+                  maxLength: 255
+                slug:
+                  $ref: '#/components/schemas/slug'
+                isPrivate:
+                  default: false
+                  type: boolean
+                provider:
+                  type: string
+                  enum:
+                  - forgejo
+                  - github
+                  - bitbucket
+                githubRepository:
+                  type: object
+                  properties:
+                    installationId:
+                      type: integer
+                      minimum: -9007199254740991
+                      maximum: 9007199254740991
+                    repoId:
+                      type: integer
+                      minimum: -9007199254740991
+                      maximum: 9007199254740991
+                  required:
+                  - installationId
+                  - repoId
+                  additionalProperties: false
+                bitbucketRepository:
+                  type: object
+                  properties:
+                    workspaceUuid:
+                      type: string
+                    repoUuid:
+                      type: string
+                  required:
+                  - workspaceUuid
+                  - repoUuid
+                  additionalProperties: false
+              required:
+              - name
+              - isPrivate
+              - provider
+              additionalProperties: false
+        required: true
+      tags:
+      - Docs Projects
+  /docs-projects/delete:
+    delete:
+      description: Delete a unified DocsProject. Tears down deploys + publish records + cached builds, repoints user activeProjectUid, deletes the Forgejo repo (if any), and notifies subscribers. User-owned GitHub repos are left untouched.
+      operationId: deletedocsProjectsDelete
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: 'null'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                projectUid:
+                  $ref: '#/components/schemas/nanoid'
+              required:
+              - projectUid
+              additionalProperties: false
+        required: true
+      tags:
+      - Docs Projects
+  /docs-projects/{slug}:
+    get:
+      description: Get a unified DocsProject by slug for the current team
+      operationId: getdocsProjectsSlug
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/docs-project'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
+      parameters:
+      - schema:
+          $ref: '#/components/schemas/slug'
+        in: path
+        name: slug
+        required: true
+      tags:
+      - Docs Projects
+  /docs-projects/update-repo-settings:
+    post:
+      description: Update editable repository settings (tracked branch, config path) on a unified DocsProject. Publish flags live in scalar.config.json.
+      operationId: postdocsProjectsUpdateRepoSettings
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: 'null'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                projectUid:
+                  $ref: '#/components/schemas/nanoid'
+                branch:
+                  type: string
+                  minLength: 1
+                configPath:
+                  type: string
+              required:
+              - projectUid
+              additionalProperties: false
+        required: true
+      tags:
+      - Docs Projects
+  /docs-projects/{projectUid}/link-github:
+    post:
+      description: Convert a Forgejo-backed DocsProject into a GitHub-backed one. Reads every file from the Forgejo repo and opens a single PR on the chosen GitHub repo putting the content under scalar-docs/.
+      operationId: postdocsProjectsProjectUidLinkGithub
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  pullRequest:
+                    type: object
+                    properties:
+                      url:
+                        type: string
+                      number:
+                        type: integer
+                        minimum: -9007199254740991
+                        maximum: 9007199254740991
+                      branch:
+                        type: string
+                    required:
+                    - url
+                    - number
+                    - branch
+                    additionalProperties: false
+                  project:
+                    $ref: '#/components/schemas/docs-project'
+                required:
+                - pullRequest
+                - project
+                additionalProperties: false
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                installationId:
+                  type: integer
+                  minimum: -9007199254740991
+                  maximum: 9007199254740991
+                repoId:
+                  type: integer
+                  minimum: -9007199254740991
+                  maximum: 9007199254740991
+              required:
+              - installationId
+              - repoId
+              additionalProperties: false
+        required: true
+      parameters:
+      - schema:
+          $ref: '#/components/schemas/nanoid'
+        in: path
+        name: projectUid
+        required: true
+      tags:
+      - Docs Projects
+  /docs-projects/{projectUid}/unlink-github:
+    post:
+      description: Convert a GitHub-backed DocsProject back to a Forgejo-backed one. Migrates the GitHub repository contents into a fresh Forgejo repo and flips the project provider.
+      operationId: postdocsProjectsProjectUidUnlinkGithub
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  project:
+                    $ref: '#/components/schemas/docs-project'
+                required:
+                - project
+                additionalProperties: false
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
+      parameters:
+      - schema:
+          $ref: '#/components/schemas/nanoid'
+        in: path
+        name: projectUid
+        required: true
+      tags:
+      - Docs Projects
+  /docs-projects/{projectUid}/link-bitbucket:
+    post:
+      description: Convert a Forgejo-backed DocsProject into a Bitbucket-backed one. Reads every file from the Forgejo repo and opens a single PR on the chosen Bitbucket repo putting the content under scalar-docs/.
+      operationId: postdocsProjectsProjectUidLinkBitbucket
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  pullRequest:
+                    type: object
+                    properties:
+                      url:
+                        type: string
+                      number:
+                        type: integer
+                        minimum: -9007199254740991
+                        maximum: 9007199254740991
+                      branch:
+                        type: string
+                    required:
+                    - url
+                    - number
+                    - branch
+                    additionalProperties: false
+                  project:
+                    $ref: '#/components/schemas/docs-project'
+                required:
+                - pullRequest
+                - project
+                additionalProperties: false
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                workspaceUuid:
+                  type: string
+                repoUuid:
+                  type: string
+              required:
+              - workspaceUuid
+              - repoUuid
+              additionalProperties: false
+        required: true
+      parameters:
+      - schema:
+          $ref: '#/components/schemas/nanoid'
+        in: path
+        name: projectUid
+        required: true
+      tags:
+      - Docs Projects
+  /docs-projects/{projectUid}/unlink-bitbucket:
+    post:
+      description: Convert a Bitbucket-backed DocsProject back to a Forgejo-backed one. Migrates the Bitbucket repository contents into a fresh Forgejo repo and flips the project provider.
+      operationId: postdocsProjectsProjectUidUnlinkBitbucket
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  project:
+                    $ref: '#/components/schemas/docs-project'
+                required:
+                - project
+                additionalProperties: false
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
+      parameters:
+      - schema:
+          $ref: '#/components/schemas/nanoid'
+        in: path
+        name: projectUid
+        required: true
+      tags:
+      - Docs Projects
+  /docs-projects/{projectUid}/bitbucket/refresh-webhook:
+    post:
+      description: Re-register the Bitbucket webhook on a Bitbucket-backed DocsProject. Used to recover from a failed initial registration after the linker user is granted repo admin.
+      operationId: postdocsProjectsProjectUidBitbucketRefreshWebhook
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  project:
+                    $ref: '#/components/schemas/docs-project'
+                required:
+                - project
+                additionalProperties: false
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
+      parameters:
+      - schema:
+          $ref: '#/components/schemas/nanoid'
+        in: path
+        name: projectUid
+        required: true
+      tags:
+      - Docs Projects
+components:
+  schemas:
+    docs-project-repository-github:
+      type: object
+      properties:
+        provider:
+          type: string
+          const: github
+        linkedBy:
+          type: string
+        installationId:
+          type: integer
+          minimum: -9007199254740991
+          maximum: 9007199254740991
+        id:
+          type: integer
+          minimum: -9007199254740991
+          maximum: 9007199254740991
+        name:
+          type: string
+          minLength: 2
+        branch:
+          default: main
+          type: string
+        configPath:
+          default: scalar.config.json
+          type: string
+        publishOnMerge:
+          default: true
+          type: boolean
+        publishPreviews:
+          default: false
+          type: boolean
+        prComments:
+          default: false
+          type: boolean
+        expired:
+          default: false
+          type: boolean
+      required:
+      - provider
+      - linkedBy
+      - installationId
+      - id
+      - name
+      - branch
+      - configPath
+      - publishOnMerge
+      - publishPreviews
+      - prComments
+      - expired
+      additionalProperties: false
+    docs-project-repository-forgejo:
+      type: object
+      properties:
+        provider:
+          type: string
+          const: forgejo
+        forgejoOwner:
+          type: string
+        forgejoRepo:
+          type: string
+        branch:
+          default: main
+          type: string
+        configPath:
+          default: scalar.config.json
+          type: string
+      required:
+      - provider
+      - forgejoOwner
+      - forgejoRepo
+      - branch
+      - configPath
+      additionalProperties: false
+    nanoid:
+      type: string
+      minLength: 5
+    '404':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+    '401':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+    slug:
+      type: string
+      minLength: 3
+      maxLength: 60
+      pattern: ^[a-z](?:[a-z0-9-]*[a-z0-9])?$
+    docs-project:
+      type: object
+      properties:
+        uid:
+          default: nanoid()
+          $ref: '#/components/schemas/nanoid'
+        createdAt:
+          default: unixTimestamp()
+          $ref: '#/components/schemas/timestamp'
+        updatedAt:
+          default: unixTimestamp()
+          $ref: '#/components/schemas/timestamp'
+        name:
+          type: string
+        activeDeployment:
+          default: null
+          anyOf:
+          - $ref: '#/components/schemas/active-deployment'
+          - type: 'null'
+        lastPublished:
+          default: null
+          anyOf:
+          - $ref: '#/components/schemas/timestamp'
+          - type: 'null'
+        lastPublishedUid:
+          default: null
+          anyOf:
+          - type: string
+          - type: 'null'
+        loginPortalUid:
+          default: ''
+          type: string
+        activeThemeId:
+          default: ''
+          type: string
+        typesenseId:
+          type: number
+        isPrivate:
+          default: false
+          type: boolean
+        agentEnabled:
+          default: false
+          type: boolean
+        analyticsEnabled:
+          default: true
+          type: boolean
+        accessGroups:
+          default: []
+        slug:
+          $ref: '#/components/schemas/slug'
+        publishStatus:
+          default: ''
+          type: string
+        publishMessage:
+          default: ''
+          type: string
+        repository:
+          oneOf:
+          - $ref: '#/components/schemas/docs-project-repository-forgejo'
+          - $ref: '#/components/schemas/docs-project-repository-github'
+          - $ref: '#/components/schemas/docs-project-repository-bitbucket'
+      required:
+      - uid
+      - createdAt
+      - updatedAt
+      - name
+      - activeDeployment
+      - lastPublished
+      - lastPublishedUid
+      - loginPortalUid
+      - activeThemeId
+      - isPrivate
+      - agentEnabled
+      - analyticsEnabled
+      - accessGroups
+      - slug
+      - publishStatus
+      - publishMessage
+      - repository
+      additionalProperties: false
+    '500':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+    active-deployment:
+      type: object
+      properties:
+        uid:
+          type: string
+        domain:
+          type: string
+        publishedAt:
+          $ref: '#/components/schemas/timestamp'
+      required:
+      - uid
+      - domain
+      - publishedAt
+      additionalProperties: false
+    '400':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+    '403':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+    timestamp:
+      type: integer
+      minimum: 0
+      maximum: 9007199254740991
+    '422':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+    docs-project-repository-bitbucket:
+      type: object
+      properties:
+        provider:
+          type: string
+          const: bitbucket
+        linkedBy:
+          type: string
+        workspaceUuid:
+          type: string
+        workspaceSlug:
+          type: string
+        repoUuid:
+          type: string
+        repoSlug:
+          type: string
+        name:
+          type: string
+          minLength: 2
+        branch:
+          default: main
+          type: string
+        configPath:
+          default: scalar.config.json
+          type: string
+        publishOnMerge:
+          default: true
+          type: boolean
+        publishPreviews:
+          default: false
+          type: boolean
+        prComments:
+          default: false
+          type: boolean
+        expired:
+          default: false
+          type: boolean
+        webhookUuid:
+          default: ''
+          type: string
+      required:
+      - provider
+      - linkedBy
+      - workspaceUuid
+      - workspaceSlug
+      - repoUuid
+      - repoSlug
+      - name
+      - branch
+      - configPath
+      - publishOnMerge
+      - publishPreviews
+      - prComments
+      - expired
+      - webhookUuid
+      additionalProperties: false
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

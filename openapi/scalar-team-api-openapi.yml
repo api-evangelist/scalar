@@ -1,0 +1,3531 @@
+openapi: 3.1.1
+info:
+  title: Core access-groups team API
+  description: Core services for Scalar
+  version: 1.0.1
+  contact:
+    name: Marc from Scalar
+    url: https://scalar.com
+    email: support@scalar.com
+security:
+- BearerAuth: []
+tags:
+- name: team
+paths:
+  /me/teams:
+    get:
+      tags:
+      - team
+      description: List all teams the current user belongs to
+      operationId: getmeTeams
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/team-list-mine-entry'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
+  /team/slug:
+    post:
+      tags:
+      - team
+      description: Update a team slug
+      operationId: postteamSlug
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: 'null'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                slug:
+                  type: string
+              required:
+              - slug
+              additionalProperties: false
+        required: true
+  /team/slug/available:
+    post:
+      tags:
+      - team
+      description: Check if team slug is available
+      operationId: postteamSlugAvailable
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  isAvailable:
+                    type: boolean
+                required:
+                - isAvailable
+                additionalProperties: false
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
+      security: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                slug:
+                  $ref: '#/components/schemas/slug'
+              required:
+              - slug
+              additionalProperties: false
+        required: true
+  /team/create:
+    post:
+      tags:
+      - team
+      description: Create a new team
+      operationId: postteamCreate
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  teamUid:
+                    type: string
+                required:
+                - teamUid
+                additionalProperties: false
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                project:
+                  $ref: '#/components/schemas/project'
+                teamInfo:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                    slug:
+                      $ref: '#/components/schemas/slug'
+                  required:
+                  - name
+                  additionalProperties: false
+                invites:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      email:
+                        $ref: '#/components/schemas/email'
+                      role:
+                        $ref: '#/components/schemas/role'
+                    required:
+                    - email
+                    additionalProperties: false
+              required:
+              - teamInfo
+              additionalProperties: false
+        required: true
+  /team/invite:
+    post:
+      tags:
+      - team
+      description: Invite a new member to the team
+      operationId: postteamInvite
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: 'null'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  $ref: '#/components/schemas/email'
+                role:
+                  $ref: '#/components/schemas/role'
+              required:
+              - email
+              - role
+              additionalProperties: false
+        required: true
+    delete:
+      tags:
+      - team
+      description: Cancel a team invite
+      operationId: deleteteamInvite
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: 'null'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                uid:
+                  type: string
+              required:
+              - uid
+              additionalProperties: false
+        required: true
+    patch:
+      tags:
+      - team
+      description: Resend an existing team invite
+      operationId: patchteamInvite
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: 'null'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                uid:
+                  type: string
+              required:
+              - uid
+              additionalProperties: false
+        required: true
+  /team/accept-invite:
+    get:
+      tags:
+      - team
+      description: Accept an email team invite
+      operationId: getteamAcceptInvite
+      responses:
+        '200':
+          description: Default Response
+          content:
+            text/plain:
+              schema:
+                type: string
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
+      security: []
+      parameters:
+      - schema:
+          type: string
+        in: query
+        name: token
+        required: true
+  /team/rename:
+    post:
+      tags:
+      - team
+      description: Rename a team and handle multiple record updates
+      operationId: postteamRename
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: 'null'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+              required:
+              - name
+              additionalProperties: false
+        required: true
+  /team/image:
+    post:
+      tags:
+      - team
+      description: Update a team logo image and handle multiple record updates
+      operationId: postteamImage
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: 'null'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                imageUri:
+                  type: string
+              required:
+              - imageUri
+              additionalProperties: false
+        required: true
+  /team/leave:
+    get:
+      tags:
+      - team
+      description: Allow a user to leave a team
+      operationId: getteamLeave
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: 'null'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
+  /team:
+    delete:
+      tags:
+      - team
+      description: Delete a team
+      operationId: deleteteam
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  newTeamUid:
+                    anyOf:
+                    - $ref: '#/components/schemas/nanoid'
+                    - type: 'null'
+                required:
+                - newTeamUid
+                additionalProperties: false
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
+  /team/delete-member:
+    post:
+      tags:
+      - team
+      description: Remove a user from the team
+      operationId: postteamDeleteMember
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: 'null'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                userUid:
+                  $ref: '#/components/schemas/nanoid'
+              required:
+              - userUid
+              additionalProperties: false
+        required: true
+  /team/update:
+    post:
+      tags:
+      - team
+      description: Update a team record
+      operationId: postteamUpdate
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: 'null'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                theme:
+                  default: default
+                  type: string
+              additionalProperties: false
+        required: true
+  /team/update-user:
+    post:
+      tags:
+      - team
+      description: Update a team user record (safe properties only)
+      operationId: postteamUpdateUser
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: 'null'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                userUid:
+                  $ref: '#/components/schemas/nanoid'
+                teamUser:
+                  type: object
+                  properties:
+                    displayName:
+                      type: string
+                    imageUri:
+                      type: string
+                    activeProjectUid:
+                      type: string
+                  additionalProperties: false
+              required:
+              - userUid
+              - teamUser
+              additionalProperties: false
+        required: true
+  /team/billing:
+    get:
+      tags:
+      - team
+      description: Team billing invoice and plan summary
+      operationId: getteamBilling
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/team-billing-summary'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
+  /team/billing/email:
+    post:
+      tags:
+      - team
+      description: Update a team's billing email
+      operationId: postteamBillingEmail
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: 'null'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  $ref: '#/components/schemas/email'
+              required:
+              - email
+              additionalProperties: false
+        required: true
+  /team/update/plan:
+    post:
+      tags:
+      - team
+      description: Update a team's billing plan
+      operationId: postteamUpdatePlan
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: 'null'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                billingPlan:
+                  anyOf:
+                  - type: string
+                    const: free
+                  - type: string
+                    const: pro_monthly
+                  - type: string
+                    const: pro_yearly
+              required:
+              - billingPlan
+              additionalProperties: false
+        required: true
+  /team/update-role:
+    post:
+      tags:
+      - team
+      description: Updates user role for a team member
+      operationId: postteamUpdateRole
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: 'null'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                userUid:
+                  $ref: '#/components/schemas/nanoid'
+                role:
+                  $ref: '#/components/schemas/role'
+              required:
+              - userUid
+              - role
+              additionalProperties: false
+        required: true
+  /internal/team/archive:
+    delete:
+      tags:
+      - team
+      description: Scheduled internal deletion for premium teams
+      operationId: deleteinternalTeamArchive
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: 'null'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                teamUid:
+                  $ref: '#/components/schemas/nanoid'
+                namespaces:
+                  type: array
+                  items:
+                    type: string
+              required:
+              - teamUid
+              - namespaces
+              additionalProperties: false
+        required: true
+  /team/namespace/update:
+    post:
+      tags:
+      - team
+      description: Update a team namespace
+      operationId: postteamNamespaceUpdate
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: 'null'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                namespace:
+                  $ref: '#/components/schemas/namespace'
+                newNamespace:
+                  $ref: '#/components/schemas/namespace'
+              required:
+              - namespace
+              - newNamespace
+              additionalProperties: false
+        required: true
+  /team/namespace:
+    post:
+      tags:
+      - team
+      description: Create a team namespace
+      operationId: postteamNamespace
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: 'null'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                namespace:
+                  $ref: '#/components/schemas/namespace'
+              required:
+              - namespace
+              additionalProperties: false
+        required: true
+  /team/namespace/available:
+    post:
+      tags:
+      - team
+      description: Check if team namespace is available
+      operationId: postteamNamespaceAvailable
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  isAvailable:
+                    type: boolean
+                required:
+                - isAvailable
+                additionalProperties: false
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                namespace:
+                  $ref: '#/components/schemas/namespace'
+              required:
+              - namespace
+              additionalProperties: false
+        required: true
+  /team/namespaces:
+    get:
+      tags:
+      - team
+      description: Get all namespaces for the current team
+      operationId: getteamNamespaces
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/namespace'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
+  /team/onboarding/setup:
+    post:
+      tags:
+      - team
+      description: Onboarding team setup
+      operationId: postteamOnboardingSetup
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: 'null'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                slug:
+                  $ref: '#/components/schemas/slug'
+                name:
+                  $ref: '#/components/schemas/team-name'
+                imageUri:
+                  $ref: '#/components/schemas/team-image'
+                invites:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      email:
+                        $ref: '#/components/schemas/email'
+                      role:
+                        default: editor
+                        $ref: '#/components/schemas/role'
+                    required:
+                    - email
+                    - role
+                    additionalProperties: false
+              required:
+              - slug
+              - name
+              - invites
+              additionalProperties: false
+        required: true
+  /team/onboarding/complete:
+    post:
+      tags:
+      - team
+      description: Onboarding team complete
+      operationId: postteamOnboardingComplete
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: 'null'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
+  /internal/team/features:
+    post:
+      tags:
+      - team
+      description: Internal endpoint to update feature flags for a team
+      operationId: postinternalTeamFeatures
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/feature-flag'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                teamUid:
+                  $ref: '#/components/schemas/nanoid'
+                features:
+                  $ref: '#/components/schemas/feature-flag'
+              required:
+              - teamUid
+              - features
+              additionalProperties: false
+        required: true
+  /pubsub/invite-team-member:
+    post:
+      tags:
+      - team
+      description: Pubsub invite a new member to the team
+      operationId: postpubsubInviteTeamMember
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: 'null'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                teamUid:
+                  $ref: '#/components/schemas/nanoid'
+                userUid:
+                  $ref: '#/components/schemas/nanoid'
+                email:
+                  $ref: '#/components/schemas/email'
+                role:
+                  $ref: '#/components/schemas/role'
+              required:
+              - teamUid
+              - userUid
+              - email
+              additionalProperties: false
+        required: true
+  /pubsub/team-member-invited:
+    post:
+      tags:
+      - team
+      description: Pubsub team member invited
+      operationId: postpubsubTeamMemberInvited
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: 'null'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                inviteToken:
+                  type: string
+                teamName:
+                  type: string
+                invitedBy:
+                  type: string
+                email:
+                  type: string
+              required:
+              - inviteToken
+              - teamName
+              - invitedBy
+              - email
+              additionalProperties: false
+        required: true
+  /team/icon:
+    post:
+      tags:
+      - team
+      description: Adds a custom icon to the team
+      operationId: postteamIcon
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: 'null'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/custom-project-icon'
+        required: true
+    delete:
+      tags:
+      - team
+      description: Deletes a custom icon from the team
+      operationId: deleteteamIcon
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: 'null'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                src:
+                  type: string
+              required:
+              - src
+              additionalProperties: false
+        required: true
+  /team/authentication/domain:
+    post:
+      tags:
+      - team
+      description: Add a domain to authentication allowlist
+      operationId: postteamAuthenticationDomain
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: 'null'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                domain:
+                  type: string
+              required:
+              - domain
+              additionalProperties: false
+        required: true
+    delete:
+      tags:
+      - team
+      description: Remove a domain from authentication allowlist
+      operationId: deleteteamAuthenticationDomain
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: 'null'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                domain:
+                  type: string
+              required:
+              - domain
+              additionalProperties: false
+        required: true
+  /team/authentication/method:
+    post:
+      tags:
+      - team
+      description: Enable or disable authentication method for the team
+      operationId: postteamAuthenticationMethod
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: 'null'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                method:
+                  type: string
+                  enum:
+                  - password
+                  - google
+                  - github
+                  - sso
+                enabled:
+                  type: boolean
+              required:
+              - method
+              - enabled
+              additionalProperties: false
+        required: true
+  /team/authentication/user:
+    post:
+      tags:
+      - team
+      description: Edit team authentication user controls
+      operationId: postteamAuthenticationUser
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: 'null'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                userUid:
+                  $ref: '#/components/schemas/nanoid'
+                methods:
+                  type: object
+                  properties:
+                    password:
+                      default: true
+                      type: boolean
+                    google:
+                      default: true
+                      type: boolean
+                    github:
+                      default: true
+                      type: boolean
+                    sso:
+                      default: true
+                      type: boolean
+                  additionalProperties: false
+              required:
+              - userUid
+              additionalProperties: false
+        required: true
+    delete:
+      tags:
+      - team
+      description: Remove team authentication user controls
+      operationId: deleteteamAuthenticationUser
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: 'null'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                userUid:
+                  $ref: '#/components/schemas/nanoid'
+              required:
+              - userUid
+              additionalProperties: false
+        required: true
+  /team/authentication/user/method:
+    post:
+      tags:
+      - team
+      description: Enable or disable authentication method for a user
+      operationId: postteamAuthenticationUserMethod
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: 'null'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                userUid:
+                  $ref: '#/components/schemas/nanoid'
+                method:
+                  type: string
+                  enum:
+                  - password
+                  - google
+                  - github
+                  - sso
+                enabled:
+                  type: boolean
+              required:
+              - userUid
+              - method
+              - enabled
+              additionalProperties: false
+        required: true
+  /team/external-access/method:
+    post:
+      tags:
+      - team
+      description: Enable or disable external access methods for the team
+      operationId: postteamExternalAccessMethod
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: 'null'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                method:
+                  type: string
+                  enum:
+                  - email
+                  - sso
+                enabled:
+                  type: boolean
+              required:
+              - method
+              - enabled
+              additionalProperties: false
+        required: true
+  /internal/teams/{teamUid}/notify-mcp-approval-required:
+    post:
+      tags:
+      - team
+      description: Notify a team's admins/owners that an MCP server version is awaiting approval.
+      operationId: postinternalTeamsTeamUidNotifyMcpApprovalRequired
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema: {}
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                mcpServerName:
+                  type: string
+                semver:
+                  type: string
+                requesterEmail:
+                  type: string
+                changeNote:
+                  anyOf:
+                  - type: string
+                  - type: 'null'
+                redirectUrl:
+                  type: string
+              required:
+              - mcpServerName
+              - semver
+              - requesterEmail
+              - changeNote
+              - redirectUrl
+              additionalProperties: false
+        required: true
+      parameters:
+      - schema:
+          type: string
+        in: path
+        name: teamUid
+        required: true
+  /user/update:
+    post:
+      tags:
+      - team
+      description: Update user record
+      operationId: postuserUpdate
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: 'null'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                theme:
+                  type: string
+              additionalProperties: false
+        required: true
+  /internal/user/ban:
+    post:
+      tags:
+      - team
+      description: Ban a user by email. Banning will deny a user from creating an account or logging in.
+      operationId: postinternalUserBan
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: 'null'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  $ref: '#/components/schemas/email'
+                reason:
+                  type: string
+                bannedBy:
+                  type: string
+                deleteAccount:
+                  type: boolean
+              required:
+              - email
+              - reason
+              - bannedBy
+              additionalProperties: false
+        required: true
+components:
+  schemas:
+    namespace:
+      type: string
+      minLength: 3
+      maxLength: 50
+      pattern: ^[a-zA-Z0-9-_]+$
+    team-billing-summary:
+      type: object
+      properties:
+        invoices:
+          default: []
+          type: array
+          items:
+            $ref: '#/components/schemas/billing-invoice'
+        address:
+          anyOf:
+          - type: string
+          - type: 'null'
+        card:
+          anyOf:
+          - $ref: '#/components/schemas/card'
+          - type: 'null'
+        billingInfo:
+          $ref: '#/components/schemas/billing-info'
+      required:
+      - invoices
+      - address
+      - card
+      - billingInfo
+      additionalProperties: false
+    project-version:
+      type: object
+      properties:
+        uid:
+          $ref: '#/components/schemas/nanoid'
+        name:
+          default: Default Version
+          type: string
+        primaryGuideId:
+          type: string
+        primaryReferenceId:
+          type: string
+        references:
+          type: object
+          propertyNames:
+            type: string
+          additionalProperties:
+            $ref: '#/components/schemas/reference'
+        guides:
+          type: object
+          propertyNames:
+            type: string
+          additionalProperties:
+            $ref: '#/components/schemas/guide'
+        header:
+          type: array
+          items:
+            $ref: '#/components/schemas/header-link'
+        footer:
+          default: ''
+          type: string
+        footerCss:
+          default: ''
+          type: string
+        footerBelowSidebar:
+          default: false
+          type: boolean
+        headScript:
+          default: ''
+          type: string
+        bodyScript:
+          default: ''
+          type: string
+      required:
+      - uid
+      - name
+      - primaryGuideId
+      - primaryReferenceId
+      - references
+      - guides
+      - header
+      - footer
+      - footerCss
+      - footerBelowSidebar
+      - headScript
+      - bodyScript
+      additionalProperties: false
+    team-image:
+      type: string
+    guide:
+      type: object
+      properties:
+        uid:
+          $ref: '#/components/schemas/nanoid'
+        title:
+          type: string
+        description:
+          type: string
+        sidebar:
+          $ref: '#/components/schemas/sidebar'
+        show:
+          default: true
+          type: boolean
+        isButton:
+          default: false
+          type: boolean
+        isStarred:
+          default: false
+          type: boolean
+      required:
+      - uid
+      - title
+      - description
+      - sidebar
+      - show
+      - isButton
+      - isStarred
+      additionalProperties: false
+    invoice-status:
+      type: string
+      enum:
+      - open
+      - paid
+      - draft
+      - void
+      - uncollectible
+    sidebar:
+      type: object
+      properties:
+        items:
+          type: object
+          propertyNames:
+            type: string
+          additionalProperties:
+            $ref: '#/components/schemas/sidebar-item'
+        children:
+          type: array
+          items:
+            type: string
+      required:
+      - items
+      - children
+      additionalProperties: false
+    project:
+      type: object
+      properties:
+        uid:
+          default: nanoid()
+          $ref: '#/components/schemas/nanoid'
+        createdAt:
+          default: unixTimestamp()
+          $ref: '#/components/schemas/timestamp'
+        updatedAt:
+          default: unixTimestamp()
+          $ref: '#/components/schemas/timestamp'
+        name:
+          type: string
+        activeDeployment:
+          default: null
+          anyOf:
+          - $ref: '#/components/schemas/active-deployment'
+          - type: 'null'
+        lastPublished:
+          default: null
+          anyOf:
+          - $ref: '#/components/schemas/timestamp'
+          - type: 'null'
+        lastPublishedUid:
+          default: null
+          anyOf:
+          - type: string
+          - type: 'null'
+        loginPortalUid:
+          default: ''
+          type: string
+        activeThemeId:
+          default: ''
+          type: string
+        typesenseId:
+          type: number
+        isPrivate:
+          default: false
+          type: boolean
+        agentEnabled:
+          default: false
+          type: boolean
+        analyticsEnabled:
+          default: true
+          type: boolean
+        accessGroups:
+          default: []
+        versions:
+          type: object
+          propertyNames:
+            type: string
+          additionalProperties:
+            $ref: '#/components/schemas/project-version'
+        activeTemplateId:
+          default: ''
+          type: string
+        activeVersionId:
+          default: ''
+          type: string
+        logo:
+          $ref: '#/components/schemas/logo'
+        website:
+          description: Deployed site configuration for a project
+          $ref: '#/components/schemas/website'
+        insertPageTitles:
+          default: true
+          type: boolean
+      required:
+      - uid
+      - createdAt
+      - updatedAt
+      - name
+      - activeDeployment
+      - lastPublished
+      - lastPublishedUid
+      - loginPortalUid
+      - activeThemeId
+      - isPrivate
+      - agentEnabled
+      - analyticsEnabled
+      - accessGroups
+      - versions
+      - activeTemplateId
+      - activeVersionId
+      - logo
+      - website
+      - insertPageTitles
+      additionalProperties: false
+    header-link-guide:
+      type: object
+      properties:
+        uid:
+          $ref: '#/components/schemas/nanoid'
+        title:
+          type: string
+        show:
+          default: true
+          type: boolean
+        isStarred:
+          default: false
+          type: boolean
+        type:
+          type: string
+          const: guide
+      required:
+      - uid
+      - title
+      - show
+      - isStarred
+      - type
+      additionalProperties: false
+    role:
+      type: string
+      enum:
+      - owner
+      - admin
+      - editor
+      - viewer
+    header-link-external:
+      type: object
+      properties:
+        uid:
+          $ref: '#/components/schemas/nanoid'
+        title:
+          type: string
+        show:
+          default: true
+          type: boolean
+        isStarred:
+          default: false
+          type: boolean
+        type:
+          type: string
+          const: link
+        isButton:
+          default: false
+          type: boolean
+        link:
+          type: string
+      required:
+      - uid
+      - title
+      - show
+      - isStarred
+      - type
+      - isButton
+      - link
+      additionalProperties: false
+    '500':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+    sidebar-page:
+      type: object
+      properties:
+        uid:
+          $ref: '#/components/schemas/nanoid'
+        title:
+          type: string
+          minLength: 1
+        type:
+          type: string
+          const: Page
+        link:
+          type: string
+        icon:
+          $ref: '#/components/schemas/project-icon'
+        children:
+          default: []
+          type: array
+          items:
+            type: string
+        description:
+          type: string
+        show:
+          type: boolean
+        sidebarTitle:
+          type: string
+        defaultOpen:
+          type: boolean
+        yjsReference:
+          type: string
+        backgroundImage:
+          type: string
+        isMdx:
+          default: false
+          type: boolean
+        isHtml:
+          default: false
+          type: boolean
+      required:
+      - uid
+      - title
+      - type
+      - children
+      - description
+      - show
+      - yjsReference
+      - isMdx
+      - isHtml
+      additionalProperties: false
+    '400':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+    reference-managed-doc:
+      type: object
+      properties:
+        namespace:
+          $ref: '#/components/schemas/namespace'
+        slug:
+          $ref: '#/components/schemas/slug'
+        versions:
+          default:
+          - latest
+          type: array
+          items:
+            type: string
+      required:
+      - namespace
+      - slug
+      - versions
+      additionalProperties: false
+    custom-project-icon:
+      type: object
+      properties:
+        src:
+          default: ''
+          type: string
+        title:
+          type: string
+        mask:
+          type: boolean
+        tags:
+          default: []
+          type: array
+          items:
+            type: string
+        group:
+          type: string
+          const: custom
+        createdAt:
+          $ref: '#/components/schemas/timestamp'
+        uploadedBy:
+          type: string
+      required:
+      - src
+      - tags
+      - group
+      - createdAt
+      - uploadedBy
+      additionalProperties: false
+    timestamp:
+      type: integer
+      minimum: 0
+      maximum: 9007199254740991
+    '422':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+    header-link-reference:
+      type: object
+      properties:
+        uid:
+          $ref: '#/components/schemas/nanoid'
+        title:
+          type: string
+        show:
+          default: true
+          type: boolean
+        isStarred:
+          default: false
+          type: boolean
+        type:
+          type: string
+          const: reference
+        hasPermalink:
+          default: false
+          description: Whether the reference has a permalinked reference or not
+          type: boolean
+        hasManagedDoc:
+          default: false
+          description: Whether the reference has a linked registry API
+          type: boolean
+      required:
+      - uid
+      - title
+      - show
+      - isStarred
+      - type
+      - hasPermalink
+      - hasManagedDoc
+      additionalProperties: false
+    sidebar-folder:
+      type: object
+      properties:
+        uid:
+          $ref: '#/components/schemas/nanoid'
+        title:
+          type: string
+          minLength: 1
+        type:
+          type: string
+          const: Folder
+        link:
+          type: string
+        icon:
+          $ref: '#/components/schemas/project-icon'
+        children:
+          default: []
+          type: array
+          items:
+            type: string
+        description:
+          type: string
+        show:
+          type: boolean
+        defaultOpen:
+          type: boolean
+      required:
+      - uid
+      - title
+      - type
+      - children
+      - show
+      additionalProperties: false
+    feature:
+      type: boolean
+    website:
+      type: object
+      properties:
+        lastDeployed:
+          $ref: '#/components/schemas/timestamp'
+        subdomainPrefix:
+          type: string
+        customUrl:
+          type: string
+        subPath:
+          type: string
+        title:
+          type: string
+        description:
+          type: string
+        favicon:
+          type: string
+        ogImage:
+          type: string
+        proxy:
+          type: string
+          format: uri
+        routing:
+          default:
+            guidePathPattern: ''
+            referencePathPattern: ''
+          type: object
+          properties:
+            guidePathPattern:
+              type: string
+            referencePathPattern:
+              type: string
+          additionalProperties: false
+        redirects:
+          default: []
+          type: array
+          items:
+            type: object
+            properties:
+              from:
+                type: string
+              to:
+                type: string
+            required:
+            - from
+            - to
+            additionalProperties: false
+      required:
+      - lastDeployed
+      - subdomainPrefix
+      - customUrl
+      - routing
+      - redirects
+      additionalProperties: false
+    nanoid:
+      type: string
+      minLength: 5
+    '404':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+    header-link-spacer:
+      type: object
+      properties:
+        uid:
+          $ref: '#/components/schemas/nanoid'
+        title:
+          type: string
+        show:
+          default: true
+          type: boolean
+        isStarred:
+          default: false
+          type: boolean
+        type:
+          type: string
+          const: spacer
+      required:
+      - uid
+      - title
+      - show
+      - isStarred
+      - type
+      additionalProperties: false
+    active-deployment:
+      type: object
+      properties:
+        uid:
+          type: string
+        domain:
+          type: string
+        publishedAt:
+          $ref: '#/components/schemas/timestamp'
+      required:
+      - uid
+      - domain
+      - publishedAt
+      additionalProperties: false
+    reference:
+      type: object
+      properties:
+        uid:
+          $ref: '#/components/schemas/nanoid'
+        title:
+          type: string
+        description:
+          type: string
+        yjsReference:
+          $ref: '#/components/schemas/nanoid'
+        config:
+          default: '{}'
+          type: string
+        specPermalink:
+          default: ''
+          type: string
+        managedDoc:
+          default: null
+          anyOf:
+          - $ref: '#/components/schemas/reference-managed-doc'
+          - type: 'null'
+        show:
+          default: true
+          type: boolean
+        isButton:
+          default: false
+          type: boolean
+        isStarred:
+          default: false
+          type: boolean
+      required:
+      - uid
+      - title
+      - description
+      - yjsReference
+      - config
+      - specPermalink
+      - managedDoc
+      - show
+      - isButton
+      - isStarred
+      additionalProperties: false
+    project-icon:
+      $ref: '#/components/schemas/project-icon-info'
+    logo:
+      type: object
+      properties:
+        darkMode:
+          type: string
+        lightMode:
+          type: string
+      required:
+      - darkMode
+      - lightMode
+      additionalProperties: false
+    sidebar-link:
+      type: object
+      properties:
+        uid:
+          $ref: '#/components/schemas/nanoid'
+        title:
+          type: string
+          minLength: 1
+        type:
+          type: string
+          const: Link
+        link:
+          type: string
+        icon:
+          $ref: '#/components/schemas/project-icon'
+        children:
+          type: array
+          items:
+            type: string
+        description:
+          type: string
+        show:
+          type: boolean
+      required:
+      - uid
+      - title
+      - type
+      - link
+      - show
+      additionalProperties: false
+    card:
+      type: object
+      properties:
+        last4:
+          type: string
+          minLength: 4
+          maxLength: 4
+        expMonth:
+          type: number
+        expYear:
+          type: number
+      required:
+      - last4
+      - expMonth
+      - expYear
+      additionalProperties: false
+    '403':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+    header-link:
+      anyOf:
+      - $ref: '#/components/schemas/header-link-guide'
+      - $ref: '#/components/schemas/header-link-reference'
+      - $ref: '#/components/schemas/header-link-group'
+      - $ref: '#/components/schemas/header-link-external'
+      - $ref: '#/components/schemas/header-link-version-selector'
+      - $ref: '#/components/schemas/header-link-spacer'
+    header-link-group:
+      type: object
+      properties:
+        uid:
+          $ref: '#/components/schemas/nanoid'
+        title:
+          type: string
+        show:
+          default: true
+          type: boolean
+        isStarred:
+          default: false
+          type: boolean
+        type:
+          type: string
+          const: group
+        children:
+          type: array
+          items:
+            anyOf:
+            - $ref: '#/components/schemas/header-link-guide'
+            - $ref: '#/components/schemas/header-link-reference'
+            - $ref: '#/components/schemas/header-link-external'
+          description: Children of the group. Groups cannot contain other groups, spacers, or the version selector
+      required:
+      - uid
+      - title
+      - show
+      - isStarred
+      - type
+      - children
+      additionalProperties: false
+    billing-info:
+      type: object
+      properties:
+        billingId:
+          $ref: '#/components/schemas/nanoid'
+        email:
+          $ref: '#/components/schemas/email'
+        plan:
+          $ref: '#/components/schemas/billing-plan'
+        expires:
+          type: number
+      required:
+      - email
+      - plan
+      additionalProperties: false
+    sidebar-item:
+      anyOf:
+      - $ref: '#/components/schemas/sidebar-link'
+      - $ref: '#/components/schemas/sidebar-page'
+      - $ref: '#/components/schemas/sidebar-folder'
+    billing-plan:
+      type: string
+      enum:
+      - trial
+      - free
+      - pro_monthly
+      - pro_yearly
+      - premium
+      - enterprise
+    billing-invoice:
+      type: object
+      properties:
+        id:
+          type: string
+        total:
+          type: number
+        status:
+          anyOf:
+          - $ref: '#/components/schemas/invoice-status'
+          - type: 'null'
+        paymentDate:
+          type: number
+        currency:
+          type: string
+        downloadUrl:
+          anyOf:
+          - type: string
+          - type: 'null'
+      required:
+      - id
+      - total
+      - status
+      - paymentDate
+      - currency
+      additionalProperties: false
+    header-link-version-selector:
+      type: object
+      properties:
+        uid:
+          $ref: '#/components/schemas/nanoid'
+        title:
+          type: string
+        show:
+          default: true
+          type: boolean
+        isStarred:
+          default: false
+          type: boolean
+        type:
+          type: string
+          const: version-selector
+      required:
+      - uid
+      - title
+      - show
+      - isStarred
+      - type
+      additionalProperties: false
+    team-name:
+      type: string
+    feature-flag:
+      type: object
+      properties:
+        rules:
+          $ref: '#/components/schemas/feature'
+        registry:
+          $ref: '#/components/schemas/feature'
+        schemas:
+          $ref: '#/components/schemas/feature'
+        sdk:
+          $ref: '#/components/schemas/feature'
+        cli:
+          $ref: '#/components/schemas/feature'
+        agent:
+          $ref: '#/components/schemas/feature'
+        workspaces:
+          $ref: '#/components/schemas/feature'
+        mcp:
+          $ref: '#/components/schemas/feature'
+        export:
+          $ref: '#/components/schemas/feature'
+        docsMcp:
+          $ref: '#/components/schemas/feature'
+        disableApiSSR:
+          $ref: '#/components/schemas/feature'
+        unifiedDocs:
+          $ref: '#/components/schemas/feature'
+        docsAnalytics:
+          $ref: '#/components/schemas/feature'
+        mcpAnalytics:
+          $ref: '#/components/schemas/feature'
+      additionalProperties: false
+    slug:
+      type: string
+      minLength: 3
+      maxLength: 60
+      pattern: ^[a-z](?:[a-z0-9-]*[a-z0-9])?$
+    '401':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+    project-icon-info:
+      type: object
+      properties:
+        src:
+          default: ''
+          type: string
+        title:
+          type: string
+        mask:
+          type: boolean
+      required:
+      - src
+      additionalProperties: false
+    email:
+      type: string
+      format: email
+      pattern: ^(?!\.)(?!.*\.\.)([A-Za-z0-9_'+\-\.]*)[A-Za-z0-9_+-]@([A-Za-z0-9][A-Za-z0-9\-]*\.)+[A-Za-z]{2,}$
+    team-list-mine-entry:
+      type: object
+      properties:
+        uid:
+          $ref: '#/components/schemas/nanoid'
+        name:
+          $ref: '#/components/schemas/team-name'
+        slug:
+          $ref: '#/components/schemas/slug'
+        imageUri:
+          $ref: '#/components/schemas/team-image'
+        theme:
+          type: string
+      required:
+      - uid
+      - name
+      - slug
+      - theme
+      additionalProperties: false
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

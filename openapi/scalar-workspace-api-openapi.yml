@@ -1,0 +1,770 @@
+openapi: 3.1.1
+info:
+  title: Core access-groups workspace API
+  description: Core services for Scalar
+  version: 1.0.1
+  contact:
+    name: Marc from Scalar
+    url: https://scalar.com
+    email: support@scalar.com
+security:
+- BearerAuth: []
+tags:
+- name: workspace
+paths:
+  /workspaces/{namespace}:
+    post:
+      tags:
+      - workspace
+      description: Creates a new workspace
+      operationId: postworkspacesNamespace
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/workspace'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                tags:
+                  default: []
+                title:
+                  default: ''
+                  type: string
+                  maxLength: 100
+                description:
+                  default: ''
+                  type: string
+                isPrivate:
+                  default: false
+                  type: boolean
+                slug:
+                  default: randomManagedDocSlug()
+                  $ref: '#/components/schemas/slug'
+                version:
+                  $ref: '#/components/schemas/version'
+                loginPortal:
+                  $ref: '#/components/schemas/slug'
+                workspaceJson:
+                  type: string
+                accessGroups:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/slug'
+              additionalProperties: false
+        required: true
+      parameters:
+      - schema:
+          $ref: '#/components/schemas/namespace'
+        in: path
+        name: namespace
+        required: true
+  /workspaces/{namespace}/{slug}:
+    patch:
+      tags:
+      - workspace
+      description: Update team workspace metadata
+      operationId: patchworkspacesNamespaceSlug
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/workspace'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                description:
+                  type: string
+                version:
+                  $ref: '#/components/schemas/version'
+                namespace:
+                  $ref: '#/components/schemas/namespace'
+                isPrivate:
+                  type: boolean
+                tags:
+                  type: array
+                  items:
+                    type: string
+                slug:
+                  $ref: '#/components/schemas/slug'
+                loginPortal:
+                  $ref: '#/components/schemas/slug'
+                accessGroups:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/slug'
+              additionalProperties: false
+        required: true
+      parameters:
+      - schema:
+          $ref: '#/components/schemas/namespace'
+        in: path
+        name: namespace
+        required: true
+      - schema:
+          default: randomManagedDocSlug()
+          $ref: '#/components/schemas/slug'
+        in: path
+        name: slug
+        required: true
+    delete:
+      tags:
+      - workspace
+      description: Delete a team workspace
+      operationId: deleteworkspacesNamespaceSlug
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: 'null'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
+      parameters:
+      - schema:
+          $ref: '#/components/schemas/namespace'
+        in: path
+        name: namespace
+        required: true
+      - schema:
+          default: randomManagedDocSlug()
+          $ref: '#/components/schemas/slug'
+        in: path
+        name: slug
+        required: true
+  /workspaces/{namespace}/{slug}/version:
+    post:
+      tags:
+      - workspace
+      description: Create or update a workspace JSON version
+      operationId: postworkspacesNamespaceSlugVersion
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/workspace-version'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                version:
+                  $ref: '#/components/schemas/version'
+                workspaceJson:
+                  type: string
+                isCurrent:
+                  default: true
+                  type: boolean
+              required:
+              - version
+              - workspaceJson
+              - isCurrent
+              additionalProperties: false
+        required: true
+      parameters:
+      - schema:
+          $ref: '#/components/schemas/namespace'
+        in: path
+        name: namespace
+        required: true
+      - schema:
+          default: randomManagedDocSlug()
+          $ref: '#/components/schemas/slug'
+        in: path
+        name: slug
+        required: true
+  /workspaces/{namespace}/{slug}/access/{group}:
+    post:
+      tags:
+      - workspace
+      description: Adds an access group to a workspace
+      operationId: postworkspacesNamespaceSlugAccessGroup
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: 'null'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
+      parameters:
+      - schema:
+          $ref: '#/components/schemas/namespace'
+        in: path
+        name: namespace
+        required: true
+      - schema:
+          default: randomManagedDocSlug()
+          $ref: '#/components/schemas/slug'
+        in: path
+        name: slug
+        required: true
+      - schema:
+          $ref: '#/components/schemas/slug'
+        in: path
+        name: group
+        required: true
+    delete:
+      tags:
+      - workspace
+      description: Removes an access group from a workspace
+      operationId: deleteworkspacesNamespaceSlugAccessGroup
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: 'null'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
+      parameters:
+      - schema:
+          $ref: '#/components/schemas/namespace'
+        in: path
+        name: namespace
+        required: true
+      - schema:
+          default: randomManagedDocSlug()
+          $ref: '#/components/schemas/slug'
+        in: path
+        name: slug
+        required: true
+      - schema:
+          $ref: '#/components/schemas/slug'
+        in: path
+        name: group
+        required: true
+  /workspaces/{namespace}/{slug}/available:
+    get:
+      tags:
+      - workspace
+      description: Check availability for workspace namespace and slug
+      operationId: getworkspacesNamespaceSlugAvailable
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  available:
+                    type: boolean
+                required:
+                - available
+                additionalProperties: false
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
+      parameters:
+      - schema:
+          $ref: '#/components/schemas/namespace'
+        in: path
+        name: namespace
+        required: true
+      - schema:
+          default: randomManagedDocSlug()
+          $ref: '#/components/schemas/slug'
+        in: path
+        name: slug
+        required: true
+  /workspaces/{namespace}/{slug}/version/{version}:
+    delete:
+      tags:
+      - workspace
+      description: Delete a team workspace version
+      operationId: deleteworkspacesNamespaceSlugVersionVersion
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: 'null'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
+      parameters:
+      - schema:
+          $ref: '#/components/schemas/namespace'
+        in: path
+        name: namespace
+        required: true
+      - schema:
+          default: randomManagedDocSlug()
+          $ref: '#/components/schemas/slug'
+        in: path
+        name: slug
+        required: true
+      - schema:
+          $ref: '#/components/schemas/version'
+        in: path
+        name: version
+        required: true
+components:
+  schemas:
+    namespace:
+      type: string
+      minLength: 3
+      maxLength: 50
+      pattern: ^[a-zA-Z0-9-_]+$
+    workspace:
+      type: object
+      properties:
+        uid:
+          $ref: '#/components/schemas/nanoid'
+        createdAt:
+          default: unixTimestamp()
+          $ref: '#/components/schemas/timestamp'
+        updatedAt:
+          default: unixTimestamp()
+          $ref: '#/components/schemas/timestamp'
+        namespace:
+          $ref: '#/components/schemas/namespace'
+        title:
+          default: ''
+          type: string
+          maxLength: 100
+        slug:
+          default: randomManagedDocSlug()
+          $ref: '#/components/schemas/slug'
+        description:
+          default: ''
+          type: string
+        isPrivate:
+          default: false
+          type: boolean
+        tags:
+          default: []
+        accessGroups:
+          default: []
+        loginPortalUid:
+          type: string
+        verifiedContent:
+          type: boolean
+        version:
+          $ref: '#/components/schemas/version'
+        versions:
+          type: array
+          items:
+            $ref: '#/components/schemas/workspace-version'
+      required:
+      - uid
+      - createdAt
+      - updatedAt
+      - namespace
+      - title
+      - slug
+      - description
+      - isPrivate
+      - tags
+      - accessGroups
+      - version
+      - versions
+      additionalProperties: false
+    registry-meta:
+      type: object
+      properties:
+        namespace:
+          type: string
+        slug:
+          type: string
+      required:
+      - namespace
+      - slug
+      additionalProperties: false
+    workspace-version:
+      type: object
+      properties:
+        version:
+          $ref: '#/components/schemas/version'
+        managedDocs:
+          type: array
+          items:
+            $ref: '#/components/schemas/registry-meta'
+        createdAt:
+          default: unixTimestamp()
+          $ref: '#/components/schemas/timestamp'
+        updatedAt:
+          default: unixTimestamp()
+          $ref: '#/components/schemas/timestamp'
+      required:
+      - version
+      - managedDocs
+      - createdAt
+      - updatedAt
+      additionalProperties: false
+    nanoid:
+      type: string
+      minLength: 5
+    '404':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+    '401':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+    version:
+      type: string
+      minLength: 1
+    slug:
+      type: string
+      minLength: 3
+      maxLength: 60
+      pattern: ^[a-z](?:[a-z0-9-]*[a-z0-9])?$
+    '500':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+    '400':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+    '403':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+    timestamp:
+      type: integer
+      minimum: 0
+      maximum: 9007199254740991
+    '422':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
