@@ -1,0 +1,428 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Core access-groups api-docs API",
+    "version": "1.0.1"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "api-docs",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "postmanagedDocAccessGroup",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/managed-doc/access-group",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Adds an access group to a managed doc"
+        },
+        {
+          "info": {
+            "name": "deletemanagedDocAccessGroup",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/managed-doc/access-group",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Removes an access group from a managed doc"
+        },
+        {
+          "info": {
+            "name": "postmanagedDocAvailable",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/managed-doc/available",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Checks if a registry slug is available"
+        },
+        {
+          "info": {
+            "name": "getmanagedDocNamespace",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/managed-doc/:namespace",
+            "params": [
+              {
+                "name": "namespace",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get a list of all documents for the namespace"
+        },
+        {
+          "info": {
+            "name": "postmanagedDocNamespace",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/managed-doc/:namespace",
+            "params": [
+              {
+                "name": "namespace",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new api document for the namespace"
+        },
+        {
+          "info": {
+            "name": "getmanagedDocNamespaceSlug",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/managed-doc/:namespace/:slug",
+            "params": [
+              {
+                "name": "namespace",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "slug",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get a specific managed document"
+        },
+        {
+          "info": {
+            "name": "patchmanagedDocNamespaceSlug",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/managed-doc/:namespace/:slug",
+            "params": [
+              {
+                "name": "namespace",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "slug",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update metadata for a specific managed document"
+        },
+        {
+          "info": {
+            "name": "deletemanagedDocNamespaceSlug",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/managed-doc/:namespace/:slug",
+            "params": [
+              {
+                "name": "namespace",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "slug",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Delete a specific managed document and all of the related versions"
+        },
+        {
+          "info": {
+            "name": "getmanagedDocNamespaceSlugVersionSemver",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/managed-doc/:namespace/:slug/version/:semver",
+            "params": [
+              {
+                "name": "namespace",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "slug",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "semver",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get a specific managed document version stream"
+        },
+        {
+          "info": {
+            "name": "patchmanagedDocNamespaceSlugVersionSemver",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/managed-doc/:namespace/:slug/version/:semver",
+            "params": [
+              {
+                "name": "namespace",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "slug",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "semver",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update the registry file content for the doc version"
+        },
+        {
+          "info": {
+            "name": "deletemanagedDocNamespaceSlugVersionSemver",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/managed-doc/:namespace/:slug/version/:semver",
+            "params": [
+              {
+                "name": "namespace",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "slug",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "semver",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Delete a specific managed document version"
+        },
+        {
+          "info": {
+            "name": "getmanagedDocNamespaceSlugVersionSemverMetadata",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/managed-doc/:namespace/:slug/version/:semver/metadata",
+            "params": [
+              {
+                "name": "namespace",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "slug",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "semver",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get metadata for a specific api document version"
+        },
+        {
+          "info": {
+            "name": "postmanagedDocNamespaceSlugVersion",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/managed-doc/:namespace/:slug/version",
+            "params": [
+              {
+                "name": "namespace",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "slug",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new api document version"
+        },
+        {
+          "info": {
+            "name": "getmanagedDoc",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/managed-doc"
+          },
+          "docs": "Get a list of all documents for a team"
+        },
+        {
+          "info": {
+            "name": "postpubsubApiUpdated",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/pubsub/api-updated",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Registry API updated subscription handler"
+        },
+        {
+          "info": {
+            "name": "postpubsubApiVersionDeleted",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/pubsub/api-version-deleted",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Registry API updated subscription handler"
+        },
+        {
+          "info": {
+            "name": "postpubsubApiEmbedComplete",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/pubsub/api-embed-complete",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Registry API Vector embedding complete"
+        },
+        {
+          "info": {
+            "name": "postpubsubApiEmbedFailed",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/pubsub/api-embed-failed",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Registry API Vector embedding failed"
+        },
+        {
+          "info": {
+            "name": "postmanagedDocNamespaceSlugVersionSemverTools",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/managed-doc/:namespace/:slug/version/:semver/tools",
+            "params": [
+              {
+                "name": "namespace",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "slug",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "semver",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update managed docs MCP tools."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

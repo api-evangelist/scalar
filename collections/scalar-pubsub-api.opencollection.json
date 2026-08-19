@@ -1,0 +1,129 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Core access-groups pubsub API",
+    "version": "1.0.1"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "pubsub",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "postpubsubSdkBuildComplete",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/pubsub/sdk-build-complete",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Side effect processing after SDK generation completes"
+        },
+        {
+          "info": {
+            "name": "postpubsubSdkBuildFailed",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/pubsub/sdk-build-failed",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Side effect processing after SDK generation fails"
+        },
+        {
+          "info": {
+            "name": "postpubsubApiVersionCreatedCreateSdkVersion",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/pubsub/api-version-created/create-sdk-version",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "API version created SDK processing"
+        },
+        {
+          "info": {
+            "name": "postpubsubSdkVersionCreated",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/pubsub/sdk-version-created",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "PubSub SDK version created"
+        },
+        {
+          "info": {
+            "name": "postpubsubSdkRepositoryLinked",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/pubsub/sdk-repository-linked",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Handle side effects for SDK repository linking"
+        },
+        {
+          "info": {
+            "name": "postpubsubSdkGitComplete",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/pubsub/sdk-git-complete",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Side effect processing after SDK git sync succeeds"
+        },
+        {
+          "info": {
+            "name": "postpubsubSdkGitFailed",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/pubsub/sdk-git-failed",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Side effect processing after SDK git sync fails"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

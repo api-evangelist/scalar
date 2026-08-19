@@ -1,0 +1,98 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Core access-groups login-portals API",
+    "version": "1.0.1"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "login-portals",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "getloginPortalsSlug",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/login-portals/:slug",
+            "params": [
+              {
+                "name": "slug",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get a login portal"
+        },
+        {
+          "info": {
+            "name": "getloginPortals",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/login-portals"
+          },
+          "docs": "Get a list of all login portals for the team"
+        },
+        {
+          "info": {
+            "name": "postloginPortals",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/login-portals",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new login portal for the team"
+        },
+        {
+          "info": {
+            "name": "deleteloginPortals",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/login-portals",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Delete a specific login portal"
+        },
+        {
+          "info": {
+            "name": "postloginPortalsUpdate",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/login-portals/update",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update login portals metadata"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

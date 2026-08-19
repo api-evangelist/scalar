@@ -1,0 +1,160 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Core access-groups themes API",
+    "version": "1.0.1"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "themes",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "getthemesSlug",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/themes/:slug",
+            "params": [
+              {
+                "name": "slug",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get a theme document by slug"
+        },
+        {
+          "info": {
+            "name": "putthemesSlug",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/themes/:slug",
+            "params": [
+              {
+                "name": "slug",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update themes document"
+        },
+        {
+          "info": {
+            "name": "patchthemesSlug",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/themes/:slug",
+            "params": [
+              {
+                "name": "slug",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update themes metadata"
+        },
+        {
+          "info": {
+            "name": "deletethemesSlug",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/themes/:slug",
+            "params": [
+              {
+                "name": "slug",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Delete a specific themes"
+        },
+        {
+          "info": {
+            "name": "getthemes",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/themes"
+          },
+          "docs": "Get a list of all themes for the team"
+        },
+        {
+          "info": {
+            "name": "postthemes",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/themes",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new theme for the team"
+        },
+        {
+          "info": {
+            "name": "postpubsubThemeUpdated",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/pubsub/theme-updated",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "PubSub theme updated route"
+        },
+        {
+          "info": {
+            "name": "postpubsubThemeDeleted",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/pubsub/theme-deleted",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "PubSub theme deleted route"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

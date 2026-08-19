@@ -1,0 +1,446 @@
+{
+  "item": [
+    {
+      "id": "a6840092-9c3c-474f-87e6-937cabeba21b",
+      "name": "signup",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "9647f4cf-2f30-480d-864b-74787cc23789",
+          "name": "postsignup Data",
+          "request": {
+            "name": "postsignup Data",
+            "description": {
+              "content": "Save docs data on signup",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "signup-data"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"version\": {\n    \"uid\": \"<string>\",\n    \"name\": \"Default Version\",\n    \"primaryGuideId\": \"<string>\",\n    \"primaryReferenceId\": \"<string>\",\n    \"references\": {\n      \"key_0\": {\n        \"uid\": \"<string>\",\n        \"title\": \"<string>\",\n        \"description\": \"<string>\",\n        \"yjsReference\": \"<string>\",\n        \"config\": \"{}\",\n        \"specPermalink\": \"\",\n        \"managedDoc\": {\n          \"namespace\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"slug\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"versions\": [\n            \"latest\"\n          ]\n        },\n        \"show\": true,\n        \"isButton\": false,\n        \"isStarred\": false\n      },\n      \"key_1\": {\n        \"uid\": \"<string>\",\n        \"title\": \"<string>\",\n        \"description\": \"<string>\",\n        \"yjsReference\": \"<string>\",\n        \"config\": \"{}\",\n        \"specPermalink\": \"\",\n        \"managedDoc\": {\n          \"namespace\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"slug\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"versions\": [\n            \"latest\"\n          ]\n        },\n        \"show\": true,\n        \"isButton\": false,\n        \"isStarred\": false\n      }\n    },\n    \"guides\": {\n      \"key_0\": {\n        \"uid\": \"<string>\",\n        \"title\": \"<string>\",\n        \"description\": \"<string>\",\n        \"sidebar\": {\n          \"items\": {\n            \"key_0\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"key_1\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"key_2\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"key_3\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"children\": [\n            \"<string>\",\n            \"<string>\"\n          ]\n        },\n        \"show\": true,\n        \"isButton\": false,\n        \"isStarred\": false\n      }\n    },\n    \"header\": [\n      {\n        \"uid\": \"<string>\",\n        \"title\": \"<string>\",\n        \"show\": true,\n        \"isStarred\": false,\n        \"type\": \"<string>\"\n      },\n      {\n        \"uid\": \"<string>\",\n        \"title\": \"<string>\",\n        \"show\": true,\n        \"isStarred\": false,\n        \"type\": \"<string>\"\n      }\n    ],\n    \"footer\": \"\",\n    \"footerCss\": \"\",\n    \"footerBelowSidebar\": false,\n    \"headScript\": \"\",\n    \"bodyScript\": \"\"\n  },\n  \"yjsDocs\": {\n    \"key_0\": \"<string>\",\n    \"key_1\": \"<string>\"\n  },\n  \"yjsReferences\": {\n    \"key_0\": \"<string>\"\n  },\n  \"theme\": {\n    \"uid\": \"<string>\",\n    \"name\": \"<string>\",\n    \"description\": \"<string>\",\n    \"theme\": \"<string>\",\n    \"slug\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "be73bd6a-9d42-479a-a728-703467250651",
+              "name": "Default Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "signup-data"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"version\": {\n    \"uid\": \"string\",\n    \"name\": \"Default Version\",\n    \"primaryGuideId\": \"string\",\n    \"primaryReferenceId\": \"string\",\n    \"references\": {\n      \"key_0\": {\n        \"uid\": \"string\",\n        \"title\": \"string\",\n        \"description\": \"string\",\n        \"yjsReference\": \"string\",\n        \"config\": \"{}\",\n        \"specPermalink\": \"\",\n        \"managedDoc\": {\n          \"namespace\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"slug\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"versions\": [\n            \"latest\"\n          ]\n        },\n        \"show\": true,\n        \"isButton\": false,\n        \"isStarred\": false\n      }\n    },\n    \"guides\": {\n      \"key_0\": {\n        \"uid\": \"string\",\n        \"title\": \"string\",\n        \"description\": \"string\",\n        \"sidebar\": {\n          \"items\": {\n            \"key_0\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"key_1\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"key_2\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"children\": [\n            \"string\",\n            \"string\"\n          ]\n        },\n        \"show\": true,\n        \"isButton\": false,\n        \"isStarred\": false\n      },\n      \"key_1\": {\n        \"uid\": \"string\",\n        \"title\": \"string\",\n        \"description\": \"string\",\n        \"sidebar\": {\n          \"items\": {\n            \"key_0\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"key_1\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"children\": [\n            \"string\",\n            \"string\"\n          ]\n        },\n        \"show\": true,\n        \"isButton\": false,\n        \"isStarred\": false\n      },\n      \"key_2\": {\n        \"uid\": \"string\",\n        \"title\": \"string\",\n        \"description\": \"string\",\n        \"sidebar\": {\n          \"items\": {\n            \"key_0\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"key_1\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"children\": [\n            \"string\",\n            \"string\"\n          ]\n        },\n        \"show\": true,\n        \"isButton\": false,\n        \"isStarred\": false\n      }\n    },\n    \"header\": [\n      {\n        \"uid\": \"string\",\n        \"title\": \"string\",\n        \"show\": true,\n        \"isStarred\": false,\n        \"type\": \"string\"\n      },\n      {\n        \"uid\": \"string\",\n        \"title\": \"string\",\n        \"show\": true,\n        \"isStarred\": false,\n        \"type\": \"string\"\n      }\n    ],\n    \"footer\": \"\",\n    \"footerCss\": \"\",\n    \"footerBelowSidebar\": false,\n    \"headScript\": \"\",\n    \"bodyScript\": \"\"\n  },\n  \"yjsDocs\": {\n    \"key_0\": \"<string>\"\n  },\n  \"yjsReferences\": {\n    \"key_0\": \"<string>\",\n    \"key_1\": \"<string>\"\n  },\n  \"theme\": {\n    \"uid\": \"string\",\n    \"name\": \"string\",\n    \"description\": \"string\",\n    \"theme\": \"string\",\n    \"slug\": \"kkkk\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"dataUid\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "debff11b-11e7-4e24-a345-22e9666d7e4f",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "signup-data"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"version\": {\n    \"uid\": \"string\",\n    \"name\": \"Default Version\",\n    \"primaryGuideId\": \"string\",\n    \"primaryReferenceId\": \"string\",\n    \"references\": {\n      \"key_0\": {\n        \"uid\": \"string\",\n        \"title\": \"string\",\n        \"description\": \"string\",\n        \"yjsReference\": \"string\",\n        \"config\": \"{}\",\n        \"specPermalink\": \"\",\n        \"managedDoc\": {\n          \"namespace\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"slug\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"versions\": [\n            \"latest\"\n          ]\n        },\n        \"show\": true,\n        \"isButton\": false,\n        \"isStarred\": false\n      }\n    },\n    \"guides\": {\n      \"key_0\": {\n        \"uid\": \"string\",\n        \"title\": \"string\",\n        \"description\": \"string\",\n        \"sidebar\": {\n          \"items\": {\n            \"key_0\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"key_1\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"key_2\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"children\": [\n            \"string\",\n            \"string\"\n          ]\n        },\n        \"show\": true,\n        \"isButton\": false,\n        \"isStarred\": false\n      },\n      \"key_1\": {\n        \"uid\": \"string\",\n        \"title\": \"string\",\n        \"description\": \"string\",\n        \"sidebar\": {\n          \"items\": {\n            \"key_0\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"key_1\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"children\": [\n            \"string\",\n            \"string\"\n          ]\n        },\n        \"show\": true,\n        \"isButton\": false,\n        \"isStarred\": false\n      },\n      \"key_2\": {\n        \"uid\": \"string\",\n        \"title\": \"string\",\n        \"description\": \"string\",\n        \"sidebar\": {\n          \"items\": {\n            \"key_0\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"key_1\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"children\": [\n            \"string\",\n            \"string\"\n          ]\n        },\n        \"show\": true,\n        \"isButton\": false,\n        \"isStarred\": false\n      }\n    },\n    \"header\": [\n      {\n        \"uid\": \"string\",\n        \"title\": \"string\",\n        \"show\": true,\n        \"isStarred\": false,\n        \"type\": \"string\"\n      },\n      {\n        \"uid\": \"string\",\n        \"title\": \"string\",\n        \"show\": true,\n        \"isStarred\": false,\n        \"type\": \"string\"\n      }\n    ],\n    \"footer\": \"\",\n    \"footerCss\": \"\",\n    \"footerBelowSidebar\": false,\n    \"headScript\": \"\",\n    \"bodyScript\": \"\"\n  },\n  \"yjsDocs\": {\n    \"key_0\": \"<string>\"\n  },\n  \"yjsReferences\": {\n    \"key_0\": \"<string>\",\n    \"key_1\": \"<string>\"\n  },\n  \"theme\": {\n    \"uid\": \"string\",\n    \"name\": \"string\",\n    \"description\": \"string\",\n    \"theme\": \"string\",\n    \"slug\": \"kkkk\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"code\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e156cb11-1835-47dd-b3f0-92c7a45f27a4",
+              "name": "No auth",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "signup-data"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"version\": {\n    \"uid\": \"string\",\n    \"name\": \"Default Version\",\n    \"primaryGuideId\": \"string\",\n    \"primaryReferenceId\": \"string\",\n    \"references\": {\n      \"key_0\": {\n        \"uid\": \"string\",\n        \"title\": \"string\",\n        \"description\": \"string\",\n        \"yjsReference\": \"string\",\n        \"config\": \"{}\",\n        \"specPermalink\": \"\",\n        \"managedDoc\": {\n          \"namespace\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"slug\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"versions\": [\n            \"latest\"\n          ]\n        },\n        \"show\": true,\n        \"isButton\": false,\n        \"isStarred\": false\n      }\n    },\n    \"guides\": {\n      \"key_0\": {\n        \"uid\": \"string\",\n        \"title\": \"string\",\n        \"description\": \"string\",\n        \"sidebar\": {\n          \"items\": {\n            \"key_0\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"key_1\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"key_2\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"children\": [\n            \"string\",\n            \"string\"\n          ]\n        },\n        \"show\": true,\n        \"isButton\": false,\n        \"isStarred\": false\n      },\n      \"key_1\": {\n        \"uid\": \"string\",\n        \"title\": \"string\",\n        \"description\": \"string\",\n        \"sidebar\": {\n          \"items\": {\n            \"key_0\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"key_1\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"children\": [\n            \"string\",\n            \"string\"\n          ]\n        },\n        \"show\": true,\n        \"isButton\": false,\n        \"isStarred\": false\n      },\n      \"key_2\": {\n        \"uid\": \"string\",\n        \"title\": \"string\",\n        \"description\": \"string\",\n        \"sidebar\": {\n          \"items\": {\n            \"key_0\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"key_1\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"children\": [\n            \"string\",\n            \"string\"\n          ]\n        },\n        \"show\": true,\n        \"isButton\": false,\n        \"isStarred\": false\n      }\n    },\n    \"header\": [\n      {\n        \"uid\": \"string\",\n        \"title\": \"string\",\n        \"show\": true,\n        \"isStarred\": false,\n        \"type\": \"string\"\n      },\n      {\n        \"uid\": \"string\",\n        \"title\": \"string\",\n        \"show\": true,\n        \"isStarred\": false,\n        \"type\": \"string\"\n      }\n    ],\n    \"footer\": \"\",\n    \"footerCss\": \"\",\n    \"footerBelowSidebar\": false,\n    \"headScript\": \"\",\n    \"bodyScript\": \"\"\n  },\n  \"yjsDocs\": {\n    \"key_0\": \"<string>\"\n  },\n  \"yjsReferences\": {\n    \"key_0\": \"<string>\",\n    \"key_1\": \"<string>\"\n  },\n  \"theme\": {\n    \"uid\": \"string\",\n    \"name\": \"string\",\n    \"description\": \"string\",\n    \"theme\": \"string\",\n    \"slug\": \"kkkk\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"code\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f5715a29-0f5e-4a20-87e4-fa946a9ca4c1",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "signup-data"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"version\": {\n    \"uid\": \"string\",\n    \"name\": \"Default Version\",\n    \"primaryGuideId\": \"string\",\n    \"primaryReferenceId\": \"string\",\n    \"references\": {\n      \"key_0\": {\n        \"uid\": \"string\",\n        \"title\": \"string\",\n        \"description\": \"string\",\n        \"yjsReference\": \"string\",\n        \"config\": \"{}\",\n        \"specPermalink\": \"\",\n        \"managedDoc\": {\n          \"namespace\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"slug\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"versions\": [\n            \"latest\"\n          ]\n        },\n        \"show\": true,\n        \"isButton\": false,\n        \"isStarred\": false\n      }\n    },\n    \"guides\": {\n      \"key_0\": {\n        \"uid\": \"string\",\n        \"title\": \"string\",\n        \"description\": \"string\",\n        \"sidebar\": {\n          \"items\": {\n            \"key_0\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"key_1\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"key_2\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"children\": [\n            \"string\",\n            \"string\"\n          ]\n        },\n        \"show\": true,\n        \"isButton\": false,\n        \"isStarred\": false\n      },\n      \"key_1\": {\n        \"uid\": \"string\",\n        \"title\": \"string\",\n        \"description\": \"string\",\n        \"sidebar\": {\n          \"items\": {\n            \"key_0\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"key_1\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"children\": [\n            \"string\",\n            \"string\"\n          ]\n        },\n        \"show\": true,\n        \"isButton\": false,\n        \"isStarred\": false\n      },\n      \"key_2\": {\n        \"uid\": \"string\",\n        \"title\": \"string\",\n        \"description\": \"string\",\n        \"sidebar\": {\n          \"items\": {\n            \"key_0\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"key_1\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"children\": [\n            \"string\",\n            \"string\"\n          ]\n        },\n        \"show\": true,\n        \"isButton\": false,\n        \"isStarred\": false\n      }\n    },\n    \"header\": [\n      {\n        \"uid\": \"string\",\n        \"title\": \"string\",\n        \"show\": true,\n        \"isStarred\": false,\n        \"type\": \"string\"\n      },\n      {\n        \"uid\": \"string\",\n        \"title\": \"string\",\n        \"show\": true,\n        \"isStarred\": false,\n        \"type\": \"string\"\n      }\n    ],\n    \"footer\": \"\",\n    \"footerCss\": \"\",\n    \"footerBelowSidebar\": false,\n    \"headScript\": \"\",\n    \"bodyScript\": \"\"\n  },\n  \"yjsDocs\": {\n    \"key_0\": \"<string>\"\n  },\n  \"yjsReferences\": {\n    \"key_0\": \"<string>\",\n    \"key_1\": \"<string>\"\n  },\n  \"theme\": {\n    \"uid\": \"string\",\n    \"name\": \"string\",\n    \"description\": \"string\",\n    \"theme\": \"string\",\n    \"slug\": \"kkkk\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"code\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ac2cf7d9-cb7c-4484-bd16-2c4587c9f7d9",
+              "name": "Not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "signup-data"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"version\": {\n    \"uid\": \"string\",\n    \"name\": \"Default Version\",\n    \"primaryGuideId\": \"string\",\n    \"primaryReferenceId\": \"string\",\n    \"references\": {\n      \"key_0\": {\n        \"uid\": \"string\",\n        \"title\": \"string\",\n        \"description\": \"string\",\n        \"yjsReference\": \"string\",\n        \"config\": \"{}\",\n        \"specPermalink\": \"\",\n        \"managedDoc\": {\n          \"namespace\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"slug\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"versions\": [\n            \"latest\"\n          ]\n        },\n        \"show\": true,\n        \"isButton\": false,\n        \"isStarred\": false\n      }\n    },\n    \"guides\": {\n      \"key_0\": {\n        \"uid\": \"string\",\n        \"title\": \"string\",\n        \"description\": \"string\",\n        \"sidebar\": {\n          \"items\": {\n            \"key_0\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"key_1\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"key_2\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"children\": [\n            \"string\",\n            \"string\"\n          ]\n        },\n        \"show\": true,\n        \"isButton\": false,\n        \"isStarred\": false\n      },\n      \"key_1\": {\n        \"uid\": \"string\",\n        \"title\": \"string\",\n        \"description\": \"string\",\n        \"sidebar\": {\n          \"items\": {\n            \"key_0\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"key_1\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"children\": [\n            \"string\",\n            \"string\"\n          ]\n        },\n        \"show\": true,\n        \"isButton\": false,\n        \"isStarred\": false\n      },\n      \"key_2\": {\n        \"uid\": \"string\",\n        \"title\": \"string\",\n        \"description\": \"string\",\n        \"sidebar\": {\n          \"items\": {\n            \"key_0\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"key_1\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"children\": [\n            \"string\",\n            \"string\"\n          ]\n        },\n        \"show\": true,\n        \"isButton\": false,\n        \"isStarred\": false\n      }\n    },\n    \"header\": [\n      {\n        \"uid\": \"string\",\n        \"title\": \"string\",\n        \"show\": true,\n        \"isStarred\": false,\n        \"type\": \"string\"\n      },\n      {\n        \"uid\": \"string\",\n        \"title\": \"string\",\n        \"show\": true,\n        \"isStarred\": false,\n        \"type\": \"string\"\n      }\n    ],\n    \"footer\": \"\",\n    \"footerCss\": \"\",\n    \"footerBelowSidebar\": false,\n    \"headScript\": \"\",\n    \"bodyScript\": \"\"\n  },\n  \"yjsDocs\": {\n    \"key_0\": \"<string>\"\n  },\n  \"yjsReferences\": {\n    \"key_0\": \"<string>\",\n    \"key_1\": \"<string>\"\n  },\n  \"theme\": {\n    \"uid\": \"string\",\n    \"name\": \"string\",\n    \"description\": \"string\",\n    \"theme\": \"string\",\n    \"slug\": \"kkkk\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"code\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b26af350-a038-48f9-bb81-9bb7e21218ca",
+              "name": "Invalid payload",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "signup-data"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"version\": {\n    \"uid\": \"string\",\n    \"name\": \"Default Version\",\n    \"primaryGuideId\": \"string\",\n    \"primaryReferenceId\": \"string\",\n    \"references\": {\n      \"key_0\": {\n        \"uid\": \"string\",\n        \"title\": \"string\",\n        \"description\": \"string\",\n        \"yjsReference\": \"string\",\n        \"config\": \"{}\",\n        \"specPermalink\": \"\",\n        \"managedDoc\": {\n          \"namespace\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"slug\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"versions\": [\n            \"latest\"\n          ]\n        },\n        \"show\": true,\n        \"isButton\": false,\n        \"isStarred\": false\n      }\n    },\n    \"guides\": {\n      \"key_0\": {\n        \"uid\": \"string\",\n        \"title\": \"string\",\n        \"description\": \"string\",\n        \"sidebar\": {\n          \"items\": {\n            \"key_0\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"key_1\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"key_2\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"children\": [\n            \"string\",\n            \"string\"\n          ]\n        },\n        \"show\": true,\n        \"isButton\": false,\n        \"isStarred\": false\n      },\n      \"key_1\": {\n        \"uid\": \"string\",\n        \"title\": \"string\",\n        \"description\": \"string\",\n        \"sidebar\": {\n          \"items\": {\n            \"key_0\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"key_1\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"children\": [\n            \"string\",\n            \"string\"\n          ]\n        },\n        \"show\": true,\n        \"isButton\": false,\n        \"isStarred\": false\n      },\n      \"key_2\": {\n        \"uid\": \"string\",\n        \"title\": \"string\",\n        \"description\": \"string\",\n        \"sidebar\": {\n          \"items\": {\n            \"key_0\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"key_1\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"children\": [\n            \"string\",\n            \"string\"\n          ]\n        },\n        \"show\": true,\n        \"isButton\": false,\n        \"isStarred\": false\n      }\n    },\n    \"header\": [\n      {\n        \"uid\": \"string\",\n        \"title\": \"string\",\n        \"show\": true,\n        \"isStarred\": false,\n        \"type\": \"string\"\n      },\n      {\n        \"uid\": \"string\",\n        \"title\": \"string\",\n        \"show\": true,\n        \"isStarred\": false,\n        \"type\": \"string\"\n      }\n    ],\n    \"footer\": \"\",\n    \"footerCss\": \"\",\n    \"footerBelowSidebar\": false,\n    \"headScript\": \"\",\n    \"bodyScript\": \"\"\n  },\n  \"yjsDocs\": {\n    \"key_0\": \"<string>\"\n  },\n  \"yjsReferences\": {\n    \"key_0\": \"<string>\",\n    \"key_1\": \"<string>\"\n  },\n  \"theme\": {\n    \"uid\": \"string\",\n    \"name\": \"string\",\n    \"description\": \"string\",\n    \"theme\": \"string\",\n    \"slug\": \"kkkk\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"code\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "74357dfc-45fc-4287-8434-5f861c382252",
+              "name": "Uncaught error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "signup-data"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"version\": {\n    \"uid\": \"string\",\n    \"name\": \"Default Version\",\n    \"primaryGuideId\": \"string\",\n    \"primaryReferenceId\": \"string\",\n    \"references\": {\n      \"key_0\": {\n        \"uid\": \"string\",\n        \"title\": \"string\",\n        \"description\": \"string\",\n        \"yjsReference\": \"string\",\n        \"config\": \"{}\",\n        \"specPermalink\": \"\",\n        \"managedDoc\": {\n          \"namespace\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"slug\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"versions\": [\n            \"latest\"\n          ]\n        },\n        \"show\": true,\n        \"isButton\": false,\n        \"isStarred\": false\n      }\n    },\n    \"guides\": {\n      \"key_0\": {\n        \"uid\": \"string\",\n        \"title\": \"string\",\n        \"description\": \"string\",\n        \"sidebar\": {\n          \"items\": {\n            \"key_0\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"key_1\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"key_2\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"children\": [\n            \"string\",\n            \"string\"\n          ]\n        },\n        \"show\": true,\n        \"isButton\": false,\n        \"isStarred\": false\n      },\n      \"key_1\": {\n        \"uid\": \"string\",\n        \"title\": \"string\",\n        \"description\": \"string\",\n        \"sidebar\": {\n          \"items\": {\n            \"key_0\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"key_1\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"children\": [\n            \"string\",\n            \"string\"\n          ]\n        },\n        \"show\": true,\n        \"isButton\": false,\n        \"isStarred\": false\n      },\n      \"key_2\": {\n        \"uid\": \"string\",\n        \"title\": \"string\",\n        \"description\": \"string\",\n        \"sidebar\": {\n          \"items\": {\n            \"key_0\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"key_1\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"children\": [\n            \"string\",\n            \"string\"\n          ]\n        },\n        \"show\": true,\n        \"isButton\": false,\n        \"isStarred\": false\n      }\n    },\n    \"header\": [\n      {\n        \"uid\": \"string\",\n        \"title\": \"string\",\n        \"show\": true,\n        \"isStarred\": false,\n        \"type\": \"string\"\n      },\n      {\n        \"uid\": \"string\",\n        \"title\": \"string\",\n        \"show\": true,\n        \"isStarred\": false,\n        \"type\": \"string\"\n      }\n    ],\n    \"footer\": \"\",\n    \"footerCss\": \"\",\n    \"footerBelowSidebar\": false,\n    \"headScript\": \"\",\n    \"bodyScript\": \"\"\n  },\n  \"yjsDocs\": {\n    \"key_0\": \"<string>\"\n  },\n  \"yjsReferences\": {\n    \"key_0\": \"<string>\",\n    \"key_1\": \"<string>\"\n  },\n  \"theme\": {\n    \"uid\": \"string\",\n    \"name\": \"string\",\n    \"description\": \"string\",\n    \"theme\": \"string\",\n    \"slug\": \"kkkk\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"code\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "7e384119-8ddf-434a-8e78-afef956b9714",
+    "name": "Core access-groups signup API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Core services for Scalar\n\nContact Support:\n Name: Marc from Scalar\n Email: support@scalar.com",
+      "type": "text/plain"
+    }
+  }
+}

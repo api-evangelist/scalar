@@ -1,0 +1,114 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Core access-groups payment API",
+    "version": "1.0.1"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "payment",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "poststripe",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/stripe",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Stripe webhook handling"
+        },
+        {
+          "info": {
+            "name": "postpaymentStart",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/payment/start",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new stripe checkout session or redirect to the customer billing portal."
+        },
+        {
+          "info": {
+            "name": "postpaymentBillingStart",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/payment/billing/start",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a stripe management session for billing management"
+        },
+        {
+          "info": {
+            "name": "postinternalBillingSyncSubscription",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/internal/billing/sync-subscription",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Syncs a teams billable resources with stripe"
+        },
+        {
+          "info": {
+            "name": "postinternalBillingIncrementAgentMessages",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/internal/billing/increment/agent-messages",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Increments an agent keys message usage in Stripe"
+        },
+        {
+          "info": {
+            "name": "postinternalBillingIncrementAgentTokens",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/internal/billing/increment/agent-tokens",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Increments a teams subscription agent token usage"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

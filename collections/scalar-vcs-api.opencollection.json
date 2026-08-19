@@ -1,0 +1,131 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Core access-groups vcs API",
+    "version": "1.0.1"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "vcs",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "getvcsBitbucketAuthorize",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/vcs/bitbucket/authorize",
+            "params": [
+              {
+                "name": "code",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "state",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Get and save a user Bitbucket token to their database object. This allows subsequent queries for Bitbucket data from the user scope."
+        },
+        {
+          "info": {
+            "name": "getvcsBitbucketLinkInitiate",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/vcs/bitbucket/link/initiate",
+            "params": [
+              {
+                "name": "redirect",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Issue a signed OAuth state token for the Bitbucket user-authorization flow and return the Bitbucket authorize URL the client should redirect to. Optionally remembers a dashboard path to return the user to after the round-trip."
+        },
+        {
+          "info": {
+            "name": "getvcsBitbucketWorkspaces",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/vcs/bitbucket/workspaces"
+          },
+          "docs": "List the calling user's Bitbucket workspaces and the repositories they can write to. Used by the link-to-Bitbucket UI."
+        },
+        {
+          "info": {
+            "name": "getvcsBitbucketDocsProjectUidBranches",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/vcs/bitbucket/docs-project/:uid/branches",
+            "params": [
+              {
+                "name": "uid",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "query",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "perPage",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "List branches on the Bitbucket repo backing a `provider: 'bitbucket'` DocsProject. Supports prefix search via the `query` param."
+        },
+        {
+          "info": {
+            "name": "postvcsBitbucketDisconnectAccount",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/vcs/bitbucket/disconnect-account"
+          },
+          "docs": "Wipe the calling user's Bitbucket OAuth tokens. Any DocsProjects this user linked will lose their token and need to be re-linked or have the linker swap accounts on Bitbucket."
+        },
+        {
+          "info": {
+            "name": "postvcsGithubDisconnectAccount",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/vcs/github/disconnect-account"
+          },
+          "docs": "Wipe the calling user's GitHub OAuth tokens. Any DocsProjects this user linked will lose their token; the user can reconnect at any time."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

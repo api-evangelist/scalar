@@ -1,0 +1,1256 @@
+{
+  "item": [
+    {
+      "id": "1b837d01-6c5f-4121-84b3-fcdb941940d8",
+      "name": "utility",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "5a7c04dd-c168-4bd4-960d-04dfa7045f88",
+          "name": "postfeedback",
+          "request": {
+            "name": "postfeedback",
+            "description": {
+              "content": "Submit app feedback",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "feedback"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"<email>\",\n  \"feedback\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "a5075f0f-1c6b-4afd-864c-a7a615fc68d3",
+              "name": "Default Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "feedback"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"email\": \"Tq0@WGwp5rpP.oQ1X.BMBM.uoH-SRGw.xvxUaA9iqG.zeMa.lSH.M3cbHG.GDgce2HO1s.mL5QdMTMmkb.67Zn2.wSvpmw\",\n  \"feedback\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "null",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2ea6cb53-4a5d-446e-b2fb-6f6e45a063a0",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "feedback"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"email\": \"Tq0@WGwp5rpP.oQ1X.BMBM.uoH-SRGw.xvxUaA9iqG.zeMa.lSH.M3cbHG.GDgce2HO1s.mL5QdMTMmkb.67Zn2.wSvpmw\",\n  \"feedback\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"code\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1a67b12a-a3d3-4950-8430-a57297ff2b20",
+              "name": "No auth",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "feedback"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"email\": \"Tq0@WGwp5rpP.oQ1X.BMBM.uoH-SRGw.xvxUaA9iqG.zeMa.lSH.M3cbHG.GDgce2HO1s.mL5QdMTMmkb.67Zn2.wSvpmw\",\n  \"feedback\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"code\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b2a7144e-59f5-4c2e-b632-cf46d1d64c81",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "feedback"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"email\": \"Tq0@WGwp5rpP.oQ1X.BMBM.uoH-SRGw.xvxUaA9iqG.zeMa.lSH.M3cbHG.GDgce2HO1s.mL5QdMTMmkb.67Zn2.wSvpmw\",\n  \"feedback\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"code\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e7012c91-850f-45b1-b1b2-9dd0cf2700b0",
+              "name": "Not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "feedback"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"email\": \"Tq0@WGwp5rpP.oQ1X.BMBM.uoH-SRGw.xvxUaA9iqG.zeMa.lSH.M3cbHG.GDgce2HO1s.mL5QdMTMmkb.67Zn2.wSvpmw\",\n  \"feedback\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"code\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0c5711fe-83ba-4485-9916-4041a34df3e5",
+              "name": "Invalid payload",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "feedback"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"email\": \"Tq0@WGwp5rpP.oQ1X.BMBM.uoH-SRGw.xvxUaA9iqG.zeMa.lSH.M3cbHG.GDgce2HO1s.mL5QdMTMmkb.67Zn2.wSvpmw\",\n  \"feedback\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"code\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5b21f62a-a5cd-4819-a5fc-39a3def82e80",
+              "name": "Uncaught error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "feedback"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"email\": \"Tq0@WGwp5rpP.oQ1X.BMBM.uoH-SRGw.xvxUaA9iqG.zeMa.lSH.M3cbHG.GDgce2HO1s.mL5QdMTMmkb.67Zn2.wSvpmw\",\n  \"feedback\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"code\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "43126488-fbee-40c3-ada9-d1edc7ed65e3",
+          "name": "postsignup Data",
+          "request": {
+            "name": "postsignup Data",
+            "description": {
+              "content": "Save docs data on signup",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "signup-data"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"version\": {\n    \"uid\": \"<string>\",\n    \"name\": \"Default Version\",\n    \"primaryGuideId\": \"<string>\",\n    \"primaryReferenceId\": \"<string>\",\n    \"references\": {\n      \"key_0\": {\n        \"uid\": \"<string>\",\n        \"title\": \"<string>\",\n        \"description\": \"<string>\",\n        \"yjsReference\": \"<string>\",\n        \"config\": \"{}\",\n        \"specPermalink\": \"\",\n        \"managedDoc\": {\n          \"namespace\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"slug\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"versions\": [\n            \"latest\"\n          ]\n        },\n        \"show\": true,\n        \"isButton\": false,\n        \"isStarred\": false\n      },\n      \"key_1\": {\n        \"uid\": \"<string>\",\n        \"title\": \"<string>\",\n        \"description\": \"<string>\",\n        \"yjsReference\": \"<string>\",\n        \"config\": \"{}\",\n        \"specPermalink\": \"\",\n        \"managedDoc\": {\n          \"namespace\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"slug\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"versions\": [\n            \"latest\"\n          ]\n        },\n        \"show\": true,\n        \"isButton\": false,\n        \"isStarred\": false\n      },\n      \"key_2\": {\n        \"uid\": \"<string>\",\n        \"title\": \"<string>\",\n        \"description\": \"<string>\",\n        \"yjsReference\": \"<string>\",\n        \"config\": \"{}\",\n        \"specPermalink\": \"\",\n        \"managedDoc\": {\n          \"namespace\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"slug\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"versions\": [\n            \"latest\"\n          ]\n        },\n        \"show\": true,\n        \"isButton\": false,\n        \"isStarred\": false\n      },\n      \"key_3\": {\n        \"uid\": \"<string>\",\n        \"title\": \"<string>\",\n        \"description\": \"<string>\",\n        \"yjsReference\": \"<string>\",\n        \"config\": \"{}\",\n        \"specPermalink\": \"\",\n        \"managedDoc\": {\n          \"namespace\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"slug\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"versions\": [\n            \"latest\"\n          ]\n        },\n        \"show\": true,\n        \"isButton\": false,\n        \"isStarred\": false\n      }\n    },\n    \"guides\": {\n      \"key_0\": {\n        \"uid\": \"<string>\",\n        \"title\": \"<string>\",\n        \"description\": \"<string>\",\n        \"sidebar\": {\n          \"items\": {\n            \"key_0\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"children\": [\n            \"<string>\",\n            \"<string>\"\n          ]\n        },\n        \"show\": true,\n        \"isButton\": false,\n        \"isStarred\": false\n      }\n    },\n    \"header\": [\n      {\n        \"uid\": \"<string>\",\n        \"title\": \"<string>\",\n        \"show\": true,\n        \"isStarred\": false,\n        \"type\": \"<string>\"\n      },\n      {\n        \"uid\": \"<string>\",\n        \"title\": \"<string>\",\n        \"show\": true,\n        \"isStarred\": false,\n        \"type\": \"<string>\"\n      }\n    ],\n    \"footer\": \"\",\n    \"footerCss\": \"\",\n    \"footerBelowSidebar\": false,\n    \"headScript\": \"\",\n    \"bodyScript\": \"\"\n  },\n  \"yjsDocs\": {\n    \"key_0\": \"<string>\"\n  },\n  \"yjsReferences\": {\n    \"key_0\": \"<string>\",\n    \"key_1\": \"<string>\",\n    \"key_2\": \"<string>\"\n  },\n  \"theme\": {\n    \"uid\": \"<string>\",\n    \"name\": \"<string>\",\n    \"description\": \"<string>\",\n    \"theme\": \"<string>\",\n    \"slug\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "f6f48cde-8e80-4ab2-ad0f-6a34d4cfdc39",
+              "name": "Default Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "signup-data"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"version\": {\n    \"uid\": \"string\",\n    \"name\": \"Default Version\",\n    \"primaryGuideId\": \"string\",\n    \"primaryReferenceId\": \"string\",\n    \"references\": {\n      \"key_0\": {\n        \"uid\": \"string\",\n        \"title\": \"string\",\n        \"description\": \"string\",\n        \"yjsReference\": \"string\",\n        \"config\": \"{}\",\n        \"specPermalink\": \"\",\n        \"managedDoc\": {\n          \"namespace\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"slug\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"versions\": [\n            \"latest\"\n          ]\n        },\n        \"show\": true,\n        \"isButton\": false,\n        \"isStarred\": false\n      }\n    },\n    \"guides\": {\n      \"key_0\": {\n        \"uid\": \"string\",\n        \"title\": \"string\",\n        \"description\": \"string\",\n        \"sidebar\": {\n          \"items\": {\n            \"key_0\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"key_1\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"children\": [\n            \"string\",\n            \"string\"\n          ]\n        },\n        \"show\": true,\n        \"isButton\": false,\n        \"isStarred\": false\n      }\n    },\n    \"header\": [\n      {\n        \"uid\": \"string\",\n        \"title\": \"string\",\n        \"show\": true,\n        \"isStarred\": false,\n        \"type\": \"string\"\n      },\n      {\n        \"uid\": \"string\",\n        \"title\": \"string\",\n        \"show\": true,\n        \"isStarred\": false,\n        \"type\": \"string\"\n      }\n    ],\n    \"footer\": \"\",\n    \"footerCss\": \"\",\n    \"footerBelowSidebar\": false,\n    \"headScript\": \"\",\n    \"bodyScript\": \"\"\n  },\n  \"yjsDocs\": {\n    \"key_0\": \"<string>\",\n    \"key_1\": \"<string>\"\n  },\n  \"yjsReferences\": {\n    \"key_0\": \"<string>\",\n    \"key_1\": \"<string>\"\n  },\n  \"theme\": {\n    \"uid\": \"string\",\n    \"name\": \"string\",\n    \"description\": \"string\",\n    \"theme\": \"string\",\n    \"slug\": \"nnnn\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"dataUid\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3b5cf2b3-60f3-4e23-b58f-2c584eb2a3ce",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "signup-data"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"version\": {\n    \"uid\": \"string\",\n    \"name\": \"Default Version\",\n    \"primaryGuideId\": \"string\",\n    \"primaryReferenceId\": \"string\",\n    \"references\": {\n      \"key_0\": {\n        \"uid\": \"string\",\n        \"title\": \"string\",\n        \"description\": \"string\",\n        \"yjsReference\": \"string\",\n        \"config\": \"{}\",\n        \"specPermalink\": \"\",\n        \"managedDoc\": {\n          \"namespace\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"slug\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"versions\": [\n            \"latest\"\n          ]\n        },\n        \"show\": true,\n        \"isButton\": false,\n        \"isStarred\": false\n      }\n    },\n    \"guides\": {\n      \"key_0\": {\n        \"uid\": \"string\",\n        \"title\": \"string\",\n        \"description\": \"string\",\n        \"sidebar\": {\n          \"items\": {\n            \"key_0\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"key_1\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"children\": [\n            \"string\",\n            \"string\"\n          ]\n        },\n        \"show\": true,\n        \"isButton\": false,\n        \"isStarred\": false\n      }\n    },\n    \"header\": [\n      {\n        \"uid\": \"string\",\n        \"title\": \"string\",\n        \"show\": true,\n        \"isStarred\": false,\n        \"type\": \"string\"\n      },\n      {\n        \"uid\": \"string\",\n        \"title\": \"string\",\n        \"show\": true,\n        \"isStarred\": false,\n        \"type\": \"string\"\n      }\n    ],\n    \"footer\": \"\",\n    \"footerCss\": \"\",\n    \"footerBelowSidebar\": false,\n    \"headScript\": \"\",\n    \"bodyScript\": \"\"\n  },\n  \"yjsDocs\": {\n    \"key_0\": \"<string>\",\n    \"key_1\": \"<string>\"\n  },\n  \"yjsReferences\": {\n    \"key_0\": \"<string>\",\n    \"key_1\": \"<string>\"\n  },\n  \"theme\": {\n    \"uid\": \"string\",\n    \"name\": \"string\",\n    \"description\": \"string\",\n    \"theme\": \"string\",\n    \"slug\": \"nnnn\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"code\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "92dfa6da-58d5-4779-8b25-8f95d083d014",
+              "name": "No auth",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "signup-data"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"version\": {\n    \"uid\": \"string\",\n    \"name\": \"Default Version\",\n    \"primaryGuideId\": \"string\",\n    \"primaryReferenceId\": \"string\",\n    \"references\": {\n      \"key_0\": {\n        \"uid\": \"string\",\n        \"title\": \"string\",\n        \"description\": \"string\",\n        \"yjsReference\": \"string\",\n        \"config\": \"{}\",\n        \"specPermalink\": \"\",\n        \"managedDoc\": {\n          \"namespace\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"slug\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"versions\": [\n            \"latest\"\n          ]\n        },\n        \"show\": true,\n        \"isButton\": false,\n        \"isStarred\": false\n      }\n    },\n    \"guides\": {\n      \"key_0\": {\n        \"uid\": \"string\",\n        \"title\": \"string\",\n        \"description\": \"string\",\n        \"sidebar\": {\n          \"items\": {\n            \"key_0\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"key_1\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"children\": [\n            \"string\",\n            \"string\"\n          ]\n        },\n        \"show\": true,\n        \"isButton\": false,\n        \"isStarred\": false\n      }\n    },\n    \"header\": [\n      {\n        \"uid\": \"string\",\n        \"title\": \"string\",\n        \"show\": true,\n        \"isStarred\": false,\n        \"type\": \"string\"\n      },\n      {\n        \"uid\": \"string\",\n        \"title\": \"string\",\n        \"show\": true,\n        \"isStarred\": false,\n        \"type\": \"string\"\n      }\n    ],\n    \"footer\": \"\",\n    \"footerCss\": \"\",\n    \"footerBelowSidebar\": false,\n    \"headScript\": \"\",\n    \"bodyScript\": \"\"\n  },\n  \"yjsDocs\": {\n    \"key_0\": \"<string>\",\n    \"key_1\": \"<string>\"\n  },\n  \"yjsReferences\": {\n    \"key_0\": \"<string>\",\n    \"key_1\": \"<string>\"\n  },\n  \"theme\": {\n    \"uid\": \"string\",\n    \"name\": \"string\",\n    \"description\": \"string\",\n    \"theme\": \"string\",\n    \"slug\": \"nnnn\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"code\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "269d3950-ef4a-4ce4-b874-5939cb6c0526",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "signup-data"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"version\": {\n    \"uid\": \"string\",\n    \"name\": \"Default Version\",\n    \"primaryGuideId\": \"string\",\n    \"primaryReferenceId\": \"string\",\n    \"references\": {\n      \"key_0\": {\n        \"uid\": \"string\",\n        \"title\": \"string\",\n        \"description\": \"string\",\n        \"yjsReference\": \"string\",\n        \"config\": \"{}\",\n        \"specPermalink\": \"\",\n        \"managedDoc\": {\n          \"namespace\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"slug\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"versions\": [\n            \"latest\"\n          ]\n        },\n        \"show\": true,\n        \"isButton\": false,\n        \"isStarred\": false\n      }\n    },\n    \"guides\": {\n      \"key_0\": {\n        \"uid\": \"string\",\n        \"title\": \"string\",\n        \"description\": \"string\",\n        \"sidebar\": {\n          \"items\": {\n            \"key_0\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"key_1\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"children\": [\n            \"string\",\n            \"string\"\n          ]\n        },\n        \"show\": true,\n        \"isButton\": false,\n        \"isStarred\": false\n      }\n    },\n    \"header\": [\n      {\n        \"uid\": \"string\",\n        \"title\": \"string\",\n        \"show\": true,\n        \"isStarred\": false,\n        \"type\": \"string\"\n      },\n      {\n        \"uid\": \"string\",\n        \"title\": \"string\",\n        \"show\": true,\n        \"isStarred\": false,\n        \"type\": \"string\"\n      }\n    ],\n    \"footer\": \"\",\n    \"footerCss\": \"\",\n    \"footerBelowSidebar\": false,\n    \"headScript\": \"\",\n    \"bodyScript\": \"\"\n  },\n  \"yjsDocs\": {\n    \"key_0\": \"<string>\",\n    \"key_1\": \"<string>\"\n  },\n  \"yjsReferences\": {\n    \"key_0\": \"<string>\",\n    \"key_1\": \"<string>\"\n  },\n  \"theme\": {\n    \"uid\": \"string\",\n    \"name\": \"string\",\n    \"description\": \"string\",\n    \"theme\": \"string\",\n    \"slug\": \"nnnn\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"code\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b4c291c4-9169-449f-a934-dfa418c2c63a",
+              "name": "Not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "signup-data"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"version\": {\n    \"uid\": \"string\",\n    \"name\": \"Default Version\",\n    \"primaryGuideId\": \"string\",\n    \"primaryReferenceId\": \"string\",\n    \"references\": {\n      \"key_0\": {\n        \"uid\": \"string\",\n        \"title\": \"string\",\n        \"description\": \"string\",\n        \"yjsReference\": \"string\",\n        \"config\": \"{}\",\n        \"specPermalink\": \"\",\n        \"managedDoc\": {\n          \"namespace\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"slug\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"versions\": [\n            \"latest\"\n          ]\n        },\n        \"show\": true,\n        \"isButton\": false,\n        \"isStarred\": false\n      }\n    },\n    \"guides\": {\n      \"key_0\": {\n        \"uid\": \"string\",\n        \"title\": \"string\",\n        \"description\": \"string\",\n        \"sidebar\": {\n          \"items\": {\n            \"key_0\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"key_1\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"children\": [\n            \"string\",\n            \"string\"\n          ]\n        },\n        \"show\": true,\n        \"isButton\": false,\n        \"isStarred\": false\n      }\n    },\n    \"header\": [\n      {\n        \"uid\": \"string\",\n        \"title\": \"string\",\n        \"show\": true,\n        \"isStarred\": false,\n        \"type\": \"string\"\n      },\n      {\n        \"uid\": \"string\",\n        \"title\": \"string\",\n        \"show\": true,\n        \"isStarred\": false,\n        \"type\": \"string\"\n      }\n    ],\n    \"footer\": \"\",\n    \"footerCss\": \"\",\n    \"footerBelowSidebar\": false,\n    \"headScript\": \"\",\n    \"bodyScript\": \"\"\n  },\n  \"yjsDocs\": {\n    \"key_0\": \"<string>\",\n    \"key_1\": \"<string>\"\n  },\n  \"yjsReferences\": {\n    \"key_0\": \"<string>\",\n    \"key_1\": \"<string>\"\n  },\n  \"theme\": {\n    \"uid\": \"string\",\n    \"name\": \"string\",\n    \"description\": \"string\",\n    \"theme\": \"string\",\n    \"slug\": \"nnnn\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"code\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "039d5f0e-a18f-4f93-bbf5-780c0b44fd97",
+              "name": "Invalid payload",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "signup-data"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"version\": {\n    \"uid\": \"string\",\n    \"name\": \"Default Version\",\n    \"primaryGuideId\": \"string\",\n    \"primaryReferenceId\": \"string\",\n    \"references\": {\n      \"key_0\": {\n        \"uid\": \"string\",\n        \"title\": \"string\",\n        \"description\": \"string\",\n        \"yjsReference\": \"string\",\n        \"config\": \"{}\",\n        \"specPermalink\": \"\",\n        \"managedDoc\": {\n          \"namespace\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"slug\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"versions\": [\n            \"latest\"\n          ]\n        },\n        \"show\": true,\n        \"isButton\": false,\n        \"isStarred\": false\n      }\n    },\n    \"guides\": {\n      \"key_0\": {\n        \"uid\": \"string\",\n        \"title\": \"string\",\n        \"description\": \"string\",\n        \"sidebar\": {\n          \"items\": {\n            \"key_0\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"key_1\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"children\": [\n            \"string\",\n            \"string\"\n          ]\n        },\n        \"show\": true,\n        \"isButton\": false,\n        \"isStarred\": false\n      }\n    },\n    \"header\": [\n      {\n        \"uid\": \"string\",\n        \"title\": \"string\",\n        \"show\": true,\n        \"isStarred\": false,\n        \"type\": \"string\"\n      },\n      {\n        \"uid\": \"string\",\n        \"title\": \"string\",\n        \"show\": true,\n        \"isStarred\": false,\n        \"type\": \"string\"\n      }\n    ],\n    \"footer\": \"\",\n    \"footerCss\": \"\",\n    \"footerBelowSidebar\": false,\n    \"headScript\": \"\",\n    \"bodyScript\": \"\"\n  },\n  \"yjsDocs\": {\n    \"key_0\": \"<string>\",\n    \"key_1\": \"<string>\"\n  },\n  \"yjsReferences\": {\n    \"key_0\": \"<string>\",\n    \"key_1\": \"<string>\"\n  },\n  \"theme\": {\n    \"uid\": \"string\",\n    \"name\": \"string\",\n    \"description\": \"string\",\n    \"theme\": \"string\",\n    \"slug\": \"nnnn\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"code\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "89ab05cb-16dc-4538-b34c-118a44b067a5",
+              "name": "Uncaught error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "signup-data"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"version\": {\n    \"uid\": \"string\",\n    \"name\": \"Default Version\",\n    \"primaryGuideId\": \"string\",\n    \"primaryReferenceId\": \"string\",\n    \"references\": {\n      \"key_0\": {\n        \"uid\": \"string\",\n        \"title\": \"string\",\n        \"description\": \"string\",\n        \"yjsReference\": \"string\",\n        \"config\": \"{}\",\n        \"specPermalink\": \"\",\n        \"managedDoc\": {\n          \"namespace\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"slug\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"versions\": [\n            \"latest\"\n          ]\n        },\n        \"show\": true,\n        \"isButton\": false,\n        \"isStarred\": false\n      }\n    },\n    \"guides\": {\n      \"key_0\": {\n        \"uid\": \"string\",\n        \"title\": \"string\",\n        \"description\": \"string\",\n        \"sidebar\": {\n          \"items\": {\n            \"key_0\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"key_1\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"children\": [\n            \"string\",\n            \"string\"\n          ]\n        },\n        \"show\": true,\n        \"isButton\": false,\n        \"isStarred\": false\n      }\n    },\n    \"header\": [\n      {\n        \"uid\": \"string\",\n        \"title\": \"string\",\n        \"show\": true,\n        \"isStarred\": false,\n        \"type\": \"string\"\n      },\n      {\n        \"uid\": \"string\",\n        \"title\": \"string\",\n        \"show\": true,\n        \"isStarred\": false,\n        \"type\": \"string\"\n      }\n    ],\n    \"footer\": \"\",\n    \"footerCss\": \"\",\n    \"footerBelowSidebar\": false,\n    \"headScript\": \"\",\n    \"bodyScript\": \"\"\n  },\n  \"yjsDocs\": {\n    \"key_0\": \"<string>\",\n    \"key_1\": \"<string>\"\n  },\n  \"yjsReferences\": {\n    \"key_0\": \"<string>\",\n    \"key_1\": \"<string>\"\n  },\n  \"theme\": {\n    \"uid\": \"string\",\n    \"name\": \"string\",\n    \"description\": \"string\",\n    \"theme\": \"string\",\n    \"slug\": \"nnnn\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"code\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9de78d0a-42e5-4ca7-83e1-eaf194f7cf93",
+          "name": "postwaitlist",
+          "request": {
+            "name": "postwaitlist",
+            "description": {
+              "content": "Submit app feedback",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "waitlist"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"<email>\",\n  \"products\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"metadata\": {\n    \"key_0\": \"<string>\",\n    \"key_1\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "f727f02e-c9d1-4a0b-aaa8-9d6275e7ec70",
+              "name": "Default Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "waitlist"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"email\": \"5IWrV@CVUp5GSU0.M9wM-0LJ0q.zsdEXe.JujHP4.sD4.mnt6SX.8VfsZAD8urD.kaWNClMyvc.04oRAqqFAG.FZ4gX5QmA.8lzQc5z.gZqsEh\",\n  \"products\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"metadata\": {\n    \"key_0\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "null",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "19a8348a-782e-44bf-bb80-9772860e589f",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "waitlist"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"email\": \"5IWrV@CVUp5GSU0.M9wM-0LJ0q.zsdEXe.JujHP4.sD4.mnt6SX.8VfsZAD8urD.kaWNClMyvc.04oRAqqFAG.FZ4gX5QmA.8lzQc5z.gZqsEh\",\n  \"products\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"metadata\": {\n    \"key_0\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"code\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ed9973df-7c03-45f8-b876-617ced291f60",
+              "name": "No auth",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "waitlist"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"email\": \"5IWrV@CVUp5GSU0.M9wM-0LJ0q.zsdEXe.JujHP4.sD4.mnt6SX.8VfsZAD8urD.kaWNClMyvc.04oRAqqFAG.FZ4gX5QmA.8lzQc5z.gZqsEh\",\n  \"products\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"metadata\": {\n    \"key_0\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"code\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5a01a85f-9545-4863-a478-f819cf82ef3e",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "waitlist"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"email\": \"5IWrV@CVUp5GSU0.M9wM-0LJ0q.zsdEXe.JujHP4.sD4.mnt6SX.8VfsZAD8urD.kaWNClMyvc.04oRAqqFAG.FZ4gX5QmA.8lzQc5z.gZqsEh\",\n  \"products\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"metadata\": {\n    \"key_0\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"code\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "db0fa60b-0c46-456a-ae3d-4192ea585caf",
+              "name": "Not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "waitlist"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"email\": \"5IWrV@CVUp5GSU0.M9wM-0LJ0q.zsdEXe.JujHP4.sD4.mnt6SX.8VfsZAD8urD.kaWNClMyvc.04oRAqqFAG.FZ4gX5QmA.8lzQc5z.gZqsEh\",\n  \"products\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"metadata\": {\n    \"key_0\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"code\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5e2f27fb-1e05-4bfb-9c83-c278845a1ec7",
+              "name": "Invalid payload",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "waitlist"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"email\": \"5IWrV@CVUp5GSU0.M9wM-0LJ0q.zsdEXe.JujHP4.sD4.mnt6SX.8VfsZAD8urD.kaWNClMyvc.04oRAqqFAG.FZ4gX5QmA.8lzQc5z.gZqsEh\",\n  \"products\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"metadata\": {\n    \"key_0\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"code\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "55faf562-4239-4eea-a8c4-21b5ca5364ed",
+              "name": "Uncaught error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "waitlist"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"email\": \"5IWrV@CVUp5GSU0.M9wM-0LJ0q.zsdEXe.JujHP4.sD4.mnt6SX.8VfsZAD8urD.kaWNClMyvc.04oRAqqFAG.FZ4gX5QmA.8lzQc5z.gZqsEh\",\n  \"products\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"metadata\": {\n    \"key_0\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"code\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "a8210374-00be-44d8-8e4f-e37ff95730b5",
+    "name": "Core access-groups utility API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Core services for Scalar\n\nContact Support:\n Name: Marc from Scalar\n Email: support@scalar.com",
+      "type": "text/plain"
+    }
+  }
+}

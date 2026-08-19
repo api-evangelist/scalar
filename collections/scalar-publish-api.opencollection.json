@@ -1,0 +1,195 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Core access-groups publish API",
+    "version": "1.0.1"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "publish",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "postpublishDnsCheck",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/publish/dns-check",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Validates the DNS records for a specified subdomain"
+        },
+        {
+          "info": {
+            "name": "deleteunpublish",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/unpublish",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Removes the active deploy from a project, without deleting cached assets"
+        },
+        {
+          "info": {
+            "name": "deletepublish",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/publish",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Delete a publish record and its cached assets"
+        },
+        {
+          "info": {
+            "name": "postpubsubPublishDeleted",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/pubsub/publish-deleted",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Deletes a cached build from the GCP bucket"
+        },
+        {
+          "info": {
+            "name": "postpublishRedeploy",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/publish/redeploy",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Redeploy a previous publish"
+        },
+        {
+          "info": {
+            "name": "deletepublishBulk",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/publish/bulk",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Bulk delete all non-deployed publish records"
+        },
+        {
+          "info": {
+            "name": "postpublishCancel",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/publish/cancel",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Cancel an in-flight publish before it goes live"
+        },
+        {
+          "info": {
+            "name": "getpublishLogsPublishUid",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/publish/logs/:publishUid",
+            "params": [
+              {
+                "name": "publishUid",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Checks & creates a publish record for a CLI publish"
+        },
+        {
+          "info": {
+            "name": "postpublishDomainsAvailability",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/publish/domains/availability",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Checks availability for publish domain"
+        },
+        {
+          "info": {
+            "name": "postpublishDomainsProject",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/publish/domains/project",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Returns active domains for a project"
+        },
+        {
+          "info": {
+            "name": "getpublishDeployCheck",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/publish/deploy-check",
+            "params": [
+              {
+                "name": "domain",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Verifies a specific site is deployed and SSL certificates can be issued for it. "
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

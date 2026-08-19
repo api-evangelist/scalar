@@ -1,0 +1,625 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Core access-groups team API",
+    "version": "1.0.1"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "team",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "getmeTeams",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/me/teams"
+          },
+          "docs": "List all teams the current user belongs to"
+        },
+        {
+          "info": {
+            "name": "postteamSlug",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/team/slug",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update a team slug"
+        },
+        {
+          "info": {
+            "name": "postteamSlugAvailable",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/team/slug/available",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Check if team slug is available"
+        },
+        {
+          "info": {
+            "name": "postteamCreate",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/team/create",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new team"
+        },
+        {
+          "info": {
+            "name": "postteamInvite",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/team/invite",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Invite a new member to the team"
+        },
+        {
+          "info": {
+            "name": "patchteamInvite",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/team/invite",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Resend an existing team invite"
+        },
+        {
+          "info": {
+            "name": "deleteteamInvite",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/team/invite",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Cancel a team invite"
+        },
+        {
+          "info": {
+            "name": "getteamAcceptInvite",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/team/accept-invite",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Accept an email team invite"
+        },
+        {
+          "info": {
+            "name": "postteamRename",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/team/rename",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Rename a team and handle multiple record updates"
+        },
+        {
+          "info": {
+            "name": "postteamImage",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/team/image",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update a team logo image and handle multiple record updates"
+        },
+        {
+          "info": {
+            "name": "getteamLeave",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/team/leave"
+          },
+          "docs": "Allow a user to leave a team"
+        },
+        {
+          "info": {
+            "name": "deleteteam",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/team"
+          },
+          "docs": "Delete a team"
+        },
+        {
+          "info": {
+            "name": "postteamDeleteMember",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/team/delete-member",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Remove a user from the team"
+        },
+        {
+          "info": {
+            "name": "postteamUpdate",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/team/update",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update a team record"
+        },
+        {
+          "info": {
+            "name": "postteamUpdateUser",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/team/update-user",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update a team user record (safe properties only)"
+        },
+        {
+          "info": {
+            "name": "getteamBilling",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/team/billing"
+          },
+          "docs": "Team billing invoice and plan summary"
+        },
+        {
+          "info": {
+            "name": "postteamBillingEmail",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/team/billing/email",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update a team's billing email"
+        },
+        {
+          "info": {
+            "name": "postteamUpdatePlan",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/team/update/plan",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update a team's billing plan"
+        },
+        {
+          "info": {
+            "name": "postteamUpdateRole",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/team/update-role",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates user role for a team member"
+        },
+        {
+          "info": {
+            "name": "deleteinternalTeamArchive",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/internal/team/archive",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Scheduled internal deletion for premium teams"
+        },
+        {
+          "info": {
+            "name": "postteamNamespaceUpdate",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/team/namespace/update",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update a team namespace"
+        },
+        {
+          "info": {
+            "name": "postteamNamespace",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/team/namespace",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a team namespace"
+        },
+        {
+          "info": {
+            "name": "postteamNamespaceAvailable",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/team/namespace/available",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Check if team namespace is available"
+        },
+        {
+          "info": {
+            "name": "getteamNamespaces",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/team/namespaces"
+          },
+          "docs": "Get all namespaces for the current team"
+        },
+        {
+          "info": {
+            "name": "postteamOnboardingSetup",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/team/onboarding/setup",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Onboarding team setup"
+        },
+        {
+          "info": {
+            "name": "postteamOnboardingComplete",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/team/onboarding/complete"
+          },
+          "docs": "Onboarding team complete"
+        },
+        {
+          "info": {
+            "name": "postinternalTeamFeatures",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/internal/team/features",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Internal endpoint to update feature flags for a team"
+        },
+        {
+          "info": {
+            "name": "postpubsubInviteTeamMember",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/pubsub/invite-team-member",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Pubsub invite a new member to the team"
+        },
+        {
+          "info": {
+            "name": "postpubsubTeamMemberInvited",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/pubsub/team-member-invited",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Pubsub team member invited"
+        },
+        {
+          "info": {
+            "name": "postteamIcon",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/team/icon",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Adds a custom icon to the team"
+        },
+        {
+          "info": {
+            "name": "deleteteamIcon",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/team/icon",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Deletes a custom icon from the team"
+        },
+        {
+          "info": {
+            "name": "postteamAuthenticationDomain",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/team/authentication/domain",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Add a domain to authentication allowlist"
+        },
+        {
+          "info": {
+            "name": "deleteteamAuthenticationDomain",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/team/authentication/domain",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Remove a domain from authentication allowlist"
+        },
+        {
+          "info": {
+            "name": "postteamAuthenticationMethod",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/team/authentication/method",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Enable or disable authentication method for the team"
+        },
+        {
+          "info": {
+            "name": "postteamAuthenticationUser",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/team/authentication/user",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Edit team authentication user controls"
+        },
+        {
+          "info": {
+            "name": "deleteteamAuthenticationUser",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/team/authentication/user",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Remove team authentication user controls"
+        },
+        {
+          "info": {
+            "name": "postteamAuthenticationUserMethod",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/team/authentication/user/method",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Enable or disable authentication method for a user"
+        },
+        {
+          "info": {
+            "name": "postteamExternalAccessMethod",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/team/external-access/method",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Enable or disable external access methods for the team"
+        },
+        {
+          "info": {
+            "name": "postinternalTeamsTeamUidNotifyMcpApprovalRequired",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/internal/teams/:teamUid/notify-mcp-approval-required",
+            "params": [
+              {
+                "name": "teamUid",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Notify a team's admins/owners that an MCP server version is awaiting approval."
+        },
+        {
+          "info": {
+            "name": "postuserUpdate",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/user/update",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update user record"
+        },
+        {
+          "info": {
+            "name": "postinternalUserBan",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/internal/user/ban",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Ban a user by email. Banning will deny a user from creating an account or logging in."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

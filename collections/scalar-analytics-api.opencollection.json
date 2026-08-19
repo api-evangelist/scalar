@@ -1,0 +1,136 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Core access-groups analytics API",
+    "version": "1.0.1"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "analytics",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "getanalyticsProjectsProjectUidOverview",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/analytics/projects/:projectUid/overview",
+            "params": [
+              {
+                "name": "projectUid",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "range",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "granularity",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "KPI totals + timeseries + consumer breakdown for a docs project"
+        },
+        {
+          "info": {
+            "name": "getanalyticsProjectsProjectUidPages",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/analytics/projects/:projectUid/pages",
+            "params": [
+              {
+                "name": "projectUid",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "range",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Top pages by views for a docs project"
+        },
+        {
+          "info": {
+            "name": "getanalyticsProjectsProjectUidReferrers",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/analytics/projects/:projectUid/referrers",
+            "params": [
+              {
+                "name": "projectUid",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "range",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Top referrers for a docs project"
+        },
+        {
+          "info": {
+            "name": "getanalyticsProjectsProjectUidConsumers",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/analytics/projects/:projectUid/consumers",
+            "params": [
+              {
+                "name": "projectUid",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "range",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "granularity",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Consumer breakdown (human/bot/llm/mcp) for a docs project"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

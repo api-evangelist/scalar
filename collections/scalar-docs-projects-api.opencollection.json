@@ -1,0 +1,185 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Core access-groups Docs Projects API",
+    "version": "1.0.1"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Docs Projects",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "postdocsProjectsCreate",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/docs-projects/create",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a unified DocsProject backed by the chosen VCS provider (forgejo, github, or bitbucket)"
+        },
+        {
+          "info": {
+            "name": "deletedocsProjectsDelete",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/docs-projects/delete",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Delete a unified DocsProject. Tears down deploys + publish records + cached builds, repoints user activeProjectUid, deletes the Forgejo repo (if any), and notifies subscribers. User-owned GitHub repos are left untouched."
+        },
+        {
+          "info": {
+            "name": "getdocsProjectsSlug",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/docs-projects/:slug",
+            "params": [
+              {
+                "name": "slug",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get a unified DocsProject by slug for the current team"
+        },
+        {
+          "info": {
+            "name": "postdocsProjectsUpdateRepoSettings",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/docs-projects/update-repo-settings",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update editable repository settings (tracked branch, config path) on a unified DocsProject. Publish flags live in scalar.config.json."
+        },
+        {
+          "info": {
+            "name": "postdocsProjectsProjectUidLinkGithub",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/docs-projects/:projectUid/link-github",
+            "params": [
+              {
+                "name": "projectUid",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Convert a Forgejo-backed DocsProject into a GitHub-backed one. Reads every file from the Forgejo repo and opens a single PR on the chosen GitHub repo putting the content under scalar-docs/."
+        },
+        {
+          "info": {
+            "name": "postdocsProjectsProjectUidUnlinkGithub",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/docs-projects/:projectUid/unlink-github",
+            "params": [
+              {
+                "name": "projectUid",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Convert a GitHub-backed DocsProject back to a Forgejo-backed one. Migrates the GitHub repository contents into a fresh Forgejo repo and flips the project provider."
+        },
+        {
+          "info": {
+            "name": "postdocsProjectsProjectUidLinkBitbucket",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/docs-projects/:projectUid/link-bitbucket",
+            "params": [
+              {
+                "name": "projectUid",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Convert a Forgejo-backed DocsProject into a Bitbucket-backed one. Reads every file from the Forgejo repo and opens a single PR on the chosen Bitbucket repo putting the content under scalar-docs/."
+        },
+        {
+          "info": {
+            "name": "postdocsProjectsProjectUidUnlinkBitbucket",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/docs-projects/:projectUid/unlink-bitbucket",
+            "params": [
+              {
+                "name": "projectUid",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Convert a Bitbucket-backed DocsProject back to a Forgejo-backed one. Migrates the Bitbucket repository contents into a fresh Forgejo repo and flips the project provider."
+        },
+        {
+          "info": {
+            "name": "postdocsProjectsProjectUidBitbucketRefreshWebhook",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/docs-projects/:projectUid/bitbucket/refresh-webhook",
+            "params": [
+              {
+                "name": "projectUid",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Re-register the Bitbucket webhook on a Bitbucket-backed DocsProject. Used to recover from a failed initial registration after the linker user is granted repo admin."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

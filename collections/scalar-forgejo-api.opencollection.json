@@ -1,0 +1,35 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Core access-groups Forgejo API",
+    "version": "1.0.1"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Forgejo",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "getforgejoGitCredentials",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/forgejo/git-credentials"
+          },
+          "docs": "Get Forgejo git credentials for the authenticated user"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

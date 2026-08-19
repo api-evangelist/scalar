@@ -1,0 +1,363 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Core access-groups sdks API",
+    "version": "1.0.1"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "sdks",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "postv1SdksSync",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/v1/sdks/sync",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Manually trigger git sync for SDK build"
+        },
+        {
+          "info": {
+            "name": "postv1Sdks",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/v1/sdks",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new sdk from a registry API"
+        },
+        {
+          "info": {
+            "name": "postv1SdksVersion",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/v1/sdks/version",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new version for SDK"
+        },
+        {
+          "info": {
+            "name": "patchv1SdksUid",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/v1/sdks/:uid",
+            "params": [
+              {
+                "name": "uid",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update an SDK by UID"
+        },
+        {
+          "info": {
+            "name": "deletev1SdksUid",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/v1/sdks/:uid",
+            "params": [
+              {
+                "name": "uid",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Delete an SDK by UID"
+        },
+        {
+          "info": {
+            "name": "postpubsubSdkBuildComplete",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/pubsub/sdk-build-complete",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Side effect processing after SDK generation completes"
+        },
+        {
+          "info": {
+            "name": "postpubsubSdkBuildFailed",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/pubsub/sdk-build-failed",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Side effect processing after SDK generation fails"
+        },
+        {
+          "info": {
+            "name": "postv1SdksBulk",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/v1/sdks/bulk",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates multiple language SDKs from a registry API"
+        },
+        {
+          "info": {
+            "name": "postv1SdksAvailable",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/v1/sdks/available",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Checks if an SDK slug is available"
+        },
+        {
+          "info": {
+            "name": "postv1SdksUidAccessGroup",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/v1/sdks/:uid/access-group",
+            "params": [
+              {
+                "name": "uid",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Adds an access group to an SDK"
+        },
+        {
+          "info": {
+            "name": "deletev1SdksUidAccessGroup",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/v1/sdks/:uid/access-group",
+            "params": [
+              {
+                "name": "uid",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Removes an access group from an SDK"
+        },
+        {
+          "info": {
+            "name": "postv1SdksRepository",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/v1/sdks/repository",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Links an SDK to a github repository"
+        },
+        {
+          "info": {
+            "name": "deletev1SdksRepository",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/v1/sdks/repository",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Unlinks SDK repository"
+        },
+        {
+          "info": {
+            "name": "postv1SdksRepositoryUpdate",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/v1/sdks/repository/update",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates an SDK repository metadata"
+        },
+        {
+          "info": {
+            "name": "postpubsubApiVersionCreatedCreateSdkVersion",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/pubsub/api-version-created/create-sdk-version",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "API version created SDK processing"
+        },
+        {
+          "info": {
+            "name": "postpubsubSdkVersionCreated",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/pubsub/sdk-version-created",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "PubSub SDK version created"
+        },
+        {
+          "info": {
+            "name": "postpubsubSdkRepositoryLinked",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/pubsub/sdk-repository-linked",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Handle side effects for SDK repository linking"
+        },
+        {
+          "info": {
+            "name": "postpubsubSdkGitComplete",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/pubsub/sdk-git-complete",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Side effect processing after SDK git sync succeeds"
+        },
+        {
+          "info": {
+            "name": "postpubsubSdkGitFailed",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/pubsub/sdk-git-failed",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Side effect processing after SDK git sync fails"
+        },
+        {
+          "info": {
+            "name": "postv1SdksBuild",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/v1/sdks/build",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Trigger manual SDK build"
+        },
+        {
+          "info": {
+            "name": "postv1SdksSnippets",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/v1/sdks/snippets",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Generate SDK snippets for a Registry API"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

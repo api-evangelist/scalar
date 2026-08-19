@@ -1,0 +1,457 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Core access-groups auth API",
+    "version": "1.0.1"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "auth",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "getme",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/me"
+          },
+          "docs": "Get a users basic information"
+        },
+        {
+          "info": {
+            "name": "postloginEmail",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/login/email",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Login with email password flow"
+        },
+        {
+          "info": {
+            "name": "postloginEmailSignup",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/login/email-signup",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Register with email password flow"
+        },
+        {
+          "info": {
+            "name": "postloginEmailOtp",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/login/email-otp",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Send an OTP verification code to the email"
+        },
+        {
+          "info": {
+            "name": "postloginEmailOtpVerify",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/login/email-otp/verify",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Verify OTP"
+        },
+        {
+          "info": {
+            "name": "postloginRefresh",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/login/refresh",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Refresh an access token and set the team uid token"
+        },
+        {
+          "info": {
+            "name": "postloginExchange",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/login/exchange",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Exchange the short lived URL token for access/refresh tokens"
+        },
+        {
+          "info": {
+            "name": "postloginGetExchange",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/login/get-exchange",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Gets an exchange token that can be used to redirect a user with auth credentials to different domain"
+        },
+        {
+          "info": {
+            "name": "postloginRequestPasswordReset",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/login/request-password-reset",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Request reset password"
+        },
+        {
+          "info": {
+            "name": "postloginResetPassword",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/login/reset-password",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Verify password reset request"
+        },
+        {
+          "info": {
+            "name": "postloginChangePassword",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/login/change-password",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Change password for authenticated user"
+        },
+        {
+          "info": {
+            "name": "postloginPersonalTokenGenerate",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/login/personal-token/generate",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Generate a new personal token"
+        },
+        {
+          "info": {
+            "name": "postloginPersonalTokenAccess",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/login/personal-token/access",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Generate a new access token from a personal token"
+        },
+        {
+          "info": {
+            "name": "postloginPersonalTokenUidRevoke",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/login/personal-token/:uid/revoke",
+            "params": [
+              {
+                "name": "uid",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Revoke a personal token"
+        },
+        {
+          "info": {
+            "name": "deleteloginPersonalTokenUid",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/login/personal-token/:uid",
+            "params": [
+              {
+                "name": "uid",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Delete a personal token"
+        },
+        {
+          "info": {
+            "name": "getidentityProviderUid",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/identity-provider/:uid",
+            "params": [
+              {
+                "name": "uid",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get an identity provider configuration for a team"
+        },
+        {
+          "info": {
+            "name": "deleteidentityProviderUid",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/identity-provider/:uid",
+            "params": [
+              {
+                "name": "uid",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Delete an identity provider configuration for a team"
+        },
+        {
+          "info": {
+            "name": "postidentityProvider",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/identity-provider",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Add an identity provider configuration for a team"
+        },
+        {
+          "info": {
+            "name": "postidentityProviderUpdate",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/identity-provider/update",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update an identity provider configuration for a team"
+        },
+        {
+          "info": {
+            "name": "getsamlMetadata",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/saml/metadata"
+          },
+          "docs": "Get base SP SAML metadata"
+        },
+        {
+          "info": {
+            "name": "getsamlIdpUidMetadata",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/saml/idp/:uid/metadata",
+            "params": [
+              {
+                "name": "uid",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get SAML IdP-specific connection metadata"
+        },
+        {
+          "info": {
+            "name": "getsamlIdpUidLogin",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/saml/idp/:uid/login",
+            "params": [
+              {
+                "name": "uid",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "redirect",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "resource",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "SAML connection login route"
+        },
+        {
+          "info": {
+            "name": "getsamlLogout",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/saml/logout"
+          },
+          "docs": "SAML logout route"
+        },
+        {
+          "info": {
+            "name": "postsamlAcs",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/saml/acs",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "SAML ACS route"
+        },
+        {
+          "info": {
+            "name": "postsamlInitiate",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/saml/initiate",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "SAML initiate route"
+        },
+        {
+          "info": {
+            "name": "getsamlCertSigning",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/saml/cert/signing"
+          },
+          "docs": "Return SAML public signing cert"
+        },
+        {
+          "info": {
+            "name": "getsamlCertEncryption",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/saml/cert/encryption"
+          },
+          "docs": "Return SAML public encryption cert"
+        },
+        {
+          "info": {
+            "name": "posteventsAuthVacuumRefreshTokens",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/events/auth/vacuum-refresh-tokens",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Clean-up unused refresh tokens"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

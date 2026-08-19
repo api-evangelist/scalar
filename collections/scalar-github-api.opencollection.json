@@ -1,0 +1,316 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Core access-groups github API",
+    "version": "1.0.1"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "github",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "getgithubAuthorize",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/github/authorize",
+            "params": [
+              {
+                "name": "code",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "state",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Get and save a user github token to their database object. This allows subsequent queries for github data from the users scope."
+        },
+        {
+          "info": {
+            "name": "getgithubLinkInitiate",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/github/link/initiate",
+            "params": [
+              {
+                "name": "redirect",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Issue a signed OAuth state token for the GitHub user-authorization flow and return the GitHub authorize URL the client should redirect to. Optionally remembers a dashboard path to return the user to after the round-trip."
+        },
+        {
+          "info": {
+            "name": "getgithubRepos",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/github/repos"
+          },
+          "docs": "Get a list of repositories that can be linked to a project"
+        },
+        {
+          "info": {
+            "name": "getgithubReposId",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/github/repos/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get repository info"
+        },
+        {
+          "info": {
+            "name": "postgithubLinkRepo",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/github/link-repo",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Links a github repo to a Scalar github project"
+        },
+        {
+          "info": {
+            "name": "getgithubDocsProjectUidCommits",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/github/docs-project/:uid/commits",
+            "params": [
+              {
+                "name": "uid",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "branch",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "perPage",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "List commits from the GitHub repo backing a `provider: github` DocsProject"
+        },
+        {
+          "info": {
+            "name": "getgithubDocsProjectUidBranches",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/github/docs-project/:uid/branches",
+            "params": [
+              {
+                "name": "uid",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "query",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "perPage",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "List branches on the GitHub repo backing a `provider: github` DocsProject. Supports prefix search."
+        },
+        {
+          "info": {
+            "name": "postgithubDocsProjectUidPullRequest",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/github/docs-project/:uid/pull-request",
+            "params": [
+              {
+                "name": "uid",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a pull request on the GitHub repo backing a `provider: github` DocsProject"
+        },
+        {
+          "info": {
+            "name": "postgithubSlugAvailable",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/github/slug/available",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Check if github slug is available"
+        },
+        {
+          "info": {
+            "name": "postgithubSlug",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/github/slug",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update a github project slug"
+        },
+        {
+          "info": {
+            "name": "postgithubCreate",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/github/create",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a github project that is not linked to a github repo. This project will be used by the cli flow."
+        },
+        {
+          "info": {
+            "name": "postgithubUnlinkRepo",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/github/unlink-repo",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Unlink a github repo from a Scalar github project"
+        },
+        {
+          "info": {
+            "name": "postgithubConfigValidate",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/github/config/validate",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Validate configuration file for a github project"
+        },
+        {
+          "info": {
+            "name": "getgithubSlug",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/github/:slug",
+            "params": [
+              {
+                "name": "slug",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get a github project."
+        },
+        {
+          "info": {
+            "name": "getgithubListProjects",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/github/list-projects"
+          },
+          "docs": "Get github projects for the team"
+        },
+        {
+          "info": {
+            "name": "postgithubDelete",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/github/delete",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Deletes a Github project"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
