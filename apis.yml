@@ -33,6 +33,16 @@ tags:
   - Developer Tools
   - OpenAPI
   - Registry
+  - SDK
+  - Swagger
+tags_raw:
+  - API Client
+  - API Documentation
+  - API References
+  - Code Generation
+  - Developer Tools
+  - OpenAPI
+  - Registry
   - SDKs
   - Swagger
 type: Index
@@ -75,6 +85,12 @@ apis:
     client.scalar.com. Imports OpenAPI files to auto-generate request collections with authentication
     pre-configured.
   tags:
+  - API Client
+  - Collection
+  - OpenAPI
+  - REST
+  - Testing
+  tags_raw:
   - API Client
   - Collections
   - OpenAPI
@@ -123,6 +139,14 @@ apis:
   tags:
   - Git Integration
   - Governance
+  - JSON-Schema
+  - OpenAPI
+  - Registry
+  - Spectral
+  - Versioning
+  tags_raw:
+  - Git Integration
+  - Governance
   - JSON Schema
   - OpenAPI
   - Registry
@@ -146,6 +170,15 @@ apis:
     code samples, full OpenAPI auth support, file streaming, and webhook support. SDK generation is $100
     per month per language on paid plans.
   tags:
+  - Code Generation
+  - Go
+  - Java
+  - PHP
+  - Python
+  - Ruby
+  - SDK
+  - TypeScript
+  tags_raw:
   - Code Generation
   - Go
   - Java
@@ -187,6 +220,8 @@ apis:
   description: The access-groups API from Scalar — 5 operation(s) for access-groups.
   humanURL: https://scalar.com/products/api-references/getting-started
   tags:
+  - Access Groups
+  tags_raw:
   - access-groups
   properties:
   - type: OpenAPI
@@ -196,6 +231,8 @@ apis:
   description: The analytics API from Scalar — 4 operation(s) for analytics.
   humanURL: https://scalar.com/products/api-references/getting-started
   tags:
+  - Analytics
+  tags_raw:
   - analytics
   properties:
   - type: OpenAPI
@@ -214,6 +251,8 @@ apis:
   description: The auth API from Scalar — 27 operation(s) for auth.
   humanURL: https://scalar.com/products/api-references/getting-started
   tags:
+  - Authentication
+  tags_raw:
   - auth
   properties:
   - type: OpenAPI
@@ -223,6 +262,8 @@ apis:
   description: The docs API from Scalar — 6 operation(s) for docs.
   humanURL: https://scalar.com/products/api-references/getting-started
   tags:
+  - Docs
+  tags_raw:
   - docs
   properties:
   - type: OpenAPI
@@ -250,6 +291,8 @@ apis:
   description: The github API from Scalar — 16 operation(s) for github.
   humanURL: https://scalar.com/products/api-references/getting-started
   tags:
+  - GitHub
+  tags_raw:
   - github
   properties:
   - type: OpenAPI
@@ -277,6 +320,8 @@ apis:
   description: The payment API from Scalar — 6 operation(s) for payment.
   humanURL: https://scalar.com/products/api-references/getting-started
   tags:
+  - Payment
+  tags_raw:
   - payment
   properties:
   - type: OpenAPI
@@ -286,6 +331,8 @@ apis:
   description: The publish API from Scalar — 11 operation(s) for publish.
   humanURL: https://scalar.com/products/api-references/getting-started
   tags:
+  - Publish
+  tags_raw:
   - publish
   properties:
   - type: OpenAPI
@@ -295,6 +342,8 @@ apis:
   description: The pubsub API from Scalar — 7 operation(s) for pubsub.
   humanURL: https://scalar.com/products/api-references/getting-started
   tags:
+  - Pub-Sub
+  tags_raw:
   - pubsub
   properties:
   - type: OpenAPI
@@ -304,6 +353,8 @@ apis:
   description: The rules API from Scalar — 6 operation(s) for rules.
   humanURL: https://scalar.com/products/api-references/getting-started
   tags:
+  - Rules
+  tags_raw:
   - rules
   properties:
   - type: OpenAPI
@@ -313,6 +364,8 @@ apis:
   description: The schemas API from Scalar — 7 operation(s) for schemas.
   humanURL: https://scalar.com/products/api-references/getting-started
   tags:
+  - Schemas
+  tags_raw:
   - schemas
   properties:
   - type: OpenAPI
@@ -322,6 +375,8 @@ apis:
   description: The sdks API from Scalar — 18 operation(s) for sdks.
   humanURL: https://scalar.com/products/api-references/getting-started
   tags:
+  - SDK
+  tags_raw:
   - sdks
   properties:
   - type: OpenAPI
@@ -331,6 +386,8 @@ apis:
   description: The share API from Scalar — 1 operation(s) for share.
   humanURL: https://scalar.com/products/api-references/getting-started
   tags:
+  - Share
+  tags_raw:
   - share
   properties:
   - type: OpenAPI
@@ -340,6 +397,8 @@ apis:
   description: The signup API from Scalar — 1 operation(s) for signup.
   humanURL: https://scalar.com/products/api-references/getting-started
   tags:
+  - Sign Up
+  tags_raw:
   - signup
   properties:
   - type: OpenAPI
@@ -349,6 +408,8 @@ apis:
   description: The team API from Scalar — 36 operation(s) for team.
   humanURL: https://scalar.com/products/api-references/getting-started
   tags:
+  - Team
+  tags_raw:
   - team
   properties:
   - type: OpenAPI
@@ -358,6 +419,8 @@ apis:
   description: The themes API from Scalar — 4 operation(s) for themes.
   humanURL: https://scalar.com/products/api-references/getting-started
   tags:
+  - Themes
+  tags_raw:
   - themes
   properties:
   - type: OpenAPI
@@ -367,6 +430,8 @@ apis:
   description: The utility API from Scalar — 3 operation(s) for utility.
   humanURL: https://scalar.com/products/api-references/getting-started
   tags:
+  - Utility
+  tags_raw:
   - utility
   properties:
   - type: OpenAPI
@@ -385,6 +450,8 @@ apis:
   description: The waitlist API from Scalar — 1 operation(s) for waitlist.
   humanURL: https://scalar.com/products/api-references/getting-started
   tags:
+  - Waitlist
+  tags_raw:
   - waitlist
   properties:
   - type: OpenAPI
@@ -394,6 +461,8 @@ apis:
   description: The workspace API from Scalar — 6 operation(s) for workspace.
   humanURL: https://scalar.com/products/api-references/getting-started
   tags:
+  - Workspace
+  tags_raw:
   - workspace
   properties:
   - type: OpenAPI
