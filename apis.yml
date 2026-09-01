@@ -232,7 +232,7 @@ apis:
   description: The access-groups API from Scalar — 5 operation(s) for access-groups.
   humanURL: https://scalar.com/products/api-references/getting-started
   tags:
-  - access-groups
+  - Access Groups
   tags_raw:
   - access-groups
   properties:
@@ -343,7 +343,7 @@ apis:
   description: The publish API from Scalar — 11 operation(s) for publish.
   humanURL: https://scalar.com/products/api-references/getting-started
   tags:
-  - publish
+  - Publish
   tags_raw:
   - publish
   properties:
@@ -354,7 +354,7 @@ apis:
   description: The pubsub API from Scalar — 7 operation(s) for pubsub.
   humanURL: https://scalar.com/products/api-references/getting-started
   tags:
-  - pubsub
+  - Pub-Sub
   tags_raw:
   - pubsub
   properties:
@@ -365,7 +365,7 @@ apis:
   description: The rules API from Scalar — 6 operation(s) for rules.
   humanURL: https://scalar.com/products/api-references/getting-started
   tags:
-  - rules
+  - Rules
   tags_raw:
   - rules
   properties:
@@ -387,7 +387,7 @@ apis:
   description: The sdks API from Scalar — 18 operation(s) for sdks.
   humanURL: https://scalar.com/products/api-references/getting-started
   tags:
-  - sdks
+  - SDK
   tags_raw:
   - sdks
   properties:
@@ -398,7 +398,7 @@ apis:
   description: The share API from Scalar — 1 operation(s) for share.
   humanURL: https://scalar.com/products/api-references/getting-started
   tags:
-  - share
+  - Share
   tags_raw:
   - share
   properties:
@@ -409,7 +409,7 @@ apis:
   description: The signup API from Scalar — 1 operation(s) for signup.
   humanURL: https://scalar.com/products/api-references/getting-started
   tags:
-  - signup
+  - Sign Up
   tags_raw:
   - signup
   properties:
@@ -462,7 +462,7 @@ apis:
   description: The waitlist API from Scalar — 1 operation(s) for waitlist.
   humanURL: https://scalar.com/products/api-references/getting-started
   tags:
-  - waitlist
+  - Waitlist
   tags_raw:
   - waitlist
   properties:
