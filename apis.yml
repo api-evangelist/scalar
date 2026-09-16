@@ -63,11 +63,12 @@ specificationVersion: '0.23'
 apis:
 - aid: scalar:scalar-api-references
   name: Scalar API References
-  description: Scalar API References renders modern, interactive API documentation from OpenAPI and Swagger specifications.
-    Features include multiple themes, custom styling, dark mode, mobile responsiveness, built-in search, and an
-    interactive request panel for testing APIs directly in the docs. Supports OpenAPI 3.0 and 3.1, $ref resolution,
-    allOf/oneOf/anyOf, and authentication schemes. Framework integrations include React, Vue, FastAPI, ASP.NET Core,
-    Spring Boot, NestJS, Express, and 30+ others.
+  description: >-
+    Scalar API References renders modern, interactive API documentation from OpenAPI and Swagger specifications.
+    Features include multiple themes, custom styling, dark mode, mobile responsiveness, built-in search,
+    and an interactive request panel for testing APIs directly in the docs. Supports OpenAPI 3.0 and 3.1,
+    $ref resolution, allOf/oneOf/anyOf, and authentication schemes. Framework integrations include React,
+    Vue, FastAPI, ASP.NET Core, Spring Boot, NestJS, Express, and 30+ others.
   tags:
   - Documentation
   - Interactive
@@ -86,10 +87,12 @@ apis:
     url: https://www.npmjs.com/package/@scalar/api-reference
 - aid: scalar:scalar-api-client
   name: Scalar API Client
-  description: Scalar API Client is a fully open-source, offline-first REST API client built on the OpenAPI standard.
-    Supports collections, environments, pre/post-response scripting, test results, and collection runners. Available
-    for Windows, macOS, and Linux as a desktop application and as a browser-based version at client.scalar.com.
-    Imports OpenAPI files to auto-generate request collections with authentication pre-configured.
+  description: >-
+    Scalar API Client is a fully open-source, offline-first REST API client built on the OpenAPI standard.
+    Supports collections, environments, pre/post-response scripting, test results, and collection runners.
+    Available for Windows, macOS, and Linux as a desktop application and as a browser-based version at
+    client.scalar.com. Imports OpenAPI files to auto-generate request collections with authentication
+    pre-configured.
   tags:
   - API Client
   - Collection
@@ -114,10 +117,11 @@ apis:
     url: https://github.com/scalar/scalar
 - aid: scalar:scalar-docs
   name: Scalar Docs
-  description: Scalar Docs enables teams to create and publish developer documentation that stays in sync with their
-    API and code. Supports writing with a WYSIWYG editor, pulling Markdown and MDX files from repositories, and
-    generating API references from OpenAPI documents with Git Sync and CI/CD integration. Custom domains, team collaboration,
-    and versioning are available on paid plans.
+  description: >-
+    Scalar Docs enables teams to create and publish developer documentation that stays in sync with their
+    API and code. Supports writing with a WYSIWYG editor, pulling Markdown and MDX files from repositories,
+    and generating API references from OpenAPI documents with Git Sync and CI/CD integration. Custom domains,
+    team collaboration, and versioning are available on paid plans.
   tags:
   - Developer Portal
   - Documentation
@@ -136,10 +140,11 @@ apis:
     url: https://scalar.com/products/docs/github-actions
 - aid: scalar:scalar-registry
   name: Scalar Registry
-  description: 'Scalar Registry provides centralized management and versioning of OpenAPI Documents, JSON Schemas,
-    and Spectral Rules with deep Git integration. Serves as the single source of truth for API definitions across
-    teams. Supports both private and public registries with CI/CD workflows via CLI and GitHub Actions. Publish
-    via the scalar CLI: `scalar registry publish`.'
+  description: >-
+    Scalar Registry provides centralized management and versioning of OpenAPI Documents, JSON Schemas,
+    and Spectral Rules with deep Git integration. Serves as the single source of truth for API definitions
+    across teams. Supports both private and public registries with CI/CD workflows via CLI and GitHub
+    Actions. Publish via the scalar CLI: `scalar registry publish`.
   tags:
   - Git Integration
   - Governance
@@ -168,10 +173,11 @@ apis:
     url: https://scalar.com/scalar/scalar-registry/github-actions
 - aid: scalar:scalar-sdks
   name: Scalar SDKs
-  description: Scalar SDKs generates type-safe client libraries from OpenAPI specifications. Supported languages
-    include TypeScript, Python, Golang, PHP, Java, and Ruby. Features include automated GitHub workflows, code samples,
-    full OpenAPI auth support, file streaming, and webhook support. SDK generation is $100 per month per language
-    on paid plans.
+  description: >-
+    Scalar SDKs generates type-safe client libraries from OpenAPI specifications. Supported languages
+    include TypeScript, Python, Golang, PHP, Java, and Ruby. Features include automated GitHub workflows,
+    code samples, full OpenAPI auth support, file streaming, and webhook support. SDK generation is $100
+    per month per language on paid plans.
   tags:
   - Code Generation
   - Go
@@ -200,8 +206,9 @@ apis:
     url: https://guides.scalar.com/scalar/pricing
 - aid: scalar:scalar-cli
   name: Scalar CLI
-  description: The Scalar CLI is a command-line interface for managing OpenAPI files, generating documentation,
-    running mock servers, validating specs, and publishing to the Scalar Registry. Enables CI/CD integration and
+  description: >-
+    The Scalar CLI is a command-line interface for managing OpenAPI files, generating documentation, running
+    mock servers, validating specs, and publishing to the Scalar Registry. Enables CI/CD integration and
     automation of the API documentation workflow.
   tags:
   - CLI
@@ -488,10 +495,12 @@ apis:
     type: Documentation
   - url: https://github.com/scalar/scalar/blob/main/packages/api-reference/README.md
     type: SourceCode
-  description: Open-source (MIT) renderer that turns an OpenAPI/Swagger or AsyncAPI document into an interactive
-    API reference with a built-in request-testing panel and multi-language code samples. Embeds from a single HTML
-    file or as the @scalar/api-reference npm package, and ships as the default docs UI in dozens of frameworks.
-    This is a self-hosted component library, not a hosted REST API - surface documented as a capability area (endpointsModeled).
+  description: >-
+    Open-source (MIT) renderer that turns an OpenAPI/Swagger or AsyncAPI document into an interactive
+    API reference with a built-in request-testing panel and multi-language code samples. Embeds from a
+    single HTML file or as the @scalar/api-reference npm package, and ships as the default docs UI in
+    dozens of frameworks. This is a self-hosted component library, not a hosted REST API - surface documented
+    as a capability area (endpointsModeled).
 - aid: scalar:scalar-api-client
   name: Scalar API Client
   tags:
@@ -511,10 +520,11 @@ apis:
     type: Documentation
   - url: https://github.com/scalar/scalar
     type: SourceCode
-  description: Fully open-source, offline-first API client built on the OpenAPI standard - a Postman/Insomnia alternative
-    for sending REST, GraphQL, and WebSocket requests, organizing collections and environments, running pre/after
-    request scripts, and executing collection runners. Available as a desktop app (Windows, macOS, Linux) and in
-    the browser. Consumer-side developer tool, not a hosted API (endpointsModeled).
+  description: >-
+    Fully open-source, offline-first API client built on the OpenAPI standard - a Postman/Insomnia alternative
+    for sending REST, GraphQL, and WebSocket requests, organizing collections and environments, running
+    pre/after request scripts, and executing collection runners. Available as a desktop app (Windows,
+    macOS, Linux) and in the browser. Consumer-side developer tool, not a hosted API (endpointsModeled).
 - aid: scalar:scalar-docs-platform
   name: Scalar Docs Platform
   tags:
@@ -528,9 +538,10 @@ apis:
     type: Documentation
   - url: https://scalar.com/products/docs/getting-started
     type: SignUp
-  description: Hosted developer-portal product that combines Markdown/MDX guides with generated API references,
-    custom domains and subdomains, themes, versions, and two-way Git Sync from GitHub. Content is deployed via dashboard.scalar.com
-    or automated GitHub workflows. Hosted SaaS surface, not a public REST API (endpointsModeled).
+  description: >-
+    Hosted developer-portal product that combines Markdown/MDX guides with generated API references, custom
+    domains and subdomains, themes, versions, and two-way Git Sync from GitHub. Content is deployed via
+    dashboard.scalar.com or automated GitHub workflows. Hosted SaaS surface, not a public REST API (endpointsModeled).
 - aid: scalar:scalar-cli
   name: Scalar CLI
   tags:
@@ -550,10 +561,11 @@ apis:
     type: Documentation
   - url: https://www.npmjs.com/package/@scalar/cli
     type: SourceCode
-  description: Open-source command-line tool (@scalar/cli) for validating and linting OpenAPI documents (Spectral
-    rules), previewing references, and publishing/listing/ updating/deleting documents in the Scalar Registry (scalar
-    registry publish, list, update, delete; scalar document validate, lint; scalar team list/set). Authenticates
-    with a Scalar API key. Command-line surface, not an HTTP API (endpointsModeled).
+  description: >-
+    Open-source command-line tool (@scalar/cli) for validating and linting OpenAPI documents (Spectral
+    rules), previewing references, and publishing/listing/ updating/deleting documents in the Scalar Registry
+    (scalar registry publish, list, update, delete; scalar document validate, lint; scalar team list/set).
+    Authenticates with a Scalar API key. Command-line surface, not an HTTP API (endpointsModeled).
 - aid: scalar:scalar-sdk-generation
   name: Scalar SDK Generation
   tags:
@@ -565,9 +577,10 @@ apis:
   properties:
   - url: https://scalar.com/products/sdks
     type: Documentation
-  description: Hosted SDK generation that produces type-safe client libraries from an OpenAPI document for TypeScript,
-    Python, Go, Java, PHP, C#, and Ruby, kept in sync with the registry. Paid add-on on the hosted platform (per-language).
-    Generation workflow, not a standalone public REST API (endpointsModeled).
+  description: >-
+    Hosted SDK generation that produces type-safe client libraries from an OpenAPI document for TypeScript,
+    Python, Go, Java, PHP, C#, and Ruby, kept in sync with the registry. Paid add-on on the hosted platform
+    (per-language). Generation workflow, not a standalone public REST API (endpointsModeled).
 - aid: scalar:scalar-agent-mcp
   name: Scalar Agent and MCP
   tags:
@@ -587,49 +600,10 @@ apis:
     type: Documentation
   - url: https://scalar.com/products/agent/pricing
     type: Plans
-  description: AI layer that lets developers chat with an API inside the docs and exposes hosted MCP (Model Context
-    Protocol) servers generated from an OpenAPI document so agents can call the API. Metered in Agent Scalar credits.
-    Hosted AI/MCP capability area (endpointsModeled).
-- aid: scalar:scalar-api-registry-management-api
-  name: Scalar Registry Management API
-  description: Publish / list / update / delete documents - performed via the Scalar CLI (modeled).
-  humanURL: https://guides.scalar.com/scalar/scalar-api-references/getting-started
-  baseURL: https://registry.scalar.com
-  tags:
-  - Registry Management
-  properties:
-  - type: OpenAPI
-    url: openapi/scalar-api-registry-management-api-openapi.yml
-  - type: Documentation
-    url: https://guides.scalar.com/scalar/scalar-registry/getting-started
-  - type: APIReference
-    url: https://guides.scalar.com/scalar/scalar-registry/cli
-  - type: PostmanCollection
-    url: collections/scalar-api.postman_collection.json
-  - type: OpenCollection
-    url: collections/scalar-api.opencollection.json
-  - type: SourceCode
-    url: https://github.com/scalar/scalar/tree/main/packages/galaxy
-- aid: scalar:scalar-api-registry-read-api
-  name: Scalar Registry Read API
-  description: Public retrieval of published OpenAPI documents (confirmed public surface).
-  humanURL: https://guides.scalar.com/scalar/scalar-api-references/getting-started
-  baseURL: https://registry.scalar.com
-  tags:
-  - Registry Read
-  properties:
-  - type: OpenAPI
-    url: openapi/scalar-api-registry-read-api-openapi.yml
-  - type: Documentation
-    url: https://guides.scalar.com/scalar/scalar-registry/getting-started
-  - type: APIReference
-    url: https://guides.scalar.com/scalar/scalar-registry/cli
-  - type: PostmanCollection
-    url: collections/scalar-api.postman_collection.json
-  - type: OpenCollection
-    url: collections/scalar-api.opencollection.json
-  - type: SourceCode
-    url: https://github.com/scalar/scalar/tree/main/packages/galaxy
+  description: >-
+    AI layer that lets developers chat with an API inside the docs and exposes hosted MCP (Model Context
+    Protocol) servers generated from an OpenAPI document so agents can call the API. Metered in Agent
+    Scalar credits. Hosted AI/MCP capability area (endpointsModeled).
 common:
 - type: AgenticAccess
   url: agentic-access/scalar-agentic-access.yml
