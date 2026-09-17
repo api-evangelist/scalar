@@ -379,17 +379,6 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/scalar-schemas-api-openapi.yml
-- aid: scalar:scalar-sdks-api
-  name: Scalar sdks API
-  description: The sdks API from Scalar — 18 operation(s) for sdks.
-  humanURL: https://scalar.com/products/api-references/getting-started
-  tags:
-  - SDK
-  tags_raw:
-  - sdks
-  properties:
-  - type: OpenAPI
-    url: openapi/scalar-sdks-api-openapi.yml
 - aid: scalar:scalar-share-api
   name: Scalar share API
   description: The share API from Scalar — 1 operation(s) for share.
@@ -604,6 +593,15 @@ apis:
     AI layer that lets developers chat with an API inside the docs and exposes hosted MCP (Model Context
     Protocol) servers generated from an OpenAPI document so agents can call the API. Metered in Agent
     Scalar credits. Hosted AI/MCP capability area (endpointsModeled).
+- aid: scalar:scalar-sdks-api
+  name: Scalar SDKS API
+  description: The sdks API from Scalar — 18 operation(s) for sdks.
+  humanURL: https://scalar.com/products/api-references/getting-started
+  tags:
+  - sdks
+  properties:
+  - type: OpenAPI
+    url: openapi/scalar-sdks-api-openapi.yml
 common:
 - type: AgenticAccess
   url: agentic-access/scalar-agentic-access.yml
