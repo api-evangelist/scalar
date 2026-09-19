@@ -37,7 +37,7 @@ url: https://raw.githubusercontent.com/api-evangelist/scalar/refs/heads/main/api
 tags:
 - API Client
 - API Documentation
-- API References
+- API Reference
 - Code Generation
 - Developer Tools
 - OpenAPI
@@ -213,6 +213,12 @@ apis:
   tags:
   - CLI
   - Developer Tools
+  - Mock Servers
+  - OpenAPI
+  - Validation
+  tags_raw:
+  - CLI
+  - Developer Tools
   - Mock Server
   - OpenAPI
   - Validation
@@ -329,7 +335,7 @@ apis:
   description: The payment API from Scalar — 6 operation(s) for payment.
   humanURL: https://scalar.com/products/api-references/getting-started
   tags:
-  - Payment
+  - Payments
   tags_raw:
   - payment
   properties:
@@ -373,7 +379,7 @@ apis:
   description: The schemas API from Scalar — 7 operation(s) for schemas.
   humanURL: https://scalar.com/products/api-references/getting-started
   tags:
-  - Schemas
+  - Schema
   tags_raw:
   - schemas
   properties:
@@ -598,6 +604,8 @@ apis:
   description: The sdks API from Scalar — 18 operation(s) for sdks.
   humanURL: https://scalar.com/products/api-references/getting-started
   tags:
+  - SDK
+  tags_raw:
   - sdks
   properties:
   - type: OpenAPI
