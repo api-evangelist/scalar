@@ -1,6 +1,6 @@
-openapi: 3.1.1
+openapi: 3.2.0
 info:
-  title: Core access-groups analytics API
+  title: Core Analytics API
   description: Core services for Scalar
   version: 1.0.1
   contact:
@@ -10,12 +10,12 @@ info:
 security:
 - BearerAuth: []
 tags:
-- name: analytics
+- name: Analytics
 paths:
   /analytics/projects/{projectUid}/overview:
     get:
       tags:
-      - analytics
+      - Analytics
       description: KPI totals + timeseries + consumer breakdown for a docs project
       operationId: getanalyticsProjectsProjectUidOverview
       responses:
@@ -161,10 +161,12 @@ paths:
         in: query
         name: granularity
         required: false
+      summary: Getanalytics projects project uid overview
+      x-summary-source: derived
   /analytics/projects/{projectUid}/pages:
     get:
       tags:
-      - analytics
+      - Analytics
       description: Top pages by views for a docs project
       operationId: getanalyticsProjectsProjectUidPages
       responses:
@@ -259,10 +261,12 @@ paths:
         in: query
         name: limit
         required: true
+      summary: Getanalytics projects project uid pages
+      x-summary-source: derived
   /analytics/projects/{projectUid}/referrers:
     get:
       tags:
-      - analytics
+      - Analytics
       description: Top referrers for a docs project
       operationId: getanalyticsProjectsProjectUidReferrers
       responses:
@@ -352,10 +356,12 @@ paths:
         in: query
         name: limit
         required: true
+      summary: Getanalytics projects project uid referrers
+      x-summary-source: derived
   /analytics/projects/{projectUid}/consumers:
     get:
       tags:
-      - analytics
+      - Analytics
       description: Consumer breakdown (human/bot/llm/mcp) for a docs project
       operationId: getanalyticsProjectsProjectUidConsumers
       responses:
@@ -491,11 +497,20 @@ paths:
         in: query
         name: granularity
         required: false
+      summary: Getanalytics projects project uid consumers
+      x-summary-source: derived
 components:
   schemas:
-    nanoid:
-      type: string
-      minLength: 5
+    '500':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
     '404':
       type: object
       properties:
@@ -516,7 +531,10 @@ components:
       required:
       - message
       - code
-    '500':
+    nanoid:
+      type: string
+      minLength: 5
+    '403':
       type: object
       properties:
         message:
@@ -527,16 +545,6 @@ components:
       - message
       - code
     '400':
-      type: object
-      properties:
-        message:
-          type: string
-        code:
-          type: string
-      required:
-      - message
-      - code
-    '403':
       type: object
       properties:
         message:

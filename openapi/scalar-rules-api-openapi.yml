@@ -1,6 +1,6 @@
-openapi: 3.1.1
+openapi: 3.2.0
 info:
-  title: Core access-groups rules API
+  title: Core Rules API
   description: Core services for Scalar
   version: 1.0.1
   contact:
@@ -10,12 +10,12 @@ info:
 security:
 - BearerAuth: []
 tags:
-- name: rules
+- name: Rules
 paths:
   /rulesets/{namespace}/{slug}:
     get:
       tags:
-      - rules
+      - Rules
       description: Get a the rule document
       operationId: getrulesetsNamespaceSlug
       responses:
@@ -71,9 +71,11 @@ paths:
         in: path
         name: slug
         required: true
+      summary: Getrulesets namespace slug
+      x-summary-source: derived
     patch:
       tags:
-      - rules
+      - Rules
       description: Update rule metadata
       operationId: patchrulesetsNamespaceSlug
       responses:
@@ -156,9 +158,11 @@ paths:
         in: path
         name: slug
         required: true
+      summary: Patchrulesets namespace slug
+      x-summary-source: derived
     delete:
       tags:
-      - rules
+      - Rules
       description: Delete a specific rule
       operationId: deleterulesetsNamespaceSlug
       responses:
@@ -215,10 +219,12 @@ paths:
         in: path
         name: slug
         required: true
+      summary: Deleterulesets namespace slug
+      x-summary-source: derived
   /rulesets/get-by-id/{uid}:
     get:
       tags:
-      - rules
+      - Rules
       description: Get a the rule document
       operationId: getrulesetsGetByIdUid
       responses:
@@ -269,10 +275,12 @@ paths:
         in: path
         name: uid
         required: true
+      summary: Getrulesets get by id uid
+      x-summary-source: derived
   /rulesets/{namespace}:
     get:
       tags:
-      - rules
+      - Rules
       description: Get a list of all rulesets for the namespace
       operationId: getrulesetsNamespace
       responses:
@@ -353,9 +361,11 @@ paths:
         in: path
         name: namespace
         required: true
+      summary: Getrulesets namespace
+      x-summary-source: derived
     post:
       tags:
-      - rules
+      - Rules
       description: Create a new rule for the namespace
       operationId: postrulesetsNamespace
       responses:
@@ -442,10 +452,12 @@ paths:
         in: path
         name: namespace
         required: true
+      summary: Postrulesets namespace
+      x-summary-source: derived
   /rulesets/upload:
     post:
       tags:
-      - rules
+      - Rules
       description: Update rule content
       operationId: postrulesetsUpload
       responses:
@@ -506,10 +518,12 @@ paths:
               - data
               additionalProperties: false
         required: true
+      summary: Postrulesets upload
+      x-summary-source: derived
   /rules/access-group:
     post:
       tags:
-      - rules
+      - Rules
       description: Adds an access group to a rule
       operationId: postrulesAccessGroup
       responses:
@@ -573,9 +587,11 @@ paths:
               - groupUid
               additionalProperties: false
         required: true
+      summary: Postrules access group
+      x-summary-source: derived
     delete:
       tags:
-      - rules
+      - Rules
       description: Removes an access group from a rule
       operationId: deleterulesAccessGroup
       responses:
@@ -639,10 +655,12 @@ paths:
               - groupUid
               additionalProperties: false
         required: true
+      summary: Deleterules access group
+      x-summary-source: derived
   /rulesets/check-slug:
     post:
       tags:
-      - rules
+      - Rules
       description: Checks if a ruleset slug is available for the provided namespace
       operationId: postrulesetsCheckSlug
       responses:
@@ -709,16 +727,30 @@ paths:
               - slug
               additionalProperties: false
         required: true
+      summary: Postrulesets check slug
+      x-summary-source: derived
 components:
   schemas:
+    '500':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
     namespace:
       type: string
       minLength: 3
       maxLength: 50
       pattern: ^[a-zA-Z0-9-_]+$
-    nanoid:
+    slug:
       type: string
-      minLength: 5
+      minLength: 3
+      maxLength: 60
+      pattern: ^[a-z](?:[a-z0-9-]*[a-z0-9])?$
     '404':
       type: object
       properties:
@@ -739,12 +771,10 @@ components:
       required:
       - message
       - code
-    slug:
+    nanoid:
       type: string
-      minLength: 3
-      maxLength: 60
-      pattern: ^[a-z](?:[a-z0-9-]*[a-z0-9])?$
-    '500':
+      minLength: 5
+    '403':
       type: object
       properties:
         message:
@@ -755,16 +785,6 @@ components:
       - message
       - code
     '400':
-      type: object
-      properties:
-        message:
-          type: string
-        code:
-          type: string
-      required:
-      - message
-      - code
-    '403':
       type: object
       properties:
         message:

@@ -1,6 +1,6 @@
-openapi: 3.1.1
+openapi: 3.2.0
 info:
-  title: Core access-groups vcs API
+  title: Core VCS API
   description: Core services for Scalar
   version: 1.0.1
   contact:
@@ -73,6 +73,8 @@ paths:
         in: query
         name: state
         required: true
+      summary: Getvcs bitbucket authorize
+      x-summary-source: derived
   /vcs/bitbucket/link/initiate:
     get:
       tags:
@@ -134,6 +136,8 @@ paths:
         in: query
         name: redirect
         required: false
+      summary: Getvcs bitbucket link initiate
+      x-summary-source: derived
   /vcs/bitbucket/workspaces:
     get:
       tags:
@@ -228,6 +232,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/500'
+      summary: Getvcs bitbucket workspaces
+      x-summary-source: derived
   /vcs/bitbucket/docs-project/{uid}/branches:
     get:
       tags:
@@ -320,6 +326,8 @@ paths:
         in: query
         name: perPage
         required: true
+      summary: Getvcs bitbucket docs project uid branches
+      x-summary-source: derived
   /vcs/bitbucket/disconnect-account:
     post:
       tags:
@@ -376,6 +384,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/500'
+      summary: Postvcs bitbucket disconnect account
+      x-summary-source: derived
   /vcs/github/disconnect-account:
     post:
       tags:
@@ -432,8 +442,20 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/500'
+      summary: Postvcs github disconnect account
+      x-summary-source: derived
 components:
   schemas:
+    '500':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
     '404':
       type: object
       properties:
@@ -454,7 +476,7 @@ components:
       required:
       - message
       - code
-    '500':
+    '403':
       type: object
       properties:
         message:
@@ -465,16 +487,6 @@ components:
       - message
       - code
     '400':
-      type: object
-      properties:
-        message:
-          type: string
-        code:
-          type: string
-      required:
-      - message
-      - code
-    '403':
       type: object
       properties:
         message:

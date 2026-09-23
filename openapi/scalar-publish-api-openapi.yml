@@ -1,6 +1,6 @@
-openapi: 3.1.1
+openapi: 3.2.0
 info:
-  title: Core access-groups publish API
+  title: Core Publish API
   description: Core services for Scalar
   version: 1.0.1
   contact:
@@ -10,12 +10,12 @@ info:
 security:
 - BearerAuth: []
 tags:
-- name: publish
+- name: Publish
 paths:
   /publish/dns-check:
     post:
       tags:
-      - publish
+      - Publish
       description: Validates the DNS records for a specified subdomain
       operationId: postpublishDnsCheck
       responses:
@@ -77,10 +77,12 @@ paths:
               - domain
               additionalProperties: false
         required: true
+      summary: Postpublish dns check
+      x-summary-source: derived
   /unpublish:
     delete:
       tags:
-      - publish
+      - Publish
       description: Removes the active deploy from a project, without deleting cached assets
       operationId: deleteunpublish
       responses:
@@ -138,10 +140,12 @@ paths:
                   type: string
               additionalProperties: false
         required: true
+      summary: Deleteunpublish
+      x-summary-source: derived
   /publish:
     delete:
       tags:
-      - publish
+      - Publish
       description: Delete a publish record and its cached assets
       operationId: deletepublish
       responses:
@@ -199,10 +203,12 @@ paths:
               - publishUid
               additionalProperties: false
         required: true
+      summary: Deletepublish
+      x-summary-source: derived
   /pubsub/publish-deleted:
     post:
       tags:
-      - publish
+      - Publish
       description: Deletes a cached build from the GCP bucket
       operationId: postpubsubPublishDeleted
       responses:
@@ -263,10 +269,12 @@ paths:
               - teamUid
               additionalProperties: false
         required: true
+      summary: Postpubsub publish deleted
+      x-summary-source: derived
   /publish/redeploy:
     post:
       tags:
-      - publish
+      - Publish
       description: Redeploy a previous publish
       operationId: postpublishRedeploy
       responses:
@@ -324,10 +332,12 @@ paths:
               - publishUid
               additionalProperties: false
         required: true
+      summary: Postpublish redeploy
+      x-summary-source: derived
   /publish/bulk:
     delete:
       tags:
-      - publish
+      - Publish
       description: Bulk delete all non-deployed publish records
       operationId: deletepublishBulk
       responses:
@@ -385,10 +395,12 @@ paths:
               - projectUid
               additionalProperties: false
         required: true
+      summary: Deletepublish bulk
+      x-summary-source: derived
   /publish/cancel:
     post:
       tags:
-      - publish
+      - Publish
       description: Cancel an in-flight publish before it goes live
       operationId: postpublishCancel
       responses:
@@ -446,10 +458,12 @@ paths:
               - publishUid
               additionalProperties: false
         required: true
+      summary: Postpublish cancel
+      x-summary-source: derived
   /publish/logs/{publishUid}:
     get:
       tags:
-      - publish
+      - Publish
       description: Checks & creates a publish record for a CLI publish
       operationId: getpublishLogsPublishUid
       responses:
@@ -500,10 +514,12 @@ paths:
         in: path
         name: publishUid
         required: true
+      summary: Getpublish logs publish uid
+      x-summary-source: derived
   /publish/domains/availability:
     post:
       tags:
-      - publish
+      - Publish
       description: Checks availability for publish domain
       operationId: postpublishDomainsAvailability
       responses:
@@ -567,10 +583,12 @@ paths:
               - domain
               additionalProperties: false
         required: true
+      summary: Postpublish domains availability
+      x-summary-source: derived
   /publish/domains/project:
     post:
       tags:
-      - publish
+      - Publish
       description: Returns active domains for a project
       operationId: postpublishDomainsProject
       responses:
@@ -641,11 +659,13 @@ paths:
               - projectUid
               additionalProperties: false
         required: true
+      summary: Postpublish domains project
+      x-summary-source: derived
   /publish/deploy-check:
     get:
       tags:
-      - publish
-      description: 'Verifies a specific site is deployed and SSL certificates can be issued for it. '
+      - Publish
+      description: Verifies a specific site is deployed and SSL certificates can be issued for it.
       operationId: getpublishDeployCheck
       responses:
         '200':
@@ -697,8 +717,24 @@ paths:
         in: query
         name: domain
         required: true
+      summary: Getpublish deploy check
+      x-summary-source: derived
 components:
   schemas:
+    timestamp:
+      type: integer
+      minimum: 0
+      maximum: 9007199254740991
+    '500':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
     publish-record:
       type: object
       properties:
@@ -802,9 +838,6 @@ components:
       - registryApis
       - agentToken
       additionalProperties: false
-    nanoid:
-      type: string
-      minLength: 5
     '404':
       type: object
       properties:
@@ -825,7 +858,10 @@ components:
       required:
       - message
       - code
-    '500':
+    nanoid:
+      type: string
+      minLength: 5
+    '403':
       type: object
       properties:
         message:
@@ -845,20 +881,6 @@ components:
       required:
       - message
       - code
-    '403':
-      type: object
-      properties:
-        message:
-          type: string
-        code:
-          type: string
-      required:
-      - message
-      - code
-    timestamp:
-      type: integer
-      minimum: 0
-      maximum: 9007199254740991
     '422':
       type: object
       properties:

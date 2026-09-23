@@ -1,6 +1,6 @@
-openapi: 3.1.1
+openapi: 3.2.0
 info:
-  title: Core access-groups auth API
+  title: Core Auth API
   description: Core services for Scalar
   version: 1.0.1
   contact:
@@ -10,12 +10,12 @@ info:
 security:
 - BearerAuth: []
 tags:
-- name: auth
+- name: Auth
 paths:
   /me:
     get:
       tags:
-      - auth
+      - Auth
       description: Get a users basic information
       operationId: getme
       responses:
@@ -61,10 +61,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/500'
+      summary: Getme
+      x-summary-source: derived
   /login/email:
     post:
       tags:
-      - auth
+      - Auth
       description: Login with email password flow
       operationId: postloginEmail
       responses:
@@ -126,10 +128,12 @@ paths:
               - password
               additionalProperties: false
         required: true
+      summary: Postlogin email
+      x-summary-source: derived
   /login/email-signup:
     post:
       tags:
-      - auth
+      - Auth
       description: Register with email password flow
       operationId: postloginEmailSignup
       responses:
@@ -216,10 +220,12 @@ paths:
               - otpClientId
               additionalProperties: false
         required: true
+      summary: Postlogin email signup
+      x-summary-source: derived
   /login/email-otp:
     post:
       tags:
-      - auth
+      - Auth
       description: Send an OTP verification code to the email
       operationId: postloginEmailOtp
       responses:
@@ -284,10 +290,12 @@ paths:
               - email
               additionalProperties: false
         required: true
+      summary: Postlogin email otp
+      x-summary-source: derived
   /login/email-otp/verify:
     post:
       tags:
-      - auth
+      - Auth
       description: Verify OTP
       operationId: postloginEmailOtpVerify
       responses:
@@ -355,10 +363,12 @@ paths:
               - otpClientId
               additionalProperties: false
         required: true
+      summary: Postlogin email otp verify
+      x-summary-source: derived
   /login/refresh:
     post:
       tags:
-      - auth
+      - Auth
       description: Refresh an access token and set the team uid token
       operationId: postloginRefresh
       responses:
@@ -419,10 +429,12 @@ paths:
               - refreshToken
               additionalProperties: false
         required: true
+      summary: Postlogin refresh
+      x-summary-source: derived
   /login/exchange:
     post:
       tags:
-      - auth
+      - Auth
       description: Exchange the short lived URL token for access/refresh tokens
       operationId: postloginExchange
       responses:
@@ -481,10 +493,12 @@ paths:
               - exchangeToken
               additionalProperties: false
         required: true
+      summary: Postlogin exchange
+      x-summary-source: derived
   /login/get-exchange:
     post:
       tags:
-      - auth
+      - Auth
       description: Gets an exchange token that can be used to redirect a user with auth credentials to different domain
       operationId: postloginGetExchange
       responses:
@@ -548,10 +562,12 @@ paths:
               - refreshToken
               additionalProperties: false
         required: true
+      summary: Postlogin get exchange
+      x-summary-source: derived
   /login/request-password-reset:
     post:
       tags:
-      - auth
+      - Auth
       description: Request reset password
       operationId: postloginRequestPasswordReset
       responses:
@@ -613,10 +629,12 @@ paths:
               - clientId
               additionalProperties: false
         required: true
+      summary: Postlogin request password reset
+      x-summary-source: derived
   /login/reset-password:
     post:
       tags:
-      - auth
+      - Auth
       description: Verify password reset request
       operationId: postloginResetPassword
       responses:
@@ -681,10 +699,12 @@ paths:
               - password
               additionalProperties: false
         required: true
+      summary: Postlogin reset password
+      x-summary-source: derived
   /login/change-password:
     post:
       tags:
-      - auth
+      - Auth
       description: Change password for authenticated user
       operationId: postloginChangePassword
       responses:
@@ -745,10 +765,12 @@ paths:
               - newPassword
               additionalProperties: false
         required: true
+      summary: Postlogin change password
+      x-summary-source: derived
   /login/personal-token/generate:
     post:
       tags:
-      - auth
+      - Auth
       description: Generate a new personal token
       operationId: postloginPersonalTokenGenerate
       responses:
@@ -823,10 +845,12 @@ paths:
               - refreshToken
               additionalProperties: false
         required: true
+      summary: Postlogin personal token generate
+      x-summary-source: derived
   /login/personal-token/access:
     post:
       tags:
-      - auth
+      - Auth
       description: Generate a new access token from a personal token
       operationId: postloginPersonalTokenAccess
       responses:
@@ -891,10 +915,12 @@ paths:
               - personalToken
               additionalProperties: false
         required: true
+      summary: Postlogin personal token access
+      x-summary-source: derived
   /login/personal-token/{uid}/revoke:
     post:
       tags:
-      - auth
+      - Auth
       description: Revoke a personal token
       operationId: postloginPersonalTokenUidRevoke
       responses:
@@ -946,10 +972,12 @@ paths:
         in: path
         name: uid
         required: true
+      summary: Postlogin personal token uid revoke
+      x-summary-source: derived
   /login/personal-token/{uid}:
     delete:
       tags:
-      - auth
+      - Auth
       description: Delete a personal token
       operationId: deleteloginPersonalTokenUid
       responses:
@@ -1001,10 +1029,12 @@ paths:
         in: path
         name: uid
         required: true
+      summary: Deletelogin personal token uid
+      x-summary-source: derived
   /identity-provider/{uid}:
     get:
       tags:
-      - auth
+      - Auth
       description: Get an identity provider configuration for a team
       operationId: getidentityProviderUid
       responses:
@@ -1056,9 +1086,11 @@ paths:
         in: path
         name: uid
         required: true
+      summary: Getidentity provider uid
+      x-summary-source: derived
     delete:
       tags:
-      - auth
+      - Auth
       description: Delete an identity provider configuration for a team
       operationId: deleteidentityProviderUid
       responses:
@@ -1110,10 +1142,12 @@ paths:
         in: path
         name: uid
         required: true
+      summary: Deleteidentity provider uid
+      x-summary-source: derived
   /identity-provider:
     post:
       tags:
-      - auth
+      - Auth
       description: Add an identity provider configuration for a team
       operationId: postidentityProvider
       responses:
@@ -1200,10 +1234,12 @@ paths:
               - consumerOnly
               additionalProperties: false
         required: true
+      summary: Postidentity provider
+      x-summary-source: derived
   /identity-provider/update:
     post:
       tags:
-      - auth
+      - Auth
       description: Update an identity provider configuration for a team
       operationId: postidentityProviderUpdate
       responses:
@@ -1275,10 +1311,12 @@ paths:
               - uid
               additionalProperties: false
         required: true
+      summary: Postidentity provider update
+      x-summary-source: derived
   /saml/metadata:
     get:
       tags:
-      - auth
+      - Auth
       description: Get base SP SAML metadata
       operationId: getsamlMetadata
       responses:
@@ -1325,10 +1363,12 @@ paths:
               schema:
                 $ref: '#/components/schemas/500'
       security: []
+      summary: Getsaml metadata
+      x-summary-source: derived
   /saml/idp/{uid}/metadata:
     get:
       tags:
-      - auth
+      - Auth
       description: Get SAML IdP-specific connection metadata
       operationId: getsamlIdpUidMetadata
       responses:
@@ -1381,10 +1421,12 @@ paths:
         in: path
         name: uid
         required: true
+      summary: Getsaml idp uid metadata
+      x-summary-source: derived
   /saml/idp/{uid}/login:
     get:
       tags:
-      - auth
+      - Auth
       description: SAML connection login route
       operationId: getsamlIdpUidLogin
       responses:
@@ -1452,10 +1494,12 @@ paths:
         in: query
         name: type
         required: false
+      summary: Getsaml idp uid login
+      x-summary-source: derived
   /saml/logout:
     get:
       tags:
-      - auth
+      - Auth
       description: SAML logout route
       operationId: getsamlLogout
       responses:
@@ -1501,10 +1545,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/500'
+      summary: Getsaml logout
+      x-summary-source: derived
   /saml/acs:
     post:
       tags:
-      - auth
+      - Auth
       description: SAML ACS route
       operationId: postsamlAcs
       responses:
@@ -1566,10 +1612,12 @@ paths:
               - RelayState
               additionalProperties: false
         required: true
+      summary: Postsaml acs
+      x-summary-source: derived
   /saml/initiate:
     post:
       tags:
-      - auth
+      - Auth
       description: SAML initiate route
       operationId: postsamlInitiate
       responses:
@@ -1659,10 +1707,12 @@ paths:
               - email
               additionalProperties: false
         required: true
+      summary: Postsaml initiate
+      x-summary-source: derived
   /saml/cert/signing:
     get:
       tags:
-      - auth
+      - Auth
       description: Return SAML public signing cert
       operationId: getsamlCertSigning
       responses:
@@ -1709,10 +1759,12 @@ paths:
               schema:
                 $ref: '#/components/schemas/500'
       security: []
+      summary: Getsaml cert signing
+      x-summary-source: derived
   /saml/cert/encryption:
     get:
       tags:
-      - auth
+      - Auth
       description: Return SAML public encryption cert
       operationId: getsamlCertEncryption
       responses:
@@ -1759,10 +1811,12 @@ paths:
               schema:
                 $ref: '#/components/schemas/500'
       security: []
+      summary: Getsaml cert encryption
+      x-summary-source: derived
   /events/auth/vacuum-refresh-tokens:
     post:
       tags:
-      - auth
+      - Auth
       description: Clean-up unused refresh tokens
       operationId: posteventsAuthVacuumRefreshTokens
       responses:
@@ -1816,8 +1870,58 @@ paths:
               properties: {}
               additionalProperties: false
         required: true
+      summary: Postevents auth vacuum refresh tokens
+      x-summary-source: derived
 components:
   schemas:
+    email:
+      type: string
+      format: email
+      pattern: ^(?!\.)(?!.*\.\.)([A-Za-z0-9_'+\-\.]*)[A-Za-z0-9_+-]@([A-Za-z0-9][A-Za-z0-9\-]*\.)+[A-Za-z]{2,}$
+    timestamp:
+      type: integer
+      minimum: 0
+      maximum: 9007199254740991
+    team-image:
+      type: string
+    '500':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+    slug:
+      type: string
+      minLength: 3
+      maxLength: 60
+      pattern: ^[a-z](?:[a-z0-9-]*[a-z0-9])?$
+    sso-resource:
+      type: string
+      enum:
+      - apis
+      - schemas
+      - rules
+      - sdks
+      - workspaces
+      - sync-project
+      - project
+      - publish
+      - mcp
+    token-response:
+      type: object
+      properties:
+        refreshToken:
+          type: string
+        accessToken:
+          type: string
+      required:
+      - refreshToken
+      - accessToken
+      additionalProperties: false
     user:
       type: object
       properties:
@@ -1863,8 +1967,19 @@ components:
       - hasGithub
       - hasBitbucket
       additionalProperties: false
-    team-image:
+    '401':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+    nanoid:
       type: string
+      minLength: 5
     team-ref:
       type: object
       properties:
@@ -1878,21 +1993,6 @@ components:
       - teamUid
       - teamName
       additionalProperties: false
-    sso-resource:
-      type: string
-      enum:
-      - apis
-      - schemas
-      - rules
-      - sdks
-      - workspaces
-      - sync-project
-      - project
-      - publish
-      - mcp
-    nanoid:
-      type: string
-      minLength: 5
     '404':
       type: object
       properties:
@@ -1903,47 +2003,7 @@ components:
       required:
       - message
       - code
-    '401':
-      type: object
-      properties:
-        message:
-          type: string
-        code:
-          type: string
-      required:
-      - message
-      - code
-    slug:
-      type: string
-      minLength: 3
-      maxLength: 60
-      pattern: ^[a-z](?:[a-z0-9-]*[a-z0-9])?$
-    token-response:
-      type: object
-      properties:
-        refreshToken:
-          type: string
-        accessToken:
-          type: string
-      required:
-      - refreshToken
-      - accessToken
-      additionalProperties: false
-    '500':
-      type: object
-      properties:
-        message:
-          type: string
-        code:
-          type: string
-      required:
-      - message
-      - code
-    email:
-      type: string
-      format: email
-      pattern: ^(?!\.)(?!.*\.\.)([A-Za-z0-9_'+\-\.]*)[A-Za-z0-9_+-]@([A-Za-z0-9][A-Za-z0-9\-]*\.)+[A-Za-z]{2,}$
-    '400':
+    '403':
       type: object
       properties:
         message:
@@ -1955,30 +2015,6 @@ components:
       - code
     team-name:
       type: string
-    '403':
-      type: object
-      properties:
-        message:
-          type: string
-        code:
-          type: string
-      required:
-      - message
-      - code
-    timestamp:
-      type: integer
-      minimum: 0
-      maximum: 9007199254740991
-    '422':
-      type: object
-      properties:
-        message:
-          type: string
-        code:
-          type: string
-      required:
-      - message
-      - code
     identity-provider-record:
       type: object
       properties:
@@ -2035,6 +2071,26 @@ components:
       - x509Cert
       - consumerOnly
       additionalProperties: false
+    '400':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+    '422':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
   securitySchemes:
     BearerAuth:
       type: http

@@ -1,6 +1,6 @@
-openapi: 3.1.1
+openapi: 3.2.0
 info:
-  title: Core access-groups Docs Projects API
+  title: Core Docs Projects API
   description: Core services for Scalar
   version: 1.0.1
   contact:
@@ -114,6 +114,8 @@ paths:
         required: true
       tags:
       - Docs Projects
+      summary: Postdocs projects create
+      x-summary-source: derived
   /docs-projects/delete:
     delete:
       description: Delete a unified DocsProject. Tears down deploys + publish records + cached builds, repoints user activeProjectUid, deletes the Forgejo repo (if any), and notifies subscribers. User-owned GitHub repos are left untouched.
@@ -175,6 +177,8 @@ paths:
         required: true
       tags:
       - Docs Projects
+      summary: Deletedocs projects delete
+      x-summary-source: derived
   /docs-projects/{slug}:
     get:
       description: Get a unified DocsProject by slug for the current team
@@ -230,6 +234,8 @@ paths:
         required: true
       tags:
       - Docs Projects
+      summary: Getdocs projects slug
+      x-summary-source: derived
   /docs-projects/update-repo-settings:
     post:
       description: Update editable repository settings (tracked branch, config path) on a unified DocsProject. Publish flags live in scalar.config.json.
@@ -296,6 +302,8 @@ paths:
         required: true
       tags:
       - Docs Projects
+      summary: Postdocs projects update repo settings
+      x-summary-source: derived
   /docs-projects/{projectUid}/link-github:
     post:
       description: Convert a Forgejo-backed DocsProject into a GitHub-backed one. Reads every file from the Forgejo repo and opens a single PR on the chosen GitHub repo putting the content under scalar-docs/.
@@ -393,6 +401,8 @@ paths:
         required: true
       tags:
       - Docs Projects
+      summary: Postdocs projects project uid link github
+      x-summary-source: derived
   /docs-projects/{projectUid}/unlink-github:
     post:
       description: Convert a GitHub-backed DocsProject back to a Forgejo-backed one. Migrates the GitHub repository contents into a fresh Forgejo repo and flips the project provider.
@@ -454,6 +464,8 @@ paths:
         required: true
       tags:
       - Docs Projects
+      summary: Postdocs projects project uid unlink github
+      x-summary-source: derived
   /docs-projects/{projectUid}/link-bitbucket:
     post:
       description: Convert a Forgejo-backed DocsProject into a Bitbucket-backed one. Reads every file from the Forgejo repo and opens a single PR on the chosen Bitbucket repo putting the content under scalar-docs/.
@@ -547,6 +559,8 @@ paths:
         required: true
       tags:
       - Docs Projects
+      summary: Postdocs projects project uid link bitbucket
+      x-summary-source: derived
   /docs-projects/{projectUid}/unlink-bitbucket:
     post:
       description: Convert a Bitbucket-backed DocsProject back to a Forgejo-backed one. Migrates the Bitbucket repository contents into a fresh Forgejo repo and flips the project provider.
@@ -608,6 +622,8 @@ paths:
         required: true
       tags:
       - Docs Projects
+      summary: Postdocs projects project uid unlink bitbucket
+      x-summary-source: derived
   /docs-projects/{projectUid}/bitbucket/refresh-webhook:
     post:
       description: Re-register the Bitbucket webhook on a Bitbucket-backed DocsProject. Used to recover from a failed initial registration after the linker user is granted repo admin.
@@ -669,95 +685,15 @@ paths:
         required: true
       tags:
       - Docs Projects
+      summary: Postdocs projects project uid bitbucket refresh webhook
+      x-summary-source: derived
 components:
   schemas:
-    docs-project-repository-github:
-      type: object
-      properties:
-        provider:
-          type: string
-          const: github
-        linkedBy:
-          type: string
-        installationId:
-          type: integer
-          minimum: -9007199254740991
-          maximum: 9007199254740991
-        id:
-          type: integer
-          minimum: -9007199254740991
-          maximum: 9007199254740991
-        name:
-          type: string
-          minLength: 2
-        branch:
-          default: main
-          type: string
-        configPath:
-          default: scalar.config.json
-          type: string
-        publishOnMerge:
-          default: true
-          type: boolean
-        publishPreviews:
-          default: false
-          type: boolean
-        prComments:
-          default: false
-          type: boolean
-        expired:
-          default: false
-          type: boolean
-      required:
-      - provider
-      - linkedBy
-      - installationId
-      - id
-      - name
-      - branch
-      - configPath
-      - publishOnMerge
-      - publishPreviews
-      - prComments
-      - expired
-      additionalProperties: false
-    docs-project-repository-forgejo:
-      type: object
-      properties:
-        provider:
-          type: string
-          const: forgejo
-        forgejoOwner:
-          type: string
-        forgejoRepo:
-          type: string
-        branch:
-          default: main
-          type: string
-        configPath:
-          default: scalar.config.json
-          type: string
-      required:
-      - provider
-      - forgejoOwner
-      - forgejoRepo
-      - branch
-      - configPath
-      additionalProperties: false
-    nanoid:
-      type: string
-      minLength: 5
-    '404':
-      type: object
-      properties:
-        message:
-          type: string
-        code:
-          type: string
-      required:
-      - message
-      - code
-    '401':
+    timestamp:
+      type: integer
+      minimum: 0
+      maximum: 9007199254740991
+    '500':
       type: object
       properties:
         message:
@@ -772,6 +708,20 @@ components:
       minLength: 3
       maxLength: 60
       pattern: ^[a-z](?:[a-z0-9-]*[a-z0-9])?$
+    active-deployment:
+      type: object
+      properties:
+        uid:
+          type: string
+        domain:
+          type: string
+        publishedAt:
+          $ref: '#/components/schemas/timestamp'
+      required:
+      - uid
+      - domain
+      - publishedAt
+      additionalProperties: false
     docs-project:
       type: object
       properties:
@@ -852,7 +802,7 @@ components:
       - publishMessage
       - repository
       additionalProperties: false
-    '500':
+    '404':
       type: object
       properties:
         message:
@@ -862,21 +812,30 @@ components:
       required:
       - message
       - code
-    active-deployment:
+    docs-project-repository-forgejo:
       type: object
       properties:
-        uid:
+        provider:
           type: string
-        domain:
+          const: forgejo
+        forgejoOwner:
           type: string
-        publishedAt:
-          $ref: '#/components/schemas/timestamp'
+        forgejoRepo:
+          type: string
+        branch:
+          default: main
+          type: string
+        configPath:
+          default: scalar.config.json
+          type: string
       required:
-      - uid
-      - domain
-      - publishedAt
+      - provider
+      - forgejoOwner
+      - forgejoRepo
+      - branch
+      - configPath
       additionalProperties: false
-    '400':
+    '401':
       type: object
       properties:
         message:
@@ -886,30 +845,59 @@ components:
       required:
       - message
       - code
-    '403':
+    nanoid:
+      type: string
+      minLength: 5
+    docs-project-repository-github:
       type: object
       properties:
-        message:
+        provider:
           type: string
-        code:
+          const: github
+        linkedBy:
           type: string
+        installationId:
+          type: integer
+          minimum: -9007199254740991
+          maximum: 9007199254740991
+        id:
+          type: integer
+          minimum: -9007199254740991
+          maximum: 9007199254740991
+        name:
+          type: string
+          minLength: 2
+        branch:
+          default: main
+          type: string
+        configPath:
+          default: scalar.config.json
+          type: string
+        publishOnMerge:
+          default: true
+          type: boolean
+        publishPreviews:
+          default: false
+          type: boolean
+        prComments:
+          default: false
+          type: boolean
+        expired:
+          default: false
+          type: boolean
       required:
-      - message
-      - code
-    timestamp:
-      type: integer
-      minimum: 0
-      maximum: 9007199254740991
-    '422':
-      type: object
-      properties:
-        message:
-          type: string
-        code:
-          type: string
-      required:
-      - message
-      - code
+      - provider
+      - linkedBy
+      - installationId
+      - id
+      - name
+      - branch
+      - configPath
+      - publishOnMerge
+      - publishPreviews
+      - prComments
+      - expired
+      additionalProperties: false
     docs-project-repository-bitbucket:
       type: object
       properties:
@@ -966,6 +954,36 @@ components:
       - expired
       - webhookUuid
       additionalProperties: false
+    '403':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+    '400':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+    '422':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
   securitySchemes:
     BearerAuth:
       type: http

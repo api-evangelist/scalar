@@ -1,6 +1,6 @@
-openapi: 3.1.1
+openapi: 3.2.0
 info:
-  title: Core access-groups pubsub API
+  title: Core Pubsub API
   description: Core services for Scalar
   version: 1.0.1
   contact:
@@ -10,12 +10,12 @@ info:
 security:
 - BearerAuth: []
 tags:
-- name: pubsub
+- name: Pubsub
 paths:
   /pubsub/sdk-build-complete:
     post:
       tags:
-      - pubsub
+      - Pubsub
       description: Side effect processing after SDK generation completes
       operationId: postpubsubSdkBuildComplete
       responses:
@@ -82,10 +82,12 @@ paths:
               - teamUid
               additionalProperties: false
         required: true
+      summary: Postpubsub sdk build complete
+      x-summary-source: derived
   /pubsub/sdk-build-failed:
     post:
       tags:
-      - pubsub
+      - Pubsub
       description: Side effect processing after SDK generation fails
       operationId: postpubsubSdkBuildFailed
       responses:
@@ -150,10 +152,12 @@ paths:
               - teamUid
               additionalProperties: false
         required: true
+      summary: Postpubsub sdk build failed
+      x-summary-source: derived
   /pubsub/api-version-created/create-sdk-version:
     post:
       tags:
-      - pubsub
+      - Pubsub
       description: API version created SDK processing
       operationId: postpubsubApiVersionCreatedCreateSdkVersion
       responses:
@@ -240,10 +244,12 @@ paths:
               - isPrivate
               additionalProperties: false
         required: true
+      summary: Postpubsub api version created create sdk version
+      x-summary-source: derived
   /pubsub/sdk-version-created:
     post:
       tags:
-      - pubsub
+      - Pubsub
       description: PubSub SDK version created
       operationId: postpubsubSdkVersionCreated
       responses:
@@ -359,10 +365,12 @@ paths:
               - teamUid
               additionalProperties: false
         required: true
+      summary: Postpubsub sdk version created
+      x-summary-source: derived
   /pubsub/sdk-repository-linked:
     post:
       tags:
-      - pubsub
+      - Pubsub
       description: Handle side effects for SDK repository linking
       operationId: postpubsubSdkRepositoryLinked
       responses:
@@ -423,10 +431,12 @@ paths:
               - teamUid
               additionalProperties: false
         required: true
+      summary: Postpubsub sdk repository linked
+      x-summary-source: derived
   /pubsub/sdk-git-complete:
     post:
       tags:
-      - pubsub
+      - Pubsub
       description: Side effect processing after SDK git sync succeeds
       operationId: postpubsubSdkGitComplete
       responses:
@@ -498,10 +508,12 @@ paths:
               - commitHash
               additionalProperties: false
         required: true
+      summary: Postpubsub sdk git complete
+      x-summary-source: derived
   /pubsub/sdk-git-failed:
     post:
       tags:
-      - pubsub
+      - Pubsub
       description: Side effect processing after SDK git sync fails
       operationId: postpubsubSdkGitFailed
       responses:
@@ -565,16 +577,33 @@ paths:
               - gitMessage
               additionalProperties: false
         required: true
+      summary: Postpubsub sdk git failed
+      x-summary-source: derived
 components:
   schemas:
+    '500':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
     namespace:
       type: string
       minLength: 3
       maxLength: 50
       pattern: ^[a-zA-Z0-9-_]+$
-    nanoid:
+    slug:
       type: string
-      minLength: 5
+      minLength: 3
+      maxLength: 60
+      pattern: ^[a-z](?:[a-z0-9-]*[a-z0-9])?$
+    version:
+      type: string
+      minLength: 1
     '404':
       type: object
       properties:
@@ -595,15 +624,10 @@ components:
       required:
       - message
       - code
-    slug:
+    nanoid:
       type: string
-      minLength: 3
-      maxLength: 60
-      pattern: ^[a-z](?:[a-z0-9-]*[a-z0-9])?$
-    version:
-      type: string
-      minLength: 1
-    '500':
+      minLength: 5
+    '403':
       type: object
       properties:
         message:
@@ -614,16 +638,6 @@ components:
       - message
       - code
     '400':
-      type: object
-      properties:
-        message:
-          type: string
-        code:
-          type: string
-      required:
-      - message
-      - code
-    '403':
       type: object
       properties:
         message:

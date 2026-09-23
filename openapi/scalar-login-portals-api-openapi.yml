@@ -1,6 +1,6 @@
-openapi: 3.1.1
+openapi: 3.2.0
 info:
-  title: Core access-groups login-portals API
+  title: Core Login Portals API
   description: Core services for Scalar
   version: 1.0.1
   contact:
@@ -67,6 +67,8 @@ paths:
         in: path
         name: slug
         required: true
+      summary: Getlogin portals slug
+      x-summary-source: derived
   /login-portals:
     get:
       tags:
@@ -131,6 +133,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/500'
+      summary: Getlogin portals
+      x-summary-source: derived
     post:
       tags:
       - login-portals
@@ -206,6 +210,8 @@ paths:
               - page
               additionalProperties: false
         required: true
+      summary: Postlogin portals
+      x-summary-source: derived
     delete:
       tags:
       - login-portals
@@ -266,6 +272,8 @@ paths:
               - slug
               additionalProperties: false
         required: true
+      summary: Deletelogin portals
+      x-summary-source: derived
   /login-portals/update:
     post:
       tags:
@@ -329,90 +337,25 @@ paths:
               - slug
               additionalProperties: false
         required: true
+      summary: Postlogin portals update
+      x-summary-source: derived
 components:
   schemas:
-    login-portal-email:
+    '500':
       type: object
       properties:
-        logo:
-          default: ''
-          type: string
-        logoSize:
-          default: '100'
-          type: string
-        buttonText:
-          default: Login
-          type: string
-          maxLength: 50
         message:
-          default: Click to access private documentation hosted by scalar.com
           type: string
-          maxLength: 1000
-        title:
-          default: Private Docs
+        code:
           type: string
-          maxLength: 100
-        mainColor:
-          default: '#2a2f45'
-          type: string
-          maxLength: 100
-        mainBackground:
-          default: '#f6f6f6'
-          type: string
-          maxLength: 100
-        cardColor:
-          default: 2a2f45
-          type: string
-          maxLength: 100
-        cardBackground:
-          default: '#fff'
-          type: string
-          maxLength: 100
-        buttonColor:
-          default: '#fff'
-          type: string
-          maxLength: 100
-        buttonBackground:
-          default: '#0f0f0f'
-          type: string
-          maxLength: 100
       required:
-      - logo
-      - logoSize
-      - buttonText
       - message
-      - title
-      - mainColor
-      - mainBackground
-      - cardColor
-      - cardBackground
-      - buttonColor
-      - buttonBackground
-      additionalProperties: false
-    login-portal:
-      type: object
-      properties:
-        uid:
-          $ref: '#/components/schemas/nanoid'
-        title:
-          type: string
-          maxLength: 200
-        slug:
-          $ref: '#/components/schemas/slug'
-        email:
-          $ref: '#/components/schemas/login-portal-email'
-        page:
-          $ref: '#/components/schemas/login-portal-page'
-      required:
-      - uid
-      - title
-      - slug
-      - email
-      - page
-      additionalProperties: false
-    nanoid:
+      - code
+    slug:
       type: string
-      minLength: 5
+      minLength: 3
+      maxLength: 60
+      pattern: ^[a-z](?:[a-z0-9-]*[a-z0-9])?$
     '404':
       type: object
       properties:
@@ -433,41 +376,9 @@ components:
       required:
       - message
       - code
-    slug:
+    nanoid:
       type: string
-      minLength: 3
-      maxLength: 60
-      pattern: ^[a-z](?:[a-z0-9-]*[a-z0-9])?$
-    '500':
-      type: object
-      properties:
-        message:
-          type: string
-        code:
-          type: string
-      required:
-      - message
-      - code
-    '400':
-      type: object
-      properties:
-        message:
-          type: string
-        code:
-          type: string
-      required:
-      - message
-      - code
-    '403':
-      type: object
-      properties:
-        message:
-          type: string
-        code:
-          type: string
-      required:
-      - message
-      - code
+      minLength: 5
     login-portal-page:
       type: object
       properties:
@@ -534,6 +445,105 @@ components:
       - formDescription
       - formImage
       additionalProperties: false
+    '403':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+    login-portal:
+      type: object
+      properties:
+        uid:
+          $ref: '#/components/schemas/nanoid'
+        title:
+          type: string
+          maxLength: 200
+        slug:
+          $ref: '#/components/schemas/slug'
+        email:
+          $ref: '#/components/schemas/login-portal-email'
+        page:
+          $ref: '#/components/schemas/login-portal-page'
+      required:
+      - uid
+      - title
+      - slug
+      - email
+      - page
+      additionalProperties: false
+    login-portal-email:
+      type: object
+      properties:
+        logo:
+          default: ''
+          type: string
+        logoSize:
+          default: '100'
+          type: string
+        buttonText:
+          default: Login
+          type: string
+          maxLength: 50
+        message:
+          default: Click to access private documentation hosted by scalar.com
+          type: string
+          maxLength: 1000
+        title:
+          default: Private Docs
+          type: string
+          maxLength: 100
+        mainColor:
+          default: '#2a2f45'
+          type: string
+          maxLength: 100
+        mainBackground:
+          default: '#f6f6f6'
+          type: string
+          maxLength: 100
+        cardColor:
+          default: 2a2f45
+          type: string
+          maxLength: 100
+        cardBackground:
+          default: '#fff'
+          type: string
+          maxLength: 100
+        buttonColor:
+          default: '#fff'
+          type: string
+          maxLength: 100
+        buttonBackground:
+          default: '#0f0f0f'
+          type: string
+          maxLength: 100
+      required:
+      - logo
+      - logoSize
+      - buttonText
+      - message
+      - title
+      - mainColor
+      - mainBackground
+      - cardColor
+      - cardBackground
+      - buttonColor
+      - buttonBackground
+      additionalProperties: false
+    '400':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
     '422':
       type: object
       properties:

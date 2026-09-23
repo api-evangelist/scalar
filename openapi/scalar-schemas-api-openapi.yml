@@ -1,6 +1,6 @@
-openapi: 3.1.1
+openapi: 3.2.0
 info:
-  title: Core access-groups schemas API
+  title: Core Schemas API
   description: Core services for Scalar
   version: 1.0.1
   contact:
@@ -10,12 +10,12 @@ info:
 security:
 - BearerAuth: []
 tags:
-- name: schemas
+- name: Schemas
 paths:
   /schemas/check-slug:
     post:
       tags:
-      - schemas
+      - Schemas
       description: Checks if a schema slug is available
       operationId: postschemasCheckSlug
       responses:
@@ -82,10 +82,12 @@ paths:
               - slug
               additionalProperties: false
         required: true
+      summary: Postschemas check slug
+      x-summary-source: derived
   /schemas/access-group:
     post:
       tags:
-      - schemas
+      - Schemas
       description: Adds an access group to a managed schema
       operationId: postschemasAccessGroup
       responses:
@@ -149,9 +151,11 @@ paths:
               - groupUid
               additionalProperties: false
         required: true
+      summary: Postschemas access group
+      x-summary-source: derived
     delete:
       tags:
-      - schemas
+      - Schemas
       description: Removes an access group from a managed schema
       operationId: deleteschemasAccessGroup
       responses:
@@ -215,10 +219,12 @@ paths:
               - groupUid
               additionalProperties: false
         required: true
+      summary: Deleteschemas access group
+      x-summary-source: derived
   /schemas/{namespace}:
     get:
       tags:
-      - schemas
+      - Schemas
       description: Get a list of all schemas for the namespace
       operationId: getschemasNamespace
       responses:
@@ -304,9 +310,11 @@ paths:
         in: path
         name: namespace
         required: true
+      summary: Getschemas namespace
+      x-summary-source: derived
     post:
       tags:
-      - schemas
+      - Schemas
       description: Creates a managed schema
       operationId: postschemasNamespace
       responses:
@@ -388,10 +396,12 @@ paths:
         in: path
         name: namespace
         required: true
+      summary: Postschemas namespace
+      x-summary-source: derived
   /schemas/{namespace}/{slug}:
     patch:
       tags:
-      - schemas
+      - Schemas
       description: Update schema metadata
       operationId: patchschemasNamespaceSlug
       responses:
@@ -470,9 +480,11 @@ paths:
         in: path
         name: slug
         required: true
+      summary: Patchschemas namespace slug
+      x-summary-source: derived
     delete:
       tags:
-      - schemas
+      - Schemas
       description: Delete a specific schema and all of the related versions
       operationId: deleteschemasNamespaceSlug
       responses:
@@ -529,10 +541,12 @@ paths:
         in: path
         name: slug
         required: true
+      summary: Deleteschemas namespace slug
+      x-summary-source: derived
   /schemas/{namespace}/{slug}/version/{semver}:
     get:
       tags:
-      - schemas
+      - Schemas
       description: Get a specific schema document
       operationId: getschemasNamespaceSlugVersionSemver
       responses:
@@ -593,9 +607,11 @@ paths:
         in: path
         name: semver
         required: true
+      summary: Getschemas namespace slug version semver
+      x-summary-source: derived
     post:
       tags:
-      - schemas
+      - Schemas
       description: Update managed schema content in GCS
       operationId: postschemasNamespaceSlugVersionSemver
       responses:
@@ -669,9 +685,11 @@ paths:
         in: path
         name: semver
         required: true
+      summary: Postschemas namespace slug version semver
+      x-summary-source: derived
     delete:
       tags:
-      - schemas
+      - Schemas
       description: Delete a specific schema version
       operationId: deleteschemasNamespaceSlugVersionSemver
       responses:
@@ -733,10 +751,12 @@ paths:
         in: path
         name: semver
         required: true
+      summary: Deleteschemas namespace slug version semver
+      x-summary-source: derived
   /schemas/{namespace}/{slug}/version:
     post:
       tags:
-      - schemas
+      - Schemas
       description: Create a new schema version
       operationId: postschemasNamespaceSlugVersion
       responses:
@@ -814,10 +834,12 @@ paths:
         in: path
         name: slug
         required: true
+      summary: Postschemas namespace slug version
+      x-summary-source: derived
   /schemas/{namespace}/{slug}/version/{version}/duplicate:
     post:
       tags:
-      - schemas
+      - Schemas
       description: Duplicate schema version
       operationId: postschemasNamespaceSlugVersionVersionDuplicate
       responses:
@@ -897,16 +919,14 @@ paths:
         in: path
         name: version
         required: true
+      summary: Postschemas namespace slug version version duplicate
+      x-summary-source: derived
 components:
   schemas:
-    namespace:
-      type: string
-      minLength: 3
-      maxLength: 50
-      pattern: ^[a-zA-Z0-9-_]+$
-    nanoid:
-      type: string
-      minLength: 5
+    timestamp:
+      type: integer
+      minimum: 0
+      maximum: 9007199254740991
     managed-schema-version:
       type: object
       properties:
@@ -928,19 +948,11 @@ components:
       - updatedAt
       - version
       additionalProperties: false
-    '401':
-      type: object
-      properties:
-        message:
-          type: string
-        code:
-          type: string
-      required:
-      - message
-      - code
-    version:
+    namespace:
       type: string
-      minLength: 1
+      minLength: 3
+      maxLength: 50
+      pattern: ^[a-zA-Z0-9-_]+$
     slug:
       type: string
       minLength: 3
@@ -956,6 +968,9 @@ components:
       required:
       - message
       - code
+    version:
+      type: string
+      minLength: 1
     '404':
       type: object
       properties:
@@ -966,7 +981,7 @@ components:
       required:
       - message
       - code
-    '400':
+    '401':
       type: object
       properties:
         message:
@@ -976,6 +991,9 @@ components:
       required:
       - message
       - code
+    nanoid:
+      type: string
+      minLength: 5
     '403':
       type: object
       properties:
@@ -986,15 +1004,21 @@ components:
       required:
       - message
       - code
-    timestamp:
-      type: integer
-      minimum: 0
-      maximum: 9007199254740991
     managed-schema-format:
       type: string
       enum:
       - json
       - yaml
+    '400':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
     '422':
       type: object
       properties:

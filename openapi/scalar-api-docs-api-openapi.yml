@@ -1,6 +1,6 @@
-openapi: 3.1.1
+openapi: 3.2.0
 info:
-  title: Core access-groups api-docs API
+  title: Core API Docs API
   description: Core services for Scalar
   version: 1.0.1
   contact:
@@ -79,6 +79,8 @@ paths:
               - groupUid
               additionalProperties: false
         required: true
+      summary: Postmanaged doc access group
+      x-summary-source: derived
     delete:
       tags:
       - api-docs
@@ -145,6 +147,8 @@ paths:
               - groupUid
               additionalProperties: false
         required: true
+      summary: Deletemanaged doc access group
+      x-summary-source: derived
   /managed-doc/available:
     post:
       tags:
@@ -215,6 +219,8 @@ paths:
               - slug
               additionalProperties: false
         required: true
+      summary: Postmanaged doc available
+      x-summary-source: derived
   /managed-doc/{namespace}:
     get:
       tags:
@@ -310,6 +316,8 @@ paths:
         in: path
         name: namespace
         required: true
+      summary: Getmanaged doc namespace
+      x-summary-source: derived
     post:
       tags:
       - api-docs
@@ -415,6 +423,8 @@ paths:
         in: path
         name: namespace
         required: true
+      summary: Postmanaged doc namespace
+      x-summary-source: derived
   /managed-doc/{namespace}/{slug}:
     patch:
       tags:
@@ -501,6 +511,8 @@ paths:
         in: path
         name: slug
         required: true
+      summary: Patchmanaged doc namespace slug
+      x-summary-source: derived
     delete:
       tags:
       - api-docs
@@ -560,6 +572,8 @@ paths:
         in: path
         name: slug
         required: true
+      summary: Deletemanaged doc namespace slug
+      x-summary-source: derived
     get:
       tags:
       - api-docs
@@ -657,6 +671,8 @@ paths:
         in: path
         name: slug
         required: true
+      summary: Getmanaged doc namespace slug
+      x-summary-source: derived
   /managed-doc/{namespace}/{slug}/version/{semver}:
     get:
       tags:
@@ -721,6 +737,8 @@ paths:
         in: path
         name: semver
         required: true
+      summary: Getmanaged doc namespace slug version semver
+      x-summary-source: derived
     patch:
       tags:
       - api-docs
@@ -811,6 +829,8 @@ paths:
         in: path
         name: semver
         required: true
+      summary: Patchmanaged doc namespace slug version semver
+      x-summary-source: derived
     delete:
       tags:
       - api-docs
@@ -875,6 +895,8 @@ paths:
         in: path
         name: semver
         required: true
+      summary: Deletemanaged doc namespace slug version semver
+      x-summary-source: derived
   /managed-doc/{namespace}/{slug}/version/{semver}/metadata:
     get:
       tags:
@@ -940,6 +962,8 @@ paths:
         in: path
         name: semver
         required: true
+      summary: Getmanaged doc namespace slug version semver metadata
+      x-summary-source: derived
   /managed-doc/{namespace}/{slug}/version:
     post:
       tags:
@@ -1025,6 +1049,8 @@ paths:
         in: path
         name: slug
         required: true
+      summary: Postmanaged doc namespace slug version
+      x-summary-source: derived
   /managed-doc:
     get:
       tags:
@@ -1114,6 +1140,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/500'
+      summary: Getmanaged doc
+      x-summary-source: derived
   /pubsub/api-updated:
     post:
       tags:
@@ -1181,6 +1209,8 @@ paths:
               - after
               additionalProperties: false
         required: true
+      summary: Postpubsub api updated
+      x-summary-source: derived
   /pubsub/api-version-deleted:
     post:
       tags:
@@ -1260,6 +1290,8 @@ paths:
               - isPrivate
               additionalProperties: false
         required: true
+      summary: Postpubsub api version deleted
+      x-summary-source: derived
   /pubsub/api-embed-complete:
     post:
       tags:
@@ -1327,6 +1359,8 @@ paths:
               - teamUid
               additionalProperties: false
         required: true
+      summary: Postpubsub api embed complete
+      x-summary-source: derived
   /pubsub/api-embed-failed:
     post:
       tags:
@@ -1394,6 +1428,8 @@ paths:
               - teamUid
               additionalProperties: false
         required: true
+      summary: Postpubsub api embed failed
+      x-summary-source: derived
   /managed-doc/{namespace}/{slug}/version/{semver}/tools:
     post:
       tags:
@@ -1484,87 +1520,37 @@ paths:
         in: path
         name: semver
         required: true
+      summary: Postmanaged doc namespace slug version semver tools
+      x-summary-source: derived
 components:
   schemas:
+    timestamp:
+      type: integer
+      minimum: 0
+      maximum: 9007199254740991
+    '500':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
     namespace:
       type: string
       minLength: 3
       maxLength: 50
       pattern: ^[a-zA-Z0-9-_]+$
-    managed-doc-version:
-      type: object
-      properties:
-        uid:
-          $ref: '#/components/schemas/nanoid'
-        createdAt:
-          type: number
-        version:
-          $ref: '#/components/schemas/version'
-        upgraded:
-          default: false
-          type: boolean
-        embedStatus:
-          default: null
-          anyOf:
-          - type: string
-            enum:
-            - complete
-            - failed
-          - type: 'null'
-        tags:
-          default: []
-          type: array
-          items:
-            type: string
-        tools:
-          type: array
-          items:
-            type: object
-            properties:
-              path:
-                type: string
-              method:
-                $ref: '#/components/schemas/method'
-              enabledTools:
-                type: array
-                items:
-                  type: string
-                  enum:
-                  - execute-request
-                  - get-mini-openapi-spec
-            required:
-            - path
-            - method
-            - enabledTools
-            additionalProperties: false
-        yamlSha:
-          type: string
-        jsonSha:
-          type: string
-        versionSha:
-          type: string
-      required:
-      - uid
-      - createdAt
-      - version
-      - upgraded
-      - embedStatus
-      - tags
-      additionalProperties: false
-    method:
+    slug:
       type: string
-      enum:
-      - delete
-      - get
-      - head
-      - options
-      - patch
-      - post
-      - put
-      - trace
-    nanoid:
+      minLength: 3
+      maxLength: 60
+      pattern: ^[a-z](?:[a-z0-9-]*[a-z0-9])?$
+    version:
       type: string
-      minLength: 5
+      minLength: 1
     '404':
       type: object
       properties:
@@ -1585,24 +1571,20 @@ components:
       required:
       - message
       - code
-    version:
+    nanoid:
       type: string
-      minLength: 1
-    slug:
+      minLength: 5
+    method:
       type: string
-      minLength: 3
-      maxLength: 60
-      pattern: ^[a-z](?:[a-z0-9-]*[a-z0-9])?$
-    '500':
-      type: object
-      properties:
-        message:
-          type: string
-        code:
-          type: string
-      required:
-      - message
-      - code
+      enum:
+      - delete
+      - get
+      - head
+      - options
+      - patch
+      - post
+      - put
+      - trace
     managed-doc:
       type: object
       properties:
@@ -1709,16 +1691,6 @@ components:
       - agentEnabled
       - verified
       additionalProperties: false
-    '400':
-      type: object
-      properties:
-        message:
-          type: string
-        code:
-          type: string
-      required:
-      - message
-      - code
     '403':
       type: object
       properties:
@@ -1729,10 +1701,76 @@ components:
       required:
       - message
       - code
-    timestamp:
-      type: integer
-      minimum: 0
-      maximum: 9007199254740991
+    managed-doc-version:
+      type: object
+      properties:
+        uid:
+          $ref: '#/components/schemas/nanoid'
+        createdAt:
+          type: number
+        version:
+          $ref: '#/components/schemas/version'
+        upgraded:
+          default: false
+          type: boolean
+        embedStatus:
+          default: null
+          anyOf:
+          - type: string
+            enum:
+            - complete
+            - failed
+          - type: 'null'
+        tags:
+          default: []
+          type: array
+          items:
+            type: string
+        tools:
+          type: array
+          items:
+            type: object
+            properties:
+              path:
+                type: string
+              method:
+                $ref: '#/components/schemas/method'
+              enabledTools:
+                type: array
+                items:
+                  type: string
+                  enum:
+                  - execute-request
+                  - get-mini-openapi-spec
+            required:
+            - path
+            - method
+            - enabledTools
+            additionalProperties: false
+        yamlSha:
+          type: string
+        jsonSha:
+          type: string
+        versionSha:
+          type: string
+      required:
+      - uid
+      - createdAt
+      - version
+      - upgraded
+      - embedStatus
+      - tags
+      additionalProperties: false
+    '400':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
     '422':
       type: object
       properties:

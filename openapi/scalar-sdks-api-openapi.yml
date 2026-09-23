@@ -1,6 +1,6 @@
-openapi: 3.1.1
+openapi: 3.2.0
 info:
-  title: Core access-groups sdks API
+  title: Core SDKS API
   description: Core services for Scalar
   version: 1.0.1
   contact:
@@ -10,12 +10,12 @@ info:
 security:
 - BearerAuth: []
 tags:
-- name: sdks
+- name: SDKs
 paths:
   /v1/sdks/sync:
     post:
       tags:
-      - sdks
+      - SDKs
       description: Manually trigger git sync for SDK build
       operationId: postv1SdksSync
       responses:
@@ -73,10 +73,12 @@ paths:
               - buildUid
               additionalProperties: false
         required: true
+      summary: Postv1 sdks sync
+      x-summary-source: derived
   /v1/sdks:
     post:
       tags:
-      - sdks
+      - SDKs
       description: Creates a new sdk from a registry API
       operationId: postv1Sdks
       responses:
@@ -147,10 +149,12 @@ paths:
               - language
               additionalProperties: false
         required: true
+      summary: Postv1 sdks
+      x-summary-source: derived
   /v1/sdks/version:
     post:
       tags:
-      - sdks
+      - SDKs
       description: Creates a new version for SDK
       operationId: postv1SdksVersion
       responses:
@@ -217,10 +221,12 @@ paths:
               - version
               additionalProperties: false
         required: true
+      summary: Postv1 sdks version
+      x-summary-source: derived
   /v1/sdks/{uid}:
     patch:
       tags:
-      - sdks
+      - SDKs
       description: Update an SDK by UID
       operationId: patchv1SdksUid
       responses:
@@ -295,9 +301,11 @@ paths:
         in: path
         name: uid
         required: true
+      summary: Patchv1 sdks uid
+      x-summary-source: derived
     delete:
       tags:
-      - sdks
+      - SDKs
       description: Delete an SDK by UID
       operationId: deletev1SdksUid
       responses:
@@ -349,10 +357,12 @@ paths:
         in: path
         name: uid
         required: true
+      summary: Deletev1 sdks uid
+      x-summary-source: derived
   /pubsub/sdk-build-complete:
     post:
       tags:
-      - sdks
+      - SDKs
       description: Side effect processing after SDK generation completes
       operationId: postpubsubSdkBuildComplete
       responses:
@@ -419,10 +429,12 @@ paths:
               - teamUid
               additionalProperties: false
         required: true
+      summary: Postpubsub sdk build complete
+      x-summary-source: derived
   /pubsub/sdk-build-failed:
     post:
       tags:
-      - sdks
+      - SDKs
       description: Side effect processing after SDK generation fails
       operationId: postpubsubSdkBuildFailed
       responses:
@@ -487,10 +499,12 @@ paths:
               - teamUid
               additionalProperties: false
         required: true
+      summary: Postpubsub sdk build failed
+      x-summary-source: derived
   /v1/sdks/bulk:
     post:
       tags:
-      - sdks
+      - SDKs
       description: Creates multiple language SDKs from a registry API
       operationId: postv1SdksBulk
       responses:
@@ -572,10 +586,12 @@ paths:
               - languages
               additionalProperties: false
         required: true
+      summary: Postv1 sdks bulk
+      x-summary-source: derived
   /v1/sdks/available:
     post:
       tags:
-      - sdks
+      - SDKs
       description: Checks if an SDK slug is available
       operationId: postv1SdksAvailable
       responses:
@@ -642,10 +658,12 @@ paths:
               - slug
               additionalProperties: false
         required: true
+      summary: Postv1 sdks available
+      x-summary-source: derived
   /v1/sdks/{uid}/access-group:
     post:
       tags:
-      - sdks
+      - SDKs
       description: Adds an access group to an SDK
       operationId: postv1SdksUidAccessGroup
       responses:
@@ -709,9 +727,11 @@ paths:
         in: path
         name: uid
         required: true
+      summary: Postv1 sdks uid access group
+      x-summary-source: derived
     delete:
       tags:
-      - sdks
+      - SDKs
       description: Removes an access group from an SDK
       operationId: deletev1SdksUidAccessGroup
       responses:
@@ -775,10 +795,12 @@ paths:
         in: path
         name: uid
         required: true
+      summary: Deletev1 sdks uid access group
+      x-summary-source: derived
   /v1/sdks/repository:
     post:
       tags:
-      - sdks
+      - SDKs
       description: Links an SDK to a github repository
       operationId: postv1SdksRepository
       responses:
@@ -842,9 +864,11 @@ paths:
               - baseBranch
               additionalProperties: false
         required: true
+      summary: Postv1 sdks repository
+      x-summary-source: derived
     delete:
       tags:
-      - sdks
+      - SDKs
       description: Unlinks SDK repository
       operationId: deletev1SdksRepository
       responses:
@@ -902,10 +926,12 @@ paths:
               - uid
               additionalProperties: false
         required: true
+      summary: Deletev1 sdks repository
+      x-summary-source: derived
   /v1/sdks/repository/update:
     post:
       tags:
-      - sdks
+      - SDKs
       description: Updates an SDK repository metadata
       operationId: postv1SdksRepositoryUpdate
       responses:
@@ -966,10 +992,12 @@ paths:
               - baseBranch
               additionalProperties: false
         required: true
+      summary: Postv1 sdks repository update
+      x-summary-source: derived
   /pubsub/api-version-created/create-sdk-version:
     post:
       tags:
-      - sdks
+      - SDKs
       description: API version created SDK processing
       operationId: postpubsubApiVersionCreatedCreateSdkVersion
       responses:
@@ -1056,10 +1084,12 @@ paths:
               - isPrivate
               additionalProperties: false
         required: true
+      summary: Postpubsub api version created create sdk version
+      x-summary-source: derived
   /pubsub/sdk-version-created:
     post:
       tags:
-      - sdks
+      - SDKs
       description: PubSub SDK version created
       operationId: postpubsubSdkVersionCreated
       responses:
@@ -1175,10 +1205,12 @@ paths:
               - teamUid
               additionalProperties: false
         required: true
+      summary: Postpubsub sdk version created
+      x-summary-source: derived
   /pubsub/sdk-repository-linked:
     post:
       tags:
-      - sdks
+      - SDKs
       description: Handle side effects for SDK repository linking
       operationId: postpubsubSdkRepositoryLinked
       responses:
@@ -1239,10 +1271,12 @@ paths:
               - teamUid
               additionalProperties: false
         required: true
+      summary: Postpubsub sdk repository linked
+      x-summary-source: derived
   /pubsub/sdk-git-complete:
     post:
       tags:
-      - sdks
+      - SDKs
       description: Side effect processing after SDK git sync succeeds
       operationId: postpubsubSdkGitComplete
       responses:
@@ -1314,10 +1348,12 @@ paths:
               - commitHash
               additionalProperties: false
         required: true
+      summary: Postpubsub sdk git complete
+      x-summary-source: derived
   /pubsub/sdk-git-failed:
     post:
       tags:
-      - sdks
+      - SDKs
       description: Side effect processing after SDK git sync fails
       operationId: postpubsubSdkGitFailed
       responses:
@@ -1381,10 +1417,12 @@ paths:
               - gitMessage
               additionalProperties: false
         required: true
+      summary: Postpubsub sdk git failed
+      x-summary-source: derived
   /v1/sdks/build:
     post:
       tags:
-      - sdks
+      - SDKs
       description: Trigger manual SDK build
       operationId: postv1SdksBuild
       responses:
@@ -1445,10 +1483,12 @@ paths:
               - version
               additionalProperties: false
         required: true
+      summary: Postv1 sdks build
+      x-summary-source: derived
   /v1/sdks/snippets:
     post:
       tags:
-      - sdks
+      - SDKs
       description: Generate SDK snippets for a Registry API
       operationId: postv1SdksSnippets
       responses:
@@ -1526,13 +1566,10 @@ paths:
               - languages
               additionalProperties: false
         required: true
+      summary: Postv1 sdks snippets
+      x-summary-source: derived
 components:
   schemas:
-    namespace:
-      type: string
-      minLength: 3
-      maxLength: 50
-      pattern: ^[a-zA-Z0-9-_]+$
     sdk-preview:
       type: object
       properties:
@@ -1552,9 +1589,29 @@ components:
       - operationId
       - path
       additionalProperties: false
-    nanoid:
+    namespace:
       type: string
-      minLength: 5
+      minLength: 3
+      maxLength: 50
+      pattern: ^[a-zA-Z0-9-_]+$
+    slug:
+      type: string
+      minLength: 3
+      maxLength: 60
+      pattern: ^[a-z](?:[a-z0-9-]*[a-z0-9])?$
+    '500':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+    version:
+      type: string
+      minLength: 1
     '404':
       type: object
       properties:
@@ -1575,15 +1632,10 @@ components:
       required:
       - message
       - code
-    slug:
+    nanoid:
       type: string
-      minLength: 3
-      maxLength: 60
-      pattern: ^[a-z](?:[a-z0-9-]*[a-z0-9])?$
-    version:
-      type: string
-      minLength: 1
-    '500':
+      minLength: 5
+    '403':
       type: object
       properties:
         message:
@@ -1594,16 +1646,6 @@ components:
       - message
       - code
     '400':
-      type: object
-      properties:
-        message:
-          type: string
-        code:
-          type: string
-      required:
-      - message
-      - code
-    '403':
       type: object
       properties:
         message:

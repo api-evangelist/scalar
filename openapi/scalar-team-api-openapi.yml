@@ -1,6 +1,6 @@
-openapi: 3.1.1
+openapi: 3.2.0
 info:
-  title: Core access-groups team API
+  title: Core Team API
   description: Core services for Scalar
   version: 1.0.1
   contact:
@@ -10,12 +10,12 @@ info:
 security:
 - BearerAuth: []
 tags:
-- name: team
+- name: Team
 paths:
   /me/teams:
     get:
       tags:
-      - team
+      - Team
       description: List all teams the current user belongs to
       operationId: getmeTeams
       responses:
@@ -63,10 +63,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/500'
+      summary: Getme teams
+      x-summary-source: derived
   /team/slug:
     post:
       tags:
-      - team
+      - Team
       description: Update a team slug
       operationId: postteamSlug
       responses:
@@ -124,10 +126,12 @@ paths:
               - slug
               additionalProperties: false
         required: true
+      summary: Postteam slug
+      x-summary-source: derived
   /team/slug/available:
     post:
       tags:
-      - team
+      - Team
       description: Check if team slug is available
       operationId: postteamSlugAvailable
       responses:
@@ -192,10 +196,12 @@ paths:
               - slug
               additionalProperties: false
         required: true
+      summary: Postteam slug available
+      x-summary-source: derived
   /team/create:
     post:
       tags:
-      - team
+      - Team
       description: Create a new team
       operationId: postteamCreate
       responses:
@@ -281,10 +287,12 @@ paths:
               - teamInfo
               additionalProperties: false
         required: true
+      summary: Postteam create
+      x-summary-source: derived
   /team/invite:
     post:
       tags:
-      - team
+      - Team
       description: Invite a new member to the team
       operationId: postteamInvite
       responses:
@@ -345,9 +353,11 @@ paths:
               - role
               additionalProperties: false
         required: true
+      summary: Postteam invite
+      x-summary-source: derived
     delete:
       tags:
-      - team
+      - Team
       description: Cancel a team invite
       operationId: deleteteamInvite
       responses:
@@ -405,9 +415,11 @@ paths:
               - uid
               additionalProperties: false
         required: true
+      summary: Deleteteam invite
+      x-summary-source: derived
     patch:
       tags:
-      - team
+      - Team
       description: Resend an existing team invite
       operationId: patchteamInvite
       responses:
@@ -465,10 +477,12 @@ paths:
               - uid
               additionalProperties: false
         required: true
+      summary: Patchteam invite
+      x-summary-source: derived
   /team/accept-invite:
     get:
       tags:
-      - team
+      - Team
       description: Accept an email team invite
       operationId: getteamAcceptInvite
       responses:
@@ -521,10 +535,12 @@ paths:
         in: query
         name: token
         required: true
+      summary: Getteam accept invite
+      x-summary-source: derived
   /team/rename:
     post:
       tags:
-      - team
+      - Team
       description: Rename a team and handle multiple record updates
       operationId: postteamRename
       responses:
@@ -582,10 +598,12 @@ paths:
               - name
               additionalProperties: false
         required: true
+      summary: Postteam rename
+      x-summary-source: derived
   /team/image:
     post:
       tags:
-      - team
+      - Team
       description: Update a team logo image and handle multiple record updates
       operationId: postteamImage
       responses:
@@ -643,10 +661,12 @@ paths:
               - imageUri
               additionalProperties: false
         required: true
+      summary: Postteam image
+      x-summary-source: derived
   /team/leave:
     get:
       tags:
-      - team
+      - Team
       description: Allow a user to leave a team
       operationId: getteamLeave
       responses:
@@ -692,10 +712,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/500'
+      summary: Getteam leave
+      x-summary-source: derived
   /team:
     delete:
       tags:
-      - team
+      - Team
       description: Delete a team
       operationId: deleteteam
       responses:
@@ -749,10 +771,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/500'
+      summary: Deleteteam
+      x-summary-source: derived
   /team/delete-member:
     post:
       tags:
-      - team
+      - Team
       description: Remove a user from the team
       operationId: postteamDeleteMember
       responses:
@@ -810,10 +834,12 @@ paths:
               - userUid
               additionalProperties: false
         required: true
+      summary: Postteam delete member
+      x-summary-source: derived
   /team/update:
     post:
       tags:
-      - team
+      - Team
       description: Update a team record
       operationId: postteamUpdate
       responses:
@@ -870,10 +896,12 @@ paths:
                   type: string
               additionalProperties: false
         required: true
+      summary: Postteam update
+      x-summary-source: derived
   /team/update-user:
     post:
       tags:
-      - team
+      - Team
       description: Update a team user record (safe properties only)
       operationId: postteamUpdateUser
       responses:
@@ -942,10 +970,12 @@ paths:
               - teamUser
               additionalProperties: false
         required: true
+      summary: Postteam update user
+      x-summary-source: derived
   /team/billing:
     get:
       tags:
-      - team
+      - Team
       description: Team billing invoice and plan summary
       operationId: getteamBilling
       responses:
@@ -991,10 +1021,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/500'
+      summary: Getteam billing
+      x-summary-source: derived
   /team/billing/email:
     post:
       tags:
-      - team
+      - Team
       description: Update a team's billing email
       operationId: postteamBillingEmail
       responses:
@@ -1052,10 +1084,12 @@ paths:
               - email
               additionalProperties: false
         required: true
+      summary: Postteam billing email
+      x-summary-source: derived
   /team/update/plan:
     post:
       tags:
-      - team
+      - Team
       description: Update a team's billing plan
       operationId: postteamUpdatePlan
       responses:
@@ -1119,10 +1153,12 @@ paths:
               - billingPlan
               additionalProperties: false
         required: true
+      summary: Postteam update plan
+      x-summary-source: derived
   /team/update-role:
     post:
       tags:
-      - team
+      - Team
       description: Updates user role for a team member
       operationId: postteamUpdateRole
       responses:
@@ -1183,10 +1219,12 @@ paths:
               - role
               additionalProperties: false
         required: true
+      summary: Postteam update role
+      x-summary-source: derived
   /internal/team/archive:
     delete:
       tags:
-      - team
+      - Team
       description: Scheduled internal deletion for premium teams
       operationId: deleteinternalTeamArchive
       responses:
@@ -1249,10 +1287,12 @@ paths:
               - namespaces
               additionalProperties: false
         required: true
+      summary: Deleteinternal team archive
+      x-summary-source: derived
   /team/namespace/update:
     post:
       tags:
-      - team
+      - Team
       description: Update a team namespace
       operationId: postteamNamespaceUpdate
       responses:
@@ -1313,10 +1353,12 @@ paths:
               - newNamespace
               additionalProperties: false
         required: true
+      summary: Postteam namespace update
+      x-summary-source: derived
   /team/namespace:
     post:
       tags:
-      - team
+      - Team
       description: Create a team namespace
       operationId: postteamNamespace
       responses:
@@ -1374,10 +1416,12 @@ paths:
               - namespace
               additionalProperties: false
         required: true
+      summary: Postteam namespace
+      x-summary-source: derived
   /team/namespace/available:
     post:
       tags:
-      - team
+      - Team
       description: Check if team namespace is available
       operationId: postteamNamespaceAvailable
       responses:
@@ -1441,10 +1485,12 @@ paths:
               - namespace
               additionalProperties: false
         required: true
+      summary: Postteam namespace available
+      x-summary-source: derived
   /team/namespaces:
     get:
       tags:
-      - team
+      - Team
       description: Get all namespaces for the current team
       operationId: getteamNamespaces
       responses:
@@ -1492,10 +1538,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/500'
+      summary: Getteam namespaces
+      x-summary-source: derived
   /team/onboarding/setup:
     post:
       tags:
-      - team
+      - Team
       description: Onboarding team setup
       operationId: postteamOnboardingSetup
       responses:
@@ -1573,10 +1621,12 @@ paths:
               - invites
               additionalProperties: false
         required: true
+      summary: Postteam onboarding setup
+      x-summary-source: derived
   /team/onboarding/complete:
     post:
       tags:
-      - team
+      - Team
       description: Onboarding team complete
       operationId: postteamOnboardingComplete
       responses:
@@ -1622,10 +1672,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/500'
+      summary: Postteam onboarding complete
+      x-summary-source: derived
   /internal/team/features:
     post:
       tags:
-      - team
+      - Team
       description: Internal endpoint to update feature flags for a team
       operationId: postinternalTeamFeatures
       responses:
@@ -1686,10 +1738,12 @@ paths:
               - features
               additionalProperties: false
         required: true
+      summary: Postinternal team features
+      x-summary-source: derived
   /pubsub/invite-team-member:
     post:
       tags:
-      - team
+      - Team
       description: Pubsub invite a new member to the team
       operationId: postpubsubInviteTeamMember
       responses:
@@ -1755,10 +1809,12 @@ paths:
               - email
               additionalProperties: false
         required: true
+      summary: Postpubsub invite team member
+      x-summary-source: derived
   /pubsub/team-member-invited:
     post:
       tags:
-      - team
+      - Team
       description: Pubsub team member invited
       operationId: postpubsubTeamMemberInvited
       responses:
@@ -1825,10 +1881,12 @@ paths:
               - email
               additionalProperties: false
         required: true
+      summary: Postpubsub team member invited
+      x-summary-source: derived
   /team/icon:
     post:
       tags:
-      - team
+      - Team
       description: Adds a custom icon to the team
       operationId: postteamIcon
       responses:
@@ -1880,9 +1938,11 @@ paths:
             schema:
               $ref: '#/components/schemas/custom-project-icon'
         required: true
+      summary: Postteam icon
+      x-summary-source: derived
     delete:
       tags:
-      - team
+      - Team
       description: Deletes a custom icon from the team
       operationId: deleteteamIcon
       responses:
@@ -1940,10 +2000,12 @@ paths:
               - src
               additionalProperties: false
         required: true
+      summary: Deleteteam icon
+      x-summary-source: derived
   /team/authentication/domain:
     post:
       tags:
-      - team
+      - Team
       description: Add a domain to authentication allowlist
       operationId: postteamAuthenticationDomain
       responses:
@@ -2001,9 +2063,11 @@ paths:
               - domain
               additionalProperties: false
         required: true
+      summary: Postteam authentication domain
+      x-summary-source: derived
     delete:
       tags:
-      - team
+      - Team
       description: Remove a domain from authentication allowlist
       operationId: deleteteamAuthenticationDomain
       responses:
@@ -2061,10 +2125,12 @@ paths:
               - domain
               additionalProperties: false
         required: true
+      summary: Deleteteam authentication domain
+      x-summary-source: derived
   /team/authentication/method:
     post:
       tags:
-      - team
+      - Team
       description: Enable or disable authentication method for the team
       operationId: postteamAuthenticationMethod
       responses:
@@ -2130,10 +2196,12 @@ paths:
               - enabled
               additionalProperties: false
         required: true
+      summary: Postteam authentication method
+      x-summary-source: derived
   /team/authentication/user:
     post:
       tags:
-      - team
+      - Team
       description: Edit team authentication user controls
       operationId: postteamAuthenticationUser
       responses:
@@ -2207,9 +2275,11 @@ paths:
               - userUid
               additionalProperties: false
         required: true
+      summary: Postteam authentication user
+      x-summary-source: derived
     delete:
       tags:
-      - team
+      - Team
       description: Remove team authentication user controls
       operationId: deleteteamAuthenticationUser
       responses:
@@ -2267,10 +2337,12 @@ paths:
               - userUid
               additionalProperties: false
         required: true
+      summary: Deleteteam authentication user
+      x-summary-source: derived
   /team/authentication/user/method:
     post:
       tags:
-      - team
+      - Team
       description: Enable or disable authentication method for a user
       operationId: postteamAuthenticationUserMethod
       responses:
@@ -2339,10 +2411,12 @@ paths:
               - enabled
               additionalProperties: false
         required: true
+      summary: Postteam authentication user method
+      x-summary-source: derived
   /team/external-access/method:
     post:
       tags:
-      - team
+      - Team
       description: Enable or disable external access methods for the team
       operationId: postteamExternalAccessMethod
       responses:
@@ -2406,10 +2480,12 @@ paths:
               - enabled
               additionalProperties: false
         required: true
+      summary: Postteam external access method
+      x-summary-source: derived
   /internal/teams/{teamUid}/notify-mcp-approval-required:
     post:
       tags:
-      - team
+      - Team
       description: Notify a team's admins/owners that an MCP server version is awaiting approval.
       operationId: postinternalTeamsTeamUidNotifyMcpApprovalRequired
       responses:
@@ -2486,10 +2562,12 @@ paths:
         in: path
         name: teamUid
         required: true
+      summary: Postinternal teams team uid notify mcp approval required
+      x-summary-source: derived
   /user/update:
     post:
       tags:
-      - team
+      - Team
       description: Update user record
       operationId: postuserUpdate
       responses:
@@ -2545,10 +2623,12 @@ paths:
                   type: string
               additionalProperties: false
         required: true
+      summary: Postuser update
+      x-summary-source: derived
   /internal/user/ban:
     post:
       tags:
-      - team
+      - Team
       description: Ban a user by email. Banning will deny a user from creating an account or logging in.
       operationId: postinternalUserBan
       responses:
@@ -2614,124 +2694,158 @@ paths:
               - bannedBy
               additionalProperties: false
         required: true
+      summary: Postinternal user ban
+      x-summary-source: derived
 components:
   schemas:
-    namespace:
-      type: string
-      minLength: 3
-      maxLength: 50
-      pattern: ^[a-zA-Z0-9-_]+$
-    team-billing-summary:
+    timestamp:
+      type: integer
+      minimum: 0
+      maximum: 9007199254740991
+    project-icon-info:
       type: object
       properties:
-        invoices:
-          default: []
-          type: array
-          items:
-            $ref: '#/components/schemas/billing-invoice'
-        address:
-          anyOf:
-          - type: string
-          - type: 'null'
-        card:
-          anyOf:
-          - $ref: '#/components/schemas/card'
-          - type: 'null'
-        billingInfo:
-          $ref: '#/components/schemas/billing-info'
-      required:
-      - invoices
-      - address
-      - card
-      - billingInfo
-      additionalProperties: false
-    project-version:
-      type: object
-      properties:
-        uid:
-          $ref: '#/components/schemas/nanoid'
-        name:
-          default: Default Version
-          type: string
-        primaryGuideId:
-          type: string
-        primaryReferenceId:
-          type: string
-        references:
-          type: object
-          propertyNames:
-            type: string
-          additionalProperties:
-            $ref: '#/components/schemas/reference'
-        guides:
-          type: object
-          propertyNames:
-            type: string
-          additionalProperties:
-            $ref: '#/components/schemas/guide'
-        header:
-          type: array
-          items:
-            $ref: '#/components/schemas/header-link'
-        footer:
+        src:
           default: ''
           type: string
-        footerCss:
-          default: ''
+        title:
           type: string
-        footerBelowSidebar:
-          default: false
+        mask:
           type: boolean
-        headScript:
-          default: ''
-          type: string
-        bodyScript:
-          default: ''
-          type: string
       required:
-      - uid
-      - name
-      - primaryGuideId
-      - primaryReferenceId
-      - references
-      - guides
-      - header
-      - footer
-      - footerCss
-      - footerBelowSidebar
-      - headScript
-      - bodyScript
+      - src
       additionalProperties: false
-    team-image:
-      type: string
-    guide:
+    sidebar-page:
       type: object
       properties:
         uid:
           $ref: '#/components/schemas/nanoid'
         title:
           type: string
+          minLength: 1
+        type:
+          type: string
+          const: Page
+        link:
+          type: string
+        icon:
+          $ref: '#/components/schemas/project-icon'
+        children:
+          default: []
+          type: array
+          items:
+            type: string
         description:
           type: string
-        sidebar:
-          $ref: '#/components/schemas/sidebar'
         show:
-          default: true
           type: boolean
-        isButton:
+        sidebarTitle:
+          type: string
+        defaultOpen:
+          type: boolean
+        yjsReference:
+          type: string
+        backgroundImage:
+          type: string
+        isMdx:
           default: false
           type: boolean
-        isStarred:
+        isHtml:
           default: false
           type: boolean
       required:
       - uid
       - title
+      - type
+      - children
       - description
-      - sidebar
       - show
-      - isButton
+      - yjsReference
+      - isMdx
+      - isHtml
+      additionalProperties: false
+    header-link-spacer:
+      type: object
+      properties:
+        uid:
+          $ref: '#/components/schemas/nanoid'
+        title:
+          type: string
+        show:
+          default: true
+          type: boolean
+        isStarred:
+          default: false
+          type: boolean
+        type:
+          type: string
+          const: spacer
+      required:
+      - uid
+      - title
+      - show
       - isStarred
+      - type
+      additionalProperties: false
+    sidebar-link:
+      type: object
+      properties:
+        uid:
+          $ref: '#/components/schemas/nanoid'
+        title:
+          type: string
+          minLength: 1
+        type:
+          type: string
+          const: Link
+        link:
+          type: string
+        icon:
+          $ref: '#/components/schemas/project-icon'
+        children:
+          type: array
+          items:
+            type: string
+        description:
+          type: string
+        show:
+          type: boolean
+      required:
+      - uid
+      - title
+      - type
+      - link
+      - show
+      additionalProperties: false
+    header-link-external:
+      type: object
+      properties:
+        uid:
+          $ref: '#/components/schemas/nanoid'
+        title:
+          type: string
+        show:
+          default: true
+          type: boolean
+        isStarred:
+          default: false
+          type: boolean
+        type:
+          type: string
+          const: link
+        isButton:
+          default: false
+          type: boolean
+        link:
+          type: string
+      required:
+      - uid
+      - title
+      - show
+      - isStarred
+      - type
+      - isButton
+      - link
       additionalProperties: false
     invoice-status:
       type: string
@@ -2741,22 +2855,65 @@ components:
       - draft
       - void
       - uncollectible
-    sidebar:
+    header-link:
+      anyOf:
+      - $ref: '#/components/schemas/header-link-guide'
+      - $ref: '#/components/schemas/header-link-reference'
+      - $ref: '#/components/schemas/header-link-group'
+      - $ref: '#/components/schemas/header-link-external'
+      - $ref: '#/components/schemas/header-link-version-selector'
+      - $ref: '#/components/schemas/header-link-spacer'
+    custom-project-icon:
       type: object
       properties:
-        items:
-          type: object
-          propertyNames:
-            type: string
-          additionalProperties:
-            $ref: '#/components/schemas/sidebar-item'
-        children:
+        src:
+          default: ''
+          type: string
+        title:
+          type: string
+        mask:
+          type: boolean
+        tags:
+          default: []
           type: array
           items:
             type: string
+        group:
+          type: string
+          const: custom
+        createdAt:
+          $ref: '#/components/schemas/timestamp'
+        uploadedBy:
+          type: string
       required:
-      - items
-      - children
+      - src
+      - tags
+      - group
+      - createdAt
+      - uploadedBy
+      additionalProperties: false
+    header-link-guide:
+      type: object
+      properties:
+        uid:
+          $ref: '#/components/schemas/nanoid'
+        title:
+          type: string
+        show:
+          default: true
+          type: boolean
+        isStarred:
+          default: false
+          type: boolean
+        type:
+          type: string
+          const: guide
+      required:
+      - uid
+      - title
+      - show
+      - isStarred
+      - type
       additionalProperties: false
     project:
       type: object
@@ -2847,37 +3004,9 @@ components:
       - website
       - insertPageTitles
       additionalProperties: false
-    header-link-guide:
-      type: object
-      properties:
-        uid:
-          $ref: '#/components/schemas/nanoid'
-        title:
-          type: string
-        show:
-          default: true
-          type: boolean
-        isStarred:
-          default: false
-          type: boolean
-        type:
-          type: string
-          const: guide
-      required:
-      - uid
-      - title
-      - show
-      - isStarred
-      - type
-      additionalProperties: false
-    role:
+    team-name:
       type: string
-      enum:
-      - owner
-      - admin
-      - editor
-      - viewer
-    header-link-external:
+    header-link-group:
       type: object
       properties:
         uid:
@@ -2892,151 +3021,91 @@ components:
           type: boolean
         type:
           type: string
-          const: link
-        isButton:
-          default: false
-          type: boolean
-        link:
-          type: string
-      required:
-      - uid
-      - title
-      - show
-      - isStarred
-      - type
-      - isButton
-      - link
-      additionalProperties: false
-    '500':
-      type: object
-      properties:
-        message:
-          type: string
-        code:
-          type: string
-      required:
-      - message
-      - code
-    sidebar-page:
-      type: object
-      properties:
-        uid:
-          $ref: '#/components/schemas/nanoid'
-        title:
-          type: string
-          minLength: 1
-        type:
-          type: string
-          const: Page
-        link:
-          type: string
-        icon:
-          $ref: '#/components/schemas/project-icon'
+          const: group
         children:
-          default: []
           type: array
           items:
-            type: string
-        description:
-          type: string
-        show:
-          type: boolean
-        sidebarTitle:
-          type: string
-        defaultOpen:
-          type: boolean
-        yjsReference:
-          type: string
-        backgroundImage:
-          type: string
-        isMdx:
-          default: false
-          type: boolean
-        isHtml:
-          default: false
-          type: boolean
+            anyOf:
+            - $ref: '#/components/schemas/header-link-guide'
+            - $ref: '#/components/schemas/header-link-reference'
+            - $ref: '#/components/schemas/header-link-external'
+          description: Children of the group. Groups cannot contain other groups, spacers, or the version selector
       required:
       - uid
       - title
+      - show
+      - isStarred
       - type
       - children
-      - description
-      - show
-      - yjsReference
-      - isMdx
-      - isHtml
       additionalProperties: false
-    '400':
+    feature-flag:
       type: object
       properties:
-        message:
-          type: string
-        code:
-          type: string
-      required:
-      - message
-      - code
-    reference-managed-doc:
-      type: object
-      properties:
-        namespace:
-          $ref: '#/components/schemas/namespace'
-        slug:
-          $ref: '#/components/schemas/slug'
-        versions:
-          default:
-          - latest
-          type: array
-          items:
-            type: string
-      required:
-      - namespace
-      - slug
-      - versions
+        rules:
+          $ref: '#/components/schemas/feature'
+        registry:
+          $ref: '#/components/schemas/feature'
+        schemas:
+          $ref: '#/components/schemas/feature'
+        sdk:
+          $ref: '#/components/schemas/feature'
+        cli:
+          $ref: '#/components/schemas/feature'
+        agent:
+          $ref: '#/components/schemas/feature'
+        workspaces:
+          $ref: '#/components/schemas/feature'
+        mcp:
+          $ref: '#/components/schemas/feature'
+        export:
+          $ref: '#/components/schemas/feature'
+        docsMcp:
+          $ref: '#/components/schemas/feature'
+        disableApiSSR:
+          $ref: '#/components/schemas/feature'
+        unifiedDocs:
+          $ref: '#/components/schemas/feature'
+        docsAnalytics:
+          $ref: '#/components/schemas/feature'
+        mcpAnalytics:
+          $ref: '#/components/schemas/feature'
       additionalProperties: false
-    custom-project-icon:
+    namespace:
+      type: string
+      minLength: 3
+      maxLength: 50
+      pattern: ^[a-zA-Z0-9-_]+$
+    slug:
+      type: string
+      minLength: 3
+      maxLength: 60
+      pattern: ^[a-z](?:[a-z0-9-]*[a-z0-9])?$
+    active-deployment:
       type: object
       properties:
-        src:
-          default: ''
+        uid:
           type: string
-        title:
+        domain:
           type: string
-        mask:
-          type: boolean
-        tags:
-          default: []
-          type: array
-          items:
-            type: string
-        group:
-          type: string
-          const: custom
-        createdAt:
+        publishedAt:
           $ref: '#/components/schemas/timestamp'
-        uploadedBy:
-          type: string
       required:
-      - src
-      - tags
-      - group
-      - createdAt
-      - uploadedBy
+      - uid
+      - domain
+      - publishedAt
       additionalProperties: false
-    timestamp:
-      type: integer
-      minimum: 0
-      maximum: 9007199254740991
-    '422':
-      type: object
-      properties:
-        message:
-          type: string
-        code:
-          type: string
-      required:
-      - message
-      - code
+    billing-plan:
+      type: string
+      enum:
+      - trial
+      - free
+      - pro_monthly
+      - pro_yearly
+      - premium
+      - enterprise
+    nanoid:
+      type: string
+      minLength: 5
     header-link-reference:
       type: object
       properties:
@@ -3070,6 +3139,134 @@ components:
       - hasPermalink
       - hasManagedDoc
       additionalProperties: false
+    role:
+      type: string
+      enum:
+      - owner
+      - admin
+      - editor
+      - viewer
+    '403':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+    card:
+      type: object
+      properties:
+        last4:
+          type: string
+          minLength: 4
+          maxLength: 4
+        expMonth:
+          type: number
+        expYear:
+          type: number
+      required:
+      - last4
+      - expMonth
+      - expYear
+      additionalProperties: false
+    header-link-version-selector:
+      type: object
+      properties:
+        uid:
+          $ref: '#/components/schemas/nanoid'
+        title:
+          type: string
+        show:
+          default: true
+          type: boolean
+        isStarred:
+          default: false
+          type: boolean
+        type:
+          type: string
+          const: version-selector
+      required:
+      - uid
+      - title
+      - show
+      - isStarred
+      - type
+      additionalProperties: false
+    team-billing-summary:
+      type: object
+      properties:
+        invoices:
+          default: []
+          type: array
+          items:
+            $ref: '#/components/schemas/billing-invoice'
+        address:
+          anyOf:
+          - type: string
+          - type: 'null'
+        card:
+          anyOf:
+          - $ref: '#/components/schemas/card'
+          - type: 'null'
+        billingInfo:
+          $ref: '#/components/schemas/billing-info'
+      required:
+      - invoices
+      - address
+      - card
+      - billingInfo
+      additionalProperties: false
+    guide:
+      type: object
+      properties:
+        uid:
+          $ref: '#/components/schemas/nanoid'
+        title:
+          type: string
+        description:
+          type: string
+        sidebar:
+          $ref: '#/components/schemas/sidebar'
+        show:
+          default: true
+          type: boolean
+        isButton:
+          default: false
+          type: boolean
+        isStarred:
+          default: false
+          type: boolean
+      required:
+      - uid
+      - title
+      - description
+      - sidebar
+      - show
+      - isButton
+      - isStarred
+      additionalProperties: false
+    team-image:
+      type: string
+    feature:
+      type: boolean
+    '500':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+    sidebar-item:
+      anyOf:
+      - $ref: '#/components/schemas/sidebar-link'
+      - $ref: '#/components/schemas/sidebar-page'
+      - $ref: '#/components/schemas/sidebar-folder'
     sidebar-folder:
       type: object
       properties:
@@ -3103,8 +3300,191 @@ components:
       - children
       - show
       additionalProperties: false
-    feature:
-      type: boolean
+    '401':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+    sidebar:
+      type: object
+      properties:
+        items:
+          type: object
+          propertyNames:
+            type: string
+          additionalProperties:
+            $ref: '#/components/schemas/sidebar-item'
+        children:
+          type: array
+          items:
+            type: string
+      required:
+      - items
+      - children
+      additionalProperties: false
+    billing-invoice:
+      type: object
+      properties:
+        id:
+          type: string
+        total:
+          type: number
+        status:
+          anyOf:
+          - $ref: '#/components/schemas/invoice-status'
+          - type: 'null'
+        paymentDate:
+          type: number
+        currency:
+          type: string
+        downloadUrl:
+          anyOf:
+          - type: string
+          - type: 'null'
+      required:
+      - id
+      - total
+      - status
+      - paymentDate
+      - currency
+      additionalProperties: false
+    project-version:
+      type: object
+      properties:
+        uid:
+          $ref: '#/components/schemas/nanoid'
+        name:
+          default: Default Version
+          type: string
+        primaryGuideId:
+          type: string
+        primaryReferenceId:
+          type: string
+        references:
+          type: object
+          propertyNames:
+            type: string
+          additionalProperties:
+            $ref: '#/components/schemas/reference'
+        guides:
+          type: object
+          propertyNames:
+            type: string
+          additionalProperties:
+            $ref: '#/components/schemas/guide'
+        header:
+          type: array
+          items:
+            $ref: '#/components/schemas/header-link'
+        footer:
+          default: ''
+          type: string
+        footerCss:
+          default: ''
+          type: string
+        footerBelowSidebar:
+          default: false
+          type: boolean
+        headScript:
+          default: ''
+          type: string
+        bodyScript:
+          default: ''
+          type: string
+      required:
+      - uid
+      - name
+      - primaryGuideId
+      - primaryReferenceId
+      - references
+      - guides
+      - header
+      - footer
+      - footerCss
+      - footerBelowSidebar
+      - headScript
+      - bodyScript
+      additionalProperties: false
+    '422':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+    reference:
+      type: object
+      properties:
+        uid:
+          $ref: '#/components/schemas/nanoid'
+        title:
+          type: string
+        description:
+          type: string
+        yjsReference:
+          $ref: '#/components/schemas/nanoid'
+        config:
+          default: '{}'
+          type: string
+        specPermalink:
+          default: ''
+          type: string
+        managedDoc:
+          default: null
+          anyOf:
+          - $ref: '#/components/schemas/reference-managed-doc'
+          - type: 'null'
+        show:
+          default: true
+          type: boolean
+        isButton:
+          default: false
+          type: boolean
+        isStarred:
+          default: false
+          type: boolean
+      required:
+      - uid
+      - title
+      - description
+      - yjsReference
+      - config
+      - specPermalink
+      - managedDoc
+      - show
+      - isButton
+      - isStarred
+      additionalProperties: false
+    reference-managed-doc:
+      type: object
+      properties:
+        namespace:
+          $ref: '#/components/schemas/namespace'
+        slug:
+          $ref: '#/components/schemas/slug'
+        versions:
+          default:
+          - latest
+          type: array
+          items:
+            type: string
+      required:
+      - namespace
+      - slug
+      - versions
+      additionalProperties: false
+    email:
+      type: string
+      format: email
+      pattern: ^(?!\.)(?!.*\.\.)([A-Za-z0-9_'+\-\.]*)[A-Za-z0-9_+-]@([A-Za-z0-9][A-Za-z0-9\-]*\.)+[A-Za-z]{2,}$
     website:
       type: object
       properties:
@@ -3159,9 +3539,6 @@ components:
       - routing
       - redirects
       additionalProperties: false
-    nanoid:
-      type: string
-      minLength: 5
     '404':
       type: object
       properties:
@@ -3172,88 +3549,6 @@ components:
       required:
       - message
       - code
-    header-link-spacer:
-      type: object
-      properties:
-        uid:
-          $ref: '#/components/schemas/nanoid'
-        title:
-          type: string
-        show:
-          default: true
-          type: boolean
-        isStarred:
-          default: false
-          type: boolean
-        type:
-          type: string
-          const: spacer
-      required:
-      - uid
-      - title
-      - show
-      - isStarred
-      - type
-      additionalProperties: false
-    active-deployment:
-      type: object
-      properties:
-        uid:
-          type: string
-        domain:
-          type: string
-        publishedAt:
-          $ref: '#/components/schemas/timestamp'
-      required:
-      - uid
-      - domain
-      - publishedAt
-      additionalProperties: false
-    reference:
-      type: object
-      properties:
-        uid:
-          $ref: '#/components/schemas/nanoid'
-        title:
-          type: string
-        description:
-          type: string
-        yjsReference:
-          $ref: '#/components/schemas/nanoid'
-        config:
-          default: '{}'
-          type: string
-        specPermalink:
-          default: ''
-          type: string
-        managedDoc:
-          default: null
-          anyOf:
-          - $ref: '#/components/schemas/reference-managed-doc'
-          - type: 'null'
-        show:
-          default: true
-          type: boolean
-        isButton:
-          default: false
-          type: boolean
-        isStarred:
-          default: false
-          type: boolean
-      required:
-      - uid
-      - title
-      - description
-      - yjsReference
-      - config
-      - specPermalink
-      - managedDoc
-      - show
-      - isButton
-      - isStarred
-      additionalProperties: false
-    project-icon:
-      $ref: '#/components/schemas/project-icon-info'
     logo:
       type: object
       properties:
@@ -3265,246 +3560,8 @@ components:
       - darkMode
       - lightMode
       additionalProperties: false
-    sidebar-link:
-      type: object
-      properties:
-        uid:
-          $ref: '#/components/schemas/nanoid'
-        title:
-          type: string
-          minLength: 1
-        type:
-          type: string
-          const: Link
-        link:
-          type: string
-        icon:
-          $ref: '#/components/schemas/project-icon'
-        children:
-          type: array
-          items:
-            type: string
-        description:
-          type: string
-        show:
-          type: boolean
-      required:
-      - uid
-      - title
-      - type
-      - link
-      - show
-      additionalProperties: false
-    card:
-      type: object
-      properties:
-        last4:
-          type: string
-          minLength: 4
-          maxLength: 4
-        expMonth:
-          type: number
-        expYear:
-          type: number
-      required:
-      - last4
-      - expMonth
-      - expYear
-      additionalProperties: false
-    '403':
-      type: object
-      properties:
-        message:
-          type: string
-        code:
-          type: string
-      required:
-      - message
-      - code
-    header-link:
-      anyOf:
-      - $ref: '#/components/schemas/header-link-guide'
-      - $ref: '#/components/schemas/header-link-reference'
-      - $ref: '#/components/schemas/header-link-group'
-      - $ref: '#/components/schemas/header-link-external'
-      - $ref: '#/components/schemas/header-link-version-selector'
-      - $ref: '#/components/schemas/header-link-spacer'
-    header-link-group:
-      type: object
-      properties:
-        uid:
-          $ref: '#/components/schemas/nanoid'
-        title:
-          type: string
-        show:
-          default: true
-          type: boolean
-        isStarred:
-          default: false
-          type: boolean
-        type:
-          type: string
-          const: group
-        children:
-          type: array
-          items:
-            anyOf:
-            - $ref: '#/components/schemas/header-link-guide'
-            - $ref: '#/components/schemas/header-link-reference'
-            - $ref: '#/components/schemas/header-link-external'
-          description: Children of the group. Groups cannot contain other groups, spacers, or the version selector
-      required:
-      - uid
-      - title
-      - show
-      - isStarred
-      - type
-      - children
-      additionalProperties: false
-    billing-info:
-      type: object
-      properties:
-        billingId:
-          $ref: '#/components/schemas/nanoid'
-        email:
-          $ref: '#/components/schemas/email'
-        plan:
-          $ref: '#/components/schemas/billing-plan'
-        expires:
-          type: number
-      required:
-      - email
-      - plan
-      additionalProperties: false
-    sidebar-item:
-      anyOf:
-      - $ref: '#/components/schemas/sidebar-link'
-      - $ref: '#/components/schemas/sidebar-page'
-      - $ref: '#/components/schemas/sidebar-folder'
-    billing-plan:
-      type: string
-      enum:
-      - trial
-      - free
-      - pro_monthly
-      - pro_yearly
-      - premium
-      - enterprise
-    billing-invoice:
-      type: object
-      properties:
-        id:
-          type: string
-        total:
-          type: number
-        status:
-          anyOf:
-          - $ref: '#/components/schemas/invoice-status'
-          - type: 'null'
-        paymentDate:
-          type: number
-        currency:
-          type: string
-        downloadUrl:
-          anyOf:
-          - type: string
-          - type: 'null'
-      required:
-      - id
-      - total
-      - status
-      - paymentDate
-      - currency
-      additionalProperties: false
-    header-link-version-selector:
-      type: object
-      properties:
-        uid:
-          $ref: '#/components/schemas/nanoid'
-        title:
-          type: string
-        show:
-          default: true
-          type: boolean
-        isStarred:
-          default: false
-          type: boolean
-        type:
-          type: string
-          const: version-selector
-      required:
-      - uid
-      - title
-      - show
-      - isStarred
-      - type
-      additionalProperties: false
-    team-name:
-      type: string
-    feature-flag:
-      type: object
-      properties:
-        rules:
-          $ref: '#/components/schemas/feature'
-        registry:
-          $ref: '#/components/schemas/feature'
-        schemas:
-          $ref: '#/components/schemas/feature'
-        sdk:
-          $ref: '#/components/schemas/feature'
-        cli:
-          $ref: '#/components/schemas/feature'
-        agent:
-          $ref: '#/components/schemas/feature'
-        workspaces:
-          $ref: '#/components/schemas/feature'
-        mcp:
-          $ref: '#/components/schemas/feature'
-        export:
-          $ref: '#/components/schemas/feature'
-        docsMcp:
-          $ref: '#/components/schemas/feature'
-        disableApiSSR:
-          $ref: '#/components/schemas/feature'
-        unifiedDocs:
-          $ref: '#/components/schemas/feature'
-        docsAnalytics:
-          $ref: '#/components/schemas/feature'
-        mcpAnalytics:
-          $ref: '#/components/schemas/feature'
-      additionalProperties: false
-    slug:
-      type: string
-      minLength: 3
-      maxLength: 60
-      pattern: ^[a-z](?:[a-z0-9-]*[a-z0-9])?$
-    '401':
-      type: object
-      properties:
-        message:
-          type: string
-        code:
-          type: string
-      required:
-      - message
-      - code
-    project-icon-info:
-      type: object
-      properties:
-        src:
-          default: ''
-          type: string
-        title:
-          type: string
-        mask:
-          type: boolean
-      required:
-      - src
-      additionalProperties: false
-    email:
-      type: string
-      format: email
-      pattern: ^(?!\.)(?!.*\.\.)([A-Za-z0-9_'+\-\.]*)[A-Za-z0-9_+-]@([A-Za-z0-9][A-Za-z0-9\-]*\.)+[A-Za-z]{2,}$
+    project-icon:
+      $ref: '#/components/schemas/project-icon-info'
     team-list-mine-entry:
       type: object
       properties:
@@ -3523,6 +3580,31 @@ components:
       - name
       - slug
       - theme
+      additionalProperties: false
+    '400':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+    billing-info:
+      type: object
+      properties:
+        billingId:
+          $ref: '#/components/schemas/nanoid'
+        email:
+          $ref: '#/components/schemas/email'
+        plan:
+          $ref: '#/components/schemas/billing-plan'
+        expires:
+          type: number
+      required:
+      - email
+      - plan
       additionalProperties: false
   securitySchemes:
     BearerAuth:

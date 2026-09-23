@@ -1,6 +1,6 @@
-openapi: 3.1.1
+openapi: 3.2.0
 info:
-  title: Core access-groups share API
+  title: Core Share API
   description: Core services for Scalar
   version: 1.0.1
   contact:
@@ -10,12 +10,12 @@ info:
 security:
 - BearerAuth: []
 tags:
-- name: share
+- name: Share
 paths:
   /share/upload/{namespace}:
     post:
       tags:
-      - share
+      - Share
       description: Upload a document to the reserved share namespace
       operationId: postshareUploadNamespace
       responses:
@@ -102,8 +102,20 @@ paths:
         in: query
         name: source
         required: false
+      summary: Postshare upload namespace
+      x-summary-source: derived
 components:
   schemas:
+    '500':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
     '404':
       type: object
       properties:
@@ -124,7 +136,7 @@ components:
       required:
       - message
       - code
-    '500':
+    '403':
       type: object
       properties:
         message:
@@ -135,16 +147,6 @@ components:
       - message
       - code
     '400':
-      type: object
-      properties:
-        message:
-          type: string
-        code:
-          type: string
-      required:
-      - message
-      - code
-    '403':
       type: object
       properties:
         message:

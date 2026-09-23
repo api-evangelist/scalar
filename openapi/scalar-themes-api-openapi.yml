@@ -1,6 +1,6 @@
-openapi: 3.1.1
+openapi: 3.2.0
 info:
-  title: Core access-groups themes API
+  title: Core Themes API
   description: Core services for Scalar
   version: 1.0.1
   contact:
@@ -10,12 +10,12 @@ info:
 security:
 - BearerAuth: []
 tags:
-- name: themes
+- name: Themes
 paths:
   /themes/{slug}:
     get:
       tags:
-      - themes
+      - Themes
       description: Get a theme document by slug
       operationId: getthemesSlug
       responses:
@@ -67,9 +67,11 @@ paths:
         in: path
         name: slug
         required: true
+      summary: Getthemes slug
+      x-summary-source: derived
     patch:
       tags:
-      - themes
+      - Themes
       description: Update themes metadata
       operationId: patchthemesSlug
       responses:
@@ -135,9 +137,11 @@ paths:
         in: path
         name: slug
         required: true
+      summary: Patchthemes slug
+      x-summary-source: derived
     put:
       tags:
-      - themes
+      - Themes
       description: Update themes document
       operationId: putthemesSlug
       responses:
@@ -201,9 +205,11 @@ paths:
         in: path
         name: slug
         required: true
+      summary: Putthemes slug
+      x-summary-source: derived
     delete:
       tags:
-      - themes
+      - Themes
       description: Delete a specific themes
       operationId: deletethemesSlug
       responses:
@@ -255,10 +261,12 @@ paths:
         in: path
         name: slug
         required: true
+      summary: Deletethemes slug
+      x-summary-source: derived
   /themes:
     get:
       tags:
-      - themes
+      - Themes
       description: Get a list of all themes for the team
       operationId: getthemes
       responses:
@@ -321,9 +329,11 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/500'
+      summary: Getthemes
+      x-summary-source: derived
     post:
       tags:
-      - themes
+      - Themes
       description: Create a new theme for the team
       operationId: postthemes
       responses:
@@ -397,10 +407,12 @@ paths:
               - slug
               additionalProperties: false
         required: true
+      summary: Postthemes
+      x-summary-source: derived
   /pubsub/theme-updated:
     post:
       tags:
-      - themes
+      - Themes
       description: PubSub theme updated route
       operationId: postpubsubThemeUpdated
       responses:
@@ -464,10 +476,12 @@ paths:
               - after
               additionalProperties: false
         required: true
+      summary: Postpubsub theme updated
+      x-summary-source: derived
   /pubsub/theme-deleted:
     post:
       tags:
-      - themes
+      - Themes
       description: PubSub theme deleted route
       operationId: postpubsubThemeDeleted
       responses:
@@ -528,31 +542,25 @@ paths:
               - theme
               additionalProperties: false
         required: true
+      summary: Postpubsub theme deleted
+      x-summary-source: derived
 components:
   schemas:
-    theme:
+    '500':
       type: object
       properties:
-        uid:
-          $ref: '#/components/schemas/nanoid'
-        name:
+        message:
           type: string
-        description:
+        code:
           type: string
-        theme:
-          type: string
-        slug:
-          $ref: '#/components/schemas/slug'
       required:
-      - uid
-      - name
-      - description
-      - theme
-      - slug
-      additionalProperties: false
-    nanoid:
+      - message
+      - code
+    slug:
       type: string
-      minLength: 5
+      minLength: 3
+      maxLength: 60
+      pattern: ^[a-z](?:[a-z0-9-]*[a-z0-9])?$
     '404':
       type: object
       properties:
@@ -573,32 +581,40 @@ components:
       required:
       - message
       - code
-    slug:
+    nanoid:
       type: string
-      minLength: 3
-      maxLength: 60
-      pattern: ^[a-z](?:[a-z0-9-]*[a-z0-9])?$
-    '500':
-      type: object
-      properties:
-        message:
-          type: string
-        code:
-          type: string
-      required:
-      - message
-      - code
-    '400':
-      type: object
-      properties:
-        message:
-          type: string
-        code:
-          type: string
-      required:
-      - message
-      - code
+      minLength: 5
     '403':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+    theme:
+      type: object
+      properties:
+        uid:
+          $ref: '#/components/schemas/nanoid'
+        name:
+          type: string
+        description:
+          type: string
+        theme:
+          type: string
+        slug:
+          $ref: '#/components/schemas/slug'
+      required:
+      - uid
+      - name
+      - description
+      - theme
+      - slug
+      additionalProperties: false
+    '400':
       type: object
       properties:
         message:

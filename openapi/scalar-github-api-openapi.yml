@@ -1,6 +1,6 @@
-openapi: 3.1.1
+openapi: 3.2.0
 info:
-  title: Core access-groups github API
+  title: Core Github API
   description: Core services for Scalar
   version: 1.0.1
   contact:
@@ -10,12 +10,12 @@ info:
 security:
 - BearerAuth: []
 tags:
-- name: github
+- name: Github
 paths:
   /github/authorize:
     get:
       tags:
-      - github
+      - Github
       description: Get and save a user github token to their database object. This allows subsequent queries for github data from the users scope.
       operationId: getgithubAuthorize
       responses:
@@ -73,10 +73,12 @@ paths:
         in: query
         name: state
         required: true
+      summary: Getgithub authorize
+      x-summary-source: derived
   /github/link/initiate:
     get:
       tags:
-      - github
+      - Github
       description: Issue a signed OAuth state token for the GitHub user-authorization flow and return the GitHub authorize URL the client should redirect to. Optionally remembers a dashboard path to return the user to after the round-trip.
       operationId: getgithubLinkInitiate
       responses:
@@ -134,10 +136,12 @@ paths:
         in: query
         name: redirect
         required: false
+      summary: Getgithub link initiate
+      x-summary-source: derived
   /github/repos:
     get:
       tags:
-      - github
+      - Github
       description: Get a list of repositories that can be linked to a project
       operationId: getgithubRepos
       responses:
@@ -185,10 +189,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/500'
+      summary: Getgithub repos
+      x-summary-source: derived
   /github/repos/{id}:
     get:
       tags:
-      - github
+      - Github
       description: Get repository info
       operationId: getgithubReposId
       responses:
@@ -256,10 +262,12 @@ paths:
         in: path
         name: id
         required: true
+      summary: Getgithub repos id
+      x-summary-source: derived
   /github/link-repo:
     post:
       tags:
-      - github
+      - Github
       description: Links a github repo to a Scalar github project
       operationId: postgithubLinkRepo
       responses:
@@ -348,10 +356,12 @@ paths:
               - accessGroups
               additionalProperties: false
         required: true
+      summary: Postgithub link repo
+      x-summary-source: derived
   /github/docs-project/{uid}/commits:
     get:
       tags:
-      - github
+      - Github
       description: 'List commits from the GitHub repo backing a `provider: github` DocsProject'
       operationId: getgithubDocsProjectUidCommits
       responses:
@@ -440,10 +450,12 @@ paths:
         in: query
         name: perPage
         required: true
+      summary: Getgithub docs project uid commits
+      x-summary-source: derived
   /github/docs-project/{uid}/branches:
     get:
       tags:
-      - github
+      - Github
       description: 'List branches on the GitHub repo backing a `provider: github` DocsProject. Supports prefix search.'
       operationId: getgithubDocsProjectUidBranches
       responses:
@@ -532,10 +544,12 @@ paths:
         in: query
         name: perPage
         required: true
+      summary: Getgithub docs project uid branches
+      x-summary-source: derived
   /github/docs-project/{uid}/pull-request:
     post:
       tags:
-      - github
+      - Github
       description: 'Create a pull request on the GitHub repo backing a `provider: github` DocsProject'
       operationId: postgithubDocsProjectUidPullRequest
       responses:
@@ -626,10 +640,12 @@ paths:
         in: path
         name: uid
         required: true
+      summary: Postgithub docs project uid pull request
+      x-summary-source: derived
   /github/slug/available:
     post:
       tags:
-      - github
+      - Github
       description: Check if github slug is available
       operationId: postgithubSlugAvailable
       responses:
@@ -693,10 +709,12 @@ paths:
               - slug
               additionalProperties: false
         required: true
+      summary: Postgithub slug available
+      x-summary-source: derived
   /github/slug:
     post:
       tags:
-      - github
+      - Github
       description: Update a github project slug
       operationId: postgithubSlug
       responses:
@@ -757,10 +775,12 @@ paths:
               - slug
               additionalProperties: false
         required: true
+      summary: Postgithub slug
+      x-summary-source: derived
   /github/create:
     post:
       tags:
-      - github
+      - Github
       description: Create a github project that is not linked to a github repo. This project will be used by the cli flow.
       operationId: postgithubCreate
       responses:
@@ -853,10 +873,12 @@ paths:
               - accessGroups
               additionalProperties: false
         required: true
+      summary: Postgithub create
+      x-summary-source: derived
   /github/unlink-repo:
     post:
       tags:
-      - github
+      - Github
       description: Unlink a github repo from a Scalar github project
       operationId: postgithubUnlinkRepo
       responses:
@@ -914,10 +936,12 @@ paths:
               - uid
               additionalProperties: false
         required: true
+      summary: Postgithub unlink repo
+      x-summary-source: derived
   /github/config/validate:
     post:
       tags:
-      - github
+      - Github
       description: Validate configuration file for a github project
       operationId: postgithubConfigValidate
       responses:
@@ -1012,10 +1036,12 @@ paths:
               - projectId
               additionalProperties: false
         required: true
+      summary: Postgithub config validate
+      x-summary-source: derived
   /github/{slug}:
     get:
       tags:
-      - github
+      - Github
       description: Get a github project.
       operationId: getgithubSlug
       responses:
@@ -1067,10 +1093,12 @@ paths:
         in: path
         name: slug
         required: true
+      summary: Getgithub slug
+      x-summary-source: derived
   /github/list-projects:
     get:
       tags:
-      - github
+      - Github
       description: Get github projects for the team
       operationId: getgithubListProjects
       responses:
@@ -1118,10 +1146,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/500'
+      summary: Getgithub list projects
+      x-summary-source: derived
   /github/delete:
     post:
       tags:
-      - github
+      - Github
       description: Deletes a Github project
       operationId: postgithubDelete
       responses:
@@ -1179,8 +1209,63 @@ paths:
               - projectUid
               additionalProperties: false
         required: true
+      summary: Postgithub delete
+      x-summary-source: derived
 components:
   schemas:
+    timestamp:
+      type: integer
+      minimum: 0
+      maximum: 9007199254740991
+    '500':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+    slug:
+      type: string
+      minLength: 3
+      maxLength: 60
+      pattern: ^[a-z](?:[a-z0-9-]*[a-z0-9])?$
+    active-deployment:
+      type: object
+      properties:
+        uid:
+          type: string
+        domain:
+          type: string
+        publishedAt:
+          $ref: '#/components/schemas/timestamp'
+      required:
+      - uid
+      - domain
+      - publishedAt
+      additionalProperties: false
+    '404':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+    '401':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
     github-project-repository:
       type: object
       properties:
@@ -1220,6 +1305,9 @@ components:
       - prComments
       - expired
       additionalProperties: false
+    nanoid:
+      type: string
+      minLength: 5
     github-install:
       type: object
       properties:
@@ -1251,6 +1339,16 @@ components:
       - name
       - repos
       additionalProperties: false
+    '403':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
     github-project:
       type: object
       properties:
@@ -1329,58 +1427,6 @@ components:
       - publishStatus
       - publishMessage
       additionalProperties: false
-    nanoid:
-      type: string
-      minLength: 5
-    '404':
-      type: object
-      properties:
-        message:
-          type: string
-        code:
-          type: string
-      required:
-      - message
-      - code
-    '401':
-      type: object
-      properties:
-        message:
-          type: string
-        code:
-          type: string
-      required:
-      - message
-      - code
-    slug:
-      type: string
-      minLength: 3
-      maxLength: 60
-      pattern: ^[a-z](?:[a-z0-9-]*[a-z0-9])?$
-    '500':
-      type: object
-      properties:
-        message:
-          type: string
-        code:
-          type: string
-      required:
-      - message
-      - code
-    active-deployment:
-      type: object
-      properties:
-        uid:
-          type: string
-        domain:
-          type: string
-        publishedAt:
-          $ref: '#/components/schemas/timestamp'
-      required:
-      - uid
-      - domain
-      - publishedAt
-      additionalProperties: false
     '400':
       type: object
       properties:
@@ -1391,20 +1437,6 @@ components:
       required:
       - message
       - code
-    '403':
-      type: object
-      properties:
-        message:
-          type: string
-        code:
-          type: string
-      required:
-      - message
-      - code
-    timestamp:
-      type: integer
-      minimum: 0
-      maximum: 9007199254740991
     '422':
       type: object
       properties:

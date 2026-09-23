@@ -1,6 +1,6 @@
-openapi: 3.1.1
+openapi: 3.2.0
 info:
-  title: Core access-groups payment API
+  title: Core Payment API
   description: Core services for Scalar
   version: 1.0.1
   contact:
@@ -10,12 +10,12 @@ info:
 security:
 - BearerAuth: []
 tags:
-- name: payment
+- name: Payment
 paths:
   /stripe:
     post:
       tags:
-      - payment
+      - Payment
       description: Stripe webhook handling
       operationId: poststripe
       responses:
@@ -67,10 +67,12 @@ paths:
             schema:
               $ref: '#/components/schemas/object'
         required: true
+      summary: Poststripe
+      x-summary-source: derived
   /payment/start:
     post:
       tags:
-      - payment
+      - Payment
       description: Create a new stripe checkout session or redirect to the customer billing portal.
       operationId: postpaymentStart
       responses:
@@ -138,10 +140,12 @@ paths:
               - billingPlan
               additionalProperties: false
         required: true
+      summary: Postpayment start
+      x-summary-source: derived
   /payment/billing/start:
     post:
       tags:
-      - payment
+      - Payment
       description: Create a stripe management session for billing management
       operationId: postpaymentBillingStart
       responses:
@@ -197,10 +201,12 @@ paths:
                   type: boolean
               additionalProperties: false
         required: true
+      summary: Postpayment billing start
+      x-summary-source: derived
   /internal/billing/sync-subscription:
     post:
       tags:
-      - payment
+      - Payment
       description: Syncs a teams billable resources with stripe
       operationId: postinternalBillingSyncSubscription
       responses:
@@ -257,10 +263,12 @@ paths:
               - teamUid
               additionalProperties: false
         required: true
+      summary: Postinternal billing sync subscription
+      x-summary-source: derived
   /internal/billing/increment/agent-messages:
     post:
       tags:
-      - payment
+      - Payment
       description: Increments an agent keys message usage in Stripe
       operationId: postinternalBillingIncrementAgentMessages
       responses:
@@ -320,10 +328,12 @@ paths:
               - teamUid
               additionalProperties: false
         required: true
+      summary: Postinternal billing increment agent messages
+      x-summary-source: derived
   /internal/billing/increment/agent-tokens:
     post:
       tags:
-      - payment
+      - Payment
       description: Increments a teams subscription agent token usage
       operationId: postinternalBillingIncrementAgentTokens
       responses:
@@ -386,19 +396,20 @@ paths:
               - teamUid
               additionalProperties: false
         required: true
+      summary: Postinternal billing increment agent tokens
+      x-summary-source: derived
 components:
   schemas:
-    object:
+    '500':
       type: object
-      propertyNames:
-        anyOf:
-        - type: string
-        - type: number
-        - {}
-      additionalProperties: {}
-    nanoid:
-      type: string
-      minLength: 5
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
     '404':
       type: object
       properties:
@@ -419,7 +430,18 @@ components:
       required:
       - message
       - code
-    '500':
+    nanoid:
+      type: string
+      minLength: 5
+    object:
+      type: object
+      propertyNames:
+        anyOf:
+        - type: string
+        - type: number
+        - {}
+      additionalProperties: {}
+    '403':
       type: object
       properties:
         message:
@@ -430,16 +452,6 @@ components:
       - message
       - code
     '400':
-      type: object
-      properties:
-        message:
-          type: string
-        code:
-          type: string
-      required:
-      - message
-      - code
-    '403':
       type: object
       properties:
         message:

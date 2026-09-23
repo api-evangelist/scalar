@@ -1,6 +1,6 @@
-openapi: 3.1.1
+openapi: 3.2.0
 info:
-  title: Core access-groups Internal API
+  title: Core Internal API
   description: Core services for Scalar
   version: 1.0.1
   contact:
@@ -82,11 +82,20 @@ paths:
         required: true
       tags:
       - Internal
+      summary: Postinternal sdk authorize github
+      x-summary-source: derived
 components:
   schemas:
-    nanoid:
-      type: string
-      minLength: 5
+    '500':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
     '404':
       type: object
       properties:
@@ -107,7 +116,10 @@ components:
       required:
       - message
       - code
-    '500':
+    nanoid:
+      type: string
+      minLength: 5
+    '403':
       type: object
       properties:
         message:
@@ -118,16 +130,6 @@ components:
       - message
       - code
     '400':
-      type: object
-      properties:
-        message:
-          type: string
-        code:
-          type: string
-      required:
-      - message
-      - code
-    '403':
       type: object
       properties:
         message:
