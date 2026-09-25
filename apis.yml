@@ -611,6 +611,8 @@ apis:
   - type: OpenAPI
     url: openapi/scalar-sdks-api-openapi.yml
 common:
+- type: VendorFacets
+  url: vendor-facets/scalar-vendor-facets.yml
 - type: AgenticAccess
   url: agentic-access/scalar-agentic-access.yml
 - type: TrustCenter
