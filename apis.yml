@@ -7,16 +7,22 @@ description: Scalar is an open-source API platform built around the OpenAPI stan
   Spring Boot. The platform has 14.9k GitHub stars and is MIT licensed. Scalar is backed by a strong open-source
   community and positions itself as the modern, open alternative to Swagger UI and Postman.
 deliveryModel:
-  model: saas
-  open_source: false
+  model: open-core
+  license: MIT
+  license_evidence:
+    repo: scalar/scalar
+    spdx: MIT
+    stars: 16190
+  open_source: true
   commercial: true
   callable_host: false
-  label: Hosted service · you call their endpoint
+  label: Open core · an OSS project plus a commercial hosted product
   confidence: medium
   source:
   - openapi
   - pricing
-  generated: '2026-08-28'
+  - repository-license
+  generated: '2026-09-25'
   method: derived
 accessModel:
   pricing: freemium
@@ -99,12 +105,17 @@ apis:
   - OpenAPI
   - REST
   - Testing
+  - Developer Tools
+  - Open Source
   tags_raw:
   - API Client
   - Collections
   - OpenAPI
   - REST
   - Testing
+  - Developer Tools
+  - Open Source
+  - Open-Source
   humanURL: https://scalar.com/products/api-client/getting-started
   properties:
   - type: GettingStarted
@@ -115,6 +126,11 @@ apis:
     url: https://scalar.com/download
   - type: GitHub
     url: https://github.com/scalar/scalar
+  - url: https://guides.scalar.com/scalar/scalar-api-client/getting-started
+    type: Documentation
+  - url: https://github.com/scalar/scalar
+    type: SourceCode
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
 - aid: scalar:scalar-docs
   name: Scalar Docs
   description: >-
@@ -148,7 +164,7 @@ apis:
   tags:
   - Git Integration
   - Governance
-  - JSON-Schema
+  - JSON Schema
   - OpenAPI
   - Registry
   - Spectral
@@ -161,6 +177,7 @@ apis:
   - Registry
   - Spectral
   - Versioning
+  - JSON-Schema
   humanURL: https://scalar.com/products/registry/getting-started
   properties:
   - type: GettingStarted
@@ -216,12 +233,15 @@ apis:
   - Mock Servers
   - OpenAPI
   - Validation
+  - Open Source
   tags_raw:
   - CLI
   - Developer Tools
   - Mock Server
   - OpenAPI
   - Validation
+  - Open Source
+  - Open-Source
   humanURL: https://guides.scalar.com/scalar/scalar-cli/getting-started
   properties:
   - type: GettingStarted
@@ -230,8 +250,13 @@ apis:
     url: https://guides.scalar.com/scalar/scalar-cli/getting-started
   - type: NPM
     url: https://www.npmjs.com/package/@scalar/cli
+  - url: https://guides.scalar.com/scalar/scalar-registry/cli
+    type: Documentation
+  - url: https://www.npmjs.com/package/@scalar/cli
+    type: SourceCode
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
 - aid: scalar:scalar-access-groups-api
-  name: Scalar access-groups API
+  name: Scalar Access Groups API
   description: The access-groups API from Scalar — 5 operation(s) for access-groups.
   humanURL: https://scalar.com/products/api-references/getting-started
   tags:
@@ -242,7 +267,7 @@ apis:
   - type: OpenAPI
     url: openapi/scalar-access-groups-api-openapi.yml
 - aid: scalar:scalar-analytics-api
-  name: Scalar analytics API
+  name: Scalar Analytics API
   description: The analytics API from Scalar — 4 operation(s) for analytics.
   humanURL: https://scalar.com/products/api-references/getting-started
   tags:
@@ -253,7 +278,7 @@ apis:
   - type: OpenAPI
     url: openapi/scalar-analytics-api-openapi.yml
 - aid: scalar:scalar-api-docs-api
-  name: Scalar api-docs API
+  name: Scalar API Docs API
   description: The api-docs API from Scalar — 13 operation(s) for api-docs.
   humanURL: https://scalar.com/products/api-references/getting-started
   tags:
@@ -262,7 +287,7 @@ apis:
   - type: OpenAPI
     url: openapi/scalar-api-docs-api-openapi.yml
 - aid: scalar:scalar-auth-api
-  name: Scalar auth API
+  name: Scalar Auth API
   description: The auth API from Scalar — 27 operation(s) for auth.
   humanURL: https://scalar.com/products/api-references/getting-started
   tags:
@@ -273,7 +298,7 @@ apis:
   - type: OpenAPI
     url: openapi/scalar-auth-api-openapi.yml
 - aid: scalar:scalar-docs-api
-  name: Scalar docs API
+  name: Scalar Docs API
   description: The docs API from Scalar — 6 operation(s) for docs.
   humanURL: https://scalar.com/products/api-references/getting-started
   tags:
@@ -302,7 +327,7 @@ apis:
   - type: OpenAPI
     url: openapi/scalar-forgejo-api-openapi.yml
 - aid: scalar:scalar-github-api
-  name: Scalar github API
+  name: Scalar Github API
   description: The github API from Scalar — 16 operation(s) for github.
   humanURL: https://scalar.com/products/api-references/getting-started
   tags:
@@ -322,7 +347,7 @@ apis:
   - type: OpenAPI
     url: openapi/scalar-internal-api-openapi.yml
 - aid: scalar:scalar-login-portals-api
-  name: Scalar login-portals API
+  name: Scalar Login Portals API
   description: The login-portals API from Scalar — 3 operation(s) for login-portals.
   humanURL: https://scalar.com/products/api-references/getting-started
   tags:
@@ -331,7 +356,7 @@ apis:
   - type: OpenAPI
     url: openapi/scalar-login-portals-api-openapi.yml
 - aid: scalar:scalar-payment-api
-  name: Scalar payment API
+  name: Scalar Payment API
   description: The payment API from Scalar — 6 operation(s) for payment.
   humanURL: https://scalar.com/products/api-references/getting-started
   tags:
@@ -342,7 +367,7 @@ apis:
   - type: OpenAPI
     url: openapi/scalar-payment-api-openapi.yml
 - aid: scalar:scalar-publish-api
-  name: Scalar publish API
+  name: Scalar Publish API
   description: The publish API from Scalar — 11 operation(s) for publish.
   humanURL: https://scalar.com/products/api-references/getting-started
   tags:
@@ -353,7 +378,7 @@ apis:
   - type: OpenAPI
     url: openapi/scalar-publish-api-openapi.yml
 - aid: scalar:scalar-pubsub-api
-  name: Scalar pubsub API
+  name: Scalar Pubsub API
   description: The pubsub API from Scalar — 7 operation(s) for pubsub.
   humanURL: https://scalar.com/products/api-references/getting-started
   tags:
@@ -364,7 +389,7 @@ apis:
   - type: OpenAPI
     url: openapi/scalar-pubsub-api-openapi.yml
 - aid: scalar:scalar-rules-api
-  name: Scalar rules API
+  name: Scalar Rules API
   description: The rules API from Scalar — 6 operation(s) for rules.
   humanURL: https://scalar.com/products/api-references/getting-started
   tags:
@@ -375,7 +400,7 @@ apis:
   - type: OpenAPI
     url: openapi/scalar-rules-api-openapi.yml
 - aid: scalar:scalar-schemas-api
-  name: Scalar schemas API
+  name: Scalar Schemas API
   description: The schemas API from Scalar — 7 operation(s) for schemas.
   humanURL: https://scalar.com/products/api-references/getting-started
   tags:
@@ -386,7 +411,7 @@ apis:
   - type: OpenAPI
     url: openapi/scalar-schemas-api-openapi.yml
 - aid: scalar:scalar-share-api
-  name: Scalar share API
+  name: Scalar Share API
   description: The share API from Scalar — 1 operation(s) for share.
   humanURL: https://scalar.com/products/api-references/getting-started
   tags:
@@ -397,7 +422,7 @@ apis:
   - type: OpenAPI
     url: openapi/scalar-share-api-openapi.yml
 - aid: scalar:scalar-signup-api
-  name: Scalar signup API
+  name: Scalar Signup API
   description: The signup API from Scalar — 1 operation(s) for signup.
   humanURL: https://scalar.com/products/api-references/getting-started
   tags:
@@ -408,7 +433,7 @@ apis:
   - type: OpenAPI
     url: openapi/scalar-signup-api-openapi.yml
 - aid: scalar:scalar-team-api
-  name: Scalar team API
+  name: Scalar Team API
   description: The team API from Scalar — 36 operation(s) for team.
   humanURL: https://scalar.com/products/api-references/getting-started
   tags:
@@ -419,7 +444,7 @@ apis:
   - type: OpenAPI
     url: openapi/scalar-team-api-openapi.yml
 - aid: scalar:scalar-themes-api
-  name: Scalar themes API
+  name: Scalar Themes API
   description: The themes API from Scalar — 4 operation(s) for themes.
   humanURL: https://scalar.com/products/api-references/getting-started
   tags:
@@ -430,7 +455,7 @@ apis:
   - type: OpenAPI
     url: openapi/scalar-themes-api-openapi.yml
 - aid: scalar:scalar-utility-api
-  name: Scalar utility API
+  name: Scalar Utility API
   description: The utility API from Scalar — 3 operation(s) for utility.
   humanURL: https://scalar.com/products/api-references/getting-started
   tags:
@@ -441,7 +466,7 @@ apis:
   - type: OpenAPI
     url: openapi/scalar-utility-api-openapi.yml
 - aid: scalar:scalar-vcs-api
-  name: Scalar vcs API
+  name: Scalar VCS API
   description: The vcs API from Scalar — 6 operation(s) for vcs.
   humanURL: https://scalar.com/products/api-references/getting-started
   tags:
@@ -450,7 +475,7 @@ apis:
   - type: OpenAPI
     url: openapi/scalar-vcs-api-openapi.yml
 - aid: scalar:scalar-waitlist-api
-  name: Scalar waitlist API
+  name: Scalar Waitlist API
   description: The waitlist API from Scalar — 1 operation(s) for waitlist.
   humanURL: https://scalar.com/products/api-references/getting-started
   tags:
@@ -461,7 +486,7 @@ apis:
   - type: OpenAPI
     url: openapi/scalar-waitlist-api-openapi.yml
 - aid: scalar:scalar-workspace-api
-  name: Scalar workspace API
+  name: Scalar Workspace API
   description: The workspace API from Scalar — 6 operation(s) for workspace.
   humanURL: https://scalar.com/products/api-references/getting-started
   tags:
@@ -472,17 +497,19 @@ apis:
   - type: OpenAPI
     url: openapi/scalar-workspace-api-openapi.yml
 - aid: scalar:scalar-api-reference
+  x-published: false
   name: Scalar API Reference
   tags:
   - API Reference
   - API Documentation
-  - Open-Source
+  - Open Source
   - OpenAPI
   tags_raw:
   - API Reference
   - API Documentation
   - Open Source
   - OpenAPI
+  - Open-Source
   image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
   humanURL: https://guides.scalar.com/scalar/scalar-api-references/getting-started
   properties:
@@ -496,31 +523,8 @@ apis:
     single HTML file or as the @scalar/api-reference npm package, and ships as the default docs UI in
     dozens of frameworks. This is a self-hosted component library, not a hosted REST API - surface documented
     as a capability area (endpointsModeled).
-- aid: scalar:scalar-api-client
-  name: Scalar API Client
-  tags:
-  - API Client
-  - Testing
-  - Developer Tools
-  - Open-Source
-  tags_raw:
-  - API Client
-  - Testing
-  - Developer Tools
-  - Open Source
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://guides.scalar.com/scalar/scalar-api-client/getting-started
-  properties:
-  - url: https://guides.scalar.com/scalar/scalar-api-client/getting-started
-    type: Documentation
-  - url: https://github.com/scalar/scalar
-    type: SourceCode
-  description: >-
-    Fully open-source, offline-first API client built on the OpenAPI standard - a Postman/Insomnia alternative
-    for sending REST, GraphQL, and WebSocket requests, organizing collections and environments, running
-    pre/after request scripts, and executing collection runners. Available as a desktop app (Windows,
-    macOS, Linux) and in the browser. Consumer-side developer tool, not a hosted API (endpointsModeled).
 - aid: scalar:scalar-docs-platform
+  x-published: false
   name: Scalar Docs Platform
   tags:
   - API Documentation
@@ -537,31 +541,8 @@ apis:
     Hosted developer-portal product that combines Markdown/MDX guides with generated API references, custom
     domains and subdomains, themes, versions, and two-way Git Sync from GitHub. Content is deployed via
     dashboard.scalar.com or automated GitHub workflows. Hosted SaaS surface, not a public REST API (endpointsModeled).
-- aid: scalar:scalar-cli
-  name: Scalar CLI
-  tags:
-  - CLI
-  - Developer Tools
-  - Open-Source
-  - OpenAPI
-  tags_raw:
-  - CLI
-  - Developer Tools
-  - Open Source
-  - OpenAPI
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://guides.scalar.com/scalar/scalar-registry/cli
-  properties:
-  - url: https://guides.scalar.com/scalar/scalar-registry/cli
-    type: Documentation
-  - url: https://www.npmjs.com/package/@scalar/cli
-    type: SourceCode
-  description: >-
-    Open-source command-line tool (@scalar/cli) for validating and linting OpenAPI documents (Spectral
-    rules), previewing references, and publishing/listing/ updating/deleting documents in the Scalar Registry
-    (scalar registry publish, list, update, delete; scalar document validate, lint; scalar team list/set).
-    Authenticates with a Scalar API key. Command-line surface, not an HTTP API (endpointsModeled).
 - aid: scalar:scalar-sdk-generation
+  x-published: false
   name: Scalar SDK Generation
   tags:
   - SDK
@@ -577,6 +558,7 @@ apis:
     Python, Go, Java, PHP, C#, and Ruby, kept in sync with the registry. Paid add-on on the hosted platform
     (per-language). Generation workflow, not a standalone public REST API (endpointsModeled).
 - aid: scalar:scalar-agent-mcp
+  endpointsModeled: true
   name: Scalar Agent and MCP
   tags:
   - Artificial Intelligence

@@ -29,9 +29,7 @@
     "scalar-waitlist-api-openapi.yml",
     "scalar-workspace-api-openapi.yml"
   ],
-  "archived": [
-    "deleted 1 superseded output(s) from the previous generation"
-  ],
+  "archived": [],
   "errors": [],
   "warnings": [],
   "notes": [
@@ -72,8 +70,7 @@
     "scalar-core.json: declared missing tag: vcs",
     "scalar-core.json: declared missing tag: waitlist",
     "scalar-core.json: declared missing tag: workspace",
-    "superseded outputs removed: scalar-sd-ks-api-openapi.yml",
-    "apis.yml register: written (+1 apis, 36 total)"
+    "apis.yml register: already-registered"
   ],
   "skipped": [
     "scalar-access-groups-api-openapi.yml: previously refined output, superseded by openapi/_original/",
@@ -91,7 +88,7 @@
     "scalar-pubsub-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "scalar-rules-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "scalar-schemas-api-openapi.yml: previously refined output, superseded by openapi/_original/",
-    "scalar-sd-ks-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "scalar-sdks-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "scalar-share-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "scalar-signup-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "scalar-team-api-openapi.yml: previously refined output, superseded by openapi/_original/",

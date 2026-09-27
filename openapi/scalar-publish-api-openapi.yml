@@ -721,11 +721,34 @@ paths:
       x-summary-source: derived
 components:
   schemas:
+    '400':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+    nanoid:
+      type: string
+      minLength: 5
+    '404':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
     timestamp:
       type: integer
       minimum: 0
       maximum: 9007199254740991
-    '500':
+    '403':
       type: object
       properties:
         message:
@@ -838,40 +861,7 @@ components:
       - registryApis
       - agentToken
       additionalProperties: false
-    '404':
-      type: object
-      properties:
-        message:
-          type: string
-        code:
-          type: string
-      required:
-      - message
-      - code
-    '401':
-      type: object
-      properties:
-        message:
-          type: string
-        code:
-          type: string
-      required:
-      - message
-      - code
-    nanoid:
-      type: string
-      minLength: 5
-    '403':
-      type: object
-      properties:
-        message:
-          type: string
-        code:
-          type: string
-      required:
-      - message
-      - code
-    '400':
+    '500':
       type: object
       properties:
         message:
@@ -882,6 +872,16 @@ components:
       - message
       - code
     '422':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+    '401':
       type: object
       properties:
         message:

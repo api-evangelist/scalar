@@ -341,32 +341,7 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    '500':
-      type: object
-      properties:
-        message:
-          type: string
-        code:
-          type: string
-      required:
-      - message
-      - code
-    slug:
-      type: string
-      minLength: 3
-      maxLength: 60
-      pattern: ^[a-z](?:[a-z0-9-]*[a-z0-9])?$
-    '404':
-      type: object
-      properties:
-        message:
-          type: string
-        code:
-          type: string
-      required:
-      - message
-      - code
-    '401':
+    '400':
       type: object
       properties:
         message:
@@ -379,73 +354,12 @@ components:
     nanoid:
       type: string
       minLength: 5
-    login-portal-page:
-      type: object
-      properties:
-        title:
-          default: Scalar Private Docs
-          type: string
-          maxLength: 100
-        description:
-          default: Login to access your documentation
-          type: string
-          maxLength: 500
-        head:
-          default: ''
-          type: string
-        script:
-          default: ''
-          type: string
-        theme:
-          default: ''
-          type: string
-        companyName:
-          default: ''
-          type: string
-          maxLength: 100
-        logo:
-          default: ''
-          type: string
-        logoURL:
-          default: ''
-          type: string
-        favicon:
-          default: ''
-          type: string
-        termsLink:
-          default: ''
-          type: string
-        privacyLink:
-          default: ''
-          type: string
-        formTitle:
-          default: Scalar Private Docs
-          type: string
-          maxLength: 100
-        formDescription:
-          default: Login to access your documentation
-          type: string
-          maxLength: 500
-        formImage:
-          default: ''
-          type: string
-      required:
-      - title
-      - description
-      - head
-      - script
-      - theme
-      - companyName
-      - logo
-      - logoURL
-      - favicon
-      - termsLink
-      - privacyLink
-      - formTitle
-      - formDescription
-      - formImage
-      additionalProperties: false
-    '403':
+    slug:
+      type: string
+      minLength: 3
+      maxLength: 60
+      pattern: ^[a-z](?:[a-z0-9-]*[a-z0-9])?$
+    '404':
       type: object
       properties:
         message:
@@ -534,7 +448,17 @@ components:
       - buttonColor
       - buttonBackground
       additionalProperties: false
-    '400':
+    '403':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+    '500':
       type: object
       properties:
         message:
@@ -545,6 +469,82 @@ components:
       - message
       - code
     '422':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+    login-portal-page:
+      type: object
+      properties:
+        title:
+          default: Scalar Private Docs
+          type: string
+          maxLength: 100
+        description:
+          default: Login to access your documentation
+          type: string
+          maxLength: 500
+        head:
+          default: ''
+          type: string
+        script:
+          default: ''
+          type: string
+        theme:
+          default: ''
+          type: string
+        companyName:
+          default: ''
+          type: string
+          maxLength: 100
+        logo:
+          default: ''
+          type: string
+        logoURL:
+          default: ''
+          type: string
+        favicon:
+          default: ''
+          type: string
+        termsLink:
+          default: ''
+          type: string
+        privacyLink:
+          default: ''
+          type: string
+        formTitle:
+          default: Scalar Private Docs
+          type: string
+          maxLength: 100
+        formDescription:
+          default: Login to access your documentation
+          type: string
+          maxLength: 500
+        formImage:
+          default: ''
+          type: string
+      required:
+      - title
+      - description
+      - head
+      - script
+      - theme
+      - companyName
+      - logo
+      - logoURL
+      - favicon
+      - termsLink
+      - privacyLink
+      - formTitle
+      - formDescription
+      - formImage
+      additionalProperties: false
+    '401':
       type: object
       properties:
         message:

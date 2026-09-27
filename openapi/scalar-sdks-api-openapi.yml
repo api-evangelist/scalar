@@ -1,6 +1,6 @@
 openapi: 3.2.0
 info:
-  title: Core SDKS API
+  title: Core SDKs API
   description: Core services for Scalar
   version: 1.0.1
   contact:
@@ -1570,6 +1570,42 @@ paths:
       x-summary-source: derived
 components:
   schemas:
+    namespace:
+      type: string
+      minLength: 3
+      maxLength: 50
+      pattern: ^[a-zA-Z0-9-_]+$
+    '400':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+    nanoid:
+      type: string
+      minLength: 5
+    slug:
+      type: string
+      minLength: 3
+      maxLength: 60
+      pattern: ^[a-z](?:[a-z0-9-]*[a-z0-9])?$
+    version:
+      type: string
+      minLength: 1
+    '404':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
     sdk-preview:
       type: object
       properties:
@@ -1589,52 +1625,6 @@ components:
       - operationId
       - path
       additionalProperties: false
-    namespace:
-      type: string
-      minLength: 3
-      maxLength: 50
-      pattern: ^[a-zA-Z0-9-_]+$
-    slug:
-      type: string
-      minLength: 3
-      maxLength: 60
-      pattern: ^[a-z](?:[a-z0-9-]*[a-z0-9])?$
-    '500':
-      type: object
-      properties:
-        message:
-          type: string
-        code:
-          type: string
-      required:
-      - message
-      - code
-    version:
-      type: string
-      minLength: 1
-    '404':
-      type: object
-      properties:
-        message:
-          type: string
-        code:
-          type: string
-      required:
-      - message
-      - code
-    '401':
-      type: object
-      properties:
-        message:
-          type: string
-        code:
-          type: string
-      required:
-      - message
-      - code
-    nanoid:
-      type: string
-      minLength: 5
     '403':
       type: object
       properties:
@@ -1645,7 +1635,7 @@ components:
       required:
       - message
       - code
-    '400':
+    '500':
       type: object
       properties:
         message:
@@ -1656,6 +1646,16 @@ components:
       - message
       - code
     '422':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+    '401':
       type: object
       properties:
         message:

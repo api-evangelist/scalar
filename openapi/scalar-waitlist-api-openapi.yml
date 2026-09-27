@@ -98,7 +98,7 @@ components:
       type: string
       format: email
       pattern: ^(?!\.)(?!.*\.\.)([A-Za-z0-9_'+\-\.]*)[A-Za-z0-9_+-]@([A-Za-z0-9][A-Za-z0-9\-]*\.)+[A-Za-z]{2,}$
-    '500':
+    '400':
       type: object
       properties:
         message:
@@ -118,16 +118,6 @@ components:
       required:
       - message
       - code
-    '401':
-      type: object
-      properties:
-        message:
-          type: string
-        code:
-          type: string
-      required:
-      - message
-      - code
     '403':
       type: object
       properties:
@@ -138,7 +128,7 @@ components:
       required:
       - message
       - code
-    '400':
+    '500':
       type: object
       properties:
         message:
@@ -149,6 +139,16 @@ components:
       - message
       - code
     '422':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+    '401':
       type: object
       properties:
         message:
