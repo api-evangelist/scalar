@@ -16,6 +16,9 @@ deployment:
 tools_count: 1
 tools:
 - name: search-documentation
-  description: ''
+  description: Search the available documentation for pages related to a user's query and return a list
+    of related content matching the search criteria.
 tools_source: live tools/list via initialize handshake, 2026-09-12 (signals/audit_mcp_authorship.py --probe)
 authorship: provider
+descriptions_source: live tools/list (authorship probe or saved capture); filled by backfill-tools-from-authorship.py
+  --descriptions, 2026-09-28
