@@ -546,16 +546,6 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    '400':
-      type: object
-      properties:
-        message:
-          type: string
-        code:
-          type: string
-      required:
-      - message
-      - code
     theme:
       type: object
       properties:
@@ -576,15 +566,22 @@ components:
       - theme
       - slug
       additionalProperties: false
-    nanoid:
-      type: string
-      minLength: 5
     slug:
       type: string
       minLength: 3
       maxLength: 60
       pattern: ^[a-z](?:[a-z0-9-]*[a-z0-9])?$
-    '404':
+    '500':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+    '400':
       type: object
       properties:
         message:
@@ -604,7 +601,20 @@ components:
       required:
       - message
       - code
-    '500':
+    '401':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+    nanoid:
+      type: string
+      minLength: 5
+    '404':
       type: object
       properties:
         message:
@@ -615,16 +625,6 @@ components:
       - message
       - code
     '422':
-      type: object
-      properties:
-        message:
-          type: string
-        code:
-          type: string
-      required:
-      - message
-      - code
-    '401':
       type: object
       properties:
         message:

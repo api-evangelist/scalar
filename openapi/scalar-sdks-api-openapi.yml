@@ -1570,6 +1570,21 @@ paths:
       x-summary-source: derived
 components:
   schemas:
+    slug:
+      type: string
+      minLength: 3
+      maxLength: 60
+      pattern: ^[a-z](?:[a-z0-9-]*[a-z0-9])?$
+    '500':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
     namespace:
       type: string
       minLength: 3
@@ -1585,18 +1600,20 @@ components:
       required:
       - message
       - code
+    '403':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
     nanoid:
       type: string
       minLength: 5
-    slug:
-      type: string
-      minLength: 3
-      maxLength: 60
-      pattern: ^[a-z](?:[a-z0-9-]*[a-z0-9])?$
-    version:
-      type: string
-      minLength: 1
-    '404':
+    '401':
       type: object
       properties:
         message:
@@ -1625,7 +1642,7 @@ components:
       - operationId
       - path
       additionalProperties: false
-    '403':
+    '404':
       type: object
       properties:
         message:
@@ -1635,27 +1652,10 @@ components:
       required:
       - message
       - code
-    '500':
-      type: object
-      properties:
-        message:
-          type: string
-        code:
-          type: string
-      required:
-      - message
-      - code
+    version:
+      type: string
+      minLength: 1
     '422':
-      type: object
-      properties:
-        message:
-          type: string
-        code:
-          type: string
-      required:
-      - message
-      - code
-    '401':
       type: object
       properties:
         message:
