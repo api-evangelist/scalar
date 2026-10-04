@@ -1,12 +1,14 @@
 openapi: 3.2.0
 info:
-  title: Core Rules API
-  description: Core services for Scalar
-  version: 1.0.1
+  title: Scalar Rules API
   contact:
     name: Marc from Scalar
     url: https://scalar.com
     email: support@scalar.com
+  version: '1.0'
+  description: 'Operations tagged rules across 2 of this provider''s published API definitions: scalar-core.json, scalar-openapi.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api.scalar.com/core
 security:
 - BearerAuth: []
 tags:
@@ -731,60 +733,30 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    slug:
+    nanoid:
       type: string
-      minLength: 3
-      maxLength: 60
-      pattern: ^[a-z](?:[a-z0-9-]*[a-z0-9])?$
-    '500':
-      type: object
-      properties:
-        message:
-          type: string
-        code:
-          type: string
-      required:
-      - message
-      - code
+      minLength: 5
     namespace:
       type: string
       minLength: 3
       maxLength: 50
       pattern: ^[a-zA-Z0-9-_]+$
-    '400':
-      type: object
-      properties:
-        message:
-          type: string
-        code:
-          type: string
-      required:
-      - message
-      - code
-    '403':
-      type: object
-      properties:
-        message:
-          type: string
-        code:
-          type: string
-      required:
-      - message
-      - code
-    '401':
-      type: object
-      properties:
-        message:
-          type: string
-        code:
-          type: string
-      required:
-      - message
-      - code
-    nanoid:
-      type: string
-      minLength: 5
     '404':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+    slug:
+      type: string
+      minLength: 3
+      maxLength: 60
+      pattern: ^[a-z](?:[a-z0-9-]*[a-z0-9])?$
+    '403':
       type: object
       properties:
         message:
@@ -804,8 +776,138 @@ components:
       required:
       - message
       - code
+    '401':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+    '400':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+    '500':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+    nanoid_2:
+      type: string
+      minLength: 5
+      examples:
+      - UakgbKJ5m9gl0JDMbcJqL
+    namespace_2:
+      type: string
+      minLength: 2
+      maxLength: 50
+      pattern: ^[a-zA-Z0-9-_]+$
+      examples:
+      - acme
+    '404_2':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+      examples:
+      - message: Resource not found.
+        code: not-found
+    slug_2:
+      type: string
+      minLength: 1
+      maxLength: 60
+      pattern: ^[a-z](?:[a-z0-9-]*[a-z0-9])?$
+      examples:
+      - acme-api
+    '403_2':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+      examples:
+      - message: You do not have permission to access this resource.
+        code: forbidden
+    '422_2':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+      examples:
+      - message: The request body contains invalid values.
+        code: invalid-payload
+    '401_2':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+      examples:
+      - message: Invalid authentication token.
+        code: unauthorized
+    '400_2':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+      examples:
+      - message: Invalid request parameters.
+        code: bad-request
+    '500_2':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+      examples:
+      - message: An unexpected error occurred.
+        code: unknown
   securitySchemes:
     BearerAuth:
       type: http
       scheme: bearer
       bearerFormat: JWT
+x-refined-from:
+- scalar-core.json
+- scalar-openapi.json

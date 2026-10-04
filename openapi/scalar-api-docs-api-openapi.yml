@@ -1,12 +1,14 @@
 openapi: 3.2.0
 info:
-  title: Core API Docs API
-  description: Core services for Scalar
-  version: 1.0.1
+  title: Scalar API Docs API
   contact:
     name: Marc from Scalar
     url: https://scalar.com
     email: support@scalar.com
+  version: '1.0'
+  description: 'Operations tagged api-docs across 2 of this provider''s published API definitions: scalar-core.json, scalar-openapi.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api.scalar.com/core
 security:
 - BearerAuth: []
 tags:
@@ -1522,14 +1524,814 @@ paths:
         required: true
       summary: Postmanaged doc namespace slug version semver tools
       x-summary-source: derived
+  /managed-doc/lint:
+    post:
+      tags:
+      - api-docs
+      description: Lint an unsaved OpenAPI or AsyncAPI document with Vacuum
+      operationId: postManagedDocLint
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  engine:
+                    type: string
+                    const: vacuum
+                  diagnostics:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        code:
+                          anyOf:
+                          - type: string
+                          - type: number
+                        message:
+                          type: string
+                        severity:
+                          anyOf:
+                          - type: number
+                            const: 0
+                          - type: number
+                            const: 1
+                          - type: number
+                            const: 2
+                          - type: number
+                            const: 3
+                        path:
+                          type: array
+                          items:
+                            anyOf:
+                            - type: string
+                            - type: number
+                        range:
+                          type: object
+                          properties:
+                            start:
+                              type: object
+                              properties:
+                                line:
+                                  type: integer
+                                  minimum: 0
+                                  maximum: 9007199254740991
+                                character:
+                                  type: integer
+                                  minimum: 0
+                                  maximum: 9007199254740991
+                              required:
+                              - line
+                              - character
+                              additionalProperties: false
+                            end:
+                              type: object
+                              properties:
+                                line:
+                                  type: integer
+                                  minimum: 0
+                                  maximum: 9007199254740991
+                                character:
+                                  type: integer
+                                  minimum: 0
+                                  maximum: 9007199254740991
+                              required:
+                              - line
+                              - character
+                              additionalProperties: false
+                          required:
+                          - start
+                          - end
+                          additionalProperties: false
+                      required:
+                      - code
+                      - message
+                      - severity
+                      - path
+                      - range
+                      additionalProperties: false
+                required:
+                - engine
+                - diagnostics
+                additionalProperties: false
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400_2'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401_2'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403_2'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404_2'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422_2'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500_2'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                document:
+                  type: string
+                  maxLength: 20000000
+              required:
+              - document
+              additionalProperties: false
+        required: true
+      summary: Post managed doc lint
+      x-summary-source: derived
+    servers:
+    - url: https://api.scalar.com/core
+  /registry/{asset}/{namespace}/{slug}/instances:
+    get:
+      tags:
+      - api-docs
+      description: Content instances for a registry document, newest first
+      operationId: getRegistryAssetNamespaceSlugInstances
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  instances:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/doc-instance'
+                  tracked:
+                    type: boolean
+                required:
+                - instances
+                - tracked
+                additionalProperties: false
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400_2'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401_2'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403_2'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404_2'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422_2'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500_2'
+      parameters:
+      - schema:
+          type: string
+          enum:
+          - apis
+          - schemas
+          - rules
+        in: path
+        name: asset
+        required: true
+      - schema:
+          type: string
+        in: path
+        name: namespace
+        required: true
+      - schema:
+          type: string
+        in: path
+        name: slug
+        required: true
+      - schema:
+          type: string
+        in: query
+        name: version
+        required: false
+      - schema:
+          default: 1
+          type: integer
+          minimum: 1
+          maximum: 9007199254740991
+        in: query
+        name: page
+        required: true
+      - schema:
+          default: 50
+          type: integer
+          minimum: 1
+          maximum: 100
+        in: query
+        name: perPage
+        required: true
+      summary: Get registry asset namespace slug instances
+      x-summary-source: derived
+    servers:
+    - url: https://api.scalar.com/core
+  /registry/{asset}/{namespace}/{slug}/versions:
+    get:
+      tags:
+      - api-docs
+      description: Version records for a registry document, with their chain heads
+      operationId: getRegistryAssetNamespaceSlugVersions
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  versions:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        uid:
+                          default: nanoid()
+                          $ref: '#/components/schemas/nanoid_2'
+                        createdAt:
+                          $ref: '#/components/schemas/timestamp_2'
+                        updatedAt:
+                          $ref: '#/components/schemas/timestamp_2'
+                        version:
+                          $ref: '#/components/schemas/version_2'
+                        upgraded:
+                          default: false
+                          type: boolean
+                        endpointCount:
+                          default: null
+                          anyOf:
+                          - type: integer
+                            minimum: -9007199254740991
+                            maximum: 9007199254740991
+                          - type: 'null'
+                        embedStatus:
+                          default: null
+                          anyOf:
+                          - type: string
+                            enum:
+                            - complete
+                            - failed
+                          - type: 'null'
+                        tags:
+                          default: []
+                          type: array
+                          items:
+                            type: string
+                        tools:
+                          anyOf:
+                          - type: array
+                            items:
+                              type: object
+                              properties:
+                                path:
+                                  type: string
+                                  examples:
+                                  - /products
+                                method:
+                                  $ref: '#/components/schemas/method_2'
+                                enabledTools:
+                                  type: array
+                                  items:
+                                    type: string
+                                    enum:
+                                    - execute-request
+                                    - get-mini-openapi-spec
+                              required:
+                              - path
+                              - method
+                              - enabledTools
+                              additionalProperties: false
+                          - type: 'null'
+                        jsonSha:
+                          anyOf:
+                          - type: string
+                          - type: 'null'
+                        yamlSha:
+                          anyOf:
+                          - type: string
+                          - type: 'null'
+                      required:
+                      - uid
+                      - createdAt
+                      - updatedAt
+                      - version
+                      - upgraded
+                      - endpointCount
+                      - embedStatus
+                      - tags
+                      - jsonSha
+                      - yamlSha
+                      additionalProperties: false
+                required:
+                - versions
+                additionalProperties: false
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400_2'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401_2'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403_2'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404_2'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422_2'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500_2'
+      parameters:
+      - schema:
+          type: string
+          enum:
+          - apis
+          - schemas
+          - rules
+        in: path
+        name: asset
+        required: true
+      - schema:
+          type: string
+        in: path
+        name: namespace
+        required: true
+      - schema:
+          type: string
+        in: path
+        name: slug
+        required: true
+      summary: Get registry asset namespace slug versions
+      x-summary-source: derived
+    servers:
+    - url: https://api.scalar.com/core
+  /registry/{asset}/{namespace}/{slug}/instances/{jsonSha}/content:
+    get:
+      tags:
+      - api-docs
+      description: A content instance's stored document
+      operationId: getRegistryAssetNamespaceSlugInstancesJsonShaContent
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  content:
+                    type: string
+                  format:
+                    type: string
+                    enum:
+                    - json
+                    - yaml
+                  jsonSha:
+                    type: string
+                required:
+                - content
+                - format
+                - jsonSha
+                additionalProperties: false
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400_2'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401_2'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403_2'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404_2'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422_2'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500_2'
+      parameters:
+      - schema:
+          type: string
+          enum:
+          - apis
+          - schemas
+          - rules
+        in: path
+        name: asset
+        required: true
+      - schema:
+          type: string
+        in: path
+        name: namespace
+        required: true
+      - schema:
+          type: string
+        in: path
+        name: slug
+        required: true
+      - schema:
+          type: string
+        in: path
+        name: jsonSha
+        required: true
+      - schema:
+          default: json
+          type: string
+          enum:
+          - json
+          - yaml
+        in: query
+        name: format
+        required: true
+      summary: Get registry asset namespace slug instances json sha content
+      x-summary-source: derived
+    servers:
+    - url: https://api.scalar.com/core
+  /registry/{asset}/{namespace}/{slug}/versions/{version}/active:
+    post:
+      tags:
+      - api-docs
+      description: Roll a version tag back to an earlier content instance
+      operationId: postRegistryAssetNamespaceSlugVersionsVersionActive
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  jsonSha:
+                    type: string
+                  changed:
+                    type: boolean
+                required:
+                - jsonSha
+                - changed
+                additionalProperties: false
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400_2'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401_2'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403_2'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404_2'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422_2'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500_2'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                instanceUid:
+                  $ref: '#/components/schemas/nanoid_2'
+              required:
+              - instanceUid
+              additionalProperties: false
+        required: true
+      parameters:
+      - schema:
+          type: string
+          enum:
+          - apis
+          - schemas
+        in: path
+        name: asset
+        required: true
+      - schema:
+          type: string
+        in: path
+        name: namespace
+        required: true
+      - schema:
+          type: string
+        in: path
+        name: slug
+        required: true
+      - schema:
+          type: string
+        in: path
+        name: version
+        required: true
+      summary: Post registry asset namespace slug versions version active
+      x-summary-source: derived
+    servers:
+    - url: https://api.scalar.com/core
+  /registry/{asset}/{namespace}/{slug}/source/url:
+    post:
+      tags:
+      - api-docs
+      description: Link a source URL as the document’s source of truth. The platform keeps a read-only mirror.
+      operationId: postRegistryAssetNamespaceSlugSourceUrl
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  version:
+                    anyOf:
+                    - type: string
+                    - type: 'null'
+                required:
+                - version
+                additionalProperties: false
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400_2'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401_2'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403_2'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404_2'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422_2'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500_2'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                url:
+                  type: string
+                  format: uri
+              required:
+              - url
+              additionalProperties: false
+        required: true
+      parameters:
+      - schema:
+          type: string
+          enum:
+          - apis
+          - schemas
+        in: path
+        name: asset
+        required: true
+      - schema:
+          type: string
+        in: path
+        name: namespace
+        required: true
+      - schema:
+          type: string
+        in: path
+        name: slug
+        required: true
+      summary: Post registry asset namespace slug source url
+      x-summary-source: derived
+    servers:
+    - url: https://api.scalar.com/core
+  /registry/{asset}/{namespace}/{slug}/source/refresh:
+    post:
+      tags:
+      - api-docs
+      description: Re-fetch a URL-sourced document and ingest the content when it changed upstream.
+      operationId: postRegistryAssetNamespaceSlugSourceRefresh
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  refreshed:
+                    type: boolean
+                  version:
+                    anyOf:
+                    - type: string
+                    - type: 'null'
+                required:
+                - refreshed
+                - version
+                additionalProperties: false
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400_2'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401_2'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403_2'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404_2'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422_2'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500_2'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties: {}
+              additionalProperties: false
+        required: true
+      parameters:
+      - schema:
+          type: string
+          enum:
+          - apis
+          - schemas
+        in: path
+        name: asset
+        required: true
+      - schema:
+          type: string
+        in: path
+        name: namespace
+        required: true
+      - schema:
+          type: string
+        in: path
+        name: slug
+        required: true
+      summary: Post registry asset namespace slug source refresh
+      x-summary-source: derived
+    servers:
+    - url: https://api.scalar.com/core
 components:
   schemas:
-    slug:
+    nanoid:
+      type: string
+      minLength: 5
+    namespace:
       type: string
       minLength: 3
-      maxLength: 60
-      pattern: ^[a-z](?:[a-z0-9-]*[a-z0-9])?$
-    '500':
+      maxLength: 50
+      pattern: ^[a-zA-Z0-9-_]+$
+    timestamp:
+      type: integer
+      minimum: 0
+      maximum: 9007199254740991
+    '404':
       type: object
       properties:
         message:
@@ -1539,11 +2341,35 @@ components:
       required:
       - message
       - code
-    namespace:
+    slug:
       type: string
       minLength: 3
-      maxLength: 50
-      pattern: ^[a-zA-Z0-9-_]+$
+      maxLength: 60
+      pattern: ^[a-z](?:[a-z0-9-]*[a-z0-9])?$
+    '403':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+    method:
+      type: string
+      enum:
+      - delete
+      - get
+      - head
+      - options
+      - patch
+      - post
+      - put
+      - trace
+    version:
+      type: string
+      minLength: 1
     '400':
       type: object
       properties:
@@ -1554,11 +2380,7 @@ components:
       required:
       - message
       - code
-    timestamp:
-      type: integer
-      minimum: 0
-      maximum: 9007199254740991
-    '403':
+    '401':
       type: object
       properties:
         message:
@@ -1674,6 +2496,26 @@ components:
       - agentEnabled
       - verified
       additionalProperties: false
+    '422':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+    '500':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
     managed-doc-version:
       type: object
       properties:
@@ -1734,10 +2576,25 @@ components:
       - embedStatus
       - tags
       additionalProperties: false
-    nanoid:
+    nanoid_2:
       type: string
       minLength: 5
-    '401':
+      examples:
+      - UakgbKJ5m9gl0JDMbcJqL
+    namespace_2:
+      type: string
+      minLength: 2
+      maxLength: 50
+      pattern: ^[a-zA-Z0-9-_]+$
+      examples:
+      - acme
+    timestamp_2:
+      type: integer
+      minimum: 0
+      maximum: 9007199254740991
+      examples:
+      - 1735689600
+    '404_2':
       type: object
       properties:
         message:
@@ -1747,20 +2604,17 @@ components:
       required:
       - message
       - code
-    '404':
-      type: object
-      properties:
-        message:
-          type: string
-        code:
-          type: string
-      required:
-      - message
-      - code
-    version:
+      examples:
+      - message: Resource not found.
+        code: not-found
+    slug_2:
       type: string
       minLength: 1
-    '422':
+      maxLength: 60
+      pattern: ^[a-z](?:[a-z0-9-]*[a-z0-9])?$
+      examples:
+      - acme-api
+    '403_2':
       type: object
       properties:
         message:
@@ -1770,7 +2624,76 @@ components:
       required:
       - message
       - code
-    method:
+      examples:
+      - message: You do not have permission to access this resource.
+        code: forbidden
+    doc-instance:
+      type: object
+      properties:
+        uid:
+          default: nanoid()
+          $ref: '#/components/schemas/nanoid_2'
+        createdAt:
+          $ref: '#/components/schemas/timestamp_2'
+        updatedAt:
+          $ref: '#/components/schemas/timestamp_2'
+        version:
+          $ref: '#/components/schemas/version_2'
+        jsonSha:
+          type: string
+          pattern: ^[a-f0-9]{64}$
+        yamlSha:
+          type: string
+          pattern: ^[a-f0-9]{64}$
+        uploadedBy:
+          default: null
+          anyOf:
+          - type: string
+          - type: 'null'
+        source:
+          $ref: '#/components/schemas/doc-instance-source'
+        origin:
+          default:
+            type: platform
+          $ref: '#/components/schemas/doc-instance-origin'
+        message:
+          default: ''
+          type: string
+        parentInstanceUid:
+          default: null
+          anyOf:
+          - $ref: '#/components/schemas/nanoid_2'
+          - type: 'null'
+        mergeParentUid:
+          default: null
+          anyOf:
+          - $ref: '#/components/schemas/nanoid_2'
+          - type: 'null'
+        revertOf:
+          default: null
+          anyOf:
+          - $ref: '#/components/schemas/nanoid_2'
+          - type: 'null'
+        servable:
+          default: true
+          type: boolean
+      required:
+      - uid
+      - createdAt
+      - updatedAt
+      - version
+      - jsonSha
+      - yamlSha
+      - uploadedBy
+      - source
+      - origin
+      - message
+      - parentInstanceUid
+      - mergeParentUid
+      - revertOf
+      - servable
+      additionalProperties: false
+    method_2:
       type: string
       enum:
       - delete
@@ -1780,9 +2703,228 @@ components:
       - patch
       - post
       - put
+      - query
       - trace
+    version_2:
+      type: string
+      minLength: 1
+      examples:
+      - 1.2.0
+    '400_2':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+      examples:
+      - message: Invalid request parameters.
+        code: bad-request
+    '401_2':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+      examples:
+      - message: Invalid authentication token.
+        code: unauthorized
+    '422_2':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+      examples:
+      - message: The request body contains invalid values.
+        code: invalid-payload
+    doc-instance-origin:
+      oneOf:
+      - type: object
+        properties:
+          type:
+            type: string
+            const: platform
+        required:
+        - type
+        additionalProperties: false
+      - type: object
+        properties:
+          type:
+            type: string
+            const: git
+          commitSha:
+            default: null
+            anyOf:
+            - type: string
+            - type: 'null'
+          branch:
+            default: null
+            anyOf:
+            - type: string
+            - type: 'null'
+          draft:
+            default: null
+            anyOf:
+            - type: object
+              properties:
+                prNumber:
+                  type: number
+                branch:
+                  type: string
+                resolution:
+                  default: null
+                  anyOf:
+                  - type: string
+                    enum:
+                    - merged
+                    - closed
+                  - type: 'null'
+              required:
+              - prNumber
+              - branch
+              - resolution
+              additionalProperties: false
+            - type: 'null'
+        required:
+        - type
+        - commitSha
+        - branch
+        - draft
+        additionalProperties: false
+      - type: object
+        properties:
+          type:
+            type: string
+            const: url
+          url:
+            type: string
+            format: uri
+        required:
+        - type
+        - url
+        additionalProperties: false
+    doc-instance-source:
+      type: string
+      enum:
+      - manual
+      - cli
+      - api
+      - git-sync
+      - url-sync
+      - migration
+    '500_2':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+      examples:
+      - message: An unexpected error occurred.
+        code: unknown
+    managed-doc-version_2:
+      type: object
+      properties:
+        uid:
+          $ref: '#/components/schemas/nanoid_2'
+        createdAt:
+          type: number
+          examples:
+          - 1735689600000
+        version:
+          $ref: '#/components/schemas/version_2'
+        upgraded:
+          default: false
+          examples:
+          - false
+          type: boolean
+        endpointCount:
+          default: null
+          examples:
+          - 12
+          anyOf:
+          - type: integer
+            minimum: -9007199254740991
+            maximum: 9007199254740991
+          - type: 'null'
+        embedStatus:
+          default: null
+          examples:
+          - complete
+          anyOf:
+          - type: string
+            enum:
+            - complete
+            - failed
+          - type: 'null'
+        tags:
+          default: []
+          examples:
+          - - products
+            - orders
+          type: array
+          items:
+            type: string
+        tools:
+          type: array
+          items:
+            type: object
+            properties:
+              path:
+                type: string
+                examples:
+                - /products
+              method:
+                $ref: '#/components/schemas/method_2'
+              enabledTools:
+                type: array
+                items:
+                  type: string
+                  enum:
+                  - execute-request
+                  - get-mini-openapi-spec
+            required:
+            - path
+            - method
+            - enabledTools
+            additionalProperties: false
+        yamlSha:
+          examples:
+          - abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789
+          type: string
+        jsonSha:
+          examples:
+          - 0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef
+          type: string
+      required:
+      - uid
+      - createdAt
+      - version
+      - upgraded
+      - endpointCount
+      - embedStatus
+      - tags
+      additionalProperties: false
   securitySchemes:
     BearerAuth:
       type: http
       scheme: bearer
       bearerFormat: JWT
+x-refined-from:
+- scalar-core.json
+- scalar-openapi.json

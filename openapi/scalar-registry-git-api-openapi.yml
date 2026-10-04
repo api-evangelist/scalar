@@ -1,0 +1,1697 @@
+openapi: 3.2.0
+info:
+  title: Core Registry Git API
+  description: Core services for Scalar
+  version: 0.1.0
+  contact:
+    name: Marc from Scalar
+    url: https://scalar.com
+    email: support@scalar.com
+servers:
+- url: https://api.scalar.com/core
+security:
+- BearerAuth: []
+tags:
+- name: registry-git
+paths:
+  /registry-git/{asset}/{namespace}/{slug}/config:
+    patch:
+      tags:
+      - registry-git
+      description: Update git publish-trigger config for a registry resource
+      operationId: patchRegistryGitAssetNamespaceSlugConfig
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  source:
+                    $ref: '#/components/schemas/doc-source'
+                required:
+                - source
+                additionalProperties: false
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                publishOnPush:
+                  type: boolean
+                publishOnMerge:
+                  type: boolean
+                trackedBranch:
+                  type: string
+                  minLength: 1
+              additionalProperties: false
+        required: true
+      parameters:
+      - schema:
+          type: string
+          enum:
+          - apis
+          - schemas
+          - rules
+          - sdks
+        in: path
+        name: asset
+        required: true
+      - schema:
+          type: string
+        in: path
+        name: namespace
+        required: true
+      - schema:
+          type: string
+        in: path
+        name: slug
+        required: true
+      summary: Patch registry git asset namespace slug config
+      x-summary-source: derived
+  /registry-git/{asset}/{namespace}/{slug}/history:
+    get:
+      tags:
+      - registry-git
+      description: Raw git commit history for a registry resource
+      operationId: getRegistryGitAssetNamespaceSlugHistory
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  commits:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        sha:
+                          type: string
+                        message:
+                          type: string
+                        authorName:
+                          type: string
+                        authorEmail:
+                          type: string
+                        timestamp:
+                          type: number
+                      required:
+                      - sha
+                      - message
+                      - authorName
+                      - authorEmail
+                      - timestamp
+                      additionalProperties: false
+                required:
+                - commits
+                additionalProperties: false
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
+      parameters:
+      - schema:
+          type: string
+          enum:
+          - apis
+          - schemas
+          - rules
+          - sdks
+        in: path
+        name: asset
+        required: true
+      - schema:
+          type: string
+        in: path
+        name: namespace
+        required: true
+      - schema:
+          type: string
+        in: path
+        name: slug
+        required: true
+      - schema:
+          default: 1
+          type: integer
+          minimum: 1
+          maximum: 9007199254740991
+        in: query
+        name: page
+        required: true
+      - schema:
+          default: 30
+          type: integer
+          minimum: 1
+          maximum: 100
+        in: query
+        name: perPage
+        required: true
+      summary: Get registry git asset namespace slug history
+      x-summary-source: derived
+  /registry-git/{asset}/{namespace}/{slug}/publishes:
+    get:
+      tags:
+      - registry-git
+      description: Curated publish log for a registry resource
+      operationId: getRegistryGitAssetNamespaceSlugPublishes
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  publishes:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/registry-publish'
+                required:
+                - publishes
+                additionalProperties: false
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
+      parameters:
+      - schema:
+          type: string
+          enum:
+          - apis
+          - schemas
+          - rules
+          - sdks
+        in: path
+        name: asset
+        required: true
+      - schema:
+          type: string
+        in: path
+        name: namespace
+        required: true
+      - schema:
+          type: string
+        in: path
+        name: slug
+        required: true
+      summary: Get registry git asset namespace slug publishes
+      x-summary-source: derived
+  /registry-git/{asset}/{namespace}/{slug}/source:
+    get:
+      tags:
+      - registry-git
+      description: The resource’s authoring source, with its linked repository resolved
+      operationId: getRegistryGitAssetNamespaceSlugSource
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  source:
+                    anyOf:
+                    - $ref: '#/components/schemas/doc-source'
+                    - type: 'null'
+                  repository:
+                    anyOf:
+                    - $ref: '#/components/schemas/linked-repository'
+                    - type: 'null'
+                  openProposal:
+                    anyOf:
+                    - type: object
+                      properties:
+                        prNumber:
+                          type: number
+                        branch:
+                          type: string
+                      required:
+                      - prNumber
+                      - branch
+                      additionalProperties: false
+                    - type: 'null'
+                required:
+                - source
+                - repository
+                - openProposal
+                additionalProperties: false
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
+      parameters:
+      - schema:
+          type: string
+          enum:
+          - apis
+          - schemas
+          - rules
+          - sdks
+        in: path
+        name: asset
+        required: true
+      - schema:
+          type: string
+        in: path
+        name: namespace
+        required: true
+      - schema:
+          type: string
+        in: path
+        name: slug
+        required: true
+      - schema:
+          type: string
+          minLength: 1
+        in: query
+        name: branch
+        required: false
+      summary: Get registry git asset namespace slug source
+      x-summary-source: derived
+  /registry-git/{asset}/{namespace}/{slug}/branches:
+    get:
+      tags:
+      - registry-git
+      description: List the linked repository’s branches
+      operationId: getRegistryGitAssetNamespaceSlugBranches
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  branches:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        name:
+                          type: string
+                        sha:
+                          type: string
+                      required:
+                      - name
+                      - sha
+                      additionalProperties: false
+                  trackedBranch:
+                    type: string
+                required:
+                - branches
+                - trackedBranch
+                additionalProperties: false
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
+      parameters:
+      - schema:
+          type: string
+          enum:
+          - apis
+          - schemas
+          - rules
+          - sdks
+        in: path
+        name: asset
+        required: true
+      - schema:
+          type: string
+        in: path
+        name: namespace
+        required: true
+      - schema:
+          type: string
+        in: path
+        name: slug
+        required: true
+      - schema:
+          default: 1
+          type: integer
+          minimum: 1
+          maximum: 9007199254740991
+        in: query
+        name: page
+        required: true
+      - schema:
+          default: 100
+          type: integer
+          minimum: 1
+          maximum: 100
+        in: query
+        name: perPage
+        required: true
+      summary: Get registry git asset namespace slug branches
+      x-summary-source: derived
+    post:
+      tags:
+      - registry-git
+      description: Create a branch on the linked repository
+      operationId: postRegistryGitAssetNamespaceSlugBranches
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  name:
+                    type: string
+                  sha:
+                    type: string
+                required:
+                - name
+                - sha
+                additionalProperties: false
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  pattern: ^[A-Za-z0-9._/-]{1,200}$
+                fromBranch:
+                  type: string
+              required:
+              - name
+              additionalProperties: false
+        required: true
+      parameters:
+      - schema:
+          type: string
+          enum:
+          - apis
+          - schemas
+          - rules
+          - sdks
+        in: path
+        name: asset
+        required: true
+      - schema:
+          type: string
+        in: path
+        name: namespace
+        required: true
+      - schema:
+          type: string
+        in: path
+        name: slug
+        required: true
+      summary: Post registry git asset namespace slug branches
+      x-summary-source: derived
+  /registry-git/{asset}/{namespace}/{slug}/file:
+    get:
+      tags:
+      - registry-git
+      description: Read the resource’s canonical file at a ref on the linked repository
+      operationId: getRegistryGitAssetNamespaceSlugFile
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  content:
+                    type: string
+                  sha:
+                    type: string
+                  ref:
+                    type: string
+                required:
+                - content
+                - sha
+                - ref
+                additionalProperties: false
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
+      parameters:
+      - schema:
+          type: string
+          enum:
+          - apis
+          - schemas
+          - rules
+          - sdks
+        in: path
+        name: asset
+        required: true
+      - schema:
+          type: string
+        in: path
+        name: namespace
+        required: true
+      - schema:
+          type: string
+        in: path
+        name: slug
+        required: true
+      - schema:
+          type: string
+        in: query
+        name: ref
+        required: false
+      summary: Get registry git asset namespace slug file
+      x-summary-source: derived
+  /registry-git/{asset}/{namespace}/{slug}/publish:
+    post:
+      tags:
+      - registry-git
+      description: Publish a registry resource from a git commit (defaults to the branch head)
+      operationId: postRegistryGitAssetNamespaceSlugPublish
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  commitSha:
+                    type: string
+                  version:
+                    anyOf:
+                    - type: string
+                    - type: 'null'
+                required:
+                - commitSha
+                - version
+                additionalProperties: false
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                commitSha:
+                  type: string
+                  pattern: ^[0-9a-f]{7,64}$
+              additionalProperties: false
+        required: true
+      parameters:
+      - schema:
+          type: string
+          enum:
+          - apis
+          - schemas
+          - rules
+          - sdks
+        in: path
+        name: asset
+        required: true
+      - schema:
+          type: string
+        in: path
+        name: namespace
+        required: true
+      - schema:
+          type: string
+        in: path
+        name: slug
+        required: true
+      summary: Post registry git asset namespace slug publish
+      x-summary-source: derived
+  /registry-git/{asset}/{namespace}/{slug}/provision:
+    post:
+      tags:
+      - registry-git
+      description: 'Set up git tracking for an existing registry resource: create its repo and seed the current content'
+      operationId: postRegistryGitAssetNamespaceSlugProvision
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  git:
+                    anyOf:
+                    - $ref: '#/components/schemas/registry-git-binding'
+                    - type: 'null'
+                  status:
+                    type: string
+                    enum:
+                    - migrated
+                    - already-migrated
+                    - partial
+                  versionsImported:
+                    type: number
+                  versionsSkipped:
+                    type: number
+                required:
+                - git
+                - status
+                - versionsImported
+                - versionsSkipped
+                additionalProperties: false
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
+      parameters:
+      - schema:
+          type: string
+          enum:
+          - apis
+          - schemas
+          - rules
+          - sdks
+        in: path
+        name: asset
+        required: true
+      - schema:
+          type: string
+        in: path
+        name: namespace
+        required: true
+      - schema:
+          type: string
+        in: path
+        name: slug
+        required: true
+      summary: Post registry git asset namespace slug provision
+      x-summary-source: derived
+  /registry-git/{asset}/{namespace}/{slug}/link-external:
+    post:
+      tags:
+      - registry-git
+      description: 'Link a GitHub repo as the source of truth for a registry resource: opens a PR adding the canonical file, then pushes and merges on the tracked branch drive publishes'
+      operationId: postRegistryGitAssetNamespaceSlugLinkExternal
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  repository:
+                    $ref: '#/components/schemas/linked-repository'
+                  source:
+                    $ref: '#/components/schemas/doc-source'
+                  pullRequest:
+                    type: object
+                    properties:
+                      url:
+                        type: string
+                      number:
+                        type: integer
+                        minimum: -9007199254740991
+                        maximum: 9007199254740991
+                      branch:
+                        type: string
+                    required:
+                    - url
+                    - number
+                    - branch
+                    additionalProperties: false
+                required:
+                - repository
+                - source
+                - pullRequest
+                additionalProperties: false
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                provider:
+                  type: string
+                  enum:
+                  - github
+                  - bitbucket
+                installationId:
+                  type: integer
+                  minimum: -9007199254740991
+                  maximum: 9007199254740991
+                repoId:
+                  type: integer
+                  minimum: -9007199254740991
+                  maximum: 9007199254740991
+                branch:
+                  type: string
+                  minLength: 1
+                publishOnPush:
+                  type: boolean
+                publishOnMerge:
+                  type: boolean
+              required:
+              - provider
+              additionalProperties: false
+        required: true
+      parameters:
+      - schema:
+          type: string
+          enum:
+          - apis
+          - schemas
+          - rules
+          - sdks
+        in: path
+        name: asset
+        required: true
+      - schema:
+          type: string
+        in: path
+        name: namespace
+        required: true
+      - schema:
+          type: string
+        in: path
+        name: slug
+        required: true
+      summary: Post registry git asset namespace slug link external
+      x-summary-source: derived
+  /registry-git/{asset}/{namespace}/{slug}/unlink-external:
+    post:
+      tags:
+      - registry-git
+      description: Disconnect the linked repository; the resource returns to platform authoring
+      operationId: postRegistryGitAssetNamespaceSlugUnlinkExternal
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  source:
+                    $ref: '#/components/schemas/doc-source'
+                required:
+                - source
+                additionalProperties: false
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
+      parameters:
+      - schema:
+          type: string
+          enum:
+          - apis
+          - schemas
+          - rules
+          - sdks
+        in: path
+        name: asset
+        required: true
+      - schema:
+          type: string
+        in: path
+        name: namespace
+        required: true
+      - schema:
+          type: string
+        in: path
+        name: slug
+        required: true
+      summary: Post registry git asset namespace slug unlink external
+      x-summary-source: derived
+  /registry-git/{asset}/{namespace}/{slug}/propose:
+    post:
+      tags:
+      - registry-git
+      description: Propose an edit to a git-sourced document as a pull request on the linked repo
+      operationId: postRegistryGitAssetNamespaceSlugPropose
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  prNumber:
+                    type: number
+                  prUrl:
+                    type: string
+                  branch:
+                    type: string
+                required:
+                - prNumber
+                - prUrl
+                - branch
+                additionalProperties: false
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                version:
+                  $ref: '#/components/schemas/version'
+                document:
+                  type: string
+                message:
+                  type: string
+                  maxLength: 500
+                baseSha:
+                  type: string
+                  pattern: ^[0-9a-f]{7,64}$
+                baseBranch:
+                  type: string
+                  minLength: 1
+              required:
+              - version
+              - document
+              additionalProperties: false
+        required: true
+      parameters:
+      - schema:
+          type: string
+          enum:
+          - apis
+          - schemas
+        in: path
+        name: asset
+        required: true
+      - schema:
+          type: string
+        in: path
+        name: namespace
+        required: true
+      - schema:
+          type: string
+        in: path
+        name: slug
+        required: true
+      summary: Post registry git asset namespace slug propose
+      x-summary-source: derived
+components:
+  schemas:
+    doc-source:
+      oneOf:
+      - type: object
+        properties:
+          type:
+            type: string
+            const: platform
+        required:
+        - type
+        additionalProperties: false
+      - type: object
+        properties:
+          type:
+            type: string
+            const: git
+          repositoryUid:
+            $ref: '#/components/schemas/nanoid'
+          path:
+            type: string
+            minLength: 1
+          branch:
+            default: null
+            anyOf:
+            - type: string
+            - type: 'null'
+          publishOnPush:
+            default: true
+            type: boolean
+          publishOnMerge:
+            default: false
+            type: boolean
+          currentPublishedSha:
+            default: null
+            anyOf:
+            - type: string
+            - type: 'null'
+          lastPublishedAt:
+            default: null
+            anyOf:
+            - $ref: '#/components/schemas/timestamp'
+            - type: 'null'
+        required:
+        - type
+        - repositoryUid
+        - path
+        - branch
+        - publishOnPush
+        - publishOnMerge
+        - currentPublishedSha
+        - lastPublishedAt
+        additionalProperties: false
+      - type: object
+        properties:
+          type:
+            type: string
+            const: url
+          url:
+            type: string
+            format: uri
+          linkedBy:
+            type: string
+          etag:
+            default: null
+            anyOf:
+            - type: string
+            - type: 'null'
+          lastFetchedAt:
+            default: null
+            anyOf:
+            - $ref: '#/components/schemas/timestamp'
+            - type: 'null'
+        required:
+        - type
+        - url
+        - linkedBy
+        - etag
+        - lastFetchedAt
+        additionalProperties: false
+    '404':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+      examples:
+      - message: Resource not found.
+        code: not-found
+    '422':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+      examples:
+      - message: The request body contains invalid values.
+        code: invalid-payload
+    registry-asset:
+      type: string
+      enum:
+      - apis
+      - rules
+      - schemas
+      - sdks
+      - workspaces
+    nanoid:
+      type: string
+      minLength: 5
+      examples:
+      - UakgbKJ5m9gl0JDMbcJqL
+    slug:
+      type: string
+      minLength: 1
+      maxLength: 60
+      pattern: ^[a-z](?:[a-z0-9-]*[a-z0-9])?$
+      examples:
+      - acme-api
+    namespace:
+      type: string
+      minLength: 2
+      maxLength: 50
+      pattern: ^[a-zA-Z0-9-_]+$
+      examples:
+      - acme
+    timestamp:
+      type: integer
+      minimum: 0
+      maximum: 9007199254740991
+      examples:
+      - 1735689600
+    registry-publish:
+      type: object
+      properties:
+        uid:
+          $ref: '#/components/schemas/nanoid'
+        createdAt:
+          $ref: '#/components/schemas/timestamp'
+        updatedAt:
+          $ref: '#/components/schemas/timestamp'
+        resourceUid:
+          $ref: '#/components/schemas/nanoid'
+        asset:
+          $ref: '#/components/schemas/registry-asset'
+        namespace:
+          $ref: '#/components/schemas/namespace'
+        slug:
+          $ref: '#/components/schemas/slug'
+        version:
+          default: null
+          anyOf:
+          - $ref: '#/components/schemas/version'
+          - type: 'null'
+        commitSha:
+          type: string
+        parentSha:
+          default: null
+          anyOf:
+          - type: string
+          - type: 'null'
+        source:
+          $ref: '#/components/schemas/registry-publish-source'
+        message:
+          default: ''
+          type: string
+        author:
+          default: null
+          anyOf:
+          - type: object
+            properties:
+              name:
+                type: string
+              email:
+                type: string
+            required:
+            - name
+            - email
+            additionalProperties: false
+          - type: 'null'
+      required:
+      - uid
+      - createdAt
+      - updatedAt
+      - resourceUid
+      - asset
+      - namespace
+      - slug
+      - version
+      - commitSha
+      - parentSha
+      - source
+      - message
+      - author
+      additionalProperties: false
+    version:
+      type: string
+      minLength: 1
+      examples:
+      - 1.2.0
+    '401':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+      examples:
+      - message: Invalid authentication token.
+        code: unauthorized
+    registry-git-external:
+      oneOf:
+      - type: object
+        properties:
+          provider:
+            type: string
+            const: github
+          linkedBy:
+            type: string
+          installationId:
+            type: integer
+            minimum: -9007199254740991
+            maximum: 9007199254740991
+          id:
+            type: integer
+            minimum: -9007199254740991
+            maximum: 9007199254740991
+          name:
+            type: string
+            minLength: 2
+          branch:
+            default: main
+            type: string
+          path:
+            default: ''
+            type: string
+          webhookId:
+            default: ''
+            type: string
+        required:
+        - provider
+        - linkedBy
+        - installationId
+        - id
+        - name
+        - branch
+        - path
+        - webhookId
+        additionalProperties: false
+      - type: object
+        properties:
+          provider:
+            type: string
+            const: bitbucket
+          linkedBy:
+            type: string
+          workspaceUuid:
+            type: string
+          workspaceSlug:
+            type: string
+          repoUuid:
+            type: string
+          repoSlug:
+            type: string
+          name:
+            type: string
+            minLength: 2
+          branch:
+            default: main
+            type: string
+          webhookUuid:
+            default: ''
+            type: string
+        required:
+        - provider
+        - linkedBy
+        - workspaceUuid
+        - workspaceSlug
+        - repoUuid
+        - repoSlug
+        - name
+        - branch
+        - webhookUuid
+        additionalProperties: false
+    registry-git-binding:
+      type: object
+      properties:
+        forgejo:
+          type: object
+          properties:
+            owner:
+              type: string
+            repo:
+              type: string
+            branch:
+              default: main
+              type: string
+          required:
+          - owner
+          - repo
+          - branch
+          additionalProperties: false
+        publishOnPush:
+          default: true
+          type: boolean
+        publishOnMerge:
+          default: false
+          type: boolean
+        trackedBranch:
+          default: main
+          type: string
+        webhookId:
+          default: null
+          anyOf:
+          - type: number
+          - type: 'null'
+        external:
+          default: null
+          anyOf:
+          - $ref: '#/components/schemas/registry-git-external'
+          - type: 'null'
+        currentPublishedSha:
+          default: null
+          anyOf:
+          - type: string
+          - type: 'null'
+        lastPublishedAt:
+          default: null
+          anyOf:
+          - $ref: '#/components/schemas/timestamp'
+          - type: 'null'
+      required:
+      - forgejo
+      - publishOnPush
+      - publishOnMerge
+      - trackedBranch
+      - webhookId
+      - external
+      - currentPublishedSha
+      - lastPublishedAt
+      additionalProperties: false
+    '403':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+      examples:
+      - message: You do not have permission to access this resource.
+        code: forbidden
+    '400':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+      examples:
+      - message: Invalid request parameters.
+        code: bad-request
+    linked-repository:
+      type: object
+      properties:
+        uid:
+          default: nanoid()
+          $ref: '#/components/schemas/nanoid'
+        createdAt:
+          $ref: '#/components/schemas/timestamp'
+        updatedAt:
+          $ref: '#/components/schemas/timestamp'
+        remote:
+          $ref: '#/components/schemas/linked-repository-remote'
+        forgejo:
+          default: null
+          anyOf:
+          - type: object
+            properties:
+              owner:
+                type: string
+              repo:
+                type: string
+              branch:
+                default: main
+                type: string
+            required:
+            - owner
+            - repo
+            - branch
+            additionalProperties: false
+          - type: 'null'
+        linkedBy:
+          type: string
+      required:
+      - uid
+      - createdAt
+      - updatedAt
+      - remote
+      - forgejo
+      - linkedBy
+      additionalProperties: false
+    '500':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+      examples:
+      - message: An unexpected error occurred.
+        code: unknown
+    registry-publish-source:
+      type: string
+      enum:
+      - manual
+      - git-hook
+      - external-push
+      - migration
+    linked-repository-remote:
+      oneOf:
+      - type: object
+        properties:
+          provider:
+            type: string
+            const: github
+          installationId:
+            type: integer
+            minimum: -9007199254740991
+            maximum: 9007199254740991
+          id:
+            type: integer
+            minimum: -9007199254740991
+            maximum: 9007199254740991
+          name:
+            type: string
+            minLength: 2
+          defaultBranch:
+            default: main
+            type: string
+        required:
+        - provider
+        - installationId
+        - id
+        - name
+        - defaultBranch
+        additionalProperties: false
+      - type: object
+        properties:
+          provider:
+            type: string
+            const: bitbucket
+          workspaceUuid:
+            type: string
+          workspaceSlug:
+            type: string
+          repoUuid:
+            type: string
+          repoSlug:
+            type: string
+          name:
+            type: string
+            minLength: 2
+          defaultBranch:
+            default: main
+            type: string
+        required:
+        - provider
+        - workspaceUuid
+        - workspaceSlug
+        - repoUuid
+        - repoSlug
+        - name
+        - defaultBranch
+        additionalProperties: false
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

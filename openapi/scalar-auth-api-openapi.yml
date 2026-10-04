@@ -1,12 +1,14 @@
 openapi: 3.2.0
 info:
-  title: Core Auth API
-  description: Core services for Scalar
-  version: 1.0.1
+  title: Scalar Auth API
   contact:
     name: Marc from Scalar
     url: https://scalar.com
     email: support@scalar.com
+  version: '1.0'
+  description: 'Operations tagged auth across 2 of this provider''s published API definitions: scalar-core.json, scalar-openapi.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api.scalar.com/core
 security:
 - BearerAuth: []
 tags:
@@ -1872,8 +1874,181 @@ paths:
         required: true
       summary: Postevents auth vacuum refresh tokens
       x-summary-source: derived
+  /hosting-authenticate:
+    get:
+      tags:
+      - Auth
+      description: Relays hosting magic links from a Scalar-owned domain to the target docs host.
+      operationId: getHostingAuthenticate
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: 'null'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400_2'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401_2'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403_2'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404_2'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422_2'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500_2'
+      security: []
+      parameters:
+      - schema:
+          type: string
+          minLength: 1
+        in: query
+        name: token
+        required: true
+      summary: Get hosting authenticate
+      x-summary-source: derived
+    servers:
+    - url: https://api.scalar.com/core
+  /logout:
+    post:
+      tags:
+      - Auth
+      description: 'Log out: revoke the refresh token family and clear the team cookie'
+      operationId: postLogout
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: 'null'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400_2'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401_2'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403_2'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404_2'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422_2'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500_2'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                refreshToken:
+                  type: string
+              additionalProperties: false
+        required: true
+      summary: Post logout
+      x-summary-source: derived
+    servers:
+    - url: https://api.scalar.com/core
 components:
   schemas:
+    nanoid:
+      type: string
+      minLength: 5
+    '404':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+    timestamp:
+      type: integer
+      minimum: 0
+      maximum: 9007199254740991
+    team-ref:
+      type: object
+      properties:
+        teamUid:
+          type: string
+        teamName:
+          $ref: '#/components/schemas/team-name'
+        teamImageUri:
+          $ref: '#/components/schemas/team-image'
+      required:
+      - teamUid
+      - teamName
+      additionalProperties: false
+    slug:
+      type: string
+      minLength: 3
+      maxLength: 60
+      pattern: ^[a-z](?:[a-z0-9-]*[a-z0-9])?$
+    '403':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+    email:
+      type: string
+      format: email
+      pattern: ^(?!\.)(?!.*\.\.)([A-Za-z0-9_'+\-\.]*)[A-Za-z0-9_+-]@([A-Za-z0-9][A-Za-z0-9\-]*\.)+[A-Za-z]{2,}$
     user:
       type: object
       properties:
@@ -1919,11 +2094,36 @@ components:
       - hasGithub
       - hasBitbucket
       additionalProperties: false
-    slug:
-      type: string
-      minLength: 3
-      maxLength: 60
-      pattern: ^[a-z](?:[a-z0-9-]*[a-z0-9])?$
+    '422':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+    '401':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+    '400':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
     token-response:
       type: object
       properties:
@@ -1935,6 +2135,20 @@ components:
       - refreshToken
       - accessToken
       additionalProperties: false
+    sso-resource:
+      type: string
+      enum:
+      - apis
+      - schemas
+      - rules
+      - sdks
+      - workspaces
+      - sync-project
+      - project
+      - publish
+      - mcp
+    team-name:
+      type: string
     '500':
       type: object
       properties:
@@ -1945,34 +2159,8 @@ components:
       required:
       - message
       - code
-    email:
+    team-image:
       type: string
-      format: email
-      pattern: ^(?!\.)(?!.*\.\.)([A-Za-z0-9_'+\-\.]*)[A-Za-z0-9_+-]@([A-Za-z0-9][A-Za-z0-9\-]*\.)+[A-Za-z]{2,}$
-    timestamp:
-      type: integer
-      minimum: 0
-      maximum: 9007199254740991
-    '422':
-      type: object
-      properties:
-        message:
-          type: string
-        code:
-          type: string
-      required:
-      - message
-      - code
-    '403':
-      type: object
-      properties:
-        message:
-          type: string
-        code:
-          type: string
-      required:
-      - message
-      - code
     identity-provider-record:
       type: object
       properties:
@@ -2029,37 +2217,12 @@ components:
       - x509Cert
       - consumerOnly
       additionalProperties: false
-    team-name:
-      type: string
-    '401':
-      type: object
-      properties:
-        message:
-          type: string
-        code:
-          type: string
-      required:
-      - message
-      - code
-    nanoid:
+    nanoid_2:
       type: string
       minLength: 5
-    team-image:
-      type: string
-    team-ref:
-      type: object
-      properties:
-        teamUid:
-          type: string
-        teamName:
-          $ref: '#/components/schemas/team-name'
-        teamImageUri:
-          $ref: '#/components/schemas/team-image'
-      required:
-      - teamUid
-      - teamName
-      additionalProperties: false
-    '404':
+      examples:
+      - UakgbKJ5m9gl0JDMbcJqL
+    '404_2':
       type: object
       properties:
         message:
@@ -2069,7 +2232,152 @@ components:
       required:
       - message
       - code
-    sso-resource:
+      examples:
+      - message: Resource not found.
+        code: not-found
+    timestamp_2:
+      type: integer
+      minimum: 0
+      maximum: 9007199254740991
+      examples:
+      - 1735689600
+    slug_2:
+      type: string
+      minLength: 1
+      maxLength: 60
+      pattern: ^[a-z](?:[a-z0-9-]*[a-z0-9])?$
+      examples:
+      - acme-api
+    '403_2':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+      examples:
+      - message: You do not have permission to access this resource.
+        code: forbidden
+    email_2:
+      type: string
+      format: email
+      pattern: ^(?!\.)(?!.*\.\.)([A-Za-z0-9_'+\-\.]*)[A-Za-z0-9_+-]@([A-Za-z0-9][A-Za-z0-9\-]*\.)+[A-Za-z]{2,}$
+      examples:
+      - alex@example.com
+    user_2:
+      type: object
+      properties:
+        uid:
+          $ref: '#/components/schemas/nanoid_2'
+        createdAt:
+          $ref: '#/components/schemas/timestamp_2'
+        updatedAt:
+          $ref: '#/components/schemas/timestamp_2'
+        theme:
+          examples:
+          - default
+          type: string
+        userIndex:
+          type: string
+        email:
+          $ref: '#/components/schemas/email_2'
+        teams:
+          type: array
+          items:
+            $ref: '#/components/schemas/team-ref'
+        activeTeamId:
+          anyOf:
+          - type: string
+          - type: 'null'
+          examples:
+          - GakgbKJ5m9gl0JDMbcJqL
+        hasGithub:
+          default: false
+          examples:
+          - true
+          type: boolean
+        hasBitbucket:
+          default: false
+          type: boolean
+        forgejoToken:
+          type: string
+        emailAllowance:
+          type: object
+          properties:
+            day:
+              type: string
+            dayCount:
+              type: integer
+              minimum: 0
+              maximum: 9007199254740991
+            month:
+              type: string
+            monthCount:
+              type: integer
+              minimum: 0
+              maximum: 9007199254740991
+            alertedMonth:
+              type: string
+          required:
+          - day
+          - dayCount
+          - month
+          - monthCount
+          additionalProperties: false
+      required:
+      - uid
+      - createdAt
+      - updatedAt
+      - userIndex
+      - email
+      - teams
+      - activeTeamId
+      - hasGithub
+      - hasBitbucket
+      additionalProperties: false
+    '422_2':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+      examples:
+      - message: The request body contains invalid values.
+        code: invalid-payload
+    '401_2':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+      examples:
+      - message: Invalid authentication token.
+        code: unauthorized
+    '400_2':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+      examples:
+      - message: Invalid request parameters.
+        code: bad-request
+    sso-resource_2:
       type: string
       enum:
       - apis
@@ -2081,7 +2389,12 @@ components:
       - project
       - publish
       - mcp
-    '400':
+      - namespace
+    team-name_2:
+      type: string
+      examples:
+      - Acme
+    '500_2':
       type: object
       properties:
         message:
@@ -2091,8 +2404,72 @@ components:
       required:
       - message
       - code
+      examples:
+      - message: An unexpected error occurred.
+        code: unknown
+    team-image_2:
+      examples:
+      - https://example.com/logo.svg
+      type: string
+    identity-provider-record_2:
+      type: object
+      properties:
+        uid:
+          $ref: '#/components/schemas/nanoid_2'
+        createdAt:
+          $ref: '#/components/schemas/timestamp_2'
+        updatedAt:
+          $ref: '#/components/schemas/timestamp_2'
+        name:
+          type: string
+        provider:
+          type: string
+          enum:
+          - local
+          - google
+          - okta
+          - auth0
+          - azure
+          - one-login
+          - ping-identity
+        createUsers:
+          default: false
+          type: boolean
+        signRequests:
+          default: false
+          type: boolean
+        ssoUrl:
+          default: ''
+          description: This URL is used by Scalar to initiate a SAML login.
+          type: string
+        issuer:
+          default: ''
+          description: This is the URI that identifies your SAML identity provider. Any assertions must use a matching <saml:Issuer> attribute.
+          type: string
+        x509Cert:
+          default: ''
+          description: The authentication certificate issued by your identity provider
+          type: string
+        consumerOnly:
+          type: boolean
+      required:
+      - uid
+      - createdAt
+      - updatedAt
+      - name
+      - provider
+      - createUsers
+      - signRequests
+      - ssoUrl
+      - issuer
+      - x509Cert
+      - consumerOnly
+      additionalProperties: false
   securitySchemes:
     BearerAuth:
       type: http
       scheme: bearer
       bearerFormat: JWT
+x-refined-from:
+- scalar-core.json
+- scalar-openapi.json

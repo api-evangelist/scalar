@@ -1,12 +1,14 @@
 openapi: 3.2.0
 info:
-  title: Core SDKs API
-  description: Core services for Scalar
-  version: 1.0.1
+  title: Scalar SDKs API
   contact:
     name: Marc from Scalar
     url: https://scalar.com
     email: support@scalar.com
+  version: '1.0'
+  description: 'Operations tagged sdks across 2 of this provider''s published API definitions: scalar-core.json, scalar-openapi.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api.scalar.com/core
 security:
 - BearerAuth: []
 tags:
@@ -151,6 +153,76 @@ paths:
         required: true
       summary: Postv1 sdks
       x-summary-source: derived
+    get:
+      tags:
+      - SDKs
+      description: List the team SDKs
+      operationId: getV1Sdks
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/sdk'
+                  hasMore:
+                    type: boolean
+                required:
+                - data
+                - hasMore
+                additionalProperties: false
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400_2'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401_2'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403_2'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404_2'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422_2'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500_2'
+      parameters:
+      - schema:
+          default: 50
+          type: integer
+          minimum: 1
+          maximum: 200
+        in: query
+        name: limit
+        required: true
+      summary: Get V1 sdks
+      x-summary-source: derived
   /v1/sdks/version:
     post:
       tags:
@@ -222,6 +294,71 @@ paths:
               additionalProperties: false
         required: true
       summary: Postv1 sdks version
+      x-summary-source: derived
+    delete:
+      tags:
+      - SDKs
+      description: Delete a version of an SDK
+      operationId: deleteV1SdksVersion
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: 'null'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400_2'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401_2'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403_2'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404_2'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422_2'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500_2'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                uid:
+                  $ref: '#/components/schemas/nanoid_2'
+                version:
+                  $ref: '#/components/schemas/version_2'
+              required:
+              - uid
+              - version
+              additionalProperties: false
+        required: true
+      summary: Delete V1 sdks version
       x-summary-source: derived
   /v1/sdks/{uid}:
     patch:
@@ -358,6 +495,62 @@ paths:
         name: uid
         required: true
       summary: Deletev1 sdks uid
+      x-summary-source: derived
+    get:
+      tags:
+      - SDKs
+      description: Get an SDK by UID
+      operationId: getV1SdksUid
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/sdk'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400_2'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401_2'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403_2'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404_2'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422_2'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500_2'
+      parameters:
+      - schema:
+          $ref: '#/components/schemas/nanoid_2'
+        in: path
+        name: uid
+        required: true
+      summary: Get V1 sdks uid
       x-summary-source: derived
   /pubsub/sdk-build-complete:
     post:
@@ -1568,29 +1761,656 @@ paths:
         required: true
       summary: Postv1 sdks snippets
       x-summary-source: derived
+  /v1/sdks/registry/availability:
+    post:
+      tags:
+      - SDKs
+      description: Checks whether a package name is free on the registry for a language
+      operationId: postV1SdksRegistryAvailability
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  registry:
+                    anyOf:
+                    - type: string
+                    - type: 'null'
+                  status:
+                    type: string
+                    enum:
+                    - available
+                    - taken
+                    - unsupported
+                    - invalid
+                required:
+                - registry
+                - status
+                additionalProperties: false
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400_2'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401_2'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403_2'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404_2'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422_2'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500_2'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                language:
+                  type: string
+                  enum:
+                  - typescript
+                  - python
+                  - cli
+                  - csharp
+                  - java
+                  - ruby
+                  - php
+                  - go
+                  - rust
+                  - kotlin
+                  - swift
+                  - cpp
+                  - dart
+                packageName:
+                  type: string
+                  minLength: 1
+                  maxLength: 214
+              required:
+              - language
+              - packageName
+              additionalProperties: false
+        required: true
+      summary: Post V1 sdks registry availability
+      x-summary-source: derived
+    servers:
+    - url: https://api.scalar.com/core
+  /v1/sdks/resolve-config:
+    post:
+      tags:
+      - SDKs
+      description: Resolve a complete SDK config against its API document
+      operationId: postV1SdksResolveConfig
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  config:
+                    type: string
+                required:
+                - config
+                additionalProperties: false
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400_2'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401_2'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403_2'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404_2'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422_2'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500_2'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                apiUid:
+                  $ref: '#/components/schemas/nanoid_2'
+                languages:
+                  minItems: 1
+                  type: array
+                  items:
+                    type: string
+                    enum:
+                    - typescript
+                    - python
+                    - cli
+                    - csharp
+                    - java
+                    - ruby
+                    - php
+                    - go
+                    - rust
+                    - kotlin
+                    - swift
+                    - cpp
+                    - dart
+                slug:
+                  $ref: '#/components/schemas/slug_2'
+                config:
+                  type: string
+              required:
+              - apiUid
+              - languages
+              - slug
+              additionalProperties: false
+        required: true
+      summary: Post V1 sdks resolve config
+      x-summary-source: derived
+    servers:
+    - url: https://api.scalar.com/core
+  /v1/sdks/repository/publishing:
+    post:
+      tags:
+      - SDKs
+      description: Toggles publish-on-merge and registry auth for an SDK target
+      operationId: postV1SdksRepositoryPublishing
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: 'null'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400_2'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401_2'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403_2'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404_2'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422_2'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500_2'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                uid:
+                  $ref: '#/components/schemas/nanoid_2'
+                language:
+                  type: string
+                  enum:
+                  - typescript
+                  - python
+                  - cli
+                  - csharp
+                  - java
+                  - ruby
+                  - php
+                  - go
+                  - rust
+                  - kotlin
+                  - swift
+                  - cpp
+                  - dart
+                publishOnMerge:
+                  type: boolean
+                authMethod:
+                  type: string
+                  enum:
+                  - oidc
+                  - access-token
+                access:
+                  type: string
+                  enum:
+                  - public
+                  - restricted
+                tag:
+                  type: string
+                  maxLength: 120
+                artifactId:
+                  type: string
+                  maxLength: 120
+                tapRepo:
+                  type: string
+                  maxLength: 120
+                registry:
+                  type: string
+                  maxLength: 60
+              required:
+              - uid
+              - language
+              - publishOnMerge
+              additionalProperties: false
+        required: true
+      summary: Post V1 sdks repository publishing
+      x-summary-source: derived
+    servers:
+    - url: https://api.scalar.com/core
+  /v1/sdks/{uid}/draft:
+    delete:
+      tags:
+      - SDKs
+      description: Discard the open draft version of an SDK
+      operationId: deleteV1SdksUidDraft
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: 'null'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400_2'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401_2'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403_2'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404_2'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422_2'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500_2'
+      parameters:
+      - schema:
+          $ref: '#/components/schemas/nanoid_2'
+        in: path
+        name: uid
+        required: true
+      summary: Delete V1 sdks uid draft
+      x-summary-source: derived
+    servers:
+    - url: https://api.scalar.com/core
+  /v1/sdks/{uid}/sample/access:
+    post:
+      tags:
+      - SDKs
+      description: Invites the caller to the SDK sample repositories
+      operationId: postV1SdksUidSampleAccess
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  repositories:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        repository:
+                          type: string
+                        invitationUrl:
+                          anyOf:
+                          - type: string
+                          - type: 'null'
+                        failure:
+                          type: string
+                          enum:
+                          - missing
+                          - forbidden
+                          - unavailable
+                      required:
+                      - repository
+                      - invitationUrl
+                      additionalProperties: false
+                required:
+                - repositories
+                additionalProperties: false
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400_2'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401_2'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403_2'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404_2'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422_2'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500_2'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                language:
+                  type: string
+                  enum:
+                  - typescript
+                  - python
+                  - cli
+                  - csharp
+                  - java
+                  - ruby
+                  - php
+                  - go
+                  - rust
+                  - kotlin
+                  - swift
+                  - cpp
+                  - dart
+              additionalProperties: false
+        required: true
+      parameters:
+      - schema:
+          $ref: '#/components/schemas/nanoid_2'
+        in: path
+        name: uid
+        required: true
+      summary: Post V1 sdks uid sample access
+      x-summary-source: derived
+    servers:
+    - url: https://api.scalar.com/core
+  /v1/sdks/{uid}/sample/retry:
+    post:
+      tags:
+      - SDKs
+      description: Retry provisioning the SDK sample repositories
+      operationId: postV1SdksUidSampleRetry
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: 'null'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400_2'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401_2'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403_2'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404_2'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422_2'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500_2'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                language:
+                  type: string
+                  enum:
+                  - typescript
+                  - python
+                  - cli
+                  - csharp
+                  - java
+                  - ruby
+                  - php
+                  - go
+                  - rust
+                  - kotlin
+                  - swift
+                  - cpp
+                  - dart
+              additionalProperties: false
+        required: true
+      parameters:
+      - schema:
+          $ref: '#/components/schemas/nanoid_2'
+        in: path
+        name: uid
+        required: true
+      summary: Post V1 sdks uid sample retry
+      x-summary-source: derived
+    servers:
+    - url: https://api.scalar.com/core
+  /v1/sdks/repository/release-pr:
+    get:
+      tags:
+      - SDKs
+      description: Get the release PR open on an SDK target's repository
+      operationId: getV1SdksRepositoryReleasePr
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  pullRequest:
+                    anyOf:
+                    - type: number
+                    - type: 'null'
+                required:
+                - pullRequest
+                additionalProperties: false
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400_2'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401_2'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403_2'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404_2'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422_2'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500_2'
+      parameters:
+      - schema:
+          $ref: '#/components/schemas/nanoid_2'
+        in: query
+        name: uid
+        required: true
+      - schema:
+          type: string
+          enum:
+          - typescript
+          - python
+          - cli
+          - csharp
+          - java
+          - ruby
+          - php
+          - go
+          - rust
+          - kotlin
+          - swift
+          - cpp
+          - dart
+        in: query
+        name: language
+        required: true
+      summary: Get V1 sdks repository release pr
+      x-summary-source: derived
+    servers:
+    - url: https://api.scalar.com/core
 components:
   schemas:
-    slug:
+    nanoid:
       type: string
-      minLength: 3
-      maxLength: 60
-      pattern: ^[a-z](?:[a-z0-9-]*[a-z0-9])?$
-    '500':
-      type: object
-      properties:
-        message:
-          type: string
-        code:
-          type: string
-      required:
-      - message
-      - code
+      minLength: 5
     namespace:
       type: string
       minLength: 3
       maxLength: 50
       pattern: ^[a-zA-Z0-9-_]+$
-    '400':
+    '404':
       type: object
       properties:
         message:
@@ -1600,6 +2420,11 @@ components:
       required:
       - message
       - code
+    slug:
+      type: string
+      minLength: 3
+      maxLength: 60
+      pattern: ^[a-z](?:[a-z0-9-]*[a-z0-9])?$
     '403':
       type: object
       properties:
@@ -1610,10 +2435,40 @@ components:
       required:
       - message
       - code
-    nanoid:
+    '500':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+    version:
       type: string
-      minLength: 5
+      minLength: 1
+    '422':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
     '401':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+    '400':
       type: object
       properties:
         message:
@@ -1642,7 +2497,85 @@ components:
       - operationId
       - path
       additionalProperties: false
-    '404':
+    doc-source:
+      oneOf:
+      - type: object
+        properties:
+          type:
+            type: string
+            const: platform
+        required:
+        - type
+        additionalProperties: false
+      - type: object
+        properties:
+          type:
+            type: string
+            const: git
+          repositoryUid:
+            $ref: '#/components/schemas/nanoid_2'
+          path:
+            type: string
+            minLength: 1
+          branch:
+            default: null
+            anyOf:
+            - type: string
+            - type: 'null'
+          publishOnPush:
+            default: true
+            type: boolean
+          publishOnMerge:
+            default: false
+            type: boolean
+          currentPublishedSha:
+            default: null
+            anyOf:
+            - type: string
+            - type: 'null'
+          lastPublishedAt:
+            default: null
+            anyOf:
+            - $ref: '#/components/schemas/timestamp'
+            - type: 'null'
+        required:
+        - type
+        - repositoryUid
+        - path
+        - branch
+        - publishOnPush
+        - publishOnMerge
+        - currentPublishedSha
+        - lastPublishedAt
+        additionalProperties: false
+      - type: object
+        properties:
+          type:
+            type: string
+            const: url
+          url:
+            type: string
+            format: uri
+          linkedBy:
+            type: string
+          etag:
+            default: null
+            anyOf:
+            - type: string
+            - type: 'null'
+          lastFetchedAt:
+            default: null
+            anyOf:
+            - $ref: '#/components/schemas/timestamp'
+            - type: 'null'
+        required:
+        - type
+        - url
+        - linkedBy
+        - etag
+        - lastFetchedAt
+        additionalProperties: false
+    '404_2':
       type: object
       properties:
         message:
@@ -1652,10 +2585,126 @@ components:
       required:
       - message
       - code
-    version:
+      examples:
+      - message: Resource not found.
+        code: not-found
+    '422_2':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+      examples:
+      - message: The request body contains invalid values.
+        code: invalid-payload
+    sdk-target:
+      type: object
+      properties:
+        language:
+          type: string
+          enum:
+          - typescript
+          - python
+          - cli
+          - csharp
+          - java
+          - ruby
+          - php
+          - go
+          - rust
+          - kotlin
+          - swift
+          - cpp
+          - dart
+        slug:
+          $ref: '#/components/schemas/slug_2'
+        destination:
+          default: null
+          anyOf:
+          - $ref: '#/components/schemas/sdk-target-destination'
+          - type: 'null'
+        sample:
+          default: null
+          anyOf:
+          - $ref: '#/components/schemas/sdk-sample-repo'
+          - type: 'null'
+      required:
+      - language
+      - destination
+      - sample
+      additionalProperties: false
+    sdk-sample-repo:
+      type: object
+      properties:
+        provider:
+          default: github
+          type: string
+          const: github
+        status:
+          default: ready
+          type: string
+          enum:
+          - pending
+          - ready
+        name:
+          type: string
+        installationId:
+          type: integer
+          minimum: -9007199254740991
+          maximum: 9007199254740991
+        baseBranch:
+          default: main
+          type: string
+          minLength: 1
+        provisionStartedAt:
+          $ref: '#/components/schemas/timestamp'
+        lastSyncedBuild:
+          $ref: '#/components/schemas/nanoid_2'
+      required:
+      - provider
+      - status
+      - baseBranch
+      additionalProperties: false
+    nanoid_2:
+      type: string
+      minLength: 5
+      examples:
+      - UakgbKJ5m9gl0JDMbcJqL
+    slug_2:
       type: string
       minLength: 1
-    '422':
+      maxLength: 60
+      pattern: ^[a-z](?:[a-z0-9-]*[a-z0-9])?$
+      examples:
+      - acme-api
+    semver:
+      type: string
+      pattern: ^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-((?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+([0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?$
+      examples:
+      - 1.2.0
+    namespace_2:
+      type: string
+      minLength: 2
+      maxLength: 50
+      pattern: ^[a-zA-Z0-9-_]+$
+      examples:
+      - acme
+    timestamp:
+      type: integer
+      minimum: 0
+      maximum: 9007199254740991
+      examples:
+      - 1735689600
+    version_2:
+      type: string
+      minLength: 1
+      examples:
+      - 1.2.0
+    '401_2':
       type: object
       properties:
         message:
@@ -1665,8 +2714,422 @@ components:
       required:
       - message
       - code
+      examples:
+      - message: Invalid authentication token.
+        code: unauthorized
+    registry-git-external:
+      oneOf:
+      - type: object
+        properties:
+          provider:
+            type: string
+            const: github
+          linkedBy:
+            type: string
+          installationId:
+            type: integer
+            minimum: -9007199254740991
+            maximum: 9007199254740991
+          id:
+            type: integer
+            minimum: -9007199254740991
+            maximum: 9007199254740991
+          name:
+            type: string
+            minLength: 2
+          branch:
+            default: main
+            type: string
+          path:
+            default: ''
+            type: string
+          webhookId:
+            default: ''
+            type: string
+        required:
+        - provider
+        - linkedBy
+        - installationId
+        - id
+        - name
+        - branch
+        - path
+        - webhookId
+        additionalProperties: false
+      - type: object
+        properties:
+          provider:
+            type: string
+            const: bitbucket
+          linkedBy:
+            type: string
+          workspaceUuid:
+            type: string
+          workspaceSlug:
+            type: string
+          repoUuid:
+            type: string
+          repoSlug:
+            type: string
+          name:
+            type: string
+            minLength: 2
+          branch:
+            default: main
+            type: string
+          webhookUuid:
+            default: ''
+            type: string
+        required:
+        - provider
+        - linkedBy
+        - workspaceUuid
+        - workspaceSlug
+        - repoUuid
+        - repoSlug
+        - name
+        - branch
+        - webhookUuid
+        additionalProperties: false
+    sdk-version-target-state:
+      type: object
+      properties:
+        activeSync:
+          type: object
+          properties:
+            repository:
+              type: string
+            pullRequest:
+              type: number
+            commitHash:
+              type: string
+          required:
+          - repository
+          - commitHash
+          additionalProperties: false
+        conflict:
+          type: object
+          properties:
+            build:
+              $ref: '#/components/schemas/nanoid_2'
+            pullRequest:
+              type: number
+          required:
+          - build
+          additionalProperties: false
+        activeBuild:
+          $ref: '#/components/schemas/nanoid_2'
+        builtAt:
+          $ref: '#/components/schemas/timestamp'
+      additionalProperties: false
+    registry-git-binding:
+      type: object
+      properties:
+        forgejo:
+          type: object
+          properties:
+            owner:
+              type: string
+            repo:
+              type: string
+            branch:
+              default: main
+              type: string
+          required:
+          - owner
+          - repo
+          - branch
+          additionalProperties: false
+        publishOnPush:
+          default: true
+          type: boolean
+        publishOnMerge:
+          default: false
+          type: boolean
+        trackedBranch:
+          default: main
+          type: string
+        webhookId:
+          default: null
+          anyOf:
+          - type: number
+          - type: 'null'
+        external:
+          default: null
+          anyOf:
+          - $ref: '#/components/schemas/registry-git-external'
+          - type: 'null'
+        currentPublishedSha:
+          default: null
+          anyOf:
+          - type: string
+          - type: 'null'
+        lastPublishedAt:
+          default: null
+          anyOf:
+          - $ref: '#/components/schemas/timestamp'
+          - type: 'null'
+      required:
+      - forgejo
+      - publishOnPush
+      - publishOnMerge
+      - trackedBranch
+      - webhookId
+      - external
+      - currentPublishedSha
+      - lastPublishedAt
+      additionalProperties: false
+    '403_2':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+      examples:
+      - message: You do not have permission to access this resource.
+        code: forbidden
+    sdk-version:
+      type: object
+      properties:
+        version:
+          $ref: '#/components/schemas/version_2'
+        apiVersion:
+          $ref: '#/components/schemas/version_2'
+        createdAt:
+          $ref: '#/components/schemas/timestamp'
+        status:
+          default: published
+          examples:
+          - published
+          type: string
+          enum:
+          - draft
+          - published
+        config:
+          default: '{}'
+          examples:
+          - '{"targets":{"typescript":{"packageName":"@acme/sdk"}}}'
+          type: string
+        languages:
+          default: []
+          examples:
+          - - typescript
+          type: array
+          items:
+            type: string
+            enum:
+            - typescript
+            - python
+            - cli
+            - csharp
+            - java
+            - ruby
+            - php
+            - go
+            - rust
+            - kotlin
+            - swift
+            - cpp
+            - dart
+        publishedAt:
+          $ref: '#/components/schemas/timestamp'
+        changeSource:
+          type: string
+          enum:
+          - user
+          - api-version
+          - created
+        apiDocumentHash:
+          type: string
+        targets:
+          default: {}
+          type: object
+          propertyNames:
+            type: string
+            enum:
+            - typescript
+            - python
+            - cli
+            - csharp
+            - java
+            - ruby
+            - php
+            - go
+            - rust
+            - kotlin
+            - swift
+            - cpp
+            - dart
+          additionalProperties:
+            $ref: '#/components/schemas/sdk-version-target-state'
+      required:
+      - version
+      - apiVersion
+      - status
+      - config
+      - languages
+      - targets
+      additionalProperties: false
+    '400_2':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+      examples:
+      - message: Invalid request parameters.
+        code: bad-request
+    '500_2':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+      examples:
+      - message: An unexpected error occurred.
+        code: unknown
+    sdk-target-destination:
+      type: object
+      properties:
+        provider:
+          default: github
+          type: string
+          const: github
+        linkedBy:
+          type: string
+        installationId:
+          type: integer
+          minimum: -9007199254740991
+          maximum: 9007199254740991
+        id:
+          type: integer
+          minimum: -9007199254740991
+          maximum: 9007199254740991
+        expired:
+          default: false
+          type: boolean
+      required:
+      - provider
+      - linkedBy
+      - id
+      - expired
+      additionalProperties: false
+    sdk:
+      type: object
+      properties:
+        uid:
+          $ref: '#/components/schemas/nanoid_2'
+        createdAt:
+          $ref: '#/components/schemas/timestamp'
+        updatedAt:
+          $ref: '#/components/schemas/timestamp'
+        namespace:
+          $ref: '#/components/schemas/namespace_2'
+        title:
+          default: ''
+          examples:
+          - Acme API
+          type: string
+          maxLength: 100
+        slug:
+          $ref: '#/components/schemas/slug_2'
+        description:
+          default: ''
+          examples:
+          - API for managing Acme products and orders.
+          type: string
+        isPrivate:
+          default: false
+          examples:
+          - false
+          type: boolean
+        pinned:
+          default: false
+          type: boolean
+        tags:
+          default: []
+          examples:
+          - - products
+            - orders
+        accessGroups:
+          default: []
+          examples:
+          - - UakgbKJ5m9gl0JDMbcJqL
+        loginPortalUid:
+          examples:
+          - LakgbKJ5m9gl0JDMbcJqL
+          type: string
+        verifiedContent:
+          type: boolean
+        source:
+          default:
+            type: platform
+          $ref: '#/components/schemas/doc-source'
+        git:
+          anyOf:
+          - $ref: '#/components/schemas/registry-git-binding'
+          - type: 'null'
+        apiUid:
+          anyOf:
+          - $ref: '#/components/schemas/nanoid_2'
+          - type: 'null'
+        apiVersion:
+          anyOf:
+          - $ref: '#/components/schemas/version_2'
+          - type: 'null'
+        currentVersion:
+          $ref: '#/components/schemas/version_2'
+        latestVersion:
+          anyOf:
+          - $ref: '#/components/schemas/version_2'
+          - type: 'null'
+        versions:
+          default: []
+          type: array
+          items:
+            $ref: '#/components/schemas/sdk-version'
+        targets:
+          minItems: 1
+          type: array
+          items:
+            $ref: '#/components/schemas/sdk-target'
+        config:
+          type: string
+      required:
+      - uid
+      - createdAt
+      - updatedAt
+      - namespace
+      - title
+      - slug
+      - description
+      - isPrivate
+      - pinned
+      - tags
+      - accessGroups
+      - source
+      - apiUid
+      - currentVersion
+      - versions
+      - targets
+      additionalProperties: false
   securitySchemes:
     BearerAuth:
       type: http
       scheme: bearer
       bearerFormat: JWT
+x-refined-from:
+- scalar-core.json
+- scalar-openapi.json

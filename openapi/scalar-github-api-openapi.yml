@@ -1,12 +1,14 @@
 openapi: 3.2.0
 info:
-  title: Core GitHub API
-  description: Core services for Scalar
-  version: 1.0.1
+  title: Scalar GitHub API
   contact:
     name: Marc from Scalar
     url: https://scalar.com
     email: support@scalar.com
+  version: '1.0'
+  description: 'Operations tagged github across 2 of this provider''s published API definitions: scalar-core.json, scalar-openapi.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api.scalar.com/core
 security:
 - BearerAuth: []
 tags:
@@ -1211,6 +1213,266 @@ paths:
         required: true
       summary: Postgithub delete
       x-summary-source: derived
+  /github/installs:
+    get:
+      tags:
+      - Github
+      description: List GitHub App installations the user can link a project to
+      operationId: getGithubInstalls
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                      minimum: -9007199254740991
+                      maximum: 9007199254740991
+                    name:
+                      type: string
+                    icon:
+                      type: string
+                  required:
+                  - id
+                  - name
+                  additionalProperties: false
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400_2'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401_2'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403_2'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404_2'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422_2'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500_2'
+      summary: Get github installs
+      x-summary-source: derived
+    servers:
+    - url: https://api.scalar.com/core
+  /github/installs/{installationId}/repos:
+    get:
+      tags:
+      - Github
+      description: List a single page of repositories for a GitHub installation
+      operationId: getGithubInstallsInstallationIdRepos
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  repos:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                          minimum: -9007199254740991
+                          maximum: 9007199254740991
+                        name:
+                          type: string
+                        defaultBranch:
+                          type: string
+                      required:
+                      - id
+                      - name
+                      additionalProperties: false
+                  hasMore:
+                    type: boolean
+                  totalCount:
+                    type: integer
+                    minimum: -9007199254740991
+                    maximum: 9007199254740991
+                required:
+                - repos
+                - hasMore
+                - totalCount
+                additionalProperties: false
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400_2'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401_2'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403_2'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404_2'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422_2'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500_2'
+      parameters:
+      - schema:
+          type: number
+        in: path
+        name: installationId
+        required: true
+      - schema:
+          default: 1
+          type: integer
+          minimum: 1
+          maximum: 9007199254740991
+        in: query
+        name: page
+        required: true
+      - schema:
+          default: 30
+          type: integer
+          minimum: 1
+          maximum: 100
+        in: query
+        name: perPage
+        required: true
+      summary: Get github installs installation id repos
+      x-summary-source: derived
+    servers:
+    - url: https://api.scalar.com/core
+  /github/docs-project/{uid}/pull-request/for-branch:
+    get:
+      tags:
+      - Github
+      description: 'Look up the open pull request for a branch on the GitHub repo backing a `provider: github` DocsProject'
+      operationId: getGithubDocsProjectUidPullRequestForBranch
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  pullRequest:
+                    anyOf:
+                    - type: object
+                      properties:
+                        url:
+                          type: string
+                        number:
+                          type: number
+                        title:
+                          type: string
+                        body:
+                          type: string
+                      required:
+                      - url
+                      - number
+                      - title
+                      - body
+                      additionalProperties: false
+                    - type: 'null'
+                required:
+                - pullRequest
+                additionalProperties: false
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400_2'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401_2'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403_2'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404_2'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422_2'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500_2'
+      parameters:
+      - schema:
+          type: string
+        in: path
+        name: uid
+        required: true
+      - schema:
+          type: string
+          minLength: 1
+        in: query
+        name: branch
+        required: true
+      summary: Get github docs project uid pull request for branch
+      x-summary-source: derived
+    servers:
+    - url: https://api.scalar.com/core
 components:
   schemas:
     active-deployment:
@@ -1227,22 +1489,10 @@ components:
       - domain
       - publishedAt
       additionalProperties: false
-    slug:
+    nanoid:
       type: string
-      minLength: 3
-      maxLength: 60
-      pattern: ^[a-z](?:[a-z0-9-]*[a-z0-9])?$
-    '500':
-      type: object
-      properties:
-        message:
-          type: string
-        code:
-          type: string
-      required:
-      - message
-      - code
-    '400':
+      minLength: 5
+    '404':
       type: object
       properties:
         message:
@@ -1256,6 +1506,11 @@ components:
       type: integer
       minimum: 0
       maximum: 9007199254740991
+    slug:
+      type: string
+      minLength: 3
+      maxLength: 60
+      pattern: ^[a-z](?:[a-z0-9-]*[a-z0-9])?$
     '403':
       type: object
       properties:
@@ -1266,9 +1521,6 @@ components:
       required:
       - message
       - code
-    nanoid:
-      type: string
-      minLength: 5
     github-project-repository:
       type: object
       properties:
@@ -1308,6 +1560,16 @@ components:
       - prComments
       - expired
       additionalProperties: false
+    '400':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
     '401':
       type: object
       properties:
@@ -1318,7 +1580,48 @@ components:
       required:
       - message
       - code
-    '404':
+    '422':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+    github-install:
+      type: object
+      properties:
+        id:
+          type: integer
+          minimum: -9007199254740991
+          maximum: 9007199254740991
+        name:
+          type: string
+        icon:
+          type: string
+        repos:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: integer
+                minimum: -9007199254740991
+                maximum: 9007199254740991
+              name:
+                type: string
+            required:
+            - id
+            - name
+            additionalProperties: false
+      required:
+      - id
+      - name
+      - repos
+      additionalProperties: false
+    '500':
       type: object
       properties:
         message:
@@ -1406,7 +1709,165 @@ components:
       - publishStatus
       - publishMessage
       additionalProperties: false
-    github-install:
+    active-deployment_2:
+      type: object
+      properties:
+        uid:
+          type: string
+          examples:
+          - UakgbKJ5m9gl0JDMbcJqL
+        domain:
+          type: string
+          examples:
+          - docs.example.com
+        publishedAt:
+          $ref: '#/components/schemas/timestamp_2'
+      required:
+      - uid
+      - domain
+      - publishedAt
+      additionalProperties: false
+    nanoid_2:
+      type: string
+      minLength: 5
+      examples:
+      - UakgbKJ5m9gl0JDMbcJqL
+    '404_2':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+      examples:
+      - message: Resource not found.
+        code: not-found
+    timestamp_2:
+      type: integer
+      minimum: 0
+      maximum: 9007199254740991
+      examples:
+      - 1735689600
+    slug_2:
+      type: string
+      minLength: 1
+      maxLength: 60
+      pattern: ^[a-z](?:[a-z0-9-]*[a-z0-9])?$
+      examples:
+      - acme-api
+    '403_2':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+      examples:
+      - message: You do not have permission to access this resource.
+        code: forbidden
+    github-project-repository_2:
+      type: object
+      properties:
+        linkedBy:
+          type: string
+          examples:
+          - UakgbKJ5m9gl0JDMbcJqL
+        id:
+          type: number
+          examples:
+          - 123456789
+        name:
+          type: string
+          minLength: 2
+          examples:
+          - Acme Documentation
+        configPath:
+          default: ''
+          examples:
+          - scalar.config.json
+          type: string
+        branch:
+          default: ''
+          examples:
+          - main
+          type: string
+        publishOnMerge:
+          default: false
+          examples:
+          - true
+          type: boolean
+        publishPreviews:
+          default: false
+          examples:
+          - true
+          type: boolean
+        prComments:
+          default: false
+          examples:
+          - true
+          type: boolean
+        expired:
+          default: false
+          examples:
+          - false
+          type: boolean
+      required:
+      - linkedBy
+      - id
+      - name
+      - configPath
+      - branch
+      - publishOnMerge
+      - publishPreviews
+      - prComments
+      - expired
+      additionalProperties: false
+    '400_2':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+      examples:
+      - message: Invalid request parameters.
+        code: bad-request
+    '401_2':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+      examples:
+      - message: Invalid authentication token.
+        code: unauthorized
+    '422_2':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+      examples:
+      - message: The request body contains invalid values.
+        code: invalid-payload
+    github-install_2:
       type: object
       properties:
         id:
@@ -1428,6 +1889,8 @@ components:
                 maximum: 9007199254740991
               name:
                 type: string
+              defaultBranch:
+                type: string
             required:
             - id
             - name
@@ -1437,7 +1900,7 @@ components:
       - name
       - repos
       additionalProperties: false
-    '422':
+    '500_2':
       type: object
       properties:
         message:
@@ -1447,8 +1910,117 @@ components:
       required:
       - message
       - code
+      examples:
+      - message: An unexpected error occurred.
+        code: unknown
+    github-project_2:
+      type: object
+      properties:
+        uid:
+          $ref: '#/components/schemas/nanoid_2'
+        createdAt:
+          $ref: '#/components/schemas/timestamp_2'
+        updatedAt:
+          $ref: '#/components/schemas/timestamp_2'
+        name:
+          type: string
+          examples:
+          - Acme Documentation
+        activeDeployment:
+          default: null
+          anyOf:
+          - $ref: '#/components/schemas/active-deployment_2'
+          - type: 'null'
+        lastPublished:
+          default: null
+          anyOf:
+          - $ref: '#/components/schemas/timestamp_2'
+          - type: 'null'
+        lastPublishedUid:
+          default: null
+          examples:
+          - PakgbKJ5m9gl0JDMbcJqL
+          anyOf:
+          - type: string
+          - type: 'null'
+        loginPortalUid:
+          default: ''
+          examples:
+          - LakgbKJ5m9gl0JDMbcJqL
+          type: string
+        userInfoHookUrl:
+          default: ''
+          examples:
+          - https://example.com/hooks/user-info
+          type: string
+        activeThemeId:
+          default: ''
+          examples:
+          - TakgbKJ5m9gl0JDMbcJqL
+          type: string
+        typesenseId:
+          examples:
+          - 42
+          type: number
+        isPrivate:
+          default: false
+          examples:
+          - false
+          type: boolean
+        agentEnabled:
+          default: false
+          examples:
+          - true
+          type: boolean
+        analyticsEnabled:
+          default: true
+          examples:
+          - true
+          type: boolean
+        accessGroups:
+          default: []
+          examples:
+          - - UakgbKJ5m9gl0JDMbcJqL
+        slug:
+          $ref: '#/components/schemas/slug_2'
+        publishStatus:
+          default: ''
+          examples:
+          - published
+          type: string
+        publishMessage:
+          default: ''
+          examples:
+          - Documentation published successfully.
+          type: string
+        repository:
+          anyOf:
+          - $ref: '#/components/schemas/github-project-repository_2'
+          - type: 'null'
+      required:
+      - uid
+      - createdAt
+      - updatedAt
+      - name
+      - activeDeployment
+      - lastPublished
+      - lastPublishedUid
+      - loginPortalUid
+      - userInfoHookUrl
+      - activeThemeId
+      - isPrivate
+      - agentEnabled
+      - analyticsEnabled
+      - accessGroups
+      - slug
+      - publishStatus
+      - publishMessage
+      additionalProperties: false
   securitySchemes:
     BearerAuth:
       type: http
       scheme: bearer
       bearerFormat: JWT
+x-refined-from:
+- scalar-core.json
+- scalar-openapi.json

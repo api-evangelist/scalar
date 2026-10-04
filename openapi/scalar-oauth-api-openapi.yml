@@ -1,0 +1,865 @@
+openapi: 3.2.0
+info:
+  title: Core OAuth API
+  description: Core services for Scalar
+  version: 0.1.0
+  contact:
+    name: Marc from Scalar
+    url: https://scalar.com
+    email: support@scalar.com
+servers:
+- url: https://api.scalar.com/core
+security:
+- BearerAuth: []
+tags:
+- name: OAuth
+paths:
+  /oauth/requests:
+    post:
+      tags:
+      - OAuth
+      description: Validate an OAuth authorize request from the access API and park it for the user to decide
+      operationId: postOauthRequests
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/oauth-authorize-result'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
+      security: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/oauth-authorize-params'
+        required: true
+      summary: Post oauth requests
+      x-summary-source: derived
+  /oauth/requests/{uid}:
+    get:
+      tags:
+      - OAuth
+      description: Read a pending OAuth authorize request for the consent page
+      operationId: getOauthRequestsUid
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/oauth-authorization-request-view'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
+      parameters:
+      - schema:
+          $ref: '#/components/schemas/nanoid'
+        in: path
+        name: uid
+        required: true
+      summary: Get oauth requests uid
+      x-summary-source: derived
+  /oauth/requests/{uid}/decision:
+    post:
+      tags:
+      - OAuth
+      description: Approve or deny a pending OAuth authorize request as the signed-in user
+      operationId: postOauthRequestsUidDecision
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/oauth-decision-result'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/oauth-decision'
+        required: true
+      parameters:
+      - schema:
+          $ref: '#/components/schemas/nanoid'
+        in: path
+        name: uid
+        required: true
+      summary: Post oauth requests uid decision
+      x-summary-source: derived
+  /oauth/token:
+    post:
+      tags:
+      - OAuth
+      description: 'OAuth token endpoint: exchange an authorization code or rotate a refresh token'
+      operationId: postOauthToken
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/oauth-token-response'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
+      security: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/oauth-token-request'
+        required: true
+      summary: Post oauth token
+      x-summary-source: derived
+  /oauth/revoke:
+    post:
+      tags:
+      - OAuth
+      description: 'OAuth revocation endpoint: revoke the refresh family a token belongs to'
+      operationId: postOauthRevoke
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: 'null'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
+      security: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/oauth-revoke-request'
+        required: true
+      summary: Post oauth revoke
+      x-summary-source: derived
+  /teams/oauth-clients:
+    post:
+      tags:
+      - OAuth
+      description: Register an OAuth app for the team. A confidential app gets its secret back on this response only.
+      operationId: postTeamsOauthClients
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/oauth-client-created'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/oauth-client-create'
+        required: true
+      summary: Post teams oauth clients
+      x-summary-source: derived
+    get:
+      tags:
+      - OAuth
+      description: List the OAuth apps registered to the team
+      operationId: getTeamsOauthClients
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/oauth-client-list-item'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
+      summary: Get teams oauth clients
+      x-summary-source: derived
+  /teams/oauth-clients/{uid}:
+    delete:
+      tags:
+      - OAuth
+      description: Delete an OAuth app and revoke every grant users have given it
+      operationId: deleteTeamsOauthClientsUid
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: 'null'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
+      parameters:
+      - schema:
+          $ref: '#/components/schemas/nanoid'
+        in: path
+        name: uid
+        required: true
+      summary: Delete teams oauth clients uid
+      x-summary-source: derived
+components:
+  schemas:
+    '404':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+      examples:
+      - message: Resource not found.
+        code: not-found
+    '422':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+      examples:
+      - message: The request body contains invalid values.
+        code: invalid-payload
+    oauth-token-request:
+      type: object
+      properties:
+        grant_type:
+          type: string
+          maxLength: 64
+        client_id:
+          type: string
+          maxLength: 256
+        client_secret:
+          type: string
+          maxLength: 256
+        code:
+          type: string
+          maxLength: 256
+        redirect_uri:
+          type: string
+          maxLength: 2048
+        code_verifier:
+          type: string
+          maxLength: 256
+        refresh_token:
+          type: string
+          maxLength: 4096
+        scope:
+          type: string
+          maxLength: 256
+      required:
+      - grant_type
+      additionalProperties: false
+    oauth-authorization-request-view:
+      type: object
+      properties:
+        uid:
+          $ref: '#/components/schemas/nanoid'
+        client:
+          type: object
+          properties:
+            uid:
+              type: string
+            name:
+              type: string
+            firstParty:
+              type: boolean
+            ownerTeamName:
+              type: string
+          required:
+          - uid
+          - name
+          - firstParty
+          additionalProperties: false
+        scope:
+          $ref: '#/components/schemas/oauth-scope'
+        expiresAt:
+          type: integer
+          minimum: -9007199254740991
+          maximum: 9007199254740991
+      required:
+      - uid
+      - client
+      - scope
+      - expiresAt
+      additionalProperties: false
+    oauth-revoke-request:
+      type: object
+      properties:
+        token:
+          type: string
+          maxLength: 4096
+        token_type_hint:
+          type: string
+          maxLength: 64
+        client_id:
+          type: string
+          maxLength: 256
+        client_secret:
+          type: string
+          maxLength: 256
+      required:
+      - token
+      additionalProperties: false
+    nanoid:
+      type: string
+      minLength: 5
+      examples:
+      - UakgbKJ5m9gl0JDMbcJqL
+    oauth-authorize-result:
+      oneOf:
+      - type: object
+        properties:
+          status:
+            type: string
+            const: ok
+          uid:
+            $ref: '#/components/schemas/nanoid'
+        required:
+        - status
+        - uid
+        additionalProperties: false
+      - type: object
+        properties:
+          status:
+            type: string
+            const: error
+          error:
+            type: string
+          errorDescription:
+            type: string
+          redirectTo:
+            type: string
+        required:
+        - status
+        - error
+        - errorDescription
+        additionalProperties: false
+    oauth-client-type:
+      type: string
+      enum:
+      - confidential
+      - public
+    timestamp:
+      type: integer
+      minimum: 0
+      maximum: 9007199254740991
+      examples:
+      - 1735689600
+    '401':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+      examples:
+      - message: Invalid authentication token.
+        code: unauthorized
+    oauth-scope:
+      type: string
+      enum:
+      - read
+      - write
+      - admin
+    oauth-client-created:
+      type: object
+      properties:
+        uid:
+          $ref: '#/components/schemas/nanoid'
+        teamUid:
+          $ref: '#/components/schemas/nanoid'
+        name:
+          type: string
+          minLength: 1
+          maxLength: 100
+        type:
+          $ref: '#/components/schemas/oauth-client-type'
+        redirectUris:
+          minItems: 1
+          maxItems: 10
+          type: array
+          items:
+            type: string
+            maxLength: 2048
+        allowedScopes:
+          minItems: 1
+          type: array
+          items:
+            $ref: '#/components/schemas/oauth-scope'
+        createdBy:
+          $ref: '#/components/schemas/nanoid'
+        createdAt:
+          $ref: '#/components/schemas/timestamp'
+        clientSecret:
+          type: string
+      required:
+      - uid
+      - teamUid
+      - name
+      - type
+      - redirectUris
+      - allowedScopes
+      - createdBy
+      - createdAt
+      additionalProperties: false
+    oauth-decision:
+      type: object
+      properties:
+        accept:
+          type: boolean
+      required:
+      - accept
+      additionalProperties: false
+    oauth-client-list-item:
+      type: object
+      properties:
+        uid:
+          $ref: '#/components/schemas/nanoid'
+        teamUid:
+          $ref: '#/components/schemas/nanoid'
+        name:
+          type: string
+          minLength: 1
+          maxLength: 100
+        type:
+          $ref: '#/components/schemas/oauth-client-type'
+        redirectUris:
+          minItems: 1
+          maxItems: 10
+          type: array
+          items:
+            type: string
+            maxLength: 2048
+        allowedScopes:
+          minItems: 1
+          type: array
+          items:
+            $ref: '#/components/schemas/oauth-scope'
+        createdBy:
+          $ref: '#/components/schemas/nanoid'
+        createdAt:
+          $ref: '#/components/schemas/timestamp'
+      required:
+      - uid
+      - teamUid
+      - name
+      - type
+      - redirectUris
+      - allowedScopes
+      - createdBy
+      - createdAt
+      additionalProperties: false
+    '403':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+      examples:
+      - message: You do not have permission to access this resource.
+        code: forbidden
+    oauth-token-response:
+      type: object
+      properties:
+        access_token:
+          type: string
+        token_type:
+          type: string
+          const: Bearer
+        expires_in:
+          type: integer
+          minimum: -9007199254740991
+          maximum: 9007199254740991
+        refresh_token:
+          type: string
+        scope:
+          $ref: '#/components/schemas/oauth-scope'
+      required:
+      - access_token
+      - token_type
+      - expires_in
+      - refresh_token
+      - scope
+      additionalProperties: false
+    '400':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+      examples:
+      - message: Invalid request parameters.
+        code: bad-request
+    oauth-decision-result:
+      type: object
+      properties:
+        redirectTo:
+          type: string
+      required:
+      - redirectTo
+      additionalProperties: false
+    oauth-client-create:
+      type: object
+      properties:
+        name:
+          type: string
+          minLength: 1
+          maxLength: 100
+        type:
+          $ref: '#/components/schemas/oauth-client-type'
+        redirectUris:
+          minItems: 1
+          maxItems: 10
+          type: array
+          items:
+            type: string
+            minLength: 1
+            maxLength: 2048
+        allowedScopes:
+          minItems: 1
+          type: array
+          items:
+            $ref: '#/components/schemas/oauth-scope'
+      required:
+      - name
+      - type
+      - redirectUris
+      - allowedScopes
+      additionalProperties: false
+    '500':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+      examples:
+      - message: An unexpected error occurred.
+        code: unknown
+    oauth-authorize-params:
+      type: object
+      properties:
+        client_id:
+          type: string
+          maxLength: 256
+        redirect_uri:
+          type: string
+          maxLength: 2048
+        response_type:
+          type: string
+          maxLength: 32
+        scope:
+          type: string
+          maxLength: 256
+        state:
+          type: string
+          maxLength: 1024
+        code_challenge:
+          type: string
+          maxLength: 256
+        code_challenge_method:
+          type: string
+          maxLength: 32
+      additionalProperties: false
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

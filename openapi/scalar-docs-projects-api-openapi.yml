@@ -1,12 +1,14 @@
 openapi: 3.2.0
 info:
-  title: Core Docs Projects API
-  description: Core services for Scalar
-  version: 1.0.1
+  title: Scalar Docs Projects API
   contact:
     name: Marc from Scalar
     url: https://scalar.com
     email: support@scalar.com
+  version: '1.0'
+  description: 'Operations tagged Docs Projects across 2 of this provider''s published API definitions: scalar-core.json, scalar-openapi.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api.scalar.com/core
 security:
 - BearerAuth: []
 tags:
@@ -687,6 +689,433 @@ paths:
       - Docs Projects
       summary: Postdocs projects project uid bitbucket refresh webhook
       x-summary-source: derived
+  /docs-projects/{uid}/branches:
+    delete:
+      description: Delete a branch from the connected Docs repository
+      operationId: deleteDocsProjectsUidBranches
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: 'null'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400_2'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401_2'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403_2'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404_2'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422_2'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500_2'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                branch:
+                  type: string
+                  minLength: 1
+                  maxLength: 1024
+                repositoryKey:
+                  type: string
+              required:
+              - branch
+              - repositoryKey
+              additionalProperties: false
+        required: true
+      parameters:
+      - schema:
+          type: string
+        in: path
+        name: uid
+        required: true
+      tags:
+      - Docs Projects
+      summary: Delete docs projects uid branches
+      x-summary-source: derived
+    servers:
+    - url: https://api.scalar.com/core
+  /docs-projects:
+    get:
+      description: List the unified DocsProjects for the current team
+      operationId: getDocsProjects
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/docs-project_2'
+                  hasMore:
+                    type: boolean
+                required:
+                - data
+                - hasMore
+                additionalProperties: false
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400_2'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401_2'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403_2'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404_2'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422_2'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500_2'
+      parameters:
+      - schema:
+          default: 50
+          type: integer
+          minimum: 1
+          maximum: 200
+        in: query
+        name: limit
+        required: true
+      tags:
+      - Docs Projects
+      summary: Get docs projects
+      x-summary-source: derived
+    servers:
+    - url: https://api.scalar.com/core
+  /docs-projects/{projectUid}/config:
+    get:
+      description: Read the scalar config for a DocsProject directly from its provider, without cloning the repository.
+      operationId: getDocsProjectsProjectUidConfig
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  path:
+                    type: string
+                  content:
+                    type: string
+                  ref:
+                    type: string
+                  baseToken:
+                    type: string
+                required:
+                - path
+                - content
+                - ref
+                - baseToken
+                additionalProperties: false
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400_2'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401_2'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403_2'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404_2'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422_2'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500_2'
+      parameters:
+      - schema:
+          $ref: '#/components/schemas/nanoid_2'
+        in: path
+        name: projectUid
+        required: true
+      - schema:
+          type: string
+        in: query
+        name: ref
+        required: false
+      tags:
+      - Docs Projects
+      summary: Get docs projects project uid config
+      x-summary-source: derived
+    put:
+      description: Commit the scalar config for a DocsProject straight to its provider, without cloning the repository.
+      operationId: putDocsProjectsProjectUidConfig
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  commitSha:
+                    anyOf:
+                    - type: string
+                    - type: 'null'
+                  ref:
+                    type: string
+                  baseToken:
+                    type: string
+                required:
+                - commitSha
+                - ref
+                - baseToken
+                additionalProperties: false
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400_2'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401_2'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403_2'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404_2'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422_2'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500_2'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                content:
+                  type: string
+                ref:
+                  type: string
+                baseToken:
+                  type: string
+                message:
+                  type: string
+                path:
+                  type: string
+              required:
+              - content
+              additionalProperties: false
+        required: true
+      parameters:
+      - schema:
+          $ref: '#/components/schemas/nanoid_2'
+        in: path
+        name: projectUid
+        required: true
+      tags:
+      - Docs Projects
+      summary: Put docs projects project uid config
+      x-summary-source: derived
+    servers:
+    - url: https://api.scalar.com/core
+  /docs-projects/{projectUid}/switch-repository:
+    post:
+      description: 'Point an already-connected DocsProject at a different repository, across providers if needed. Moves no files: the target must already hold the docs, and the project is re-pointed at the Scalar config found there. The previous repository is left exactly as it is.'
+      operationId: postDocsProjectsProjectUidSwitchRepository
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  project:
+                    $ref: '#/components/schemas/docs-project_2'
+                required:
+                - project
+                additionalProperties: false
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400_2'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401_2'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403_2'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404_2'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422_2'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500_2'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                target:
+                  oneOf:
+                  - type: object
+                    properties:
+                      provider:
+                        type: string
+                        const: github
+                      installationId:
+                        type: integer
+                        minimum: -9007199254740991
+                        maximum: 9007199254740991
+                      repoId:
+                        type: integer
+                        minimum: -9007199254740991
+                        maximum: 9007199254740991
+                    required:
+                    - provider
+                    - installationId
+                    - repoId
+                    additionalProperties: false
+                  - type: object
+                    properties:
+                      provider:
+                        type: string
+                        const: bitbucket
+                      workspaceUuid:
+                        type: string
+                      repoUuid:
+                        type: string
+                    required:
+                    - provider
+                    - workspaceUuid
+                    - repoUuid
+                    additionalProperties: false
+              required:
+              - target
+              additionalProperties: false
+        required: true
+      parameters:
+      - schema:
+          $ref: '#/components/schemas/nanoid_2'
+        in: path
+        name: projectUid
+        required: true
+      tags:
+      - Docs Projects
+      summary: Post docs projects project uid switch repository
+      x-summary-source: derived
+    servers:
+    - url: https://api.scalar.com/core
 components:
   schemas:
     active-deployment:
@@ -703,22 +1132,33 @@ components:
       - domain
       - publishedAt
       additionalProperties: false
-    slug:
-      type: string
-      minLength: 3
-      maxLength: 60
-      pattern: ^[a-z](?:[a-z0-9-]*[a-z0-9])?$
-    '500':
+    docs-project-repository-forgejo:
       type: object
       properties:
-        message:
+        provider:
           type: string
-        code:
+          const: forgejo
+        forgejoOwner:
+          type: string
+        forgejoRepo:
+          type: string
+        branch:
+          default: main
+          type: string
+        configPath:
+          default: scalar.config.json
           type: string
       required:
-      - message
-      - code
-    '400':
+      - provider
+      - forgejoOwner
+      - forgejoRepo
+      - branch
+      - configPath
+      additionalProperties: false
+    nanoid:
+      type: string
+      minLength: 5
+    '404':
       type: object
       properties:
         message:
@@ -732,146 +1172,12 @@ components:
       type: integer
       minimum: 0
       maximum: 9007199254740991
-    docs-project-repository-github:
-      type: object
-      properties:
-        provider:
-          type: string
-          const: github
-        linkedBy:
-          type: string
-        installationId:
-          type: integer
-          minimum: -9007199254740991
-          maximum: 9007199254740991
-        id:
-          type: integer
-          minimum: -9007199254740991
-          maximum: 9007199254740991
-        name:
-          type: string
-          minLength: 2
-        branch:
-          default: main
-          type: string
-        configPath:
-          default: scalar.config.json
-          type: string
-        publishOnMerge:
-          default: true
-          type: boolean
-        publishPreviews:
-          default: false
-          type: boolean
-        prComments:
-          default: false
-          type: boolean
-        expired:
-          default: false
-          type: boolean
-      required:
-      - provider
-      - linkedBy
-      - installationId
-      - id
-      - name
-      - branch
-      - configPath
-      - publishOnMerge
-      - publishPreviews
-      - prComments
-      - expired
-      additionalProperties: false
-    '403':
-      type: object
-      properties:
-        message:
-          type: string
-        code:
-          type: string
-      required:
-      - message
-      - code
-    '422':
-      type: object
-      properties:
-        message:
-          type: string
-        code:
-          type: string
-      required:
-      - message
-      - code
-    nanoid:
+    slug:
       type: string
-      minLength: 5
-    docs-project-repository-bitbucket:
-      type: object
-      properties:
-        provider:
-          type: string
-          const: bitbucket
-        linkedBy:
-          type: string
-        workspaceUuid:
-          type: string
-        workspaceSlug:
-          type: string
-        repoUuid:
-          type: string
-        repoSlug:
-          type: string
-        name:
-          type: string
-          minLength: 2
-        branch:
-          default: main
-          type: string
-        configPath:
-          default: scalar.config.json
-          type: string
-        publishOnMerge:
-          default: true
-          type: boolean
-        publishPreviews:
-          default: false
-          type: boolean
-        prComments:
-          default: false
-          type: boolean
-        expired:
-          default: false
-          type: boolean
-        webhookUuid:
-          default: ''
-          type: string
-      required:
-      - provider
-      - linkedBy
-      - workspaceUuid
-      - workspaceSlug
-      - repoUuid
-      - repoSlug
-      - name
-      - branch
-      - configPath
-      - publishOnMerge
-      - publishPreviews
-      - prComments
-      - expired
-      - webhookUuid
-      additionalProperties: false
-    '401':
-      type: object
-      properties:
-        message:
-          type: string
-        code:
-          type: string
-      required:
-      - message
-      - code
-    '404':
+      minLength: 3
+      maxLength: 60
+      pattern: ^[a-z](?:[a-z0-9-]*[a-z0-9])?$
+    '403':
       type: object
       properties:
         message:
@@ -961,31 +1267,519 @@ components:
       - publishMessage
       - repository
       additionalProperties: false
-    docs-project-repository-forgejo:
+    docs-project-repository-github:
       type: object
       properties:
         provider:
           type: string
-          const: forgejo
-        forgejoOwner:
+          const: github
+        linkedBy:
           type: string
-        forgejoRepo:
+        installationId:
+          type: integer
+          minimum: -9007199254740991
+          maximum: 9007199254740991
+        id:
+          type: integer
+          minimum: -9007199254740991
+          maximum: 9007199254740991
+        name:
           type: string
+          minLength: 2
         branch:
           default: main
           type: string
         configPath:
           default: scalar.config.json
           type: string
+        publishOnMerge:
+          default: true
+          type: boolean
+        publishPreviews:
+          default: false
+          type: boolean
+        prComments:
+          default: false
+          type: boolean
+        expired:
+          default: false
+          type: boolean
       required:
       - provider
-      - forgejoOwner
-      - forgejoRepo
+      - linkedBy
+      - installationId
+      - id
+      - name
       - branch
       - configPath
+      - publishOnMerge
+      - publishPreviews
+      - prComments
+      - expired
       additionalProperties: false
+    '422':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+    '400':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+    '401':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+    docs-project-repository-bitbucket:
+      type: object
+      properties:
+        provider:
+          type: string
+          const: bitbucket
+        linkedBy:
+          type: string
+        workspaceUuid:
+          type: string
+        workspaceSlug:
+          type: string
+        repoUuid:
+          type: string
+        repoSlug:
+          type: string
+        name:
+          type: string
+          minLength: 2
+        branch:
+          default: main
+          type: string
+        configPath:
+          default: scalar.config.json
+          type: string
+        publishOnMerge:
+          default: true
+          type: boolean
+        publishPreviews:
+          default: false
+          type: boolean
+        prComments:
+          default: false
+          type: boolean
+        expired:
+          default: false
+          type: boolean
+        webhookUuid:
+          default: ''
+          type: string
+      required:
+      - provider
+      - linkedBy
+      - workspaceUuid
+      - workspaceSlug
+      - repoUuid
+      - repoSlug
+      - name
+      - branch
+      - configPath
+      - publishOnMerge
+      - publishPreviews
+      - prComments
+      - expired
+      - webhookUuid
+      additionalProperties: false
+    '500':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+    active-deployment_2:
+      type: object
+      properties:
+        uid:
+          type: string
+          examples:
+          - UakgbKJ5m9gl0JDMbcJqL
+        domain:
+          type: string
+          examples:
+          - docs.example.com
+        publishedAt:
+          $ref: '#/components/schemas/timestamp_2'
+      required:
+      - uid
+      - domain
+      - publishedAt
+      additionalProperties: false
+    nanoid_2:
+      type: string
+      minLength: 5
+      examples:
+      - UakgbKJ5m9gl0JDMbcJqL
+    '404_2':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+      examples:
+      - message: Resource not found.
+        code: not-found
+    timestamp_2:
+      type: integer
+      minimum: 0
+      maximum: 9007199254740991
+      examples:
+      - 1735689600
+    docs-project-remote-activity:
+      type: object
+      properties:
+        at:
+          $ref: '#/components/schemas/timestamp_2'
+        branch:
+          anyOf:
+          - type: string
+          - type: 'null'
+        sha:
+          anyOf:
+          - type: string
+          - type: 'null'
+        actorName:
+          anyOf:
+          - type: string
+          - type: 'null'
+      required:
+      - at
+      - branch
+      - sha
+      - actorName
+      additionalProperties: false
+    slug_2:
+      type: string
+      minLength: 1
+      maxLength: 60
+      pattern: ^[a-z](?:[a-z0-9-]*[a-z0-9])?$
+      examples:
+      - acme-api
+    '403_2':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+      examples:
+      - message: You do not have permission to access this resource.
+        code: forbidden
+    docs-project_2:
+      type: object
+      properties:
+        uid:
+          $ref: '#/components/schemas/nanoid_2'
+        createdAt:
+          $ref: '#/components/schemas/timestamp_2'
+        updatedAt:
+          $ref: '#/components/schemas/timestamp_2'
+        name:
+          type: string
+          examples:
+          - Acme Documentation
+        activeDeployment:
+          default: null
+          anyOf:
+          - $ref: '#/components/schemas/active-deployment_2'
+          - type: 'null'
+        lastPublished:
+          default: null
+          anyOf:
+          - $ref: '#/components/schemas/timestamp_2'
+          - type: 'null'
+        lastPublishedUid:
+          default: null
+          examples:
+          - PakgbKJ5m9gl0JDMbcJqL
+          anyOf:
+          - type: string
+          - type: 'null'
+        loginPortalUid:
+          default: ''
+          examples:
+          - LakgbKJ5m9gl0JDMbcJqL
+          type: string
+        userInfoHookUrl:
+          default: ''
+          examples:
+          - https://example.com/hooks/user-info
+          type: string
+        activeThemeId:
+          default: ''
+          examples:
+          - TakgbKJ5m9gl0JDMbcJqL
+          type: string
+        typesenseId:
+          examples:
+          - 42
+          type: number
+        isPrivate:
+          default: false
+          examples:
+          - false
+          type: boolean
+        agentEnabled:
+          default: false
+          examples:
+          - true
+          type: boolean
+        analyticsEnabled:
+          default: true
+          examples:
+          - true
+          type: boolean
+        accessGroups:
+          default: []
+          examples:
+          - - UakgbKJ5m9gl0JDMbcJqL
+        slug:
+          $ref: '#/components/schemas/slug_2'
+        publishStatus:
+          default: ''
+          examples:
+          - published
+          type: string
+        publishMessage:
+          default: ''
+          examples:
+          - Documentation published successfully.
+          type: string
+        repository:
+          oneOf:
+          - $ref: '#/components/schemas/docs-project-repository-forgejo'
+          - $ref: '#/components/schemas/docs-project-repository-github_2'
+          - $ref: '#/components/schemas/docs-project-repository-bitbucket_2'
+        remoteActivity:
+          $ref: '#/components/schemas/docs-project-remote-activity'
+      required:
+      - uid
+      - createdAt
+      - updatedAt
+      - name
+      - activeDeployment
+      - lastPublished
+      - lastPublishedUid
+      - loginPortalUid
+      - userInfoHookUrl
+      - activeThemeId
+      - isPrivate
+      - agentEnabled
+      - analyticsEnabled
+      - accessGroups
+      - slug
+      - publishStatus
+      - publishMessage
+      - repository
+      additionalProperties: false
+    docs-project-repository-github_2:
+      type: object
+      properties:
+        provider:
+          type: string
+          const: github
+        linkedBy:
+          type: string
+        installationId:
+          type: integer
+          minimum: -9007199254740991
+          maximum: 9007199254740991
+        id:
+          type: integer
+          minimum: -9007199254740991
+          maximum: 9007199254740991
+        name:
+          type: string
+          minLength: 2
+        repositoryUid:
+          default: null
+          anyOf:
+          - $ref: '#/components/schemas/nanoid_2'
+          - type: 'null'
+        branch:
+          default: main
+          type: string
+        configPath:
+          default: scalar.config.json
+          type: string
+        publishOnMerge:
+          default: true
+          type: boolean
+        publishPreviews:
+          default: false
+          type: boolean
+        prComments:
+          default: false
+          type: boolean
+        expired:
+          default: false
+          type: boolean
+      required:
+      - provider
+      - linkedBy
+      - installationId
+      - id
+      - name
+      - repositoryUid
+      - branch
+      - configPath
+      - publishOnMerge
+      - publishPreviews
+      - prComments
+      - expired
+      additionalProperties: false
+    '422_2':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+      examples:
+      - message: The request body contains invalid values.
+        code: invalid-payload
+    '401_2':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+      examples:
+      - message: Invalid authentication token.
+        code: unauthorized
+    '400_2':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+      examples:
+      - message: Invalid request parameters.
+        code: bad-request
+    docs-project-repository-bitbucket_2:
+      type: object
+      properties:
+        provider:
+          type: string
+          const: bitbucket
+        linkedBy:
+          type: string
+        workspaceUuid:
+          type: string
+        workspaceSlug:
+          type: string
+        repoUuid:
+          type: string
+        repoSlug:
+          type: string
+        name:
+          type: string
+          minLength: 2
+        repositoryUid:
+          default: null
+          anyOf:
+          - $ref: '#/components/schemas/nanoid_2'
+          - type: 'null'
+        branch:
+          default: main
+          type: string
+        configPath:
+          default: scalar.config.json
+          type: string
+        publishOnMerge:
+          default: true
+          type: boolean
+        publishPreviews:
+          default: false
+          type: boolean
+        prComments:
+          default: false
+          type: boolean
+        expired:
+          default: false
+          type: boolean
+        webhookUuid:
+          default: ''
+          type: string
+      required:
+      - provider
+      - linkedBy
+      - workspaceUuid
+      - workspaceSlug
+      - repoUuid
+      - repoSlug
+      - name
+      - repositoryUid
+      - branch
+      - configPath
+      - publishOnMerge
+      - publishPreviews
+      - prComments
+      - expired
+      - webhookUuid
+      additionalProperties: false
+    '500_2':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+      examples:
+      - message: An unexpected error occurred.
+        code: unknown
   securitySchemes:
     BearerAuth:
       type: http
       scheme: bearer
       bearerFormat: JWT
+x-refined-from:
+- scalar-core.json
+- scalar-openapi.json

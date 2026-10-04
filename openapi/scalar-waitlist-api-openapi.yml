@@ -1,12 +1,14 @@
 openapi: 3.2.0
 info:
-  title: Core Waitlist API
-  description: Core services for Scalar
-  version: 1.0.1
+  title: Scalar Waitlist API
   contact:
     name: Marc from Scalar
     url: https://scalar.com
     email: support@scalar.com
+  version: '1.0'
+  description: 'Operations tagged waitlist across 2 of this provider''s published API definitions: scalar-core.json, scalar-openapi.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api.scalar.com/core
 security:
 - BearerAuth: []
 tags:
@@ -94,7 +96,7 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    '500':
+    '404':
       type: object
       properties:
         message:
@@ -104,7 +106,7 @@ components:
       required:
       - message
       - code
-    '400':
+    '403':
       type: object
       properties:
         message:
@@ -118,7 +120,7 @@ components:
       type: string
       format: email
       pattern: ^(?!\.)(?!.*\.\.)([A-Za-z0-9_'+\-\.]*)[A-Za-z0-9_+-]@([A-Za-z0-9][A-Za-z0-9\-]*\.)+[A-Za-z]{2,}$
-    '403':
+    '422':
       type: object
       properties:
         message:
@@ -138,7 +140,7 @@ components:
       required:
       - message
       - code
-    '404':
+    '400':
       type: object
       properties:
         message:
@@ -148,7 +150,7 @@ components:
       required:
       - message
       - code
-    '422':
+    '500':
       type: object
       properties:
         message:
@@ -158,8 +160,95 @@ components:
       required:
       - message
       - code
+    '404_2':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+      examples:
+      - message: Resource not found.
+        code: not-found
+    '403_2':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+      examples:
+      - message: You do not have permission to access this resource.
+        code: forbidden
+    email_2:
+      type: string
+      format: email
+      pattern: ^(?!\.)(?!.*\.\.)([A-Za-z0-9_'+\-\.]*)[A-Za-z0-9_+-]@([A-Za-z0-9][A-Za-z0-9\-]*\.)+[A-Za-z]{2,}$
+      examples:
+      - alex@example.com
+    '422_2':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+      examples:
+      - message: The request body contains invalid values.
+        code: invalid-payload
+    '401_2':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+      examples:
+      - message: Invalid authentication token.
+        code: unauthorized
+    '400_2':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+      examples:
+      - message: Invalid request parameters.
+        code: bad-request
+    '500_2':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+      examples:
+      - message: An unexpected error occurred.
+        code: unknown
   securitySchemes:
     BearerAuth:
       type: http
       scheme: bearer
       bearerFormat: JWT
+x-refined-from:
+- scalar-core.json
+- scalar-openapi.json

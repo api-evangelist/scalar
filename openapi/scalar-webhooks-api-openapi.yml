@@ -1,0 +1,865 @@
+openapi: 3.2.0
+info:
+  title: Core Webhooks API
+  description: Core services for Scalar
+  version: 0.1.0
+  contact:
+    name: Marc from Scalar
+    url: https://scalar.com
+    email: support@scalar.com
+servers:
+- url: https://api.scalar.com/core
+security:
+- BearerAuth: []
+tags:
+- name: Webhooks
+  description: Register endpoints for platform events, and inspect what was delivered to them.
+paths:
+  /v1/webhooks:
+    post:
+      tags:
+      - Webhooks
+      description: Create a webhook subscription
+      operationId: postV1Webhooks
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  uid:
+                    default: nanoid()
+                    $ref: '#/components/schemas/nanoid'
+                  createdAt:
+                    $ref: '#/components/schemas/timestamp'
+                  updatedAt:
+                    $ref: '#/components/schemas/timestamp'
+                  event:
+                    default: sdk.build.completed
+                    $ref: '#/components/schemas/webhook-event'
+                  url:
+                    type: string
+                    format: uri
+                  enabled:
+                    default: true
+                    type: boolean
+                  description:
+                    default: ''
+                    type: string
+                    maxLength: 200
+                  consecutiveFailures:
+                    default: 0
+                    type: integer
+                    minimum: 0
+                    maximum: 9007199254740991
+                  disabledReason:
+                    anyOf:
+                    - $ref: '#/components/schemas/webhook-disabled-reason'
+                    - type: 'null'
+                  disabledAt:
+                    anyOf:
+                    - type: number
+                    - type: 'null'
+                  secret:
+                    type: string
+                required:
+                - uid
+                - createdAt
+                - updatedAt
+                - event
+                - url
+                - enabled
+                - description
+                - consecutiveFailures
+                - secret
+                additionalProperties: false
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                url:
+                  type: string
+                  format: uri
+                event:
+                  $ref: '#/components/schemas/webhook-event'
+                description:
+                  default: ''
+                  type: string
+                  maxLength: 200
+              required:
+              - url
+              - event
+              - description
+              additionalProperties: false
+        required: true
+      summary: Post V1 webhooks
+      x-summary-source: derived
+  /v1/webhooks/{uid}:
+    patch:
+      tags:
+      - Webhooks
+      description: Update a webhook subscription
+      operationId: patchV1WebhooksUid
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  uid:
+                    default: nanoid()
+                    $ref: '#/components/schemas/nanoid'
+                  createdAt:
+                    $ref: '#/components/schemas/timestamp'
+                  updatedAt:
+                    $ref: '#/components/schemas/timestamp'
+                  event:
+                    default: sdk.build.completed
+                    $ref: '#/components/schemas/webhook-event'
+                  url:
+                    type: string
+                    format: uri
+                  enabled:
+                    default: true
+                    type: boolean
+                  description:
+                    default: ''
+                    type: string
+                    maxLength: 200
+                  consecutiveFailures:
+                    default: 0
+                    type: integer
+                    minimum: 0
+                    maximum: 9007199254740991
+                  disabledReason:
+                    anyOf:
+                    - $ref: '#/components/schemas/webhook-disabled-reason'
+                    - type: 'null'
+                  disabledAt:
+                    anyOf:
+                    - type: number
+                    - type: 'null'
+                required:
+                - uid
+                - createdAt
+                - updatedAt
+                - event
+                - url
+                - enabled
+                - description
+                - consecutiveFailures
+                additionalProperties: false
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                url:
+                  type: string
+                  format: uri
+                event:
+                  $ref: '#/components/schemas/webhook-event'
+                description:
+                  type: string
+                  maxLength: 200
+                enabled:
+                  type: boolean
+              additionalProperties: false
+        required: true
+      parameters:
+      - schema:
+          $ref: '#/components/schemas/nanoid'
+        in: path
+        name: uid
+        required: true
+      summary: Patch V1 webhooks uid
+      x-summary-source: derived
+    delete:
+      tags:
+      - Webhooks
+      description: Delete a webhook subscription
+      operationId: deleteV1WebhooksUid
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: 'null'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
+      parameters:
+      - schema:
+          $ref: '#/components/schemas/nanoid'
+        in: path
+        name: uid
+        required: true
+      summary: Delete V1 webhooks uid
+      x-summary-source: derived
+  /v1/webhooks/{uid}/secret:
+    post:
+      tags:
+      - Webhooks
+      description: Rotate the signing secret for a webhook subscription
+      operationId: postV1WebhooksUidSecret
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  secret:
+                    type: string
+                  previousSecretExpiresAt:
+                    anyOf:
+                    - type: number
+                    - type: 'null'
+                required:
+                - secret
+                - previousSecretExpiresAt
+                additionalProperties: false
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              default:
+                revoke: false
+              type: object
+              properties:
+                revoke:
+                  default: false
+                  type: boolean
+              required:
+              - revoke
+              additionalProperties: false
+        required: true
+      parameters:
+      - schema:
+          $ref: '#/components/schemas/nanoid'
+        in: path
+        name: uid
+        required: true
+      summary: Post V1 webhooks uid secret
+      x-summary-source: derived
+  /v1/webhooks/delivery-counts:
+    get:
+      tags:
+      - Webhooks
+      description: Count successful deliveries for each webhook subscription
+      operationId: getV1WebhooksDeliveryCounts
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    subscriptionUid:
+                      $ref: '#/components/schemas/nanoid'
+                    count:
+                      type: number
+                  required:
+                  - subscriptionUid
+                  - count
+                  additionalProperties: false
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
+      summary: Get V1 webhooks delivery counts
+      x-summary-source: derived
+  /v1/webhooks/{uid}/deliveries:
+    get:
+      tags:
+      - Webhooks
+      description: List recent delivery attempts for a webhook subscription
+      operationId: getV1WebhooksUidDeliveries
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    uid:
+                      default: nanoid()
+                      $ref: '#/components/schemas/nanoid'
+                    createdAt:
+                      $ref: '#/components/schemas/timestamp'
+                    updatedAt:
+                      $ref: '#/components/schemas/timestamp'
+                    subscriptionUid:
+                      $ref: '#/components/schemas/nanoid'
+                    event:
+                      $ref: '#/components/schemas/webhook-event'
+                    dedupeKey:
+                      type: string
+                    payload:
+                      type: string
+                    attempts:
+                      default: 0
+                      type: integer
+                      minimum: 0
+                      maximum: 9007199254740991
+                    status:
+                      default: pending
+                      $ref: '#/components/schemas/webhook-delivery-status'
+                    lastAttemptAt:
+                      anyOf:
+                      - type: number
+                      - type: 'null'
+                    responseStatus:
+                      anyOf:
+                      - type: number
+                      - type: 'null'
+                    errorMessage:
+                      anyOf:
+                      - type: string
+                      - type: 'null'
+                  required:
+                  - uid
+                  - createdAt
+                  - updatedAt
+                  - subscriptionUid
+                  - event
+                  - dedupeKey
+                  - payload
+                  - attempts
+                  - status
+                  additionalProperties: false
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
+      parameters:
+      - schema:
+          $ref: '#/components/schemas/nanoid'
+        in: path
+        name: uid
+        required: true
+      summary: Get V1 webhooks uid deliveries
+      x-summary-source: derived
+  /v1/webhooks/{uid}/test:
+    post:
+      tags:
+      - Webhooks
+      description: Send a test event to a webhook subscription
+      operationId: postV1WebhooksUidTest
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  scheduled:
+                    type: number
+                required:
+                - scheduled
+                additionalProperties: false
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
+      parameters:
+      - schema:
+          $ref: '#/components/schemas/nanoid'
+        in: path
+        name: uid
+        required: true
+      summary: Post V1 webhooks uid test
+      x-summary-source: derived
+webhooks:
+  sdk.build.completed:
+    post:
+      tags:
+      - Webhooks
+      summary: SDK build completed
+      description: Sent when every language target of an SDK build has settled. `status` is `succeeded` when all targets generated, `failed` when none did, and `partial` in between. This does not mean the SDK reached the customer's repository — git sync settles after the build.
+      operationId: onSdkBuildCompleted
+      security: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/sdk-build-completed-event'
+        required: true
+      responses:
+        '200':
+          description: Return any 2xx to acknowledge. Anything else is retried, and repeated failures disable the endpoint.
+      parameters:
+      - in: header
+        name: scalar-event
+        description: The event this delivery carries.
+        required: true
+        schema:
+          type: string
+      - in: header
+        name: scalar-delivery
+        description: Delivery uid. Deliveries are at-least-once, so deduplicate on this.
+        required: true
+        schema:
+          type: string
+      - in: header
+        name: scalar-signature
+        description: '`t=<unix seconds>,v1=<hex HMAC-SHA256>`, signed over `<t>.<raw body>` with the subscription secret. Verify against the raw body, and reject a timestamp more than 300 seconds from your own clock in either direction. A rotation grace window sends one `v1=` pair per active secret.'
+        required: true
+        schema:
+          type: string
+components:
+  schemas:
+    sdk-build-outcome:
+      type: string
+      enum:
+      - succeeded
+      - partial
+      - failed
+    nanoid:
+      type: string
+      minLength: 5
+      examples:
+      - UakgbKJ5m9gl0JDMbcJqL
+    '404':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+      examples:
+      - message: Resource not found.
+        code: not-found
+    timestamp:
+      type: integer
+      minimum: 0
+      maximum: 9007199254740991
+      examples:
+      - 1735689600
+    webhook-disabled-reason:
+      type: string
+      enum:
+      - consecutive-failures
+    '403':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+      examples:
+      - message: You do not have permission to access this resource.
+        code: forbidden
+    sdk-build-status:
+      type: string
+      enum:
+      - pending
+      - error
+      - generated
+    '422':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+      examples:
+      - message: The request body contains invalid values.
+        code: invalid-payload
+    '401':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+      examples:
+      - message: Invalid authentication token.
+        code: unauthorized
+    webhook-delivery-status:
+      type: string
+      enum:
+      - pending
+      - succeeded
+      - failed
+    webhook-event:
+      type: string
+      enum:
+      - sdk.build.completed
+    '400':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+      examples:
+      - message: Invalid request parameters.
+        code: bad-request
+    '500':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+      examples:
+      - message: An unexpected error occurred.
+        code: unknown
+    sdk-build-completed-event:
+      type: object
+      properties:
+        event:
+          type: string
+          const: sdk.build.completed
+        createdAt:
+          type: number
+        data:
+          type: object
+          properties:
+            buildUid:
+              type: string
+            status:
+              $ref: '#/components/schemas/sdk-build-outcome'
+            sdk:
+              type: object
+              properties:
+                uid:
+                  type: string
+                namespace:
+                  type: string
+                slug:
+                  type: string
+                version:
+                  type: string
+              required:
+              - uid
+              - namespace
+              - slug
+              - version
+              additionalProperties: false
+            api:
+              anyOf:
+              - type: object
+                properties:
+                  namespace:
+                    type: string
+                  slug:
+                    type: string
+                  version:
+                    type: string
+                required:
+                - namespace
+                - slug
+                - version
+                additionalProperties: false
+              - type: 'null'
+            targets:
+              type: array
+              items:
+                type: object
+                properties:
+                  language:
+                    type: string
+                  slug:
+                    type: string
+                  status:
+                    $ref: '#/components/schemas/sdk-build-status'
+                  message:
+                    anyOf:
+                    - type: string
+                    - type: 'null'
+                required:
+                - language
+                - slug
+                - status
+                - message
+                additionalProperties: false
+          required:
+          - buildUid
+          - status
+          - sdk
+          - api
+          - targets
+          additionalProperties: false
+      required:
+      - event
+      - createdAt
+      - data
+      additionalProperties: false
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

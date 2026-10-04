@@ -1,0 +1,904 @@
+openapi: 3.2.0
+info:
+  title: Core MCP Servers API
+  description: Core services for Scalar
+  version: 0.1.0
+  contact:
+    name: Marc from Scalar
+    url: https://scalar.com
+    email: support@scalar.com
+servers:
+- url: https://api.scalar.com/core
+security:
+- BearerAuth: []
+tags:
+- name: mcp-servers
+paths:
+  /v1/mcp-servers:
+    post:
+      tags:
+      - mcp-servers
+      description: 'Create an MCP server: its identity record in core, then its versions and environments in the agent'
+      operationId: postV1McpServers
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  server:
+                    $ref: '#/components/schemas/mcp-server'
+                  installation:
+                    $ref: '#/components/schemas/mcp-installation'
+                required:
+                - server
+                - installation
+                additionalProperties: false
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  minLength: 1
+                  maxLength: 100
+                slug:
+                  $ref: '#/components/schemas/slug'
+                apiUids:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/nanoid'
+                versionUids:
+                  type: array
+                  items:
+                    type: string
+                projectUids:
+                  type: array
+                  items:
+                    type: string
+                documentTracking:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      versionUid:
+                        type: string
+                      trackMode:
+                        type: string
+                        enum:
+                        - pinned
+                        - track-latest
+                        - track-current
+                    required:
+                    - versionUid
+                    - trackMode
+                    additionalProperties: false
+                docsProjectTracking:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      projectUid:
+                        type: string
+                      trackMode:
+                        type: string
+                        enum:
+                        - pinned
+                        - track-active-publish
+                    required:
+                    - projectUid
+                    - trackMode
+                    additionalProperties: false
+                toolMode:
+                  type: string
+                  enum:
+                  - generic
+                  - curated
+                  - both
+              required:
+              - name
+              additionalProperties: false
+        required: true
+      summary: Post V1 mcp servers
+      x-summary-source: derived
+  /v1/mcp-servers/instant:
+    post:
+      tags:
+      - mcp-servers
+      description: Create an MCP server with one linked API document and an installation in one call
+      operationId: postV1McpServersInstant
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  server:
+                    $ref: '#/components/schemas/mcp-server'
+                  installation:
+                    $ref: '#/components/schemas/mcp-installation'
+                required:
+                - server
+                - installation
+                additionalProperties: false
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  minLength: 1
+                  maxLength: 100
+                slug:
+                  $ref: '#/components/schemas/slug'
+                apiUids:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/nanoid'
+                versionUid:
+                  type: string
+                installationName:
+                  type: string
+                  minLength: 1
+                  maxLength: 100
+                installationSlug:
+                  $ref: '#/components/schemas/slug'
+                documentAuth:
+                  type: object
+                  propertyNames:
+                    type: string
+                  additionalProperties: {}
+                toolMode:
+                  type: string
+                  enum:
+                  - generic
+                  - curated
+                  - both
+              required:
+              - name
+              - versionUid
+              - installationName
+              - documentAuth
+              additionalProperties: false
+        required: true
+      summary: Post V1 mcp servers instant
+      x-summary-source: derived
+  /v1/mcp-servers/{uid}:
+    patch:
+      tags:
+      - mcp-servers
+      description: 'Rename an MCP server or change its slug: the identity record first, then the agent row'
+      operationId: patchV1McpServersUid
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/mcp-server'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  minLength: 1
+                  maxLength: 100
+                slug:
+                  $ref: '#/components/schemas/slug'
+              additionalProperties: false
+        required: true
+      parameters:
+      - schema:
+          $ref: '#/components/schemas/nanoid'
+        in: path
+        name: uid
+        required: true
+      summary: Patch V1 mcp servers uid
+      x-summary-source: derived
+    delete:
+      tags:
+      - mcp-servers
+      description: Delete an MCP server by UID
+      operationId: deleteV1McpServersUid
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: 'null'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
+      parameters:
+      - schema:
+          $ref: '#/components/schemas/nanoid'
+        in: path
+        name: uid
+        required: true
+      summary: Delete V1 mcp servers uid
+      x-summary-source: derived
+  /v1/mcp-servers/{uid}/domain:
+    put:
+      tags:
+      - mcp-servers
+      description: Claim a custom domain for an MCP server
+      operationId: putV1McpServersUidDomain
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  domain:
+                    anyOf:
+                    - type: string
+                    - type: 'null'
+                required:
+                - domain
+                additionalProperties: false
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                domain:
+                  type: string
+                  minLength: 1
+                  maxLength: 253
+              required:
+              - domain
+              additionalProperties: false
+        required: true
+      parameters:
+      - schema:
+          $ref: '#/components/schemas/nanoid'
+        in: path
+        name: uid
+        required: true
+      summary: Put V1 mcp servers uid domain
+      x-summary-source: derived
+    delete:
+      tags:
+      - mcp-servers
+      description: Release the custom domain of an MCP server
+      operationId: deleteV1McpServersUidDomain
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  domain:
+                    anyOf:
+                    - type: string
+                    - type: 'null'
+                required:
+                - domain
+                additionalProperties: false
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
+      parameters:
+      - schema:
+          $ref: '#/components/schemas/nanoid'
+        in: path
+        name: uid
+        required: true
+      summary: Delete V1 mcp servers uid domain
+      x-summary-source: derived
+  /v1/mcp-servers/{uid}/domain/check:
+    post:
+      tags:
+      - mcp-servers
+      description: Check the DNS record and certificate of an MCP custom domain
+      operationId: postV1McpServersUidDomainCheck
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    enum:
+                    - pending
+                    - misconfigured
+                    - issuing
+                    - active
+                    - failed
+                  expected:
+                    type: object
+                    properties:
+                      type:
+                        type: string
+                        const: CNAME
+                      target:
+                        type: string
+                    required:
+                    - type
+                    - target
+                    additionalProperties: false
+                  found:
+                    type: array
+                    items:
+                      type: string
+                  hostname:
+                    anyOf:
+                    - type: object
+                      properties:
+                        status:
+                          type: string
+                        sslStatus:
+                          type: string
+                      required:
+                      - status
+                      - sslStatus
+                      additionalProperties: false
+                    - type: 'null'
+                required:
+                - status
+                - expected
+                - found
+                - hostname
+                additionalProperties: false
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
+      parameters:
+      - schema:
+          $ref: '#/components/schemas/nanoid'
+        in: path
+        name: uid
+        required: true
+      summary: Post V1 mcp servers uid domain check
+      x-summary-source: derived
+components:
+  schemas:
+    mcp-installation:
+      type: object
+      properties:
+        id:
+          type: string
+          examples:
+          - '42'
+        mcpServerId:
+          type: string
+          examples:
+          - '42'
+        name:
+          type: string
+          examples:
+          - Acme API
+        slug:
+          $ref: '#/components/schemas/slug'
+        documentAuth:
+          type: object
+          propertyNames:
+            type: string
+          additionalProperties: {}
+        isPrivate:
+          type: boolean
+          examples:
+          - false
+        accessGroups:
+          default: []
+          examples:
+          - - UakgbKJ5m9gl0JDMbcJqL
+          type: array
+          items:
+            type: string
+        loginPortalUid:
+          default: null
+          examples:
+          - LakgbKJ5m9gl0JDMbcJqL
+          anyOf:
+          - type: string
+          - type: 'null'
+        authConfig:
+          default: {}
+          type: object
+          propertyNames:
+            type: string
+          additionalProperties:
+            type: object
+            properties:
+              mode:
+                default: global
+                type: string
+                enum:
+                - global
+                - passthrough
+                - identity
+                - oauth
+              passthrough:
+                default: []
+                maxItems: 20
+                type: array
+                items:
+                  type: object
+                  properties:
+                    in:
+                      type: string
+                      enum:
+                      - header
+                      - query
+                    name:
+                      type: string
+                      minLength: 1
+                      maxLength: 128
+                      pattern: ^[A-Za-z0-9!#$%&'*+\-.^_`|~]+$
+                  required:
+                  - in
+                  - name
+                  additionalProperties: false
+              oauth:
+                type: object
+                properties:
+                  authorizationServer:
+                    type: string
+                    format: uri
+                  scopes:
+                    default: []
+                    maxItems: 50
+                    type: array
+                    items:
+                      type: string
+                      minLength: 1
+                      maxLength: 200
+                      pattern: ^[\x21\x23-\x5B\x5D-\x7E]+$
+                required:
+                - authorizationServer
+                - scopes
+                additionalProperties: false
+            required:
+            - mode
+            - passthrough
+            additionalProperties: false
+        mcpVersion:
+          default: null
+          examples:
+          - 1.2.0
+          anyOf:
+          - type: string
+          - type: 'null'
+        piiRedactionEnabled:
+          default: false
+          examples:
+          - true
+          type: boolean
+        credentialRedactionEnabled:
+          default: false
+          examples:
+          - true
+          type: boolean
+      required:
+      - id
+      - mcpServerId
+      - name
+      - slug
+      - documentAuth
+      - isPrivate
+      - accessGroups
+      - loginPortalUid
+      - authConfig
+      - mcpVersion
+      - piiRedactionEnabled
+      - credentialRedactionEnabled
+      additionalProperties: false
+    nanoid:
+      type: string
+      minLength: 5
+      examples:
+      - UakgbKJ5m9gl0JDMbcJqL
+    namespace:
+      type: string
+      minLength: 2
+      maxLength: 50
+      pattern: ^[a-zA-Z0-9-_]+$
+      examples:
+      - acme
+    mcp-server:
+      type: object
+      properties:
+        id:
+          type: string
+          examples:
+          - '42'
+        teamUid:
+          type: string
+        name:
+          type: string
+          examples:
+          - Acme API
+        slug:
+          $ref: '#/components/schemas/slug'
+        uid:
+          type: string
+          examples:
+          - UakgbKJ5m9gl0JDMbcJqL
+        namespace:
+          $ref: '#/components/schemas/namespace'
+        autoAddOperations:
+          default: false
+          examples:
+          - true
+          type: boolean
+        domain:
+          default: null
+          examples:
+          - docs.example.com
+          anyOf:
+          - type: string
+          - type: 'null'
+        createdAt:
+          type: string
+          examples:
+          - '2025-01-01T00:00:00.000Z'
+        updatedAt:
+          type: string
+          examples:
+          - '2025-01-01T00:00:00.000Z'
+      required:
+      - id
+      - teamUid
+      - name
+      - slug
+      - uid
+      - namespace
+      - autoAddOperations
+      - domain
+      - createdAt
+      - updatedAt
+      additionalProperties: false
+    '404':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+      examples:
+      - message: Resource not found.
+        code: not-found
+    slug:
+      type: string
+      minLength: 1
+      maxLength: 60
+      pattern: ^[a-z](?:[a-z0-9-]*[a-z0-9])?$
+      examples:
+      - acme-api
+    '403':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+      examples:
+      - message: You do not have permission to access this resource.
+        code: forbidden
+    '422':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+      examples:
+      - message: The request body contains invalid values.
+        code: invalid-payload
+    '400':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+      examples:
+      - message: Invalid request parameters.
+        code: bad-request
+    '401':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+      examples:
+      - message: Invalid authentication token.
+        code: unauthorized
+    '500':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+      examples:
+      - message: An unexpected error occurred.
+        code: unknown
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

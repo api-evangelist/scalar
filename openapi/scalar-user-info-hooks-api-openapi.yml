@@ -1,0 +1,260 @@
+openapi: 3.2.0
+info:
+  title: Core User Info Hooks API
+  description: Core services for Scalar
+  version: 0.1.0
+  contact:
+    name: Marc from Scalar
+    url: https://scalar.com
+    email: support@scalar.com
+servers:
+- url: https://api.scalar.com/core
+security:
+- BearerAuth: []
+tags:
+- name: user-info-hooks
+paths:
+  /docs/project/{uid}/user-info-hook:
+    get:
+      tags:
+      - user-info-hooks
+      description: Personalization status for a docs project
+      operationId: getDocsProjectUidUserInfoHook
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  url:
+                    type: string
+                  hasSecret:
+                    type: boolean
+                  secretUpdatedAt:
+                    anyOf:
+                    - type: number
+                    - type: 'null'
+                  previousSecretExpiresAt:
+                    anyOf:
+                    - type: number
+                    - type: 'null'
+                required:
+                - url
+                - hasSecret
+                - secretUpdatedAt
+                - previousSecretExpiresAt
+                additionalProperties: false
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
+      parameters:
+      - schema:
+          $ref: '#/components/schemas/nanoid'
+        in: path
+        name: uid
+        required: true
+      summary: Get docs project uid user info hook
+      x-summary-source: derived
+  /docs/project/user-info-hook/rotate-secret:
+    post:
+      tags:
+      - user-info-hooks
+      description: Generate or roll the user-info hook signing secret for a docs project
+      operationId: postDocsProjectUserInfoHookRotateSecret
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  secret:
+                    type: string
+                  previousSecretExpiresAt:
+                    anyOf:
+                    - type: number
+                    - type: 'null'
+                required:
+                - secret
+                - previousSecretExpiresAt
+                additionalProperties: false
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: No auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422'
+        '500':
+          description: Uncaught error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                projectUid:
+                  $ref: '#/components/schemas/nanoid'
+                revoke:
+                  default: false
+                  type: boolean
+              required:
+              - projectUid
+              - revoke
+              additionalProperties: false
+        required: true
+      summary: Post docs project user info hook rotate secret
+      x-summary-source: derived
+components:
+  schemas:
+    nanoid:
+      type: string
+      minLength: 5
+      examples:
+      - UakgbKJ5m9gl0JDMbcJqL
+    '404':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+      examples:
+      - message: Resource not found.
+        code: not-found
+    '403':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+      examples:
+      - message: You do not have permission to access this resource.
+        code: forbidden
+    '422':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+      examples:
+      - message: The request body contains invalid values.
+        code: invalid-payload
+    '401':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+      examples:
+      - message: Invalid authentication token.
+        code: unauthorized
+    '400':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+      examples:
+      - message: Invalid request parameters.
+        code: bad-request
+    '500':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+      examples:
+      - message: An unexpected error occurred.
+        code: unknown
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

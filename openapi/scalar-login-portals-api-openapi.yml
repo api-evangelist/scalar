@@ -1,12 +1,14 @@
 openapi: 3.2.0
 info:
-  title: Core Login Portals API
-  description: Core services for Scalar
-  version: 1.0.1
+  title: Scalar Login Portals API
   contact:
     name: Marc from Scalar
     url: https://scalar.com
     email: support@scalar.com
+  version: '1.0'
+  description: 'Operations tagged login-portals across 2 of this provider''s published API definitions: scalar-core.json, scalar-openapi.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api.scalar.com/core
 security:
 - BearerAuth: []
 tags:
@@ -341,11 +343,92 @@ paths:
       x-summary-source: derived
 components:
   schemas:
+    login-portal-email:
+      type: object
+      properties:
+        logo:
+          default: ''
+          type: string
+        logoSize:
+          default: '100'
+          type: string
+        buttonText:
+          default: Login
+          type: string
+          maxLength: 50
+        message:
+          default: Click to access private documentation hosted by scalar.com
+          type: string
+          maxLength: 1000
+        title:
+          default: Private Docs
+          type: string
+          maxLength: 100
+        mainColor:
+          default: '#2a2f45'
+          type: string
+          maxLength: 100
+        mainBackground:
+          default: '#f6f6f6'
+          type: string
+          maxLength: 100
+        cardColor:
+          default: 2a2f45
+          type: string
+          maxLength: 100
+        cardBackground:
+          default: '#fff'
+          type: string
+          maxLength: 100
+        buttonColor:
+          default: '#fff'
+          type: string
+          maxLength: 100
+        buttonBackground:
+          default: '#0f0f0f'
+          type: string
+          maxLength: 100
+      required:
+      - logo
+      - logoSize
+      - buttonText
+      - message
+      - title
+      - mainColor
+      - mainBackground
+      - cardColor
+      - cardBackground
+      - buttonColor
+      - buttonBackground
+      additionalProperties: false
+    nanoid:
+      type: string
+      minLength: 5
+    '404':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
     slug:
       type: string
       minLength: 3
       maxLength: 60
       pattern: ^[a-z](?:[a-z0-9-]*[a-z0-9])?$
+    '403':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
     login-portal:
       type: object
       properties:
@@ -367,7 +450,27 @@ components:
       - email
       - page
       additionalProperties: false
-    '500':
+    '422':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+    '400':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+    '401':
       type: object
       properties:
         message:
@@ -443,7 +546,7 @@ components:
       - formDescription
       - formImage
       additionalProperties: false
-    '403':
+    '500':
       type: object
       properties:
         message:
@@ -453,69 +556,71 @@ components:
       required:
       - message
       - code
-    '422':
-      type: object
-      properties:
-        message:
-          type: string
-        code:
-          type: string
-      required:
-      - message
-      - code
-    '401':
-      type: object
-      properties:
-        message:
-          type: string
-        code:
-          type: string
-      required:
-      - message
-      - code
-    login-portal-email:
+    login-portal-email_2:
       type: object
       properties:
         logo:
           default: ''
+          examples:
+          - <img src="https://example.com/logo.svg" alt="Acme" />
           type: string
         logoSize:
           default: '100'
+          examples:
+          - '100'
           type: string
         buttonText:
           default: Login
+          examples:
+          - Access documentation
           type: string
           maxLength: 50
         message:
           default: Click to access private documentation hosted by scalar.com
+          examples:
+          - Click to access Acme private API documentation.
           type: string
           maxLength: 1000
         title:
           default: Private Docs
+          examples:
+          - Acme API
           type: string
           maxLength: 100
         mainColor:
           default: '#2a2f45'
+          examples:
+          - '#1f2937'
           type: string
           maxLength: 100
         mainBackground:
           default: '#f6f6f6'
+          examples:
+          - '#f9fafb'
           type: string
           maxLength: 100
         cardColor:
-          default: 2a2f45
+          default: '#2a2f45'
+          examples:
+          - '#1f2937'
           type: string
           maxLength: 100
         cardBackground:
           default: '#fff'
+          examples:
+          - '#ffffff'
           type: string
           maxLength: 100
         buttonColor:
           default: '#fff'
+          examples:
+          - '#ffffff'
           type: string
           maxLength: 100
         buttonBackground:
           default: '#0f0f0f'
+          examples:
+          - '#2563eb'
           type: string
           maxLength: 100
       required:
@@ -531,10 +636,12 @@ components:
       - buttonColor
       - buttonBackground
       additionalProperties: false
-    nanoid:
+    nanoid_2:
       type: string
       minLength: 5
-    '404':
+      examples:
+      - UakgbKJ5m9gl0JDMbcJqL
+    '404_2':
       type: object
       properties:
         message:
@@ -544,7 +651,17 @@ components:
       required:
       - message
       - code
-    '400':
+      examples:
+      - message: Resource not found.
+        code: not-found
+    slug_2:
+      type: string
+      minLength: 1
+      maxLength: 60
+      pattern: ^[a-z](?:[a-z0-9-]*[a-z0-9])?$
+      examples:
+      - acme-api
+    '403_2':
       type: object
       properties:
         message:
@@ -554,8 +671,183 @@ components:
       required:
       - message
       - code
+      examples:
+      - message: You do not have permission to access this resource.
+        code: forbidden
+    login-portal_2:
+      type: object
+      properties:
+        uid:
+          $ref: '#/components/schemas/nanoid_2'
+        title:
+          type: string
+          maxLength: 200
+          examples:
+          - Acme API
+        slug:
+          $ref: '#/components/schemas/slug_2'
+        email:
+          $ref: '#/components/schemas/login-portal-email_2'
+        page:
+          $ref: '#/components/schemas/login-portal-page_2'
+      required:
+      - uid
+      - title
+      - slug
+      - email
+      - page
+      additionalProperties: false
+    '422_2':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+      examples:
+      - message: The request body contains invalid values.
+        code: invalid-payload
+    '400_2':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+      examples:
+      - message: Invalid request parameters.
+        code: bad-request
+    '401_2':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+      examples:
+      - message: Invalid authentication token.
+        code: unauthorized
+    login-portal-page_2:
+      type: object
+      properties:
+        title:
+          default: Scalar Private Docs
+          examples:
+          - Acme API
+          type: string
+          maxLength: 100
+        description:
+          default: Login to access your documentation
+          examples:
+          - Sign in with your work email to access Acme documentation.
+          type: string
+          maxLength: 500
+        head:
+          default: ''
+          examples:
+          - <meta name="robots" content="noindex" />
+          type: string
+        script:
+          default: ''
+          examples:
+          - document.documentElement.dataset.company = "acme";
+          type: string
+        theme:
+          default: ''
+          examples:
+          - TakgbKJ5m9gl0JDMbcJqL
+          type: string
+        companyName:
+          default: ''
+          examples:
+          - Acme
+          type: string
+          maxLength: 100
+        logo:
+          default: ''
+          examples:
+          - <img src="https://example.com/logo.svg" alt="Acme" />
+          type: string
+        logoURL:
+          default: ''
+          examples:
+          - https://example.com
+          type: string
+        favicon:
+          default: ''
+          examples:
+          - https://example.com/favicon.ico
+          type: string
+        termsLink:
+          default: ''
+          examples:
+          - https://example.com/terms
+          type: string
+        privacyLink:
+          default: ''
+          examples:
+          - https://example.com/privacy
+          type: string
+        formTitle:
+          default: Scalar Private Docs
+          examples:
+          - Sign in to Acme Documentation
+          type: string
+          maxLength: 100
+        formDescription:
+          default: Login to access your documentation
+          examples:
+          - Sign in with your work email to access Acme documentation.
+          type: string
+          maxLength: 500
+        formImage:
+          default: ''
+          examples:
+          - https://example.com/login-banner.png
+          type: string
+      required:
+      - title
+      - description
+      - head
+      - script
+      - theme
+      - companyName
+      - logo
+      - logoURL
+      - favicon
+      - termsLink
+      - privacyLink
+      - formTitle
+      - formDescription
+      - formImage
+      additionalProperties: false
+    '500_2':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+      examples:
+      - message: An unexpected error occurred.
+        code: unknown
   securitySchemes:
     BearerAuth:
       type: http
       scheme: bearer
       bearerFormat: JWT
+x-refined-from:
+- scalar-core.json
+- scalar-openapi.json

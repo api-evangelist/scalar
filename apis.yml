@@ -1,11 +1,13 @@
 aid: scalar
+
 name: Scalar
-description: Scalar is an open-source API platform built around the OpenAPI standard. It provides API documentation
-  (API References), an offline-first API client, a centralized API registry for managing OpenAPI documents, JSON
-  schemas and Spectral rules, and automated SDK generation for TypeScript, Python, Go, PHP, Java, and Ruby. Used
-  by teams at SmartBear, Microsoft ASP.NET, and 30+ framework ecosystems including Express, FastAPI, NestJS, and
-  Spring Boot. The platform has 14.9k GitHub stars and is MIT licensed. Scalar is backed by a strong open-source
-  community and positions itself as the modern, open alternative to Swagger UI and Postman.
+
+description: Scalar is an open-source API platform built around the OpenAPI standard. It provides API documentation (API References), an offline-first
+  API client, a centralized API registry for managing OpenAPI documents, JSON schemas and Spectral rules, and automated SDK generation for TypeScript,
+  Python, Go, PHP, Java, and Ruby. Used by teams at SmartBear, Microsoft ASP.NET, and 30+ framework ecosystems including Express, FastAPI, NestJS,
+  and Spring Boot. The platform has 14.9k GitHub stars and is MIT licensed. Scalar is backed by a strong open-source community and positions itself
+  as the modern, open alternative to Swagger UI and Postman.
+
 deliveryModel:
   model: open-core
   license: MIT
@@ -24,6 +26,7 @@ deliveryModel:
   - repository-license
   generated: '2026-09-25'
   method: derived
+
 accessModel:
   pricing: freemium
   onboarding: self-serve
@@ -38,8 +41,11 @@ accessModel:
   - security
   generated: '2026-09-03'
   method: derived
+
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/scalar.png
+
 url: https://raw.githubusercontent.com/api-evangelist/scalar/refs/heads/main/apis.yml
+
 tags:
 - API Client
 - API Documentation
@@ -50,6 +56,7 @@ tags:
 - Registry
 - SDK
 - Swagger
+
 tags_raw:
 - API Client
 - API Documentation
@@ -60,12 +67,161 @@ tags_raw:
 - Registry
 - SDKs
 - Swagger
+
 type: Index
+
 access: 3rd-Party
+
 position: Consuming
+
 created: '2025-01-08'
+
 modified: '2026-05-02'
+
 specificationVersion: '0.23'
+
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com
+  url: https://apievangelist.com
+- aid: scalar:scalar-core
+  name: Scalar Core API
+  description: Core services for Scalar as defined in the OpenAPI spec.
+  humanURL: https://scalar.com
+  baseURL: https://api.scalar.com/core
+  properties:
+  - type: OpenAPI
+    url: openapi/scalar-openapi.json
+
+common:
+- type: FinOps
+  url: finops/scalar-finops.yml
+- type: RateLimits
+  url: rate-limits/scalar-rate-limits.yml
+- type: Plans
+  url: plans/scalar-plans-pricing.yml
+- type: Spectral
+  url: rules/scalar-rules.yml
+- type: Spectral
+  url: rules/scalar-jsonschema-spectral-rules.yml
+- type: JSONLD
+  url: json-ld/scalar-context.jsonld
+- type: Vocabulary
+  url: vocabulary/scalar-vocabulary.yml
+- type: AgentSkill
+  url: skills/_index.yml
+- type: Webhooks
+  url: asyncapi/scalar-webhooks.yml
+- type: DataModel
+  url: data-model/scalar-data-model.yml
+- type: CLI
+  url: cli/scalar-cli.yml
+- type: ChangeLog
+  url: changelog/scalar-changelog.yml
+- type: Conventions
+  url: conventions/scalar-conventions.yml
+- type: Compliance
+  url: https://scalar.com/security
+- type: ErrorCatalog
+  url: errors/scalar-problem-types.yml
+- type: Conformance
+  url: conformance/scalar-conformance.yml
+- type: LLMsTxt
+  url: llms/scalar-llms.txt
+- type: MCPServer
+  url: mcp/scalar-mcp.yml
+- type: SecurityTxt
+  url: well-known/scalar-dashboard-security.txt
+- type: WellKnown
+  url: well-known/scalar-well-known.yml
+- type: Hosts
+  url: hosts/scalar-hosts.yml
+- type: Vendors
+  url: vendors/scalar-vendors.yml
+- type: TermsOfService
+  url: https://scalar.com/legal/terms-and-conditions
+- type: StatusPage
+  url: https://scalar.com/tools/api/tag/scalar-docs/get/v1/docs/slug/domain/status
+- type: Security
+  url: https://scalar.com/security
+- type: SDKs
+  url: https://scalar.com/sdk
+- type: PrivacyPolicy
+  url: https://scalar.com/legal/privacy-policy
+- type: Leadership
+  url: https://scalar.com/tools/api/models/team
+- type: DeveloperPortal
+  url: https://scalar.com/solutions/developer-portal
+- type: GettingStarted
+  url: https://scalar.com/products/docs/getting-started/index
+- type: APIReference
+  url: https://scalar.com/llms.txt
+- type: VendorFacets
+  url: vendor-facets/scalar-vendor-facets.yml
+- type: AgenticAccess
+  url: agentic-access/scalar-agentic-access.yml
+- type: TrustCenter
+  url: security/scalar-trust-center.yml
+- type: VulnerabilityDisclosure
+  url: security/scalar-vulnerability-disclosure.yml
+- type: DomainSecurity
+  url: security/scalar-domain-security.yml
+- type: Authentication
+  url: authentication/scalar-authentication.yml
+- type: LinkedIn
+  url: https://www.linkedin.com/company/scalar
+- type: Website
+  url: https://scalar.com/
+  name: Scalar Website
+- type: Documentation
+  url: https://guides.scalar.com/scalar/introduction
+  name: Scalar Documentation
+- type: Pricing
+  url: https://guides.scalar.com/scalar/pricing
+  name: Scalar Pricing
+- type: GitHub
+  url: https://github.com/scalar/scalar
+  name: Scalar GitHub Repository
+- type: Discord
+  url: https://discord.gg/scalar
+  name: Scalar Discord Community
+- type: Blog
+  url: https://scalar.com/blog
+  name: Scalar Blog
+- type: ChangeLog
+  url: https://github.com/scalar/scalar/releases
+  name: Scalar Changelog
+- type: Support
+  url: mailto:support@scalar.com
+  name: Scalar Support
+- type: Dashboard
+  url: https://dashboard.scalar.com/
+  name: Scalar Dashboard
+- type: SpectralRules
+  url: https://github.com/api-evangelist/scalar/blob/main/rules/scalar-rules.yml
+  name: Scalar Spectral Rules
+- type: JSONSchema
+  url: https://github.com/api-evangelist/scalar/blob/main/json-schema/scalar-openapi-document-schema.json
+  name: Scalar OpenAPI Document JSON Schema
+- type: JSONStructure
+  url: https://github.com/api-evangelist/scalar/blob/main/json-structure/scalar-openapi-document-structure.json
+  name: Scalar OpenAPI Document JSON Structure
+- type: JSONLDContext
+  url: https://github.com/api-evangelist/scalar/blob/main/json-ld/scalar-context.jsonld
+  name: Scalar JSON-LD Context
+- type: Vocabulary
+  url: https://github.com/api-evangelist/scalar/blob/main/vocabulary/scalar-vocabulary.yml
+  name: Scalar Vocabulary
+- type: Examples
+  url: https://github.com/api-evangelist/scalar/blob/main/examples/
+  name: Scalar Usage Examples
+- type: LlmsText
+  url: https://docs.scalar.com/llms.txt
+- type: GitHubOrganization
+  url: https://github.com/scalar
+- type: Documentation
+  url: https://guides.scalar.com
+
 apis:
 - aid: scalar:scalar-api-references
   name: Scalar API References
@@ -266,6 +422,18 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/scalar-access-groups-api-openapi.yml
+  - type: JSONSchema
+    url: json-schema/scalar-access-group-schema.json
+  - type: JSONSchema
+    url: json-schema/scalar-email-schema.json
+  - type: JSONSchema
+    url: json-schema/scalar-email-domain-schema.json
+  - type: JSONSchema
+    url: json-schema/scalar-slug-schema.json
+  - type: JSONSchema
+    url: json-schema/scalar-access-group-name-schema.json
+  - type: JSONSchema
+    url: json-schema/scalar-nanoid-schema.json
 - aid: scalar:scalar-analytics-api
   name: Scalar Analytics API
   description: The analytics API from Scalar — 4 operation(s) for analytics.
@@ -286,6 +454,18 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/scalar-api-docs-api-openapi.yml
+  - type: JSONSchema
+    url: json-schema/scalar-managed-doc-schema.json
+  - type: JSONSchema
+    url: json-schema/scalar-managed-doc-version-schema.json
+  - type: JSONSchema
+    url: json-schema/scalar-method-schema.json
+  - type: JSONSchema
+    url: json-schema/scalar-slug-schema.json
+  - type: JSONSchema
+    url: json-schema/scalar-namespace-schema.json
+  - type: JSONSchema
+    url: json-schema/scalar-nanoid-schema.json
 - aid: scalar:scalar-auth-api
   name: Scalar Auth API
   description: The auth API from Scalar — 27 operation(s) for auth.
@@ -297,6 +477,18 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/scalar-auth-api-openapi.yml
+  - type: JSONSchema
+    url: json-schema/scalar-identity-provider-record-schema.json
+  - type: JSONSchema
+    url: json-schema/scalar-user-schema.json
+  - type: JSONSchema
+    url: json-schema/scalar-token-response-schema.json
+  - type: JSONSchema
+    url: json-schema/scalar-email-schema.json
+  - type: JSONSchema
+    url: json-schema/scalar-slug-schema.json
+  - type: JSONSchema
+    url: json-schema/scalar-nanoid-schema.json
 - aid: scalar:scalar-docs-api
   name: Scalar Docs API
   description: The docs API from Scalar — 6 operation(s) for docs.
@@ -308,6 +500,10 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/scalar-docs-api-openapi.yml
+  - type: JSONSchema
+    url: json-schema/scalar-project-schema.json
+  - type: JSONSchema
+    url: json-schema/scalar-nanoid-schema.json
 - aid: scalar:scalar-docs-projects-api
   name: Scalar Docs Projects API
   description: The Docs Projects API from Scalar — 9 operation(s) for docs projects.
@@ -317,6 +513,12 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/scalar-docs-projects-api-openapi.yml
+  - type: JSONSchema
+    url: json-schema/scalar-docs-project-schema.json
+  - type: JSONSchema
+    url: json-schema/scalar-slug-schema.json
+  - type: JSONSchema
+    url: json-schema/scalar-nanoid-schema.json
 - aid: scalar:scalar-forgejo-api
   name: Scalar Forgejo API
   description: The Forgejo API from Scalar — 1 operation(s) for forgejo.
@@ -337,6 +539,12 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/scalar-github-api-openapi.yml
+  - type: JSONSchema
+    url: json-schema/scalar-github-project-schema.json
+  - type: JSONSchema
+    url: json-schema/scalar-github-install-schema.json
+  - type: JSONSchema
+    url: json-schema/scalar-slug-schema.json
 - aid: scalar:scalar-internal-api
   name: Scalar Internal API
   description: The Internal API from Scalar — 1 operation(s) for internal.
@@ -346,6 +554,8 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/scalar-internal-api-openapi.yml
+  - type: JSONSchema
+    url: json-schema/scalar-nanoid-schema.json
 - aid: scalar:scalar-login-portals-api
   name: Scalar Login Portals API
   description: The login-portals API from Scalar — 3 operation(s) for login-portals.
@@ -355,6 +565,16 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/scalar-login-portals-api-openapi.yml
+  - type: JSONSchema
+    url: json-schema/scalar-login-portal-page-schema.json
+  - type: JSONSchema
+    url: json-schema/scalar-login-portal-email-schema.json
+  - type: JSONSchema
+    url: json-schema/scalar-login-portal-schema.json
+  - type: JSONSchema
+    url: json-schema/scalar-slug-schema.json
+  - type: JSONSchema
+    url: json-schema/scalar-nanoid-schema.json
 - aid: scalar:scalar-payment-api
   name: Scalar Payment API
   description: The payment API from Scalar — 6 operation(s) for payment.
@@ -366,6 +586,10 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/scalar-payment-api-openapi.yml
+  - type: JSONSchema
+    url: json-schema/scalar-object-schema.json
+  - type: JSONSchema
+    url: json-schema/scalar-nanoid-schema.json
 - aid: scalar:scalar-publish-api
   name: Scalar Publish API
   description: The publish API from Scalar — 11 operation(s) for publish.
@@ -377,6 +601,10 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/scalar-publish-api-openapi.yml
+  - type: JSONSchema
+    url: json-schema/scalar-publish-record-schema.json
+  - type: JSONSchema
+    url: json-schema/scalar-nanoid-schema.json
 - aid: scalar:scalar-pubsub-api
   name: Scalar Pubsub API
   description: The pubsub API from Scalar — 7 operation(s) for pubsub.
@@ -388,6 +616,14 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/scalar-pubsub-api-openapi.yml
+  - type: JSONSchema
+    url: json-schema/scalar-slug-schema.json
+  - type: JSONSchema
+    url: json-schema/scalar-namespace-schema.json
+  - type: JSONSchema
+    url: json-schema/scalar-nanoid-schema.json
+  - type: JSONSchema
+    url: json-schema/scalar-version-schema.json
 - aid: scalar:scalar-rules-api
   name: Scalar Rules API
   description: The rules API from Scalar — 6 operation(s) for rules.
@@ -399,6 +635,12 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/scalar-rules-api-openapi.yml
+  - type: JSONSchema
+    url: json-schema/scalar-slug-schema.json
+  - type: JSONSchema
+    url: json-schema/scalar-namespace-schema.json
+  - type: JSONSchema
+    url: json-schema/scalar-nanoid-schema.json
 - aid: scalar:scalar-schemas-api
   name: Scalar Schemas API
   description: The schemas API from Scalar — 7 operation(s) for schemas.
@@ -410,6 +652,18 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/scalar-schemas-api-openapi.yml
+  - type: JSONSchema
+    url: json-schema/scalar-managed-schema-version-schema.json
+  - type: JSONSchema
+    url: json-schema/scalar-slug-schema.json
+  - type: JSONSchema
+    url: json-schema/scalar-namespace-schema.json
+  - type: JSONSchema
+    url: json-schema/scalar-managed-schema-format-schema.json
+  - type: JSONSchema
+    url: json-schema/scalar-nanoid-schema.json
+  - type: JSONSchema
+    url: json-schema/scalar-version-schema.json
 - aid: scalar:scalar-share-api
   name: Scalar Share API
   description: The share API from Scalar — 1 operation(s) for share.
@@ -432,6 +686,10 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/scalar-signup-api-openapi.yml
+  - type: JSONSchema
+    url: json-schema/scalar-project-version-schema.json
+  - type: JSONSchema
+    url: json-schema/scalar-theme-schema.json
 - aid: scalar:scalar-team-api
   name: Scalar Team API
   description: The team API from Scalar — 36 operation(s) for team.
@@ -443,6 +701,18 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/scalar-team-api-openapi.yml
+  - type: JSONSchema
+    url: json-schema/scalar-project-schema.json
+  - type: JSONSchema
+    url: json-schema/scalar-feature-flag-schema.json
+  - type: JSONSchema
+    url: json-schema/scalar-custom-project-icon-schema.json
+  - type: JSONSchema
+    url: json-schema/scalar-team-billing-summary-schema.json
+  - type: JSONSchema
+    url: json-schema/scalar-team-list-mine-entry-schema.json
+  - type: JSONSchema
+    url: json-schema/scalar-email-schema.json
 - aid: scalar:scalar-themes-api
   name: Scalar Themes API
   description: The themes API from Scalar — 4 operation(s) for themes.
@@ -454,6 +724,12 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/scalar-themes-api-openapi.yml
+  - type: JSONSchema
+    url: json-schema/scalar-theme-schema.json
+  - type: JSONSchema
+    url: json-schema/scalar-slug-schema.json
+  - type: JSONSchema
+    url: json-schema/scalar-nanoid-schema.json
 - aid: scalar:scalar-utility-api
   name: Scalar Utility API
   description: The utility API from Scalar — 3 operation(s) for utility.
@@ -465,6 +741,12 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/scalar-utility-api-openapi.yml
+  - type: JSONSchema
+    url: json-schema/scalar-project-version-schema.json
+  - type: JSONSchema
+    url: json-schema/scalar-theme-schema.json
+  - type: JSONSchema
+    url: json-schema/scalar-email-schema.json
 - aid: scalar:scalar-vcs-api
   name: Scalar VCS API
   description: The vcs API from Scalar — 6 operation(s) for vcs.
@@ -485,6 +767,8 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/scalar-waitlist-api-openapi.yml
+  - type: JSONSchema
+    url: json-schema/scalar-email-schema.json
 - aid: scalar:scalar-workspace-api
   name: Scalar Workspace API
   description: The workspace API from Scalar — 6 operation(s) for workspace.
@@ -496,6 +780,16 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/scalar-workspace-api-openapi.yml
+  - type: JSONSchema
+    url: json-schema/scalar-workspace-schema.json
+  - type: JSONSchema
+    url: json-schema/scalar-workspace-version-schema.json
+  - type: JSONSchema
+    url: json-schema/scalar-slug-schema.json
+  - type: JSONSchema
+    url: json-schema/scalar-namespace-schema.json
+  - type: JSONSchema
+    url: json-schema/scalar-version-schema.json
 - aid: scalar:scalar-api-reference
   x-published: false
   name: Scalar API Reference
@@ -592,80 +886,68 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/scalar-sdks-api-openapi.yml
-common:
-- type: VendorFacets
-  url: vendor-facets/scalar-vendor-facets.yml
-- type: AgenticAccess
-  url: agentic-access/scalar-agentic-access.yml
-- type: TrustCenter
-  url: security/scalar-trust-center.yml
-- type: VulnerabilityDisclosure
-  url: security/scalar-vulnerability-disclosure.yml
-- type: DomainSecurity
-  url: security/scalar-domain-security.yml
-- type: Authentication
-  url: authentication/scalar-authentication.yml
-- type: LinkedIn
-  url: https://www.linkedin.com/company/scalar
-- type: Website
-  url: https://scalar.com/
-  name: Scalar Website
-- type: Documentation
-  url: https://guides.scalar.com/scalar/introduction
-  name: Scalar Documentation
-- type: Pricing
-  url: https://guides.scalar.com/scalar/pricing
-  name: Scalar Pricing
-- type: GitHub
-  url: https://github.com/scalar/scalar
-  name: Scalar GitHub Repository
-- type: Discord
-  url: https://discord.gg/scalar
-  name: Scalar Discord Community
-- type: Blog
-  url: https://scalar.com/blog
-  name: Scalar Blog
-- type: ChangeLog
-  url: https://github.com/scalar/scalar/releases
-  name: Scalar Changelog
-- type: Support
-  url: mailto:support@scalar.com
-  name: Scalar Support
-- type: Dashboard
-  url: https://dashboard.scalar.com/
-  name: Scalar Dashboard
-- type: SpectralRules
-  url: https://github.com/api-evangelist/scalar/blob/main/rules/scalar-rules.yml
-  name: Scalar Spectral Rules
-- type: JSONSchema
-  url: https://github.com/api-evangelist/scalar/blob/main/json-schema/scalar-openapi-document-schema.json
-  name: Scalar OpenAPI Document JSON Schema
-- type: JSONStructure
-  url: https://github.com/api-evangelist/scalar/blob/main/json-structure/scalar-openapi-document-structure.json
-  name: Scalar OpenAPI Document JSON Structure
-- type: JSONLDContext
-  url: https://github.com/api-evangelist/scalar/blob/main/json-ld/scalar-context.jsonld
-  name: Scalar JSON-LD Context
-- type: Vocabulary
-  url: https://github.com/api-evangelist/scalar/blob/main/vocabulary/scalar-vocabulary.yml
-  name: Scalar Vocabulary
-- type: Examples
-  url: https://github.com/api-evangelist/scalar/blob/main/examples/
-  name: Scalar Usage Examples
-- type: Integrations
-  url: https://scalar.com/integrations
-- type: LlmsText
-  url: https://docs.scalar.com/llms.txt
-- type: GitHubOrganization
-  url: https://github.com/scalar
-- type: Documentation
-  url: https://guides.scalar.com
+  - type: JSONSchema
+    url: json-schema/scalar-sdk-preview-schema.json
+  - type: JSONSchema
+    url: json-schema/scalar-slug-schema.json
+  - type: JSONSchema
+    url: json-schema/scalar-namespace-schema.json
+  - type: JSONSchema
+    url: json-schema/scalar-nanoid-schema.json
+  - type: JSONSchema
+    url: json-schema/scalar-version-schema.json
+- aid: scalar:scalar-mcp-servers-api
+  name: Scalar MCP Servers API
+  description: The mcp-servers API from Scalar — 5 operation(s) for mcp-servers.
+  humanURL: https://scalar.com/products/api-references/getting-started
+  tags:
+  - mcp-servers
+  properties:
+  - type: OpenAPI
+    url: openapi/scalar-mcp-servers-api-openapi.yml
+- aid: scalar:scalar-oauth-api
+  name: Scalar OAuth API
+  description: The OAuth API from Scalar — 7 operation(s) for oauth.
+  humanURL: https://scalar.com/products/api-references/getting-started
+  tags:
+  - OAuth
+  properties:
+  - type: OpenAPI
+    url: openapi/scalar-oauth-api-openapi.yml
+- aid: scalar:scalar-registry-git-api
+  name: Scalar Registry Git API
+  description: The registry-git API from Scalar — 11 operation(s) for registry-git.
+  humanURL: https://scalar.com/products/api-references/getting-started
+  tags:
+  - registry-git
+  properties:
+  - type: OpenAPI
+    url: openapi/scalar-registry-git-api-openapi.yml
+- aid: scalar:scalar-user-info-hooks-api
+  name: Scalar User Info Hooks API
+  description: The user-info-hooks API from Scalar — 2 operation(s) for user-info-hooks.
+  humanURL: https://scalar.com/products/api-references/getting-started
+  tags:
+  - user-info-hooks
+  properties:
+  - type: OpenAPI
+    url: openapi/scalar-user-info-hooks-api-openapi.yml
+- aid: scalar:scalar-webhooks-api
+  name: Scalar Webhooks API
+  description: Register endpoints for platform events, and inspect what was delivered to them.
+  humanURL: https://scalar.com/products/api-references/getting-started
+  tags:
+  - webhooks
+  properties:
+  - type: OpenAPI
+    url: openapi/scalar-webhooks-api-openapi.yml
 segments:
 - SDKs
 - Clients
 - Documentation
 - Registries
 - Developer Tools
+
 integrations:
 - name: API References Animation
 - name: API Registry Animation
@@ -678,7 +960,9 @@ integrations:
 - name: API Registry Preview
 - name: API Docs Preview
 - name: logo
-maintainers:
-- FN: Kin Lane
-  email: kin@apievangelist.com
-  url: https://apievangelist.com
+x-enrichment:
+  date: '2026-10-04'
+  status: enriched
+  artifacts_added: 62
+  pass: modular-v1
+  engine: identity=local,contract=local,surfaces=local,docs=local,regulatory=local
