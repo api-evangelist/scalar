@@ -597,6 +597,12 @@ apis:
   - type: OpenAPI
     url: openapi/scalar-sdks-api-openapi.yml
 common:
+- type: Plans
+  url: plans/scalar-plans-pricing.yml
+- type: RateLimits
+  url: rate-limits/scalar-rate-limits.yml
+- type: FinOps
+  url: finops/scalar-finops.yml
 - type: CapabilityMap
   url: capabilities/scalar-capability-edges.yml
   name: Scalar Business Capability Map
