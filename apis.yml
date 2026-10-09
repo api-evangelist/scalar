@@ -673,6 +673,8 @@ common:
   url: https://github.com/scalar
 - type: Documentation
   url: https://guides.scalar.com
+- type: SpectralRules
+  url: https://github.com/scalar/scalar/blob/6d5c9b633e48259f9238bcb8be8f3b2631503647/packages/galaxy/galaxy.ruleset.yaml
 segments:
 - SDKs
 - Clients
