@@ -1,0 +1,60 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/scalar/main/json-schema/scalar-feature-flag-schema.json",
+  "title": "feature-flag",
+  "x-generated": "2026-10-04",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/scalar-team-api-openapi.yml#/components/schemas/feature-flag",
+  "type": "object",
+  "properties": {
+    "rules": {
+      "$ref": "#/$defs/feature"
+    },
+    "registry": {
+      "$ref": "#/$defs/feature"
+    },
+    "schemas": {
+      "$ref": "#/$defs/feature"
+    },
+    "sdk": {
+      "$ref": "#/$defs/feature"
+    },
+    "cli": {
+      "$ref": "#/$defs/feature"
+    },
+    "agent": {
+      "$ref": "#/$defs/feature"
+    },
+    "workspaces": {
+      "$ref": "#/$defs/feature"
+    },
+    "mcp": {
+      "$ref": "#/$defs/feature"
+    },
+    "export": {
+      "$ref": "#/$defs/feature"
+    },
+    "docsMcp": {
+      "$ref": "#/$defs/feature"
+    },
+    "disableApiSSR": {
+      "$ref": "#/$defs/feature"
+    },
+    "unifiedDocs": {
+      "$ref": "#/$defs/feature"
+    },
+    "docsAnalytics": {
+      "$ref": "#/$defs/feature"
+    },
+    "mcpAnalytics": {
+      "$ref": "#/$defs/feature"
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "feature": {
+      "type": "boolean"
+    }
+  }
+}

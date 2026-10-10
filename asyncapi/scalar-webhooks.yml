@@ -1,0 +1,22 @@
+generated: '2026-10-04'
+method: derived
+generator: derive-webhooks.py
+source:
+- openapi/scalar-openapi.json
+description: 'Event surface derived from the provider''s own OpenAPI: webhooks. No AsyncAPI document is published by the provider; this catalog
+  lists the events the contract names.'
+management_operations:
+- postdocsProjectsProjectUidBitbucketRefreshWebhook
+- postDocsProjectsProjectUidBitbucketRefreshWebhook
+- postV1Webhooks
+- patchV1WebhooksUid
+- deleteV1WebhooksUid
+- postV1WebhooksUidSecret
+- getV1WebhooksDeliveryCounts
+- getV1WebhooksUidDeliveries
+- postV1WebhooksUidTest
+- postinternalBillingSyncSubscription
+events:
+- event: sdk.build.completed
+  description: SDK build completed
+  declared_in: webhooks

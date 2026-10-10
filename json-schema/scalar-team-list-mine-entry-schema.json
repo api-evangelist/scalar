@@ -1,0 +1,52 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/scalar/main/json-schema/scalar-team-list-mine-entry-schema.json",
+  "title": "team-list-mine-entry",
+  "x-generated": "2026-10-04",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/scalar-team-api-openapi.yml#/components/schemas/team-list-mine-entry",
+  "type": "object",
+  "properties": {
+    "uid": {
+      "$ref": "#/$defs/nanoid"
+    },
+    "name": {
+      "$ref": "#/$defs/team-name"
+    },
+    "slug": {
+      "$ref": "#/$defs/slug"
+    },
+    "imageUri": {
+      "$ref": "#/$defs/team-image"
+    },
+    "theme": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "uid",
+    "name",
+    "slug",
+    "theme"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "nanoid": {
+      "type": "string",
+      "minLength": 5
+    },
+    "slug": {
+      "type": "string",
+      "minLength": 3,
+      "maxLength": 60,
+      "pattern": "^[a-z](?:[a-z0-9-]*[a-z0-9])?$"
+    },
+    "team-image": {
+      "type": "string"
+    },
+    "team-name": {
+      "type": "string"
+    }
+  }
+}

@@ -1,0 +1,47 @@
+generated: '2026-10-05'
+method: probed
+source: https://scalar.com/legal/privacy-policy
+signals:
+  data_subject_request:
+    - evidence:
+        source: https://scalar.com/legal/privacy-policy
+        http_status: 200
+        fetched: /tmp/privacy.html
+        quote: "You may request access to Your personal information by contacting Us at the address described below."
+        url: https://scalar.com/legal/privacy-policy
+        section: "General Privacy Rights"
+        note: Provides right of access to personal data.
+    - evidence:
+        source: https://scalar.com/legal/privacy-policy
+        http_status: 200
+        fetched: /tmp/privacy.html
+        quote: "You may have the right to obtain a copy of the personal information that You previously provided."
+        url: https://scalar.com/legal/privacy-policy
+        section: "General Privacy Rights"
+        note: Right to data portability.
+    - evidence:
+        source: https://scalar.com/legal/privacy-policy
+        http_status: 200
+        fetched: /tmp/privacy.html
+        quote: "Right to Deletion of Your Personal Information."
+        url: https://scalar.com/legal/privacy-policy
+        section: "General Privacy Rights"
+        note: Right to deletion of personal data.
+  subprocessors:
+    - evidence:
+        source: https://scalar.com/legal/privacy-policy
+        http_status: 200
+        fetched: /tmp/privacy.html
+        quote: "Scalar engages certain third-party service providers (\"subprocessors\") to support the delivery of Our Services. We maintain an up-to-date list of these subprocessors in Our Trust Center."
+        url: https://scalar.com/legal/privacy-policy
+        section: "Use of Subprocessors"
+        note: Discloses use of subprocessors and reference to Trust Center.
+  data_retention:
+    - evidence:
+        source: https://scalar.com/legal/privacy-policy
+        http_status: 200
+        fetched: /tmp/privacy.html
+        quote: "Scalar will retain Your Personal Data only for as long as is necessary for the purposes set out in this Privacy Policy."
+        url: https://scalar.com/legal/privacy-policy
+        section: "Retention of Your Personal Data"
+        note: States data retention period is purpose‑limited.

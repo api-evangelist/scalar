@@ -1,0 +1,33 @@
+generated: '2026-10-10'
+method: searched
+generator: extract-docs-artifacts.py (local)
+source: https://scalar.com/solutions/api-documentation-for-developer-tools-companies/index.md
+sources:
+- https://scalar.com/solutions/api-documentation-for-developer-tools-companies/index.md
+- https://scalar.com/products/docs/deployment/cli/index.md
+- https://scalar.com/products/agent/integration/sdk/index.md
+- https://scalar.com/products/sdk-generator/index.md
+install:
+- method: npm
+  command: npm install -g @scalar/cli
+- method: npx
+  command: npx @scalar/cli project publish --slug your-docs
+commands:
+- group: auth
+  commands:
+  - scalar auth login
+  - scalar auth login --token your-personal-token
+  - scalar auth whoami
+- group: project
+  commands:
+  - scalar project init
+  - scalar project create --name "My Documentation" --slug your-docs
+  - scalar project preview
+  - scalar project publish --slug your-docs
+  - scalar project publish --slug your-docs --config path/to/scalar.config.json
+  - scalar project publish --slug your-docs --github
+  - scalar project publish --slug your-docs --preview
+  - scalar project deployments list --slug your-docs
+  - scalar project rollback --slug your-docs
+binary: scalar
+docs: https://scalar.com/solutions/api-documentation-for-developer-tools-companies/index.md

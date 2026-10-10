@@ -1,12 +1,12 @@
 openapi: 3.2.0
 info:
-  title: Core User Info Hooks API
-  description: Core services for Scalar
+  title: Scalar User Info Hooks API
   version: 0.1.0
   contact:
     name: Marc from Scalar
     url: https://scalar.com
     email: support@scalar.com
+  description: 'Operations tagged user-info-hooks across 2 of this provider''s published API definitions: scalar-openapi.json, scalar-openapi.json. Each path carries the servers of the definition it was published in.'
 servers:
 - url: https://api.scalar.com/core
 security:
@@ -90,6 +90,8 @@ paths:
         required: true
       summary: Get docs project uid user info hook
       x-summary-source: derived
+    servers:
+    - url: https://api.scalar.com/core
   /docs/project/user-info-hook/rotate-secret:
     post:
       tags:
@@ -168,52 +170,10 @@ paths:
         required: true
       summary: Post docs project user info hook rotate secret
       x-summary-source: derived
+    servers:
+    - url: https://api.scalar.com/core
 components:
   schemas:
-    nanoid:
-      type: string
-      minLength: 5
-      examples:
-      - UakgbKJ5m9gl0JDMbcJqL
-    '404':
-      type: object
-      properties:
-        message:
-          type: string
-        code:
-          type: string
-      required:
-      - message
-      - code
-      examples:
-      - message: Resource not found.
-        code: not-found
-    '403':
-      type: object
-      properties:
-        message:
-          type: string
-        code:
-          type: string
-      required:
-      - message
-      - code
-      examples:
-      - message: You do not have permission to access this resource.
-        code: forbidden
-    '422':
-      type: object
-      properties:
-        message:
-          type: string
-        code:
-          type: string
-      required:
-      - message
-      - code
-      examples:
-      - message: The request body contains invalid values.
-        code: invalid-payload
     '401':
       type: object
       properties:
@@ -227,7 +187,7 @@ components:
       examples:
       - message: Invalid authentication token.
         code: unauthorized
-    '400':
+    '404':
       type: object
       properties:
         message:
@@ -238,8 +198,34 @@ components:
       - message
       - code
       examples:
-      - message: Invalid request parameters.
-        code: bad-request
+      - message: Resource not found.
+        code: not-found
+    '422':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+      examples:
+      - message: The request body contains invalid values.
+        code: invalid-payload
+    '403':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+      examples:
+      - message: You do not have permission to access this resource.
+        code: forbidden
     '500':
       type: object
       properties:
@@ -253,8 +239,29 @@ components:
       examples:
       - message: An unexpected error occurred.
         code: unknown
+    nanoid:
+      type: string
+      minLength: 5
+      examples:
+      - UakgbKJ5m9gl0JDMbcJqL
+    '400':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+      examples:
+      - message: Invalid request parameters.
+        code: bad-request
   securitySchemes:
     BearerAuth:
       type: http
       scheme: bearer
       bearerFormat: JWT
+x-refined-from:
+- scalar-openapi.json
+- scalar-openapi.json

@@ -6,7 +6,7 @@ info:
     url: https://scalar.com
     email: support@scalar.com
   version: '1.0'
-  description: 'Operations tagged schemas across 2 of this provider''s published API definitions: scalar-core.json, scalar-openapi.json. Each path carries the servers of the definition it was published in.'
+  description: 'Operations tagged schemas across 3 of this provider''s published API definitions: scalar-core.json, scalar-openapi.json, scalar-openapi.json. Each path carries the servers of the definition it was published in.'
 servers:
 - url: https://api.scalar.com/core
 security:
@@ -925,86 +925,14 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    nanoid:
-      type: string
-      minLength: 5
     namespace:
       type: string
       minLength: 3
       maxLength: 50
       pattern: ^[a-zA-Z0-9-_]+$
-    timestamp:
-      type: integer
-      minimum: 0
-      maximum: 9007199254740991
-    '404':
-      type: object
-      properties:
-        message:
-          type: string
-        code:
-          type: string
-      required:
-      - message
-      - code
-    slug:
-      type: string
-      minLength: 3
-      maxLength: 60
-      pattern: ^[a-z](?:[a-z0-9-]*[a-z0-9])?$
-    '403':
-      type: object
-      properties:
-        message:
-          type: string
-        code:
-          type: string
-      required:
-      - message
-      - code
-    '500':
-      type: object
-      properties:
-        message:
-          type: string
-        code:
-          type: string
-      required:
-      - message
-      - code
     version:
       type: string
       minLength: 1
-    '400':
-      type: object
-      properties:
-        message:
-          type: string
-        code:
-          type: string
-      required:
-      - message
-      - code
-    '401':
-      type: object
-      properties:
-        message:
-          type: string
-        code:
-          type: string
-      required:
-      - message
-      - code
-    '422':
-      type: object
-      properties:
-        message:
-          type: string
-        code:
-          type: string
-      required:
-      - message
-      - code
     managed-schema-version:
       type: object
       properties:
@@ -1031,11 +959,78 @@ components:
       enum:
       - json
       - yaml
-    nanoid_2:
+    slug:
+      type: string
+      minLength: 3
+      maxLength: 60
+      pattern: ^[a-z](?:[a-z0-9-]*[a-z0-9])?$
+    timestamp:
+      type: integer
+      minimum: 0
+      maximum: 9007199254740991
+    '401':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+    '404':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+    '422':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+    '403':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+    '500':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+    nanoid:
       type: string
       minLength: 5
-      examples:
-      - UakgbKJ5m9gl0JDMbcJqL
+    '400':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
     namespace_2:
       type: string
       minLength: 2
@@ -1043,102 +1038,11 @@ components:
       pattern: ^[a-zA-Z0-9-_]+$
       examples:
       - acme
-    timestamp_2:
-      type: integer
-      minimum: 0
-      maximum: 9007199254740991
-      examples:
-      - 1735689600
-    '404_2':
-      type: object
-      properties:
-        message:
-          type: string
-        code:
-          type: string
-      required:
-      - message
-      - code
-      examples:
-      - message: Resource not found.
-        code: not-found
-    slug_2:
-      type: string
-      minLength: 1
-      maxLength: 60
-      pattern: ^[a-z](?:[a-z0-9-]*[a-z0-9])?$
-      examples:
-      - acme-api
-    '403_2':
-      type: object
-      properties:
-        message:
-          type: string
-        code:
-          type: string
-      required:
-      - message
-      - code
-      examples:
-      - message: You do not have permission to access this resource.
-        code: forbidden
-    '500_2':
-      type: object
-      properties:
-        message:
-          type: string
-        code:
-          type: string
-      required:
-      - message
-      - code
-      examples:
-      - message: An unexpected error occurred.
-        code: unknown
     version_2:
       type: string
       minLength: 1
       examples:
       - 1.2.0
-    '400_2':
-      type: object
-      properties:
-        message:
-          type: string
-        code:
-          type: string
-      required:
-      - message
-      - code
-      examples:
-      - message: Invalid request parameters.
-        code: bad-request
-    '401_2':
-      type: object
-      properties:
-        message:
-          type: string
-        code:
-          type: string
-      required:
-      - message
-      - code
-      examples:
-      - message: Invalid authentication token.
-        code: unauthorized
-    '422_2':
-      type: object
-      properties:
-        message:
-          type: string
-        code:
-          type: string
-      required:
-      - message
-      - code
-      examples:
-      - message: The request body contains invalid values.
-        code: invalid-payload
     managed-schema-version_2:
       type: object
       properties:
@@ -1167,6 +1071,238 @@ components:
       - updatedAt
       - version
       additionalProperties: false
+    slug_2:
+      type: string
+      minLength: 1
+      maxLength: 60
+      pattern: ^[a-z](?:[a-z0-9-]*[a-z0-9])?$
+      examples:
+      - acme-api
+    timestamp_2:
+      type: integer
+      minimum: 0
+      maximum: 9007199254740991
+      examples:
+      - 1735689600
+    '401_2':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+      examples:
+      - message: Invalid authentication token.
+        code: unauthorized
+    '404_2':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+      examples:
+      - message: Resource not found.
+        code: not-found
+    '422_2':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+      examples:
+      - message: The request body contains invalid values.
+        code: invalid-payload
+    '403_2':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+      examples:
+      - message: You do not have permission to access this resource.
+        code: forbidden
+    '500_2':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+      examples:
+      - message: An unexpected error occurred.
+        code: unknown
+    nanoid_2:
+      type: string
+      minLength: 5
+      examples:
+      - UakgbKJ5m9gl0JDMbcJqL
+    '400_2':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+      examples:
+      - message: Invalid request parameters.
+        code: bad-request
+    namespace_3:
+      type: string
+      minLength: 2
+      maxLength: 50
+      pattern: ^[a-zA-Z0-9-_]+$
+      examples:
+      - acme
+    version_3:
+      type: string
+      minLength: 1
+      examples:
+      - 1.2.0
+    managed-schema-version_3:
+      type: object
+      properties:
+        uid:
+          $ref: '#/components/schemas/nanoid_3'
+        createdAt:
+          $ref: '#/components/schemas/timestamp_3'
+        updatedAt:
+          $ref: '#/components/schemas/timestamp_3'
+        version:
+          default: 0.0.1
+          $ref: '#/components/schemas/version_3'
+        yamlSha:
+          examples:
+          - abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789
+          type: string
+          pattern: ^[a-f0-9]{64}$
+        jsonSha:
+          examples:
+          - 0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef
+          type: string
+          pattern: ^[a-f0-9]{64}$
+      required:
+      - uid
+      - createdAt
+      - updatedAt
+      - version
+      additionalProperties: false
+    slug_3:
+      type: string
+      minLength: 1
+      maxLength: 60
+      pattern: ^[a-z](?:[a-z0-9-]*[a-z0-9])?$
+      examples:
+      - acme-api
+    timestamp_3:
+      type: integer
+      minimum: 0
+      maximum: 9007199254740991
+      examples:
+      - 1735689600
+    '401_3':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+      examples:
+      - message: Invalid authentication token.
+        code: unauthorized
+    '404_3':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+      examples:
+      - message: Resource not found.
+        code: not-found
+    '422_3':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+      examples:
+      - message: The request body contains invalid values.
+        code: invalid-payload
+    '403_3':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+      examples:
+      - message: You do not have permission to access this resource.
+        code: forbidden
+    '500_3':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+      examples:
+      - message: An unexpected error occurred.
+        code: unknown
+    nanoid_3:
+      type: string
+      minLength: 5
+      examples:
+      - UakgbKJ5m9gl0JDMbcJqL
+    '400_3':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+      examples:
+      - message: Invalid request parameters.
+        code: bad-request
   securitySchemes:
     BearerAuth:
       type: http
@@ -1174,4 +1310,5 @@ components:
       bearerFormat: JWT
 x-refined-from:
 - scalar-core.json
+- scalar-openapi.json
 - scalar-openapi.json

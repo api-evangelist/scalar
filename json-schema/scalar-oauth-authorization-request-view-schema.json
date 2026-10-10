@@ -1,0 +1,67 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/scalar/main/json-schema/scalar-oauth-authorization-request-view-schema.json",
+  "title": "oauth-authorization-request-view",
+  "x-generated": "2026-10-05",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/scalar-oauth-api-openapi.yml#/components/schemas/oauth-authorization-request-view",
+  "type": "object",
+  "properties": {
+    "uid": {
+      "$ref": "#/$defs/nanoid"
+    },
+    "client": {
+      "type": "object",
+      "properties": {
+        "uid": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "firstParty": {
+          "type": "boolean"
+        },
+        "ownerTeamName": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "uid",
+        "name",
+        "firstParty"
+      ],
+      "additionalProperties": false
+    },
+    "scope": {
+      "$ref": "#/$defs/oauth-scope"
+    },
+    "expiresAt": {
+      "type": "integer",
+      "minimum": -9007199254740991,
+      "maximum": 9007199254740991
+    }
+  },
+  "required": [
+    "uid",
+    "client",
+    "scope",
+    "expiresAt"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "nanoid": {
+      "type": "string",
+      "minLength": 5
+    },
+    "oauth-scope": {
+      "type": "string",
+      "enum": [
+        "read",
+        "write",
+        "admin"
+      ]
+    }
+  }
+}

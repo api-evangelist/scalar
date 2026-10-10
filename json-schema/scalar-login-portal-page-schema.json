@@ -1,0 +1,90 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/scalar/main/json-schema/scalar-login-portal-page-schema.json",
+  "title": "login-portal-page",
+  "x-generated": "2026-10-04",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/scalar-login-portals-api-openapi.yml#/components/schemas/login-portal-page",
+  "type": "object",
+  "properties": {
+    "title": {
+      "default": "Scalar Private Docs",
+      "type": "string",
+      "maxLength": 100
+    },
+    "description": {
+      "default": "Login to access your documentation",
+      "type": "string",
+      "maxLength": 500
+    },
+    "head": {
+      "default": "",
+      "type": "string"
+    },
+    "script": {
+      "default": "",
+      "type": "string"
+    },
+    "theme": {
+      "default": "",
+      "type": "string"
+    },
+    "companyName": {
+      "default": "",
+      "type": "string",
+      "maxLength": 100
+    },
+    "logo": {
+      "default": "",
+      "type": "string"
+    },
+    "logoURL": {
+      "default": "",
+      "type": "string"
+    },
+    "favicon": {
+      "default": "",
+      "type": "string"
+    },
+    "termsLink": {
+      "default": "",
+      "type": "string"
+    },
+    "privacyLink": {
+      "default": "",
+      "type": "string"
+    },
+    "formTitle": {
+      "default": "Scalar Private Docs",
+      "type": "string",
+      "maxLength": 100
+    },
+    "formDescription": {
+      "default": "Login to access your documentation",
+      "type": "string",
+      "maxLength": 500
+    },
+    "formImage": {
+      "default": "",
+      "type": "string"
+    }
+  },
+  "required": [
+    "title",
+    "description",
+    "head",
+    "script",
+    "theme",
+    "companyName",
+    "logo",
+    "logoURL",
+    "favicon",
+    "termsLink",
+    "privacyLink",
+    "formTitle",
+    "formDescription",
+    "formImage"
+  ],
+  "additionalProperties": false
+}

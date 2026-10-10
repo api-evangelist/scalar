@@ -1,0 +1,79 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/scalar/main/json-schema/scalar-login-portal-email-schema.json",
+  "title": "login-portal-email",
+  "x-generated": "2026-10-04",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/scalar-login-portals-api-openapi.yml#/components/schemas/login-portal-email",
+  "type": "object",
+  "properties": {
+    "logo": {
+      "default": "",
+      "type": "string"
+    },
+    "logoSize": {
+      "default": "100",
+      "type": "string"
+    },
+    "buttonText": {
+      "default": "Login",
+      "type": "string",
+      "maxLength": 50
+    },
+    "message": {
+      "default": "Click to access private documentation hosted by scalar.com",
+      "type": "string",
+      "maxLength": 1000
+    },
+    "title": {
+      "default": "Private Docs",
+      "type": "string",
+      "maxLength": 100
+    },
+    "mainColor": {
+      "default": "#2a2f45",
+      "type": "string",
+      "maxLength": 100
+    },
+    "mainBackground": {
+      "default": "#f6f6f6",
+      "type": "string",
+      "maxLength": 100
+    },
+    "cardColor": {
+      "default": "2a2f45",
+      "type": "string",
+      "maxLength": 100
+    },
+    "cardBackground": {
+      "default": "#fff",
+      "type": "string",
+      "maxLength": 100
+    },
+    "buttonColor": {
+      "default": "#fff",
+      "type": "string",
+      "maxLength": 100
+    },
+    "buttonBackground": {
+      "default": "#0f0f0f",
+      "type": "string",
+      "maxLength": 100
+    }
+  },
+  "required": [
+    "logo",
+    "logoSize",
+    "buttonText",
+    "message",
+    "title",
+    "mainColor",
+    "mainBackground",
+    "cardColor",
+    "cardBackground",
+    "buttonColor",
+    "buttonBackground"
+  ],
+  "additionalProperties": false
+}

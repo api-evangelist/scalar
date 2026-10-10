@@ -1,0 +1,66 @@
+generated: '2026-10-10'
+method: derived
+generator: derive-problem-types.py
+source:
+- openapi/scalar-access-groups-api-openapi.yml
+- openapi/scalar-analytics-api-openapi.yml
+- openapi/scalar-api-docs-api-openapi.yml
+- openapi/scalar-auth-api-openapi.yml
+- openapi/scalar-docs-api-openapi.yml
+- openapi/scalar-docs-projects-api-openapi.yml
+- openapi/scalar-forgejo-api-openapi.yml
+- openapi/scalar-github-api-openapi.yml
+- openapi/scalar-internal-api-openapi.yml
+- openapi/scalar-login-portals-api-openapi.yml
+- openapi/scalar-mcp-servers-api-openapi.yml
+- openapi/scalar-oauth-api-openapi.yml
+format: custom
+envelope:
+  media_type: application/json
+  schema: '400'
+coverage:
+  operations: 562
+  statuses_declared: 6
+problems:
+- status: 400
+  title: Bad Request
+  description: Bad request
+  operations: 562
+  media_types:
+  - application/json
+  schema: '400'
+- status: 401
+  title: Unauthorized
+  description: No auth
+  operations: 562
+  media_types:
+  - application/json
+  schema: '401'
+- status: 403
+  title: Forbidden
+  description: Forbidden
+  operations: 562
+  media_types:
+  - application/json
+  schema: '403'
+- status: 404
+  title: Not Found
+  description: Not found
+  operations: 562
+  media_types:
+  - application/json
+  schema: '404'
+- status: 422
+  title: Unprocessable Content
+  description: Invalid payload
+  operations: 562
+  media_types:
+  - application/json
+  schema: '422'
+- status: 500
+  title: Internal Server Error
+  description: Uncaught error
+  operations: 562
+  media_types:
+  - application/json
+  schema: '500'

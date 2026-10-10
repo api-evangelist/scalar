@@ -6,7 +6,7 @@ info:
     url: https://scalar.com
     email: support@scalar.com
   version: '1.0'
-  description: 'Operations tagged github across 2 of this provider''s published API definitions: scalar-core.json, scalar-openapi.json. Each path carries the servers of the definition it was published in.'
+  description: 'Operations tagged github across 3 of this provider''s published API definitions: scalar-core.json, scalar-openapi.json, scalar-openapi.json. Each path carries the servers of the definition it was published in.'
 servers:
 - url: https://api.scalar.com/core
 security:
@@ -1475,52 +1475,6 @@ paths:
     - url: https://api.scalar.com/core
 components:
   schemas:
-    active-deployment:
-      type: object
-      properties:
-        uid:
-          type: string
-        domain:
-          type: string
-        publishedAt:
-          $ref: '#/components/schemas/timestamp'
-      required:
-      - uid
-      - domain
-      - publishedAt
-      additionalProperties: false
-    nanoid:
-      type: string
-      minLength: 5
-    '404':
-      type: object
-      properties:
-        message:
-          type: string
-        code:
-          type: string
-      required:
-      - message
-      - code
-    timestamp:
-      type: integer
-      minimum: 0
-      maximum: 9007199254740991
-    slug:
-      type: string
-      minLength: 3
-      maxLength: 60
-      pattern: ^[a-z](?:[a-z0-9-]*[a-z0-9])?$
-    '403':
-      type: object
-      properties:
-        message:
-          type: string
-        code:
-          type: string
-      required:
-      - message
-      - code
     github-project-repository:
       type: object
       properties:
@@ -1560,7 +1514,7 @@ components:
       - prComments
       - expired
       additionalProperties: false
-    '400':
+    '500':
       type: object
       properties:
         message:
@@ -1570,7 +1524,26 @@ components:
       required:
       - message
       - code
+    slug:
+      type: string
+      minLength: 3
+      maxLength: 60
+      pattern: ^[a-z](?:[a-z0-9-]*[a-z0-9])?$
+    timestamp:
+      type: integer
+      minimum: 0
+      maximum: 9007199254740991
     '401':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+    '404':
       type: object
       properties:
         message:
@@ -1590,38 +1563,7 @@ components:
       required:
       - message
       - code
-    github-install:
-      type: object
-      properties:
-        id:
-          type: integer
-          minimum: -9007199254740991
-          maximum: 9007199254740991
-        name:
-          type: string
-        icon:
-          type: string
-        repos:
-          type: array
-          items:
-            type: object
-            properties:
-              id:
-                type: integer
-                minimum: -9007199254740991
-                maximum: 9007199254740991
-              name:
-                type: string
-            required:
-            - id
-            - name
-            additionalProperties: false
-      required:
-      - id
-      - name
-      - repos
-      additionalProperties: false
-    '500':
+    '403':
       type: object
       properties:
         message:
@@ -1709,30 +1651,55 @@ components:
       - publishStatus
       - publishMessage
       additionalProperties: false
-    active-deployment_2:
+    github-install:
+      type: object
+      properties:
+        id:
+          type: integer
+          minimum: -9007199254740991
+          maximum: 9007199254740991
+        name:
+          type: string
+        icon:
+          type: string
+        repos:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: integer
+                minimum: -9007199254740991
+                maximum: 9007199254740991
+              name:
+                type: string
+            required:
+            - id
+            - name
+            additionalProperties: false
+      required:
+      - id
+      - name
+      - repos
+      additionalProperties: false
+    active-deployment:
       type: object
       properties:
         uid:
           type: string
-          examples:
-          - UakgbKJ5m9gl0JDMbcJqL
         domain:
           type: string
-          examples:
-          - docs.example.com
         publishedAt:
-          $ref: '#/components/schemas/timestamp_2'
+          $ref: '#/components/schemas/timestamp'
       required:
       - uid
       - domain
       - publishedAt
       additionalProperties: false
-    nanoid_2:
+    nanoid:
       type: string
       minLength: 5
-      examples:
-      - UakgbKJ5m9gl0JDMbcJqL
-    '404_2':
+    '400':
       type: object
       properties:
         message:
@@ -1742,35 +1709,6 @@ components:
       required:
       - message
       - code
-      examples:
-      - message: Resource not found.
-        code: not-found
-    timestamp_2:
-      type: integer
-      minimum: 0
-      maximum: 9007199254740991
-      examples:
-      - 1735689600
-    slug_2:
-      type: string
-      minLength: 1
-      maxLength: 60
-      pattern: ^[a-z](?:[a-z0-9-]*[a-z0-9])?$
-      examples:
-      - acme-api
-    '403_2':
-      type: object
-      properties:
-        message:
-          type: string
-        code:
-          type: string
-      required:
-      - message
-      - code
-      examples:
-      - message: You do not have permission to access this resource.
-        code: forbidden
     github-project-repository_2:
       type: object
       properties:
@@ -1828,78 +1766,6 @@ components:
       - prComments
       - expired
       additionalProperties: false
-    '400_2':
-      type: object
-      properties:
-        message:
-          type: string
-        code:
-          type: string
-      required:
-      - message
-      - code
-      examples:
-      - message: Invalid request parameters.
-        code: bad-request
-    '401_2':
-      type: object
-      properties:
-        message:
-          type: string
-        code:
-          type: string
-      required:
-      - message
-      - code
-      examples:
-      - message: Invalid authentication token.
-        code: unauthorized
-    '422_2':
-      type: object
-      properties:
-        message:
-          type: string
-        code:
-          type: string
-      required:
-      - message
-      - code
-      examples:
-      - message: The request body contains invalid values.
-        code: invalid-payload
-    github-install_2:
-      type: object
-      properties:
-        id:
-          type: integer
-          minimum: -9007199254740991
-          maximum: 9007199254740991
-        name:
-          type: string
-        icon:
-          type: string
-        repos:
-          type: array
-          items:
-            type: object
-            properties:
-              id:
-                type: integer
-                minimum: -9007199254740991
-                maximum: 9007199254740991
-              name:
-                type: string
-              defaultBranch:
-                type: string
-            required:
-            - id
-            - name
-            additionalProperties: false
-      required:
-      - id
-      - name
-      - repos
-      additionalProperties: false
     '500_2':
       type: object
       properties:
@@ -1913,6 +1779,71 @@ components:
       examples:
       - message: An unexpected error occurred.
         code: unknown
+    slug_2:
+      type: string
+      minLength: 1
+      maxLength: 60
+      pattern: ^[a-z](?:[a-z0-9-]*[a-z0-9])?$
+      examples:
+      - acme-api
+    timestamp_2:
+      type: integer
+      minimum: 0
+      maximum: 9007199254740991
+      examples:
+      - 1735689600
+    '401_2':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+      examples:
+      - message: Invalid authentication token.
+        code: unauthorized
+    '404_2':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+      examples:
+      - message: Resource not found.
+        code: not-found
+    '422_2':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+      examples:
+      - message: The request body contains invalid values.
+        code: invalid-payload
+    '403_2':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+      examples:
+      - message: You do not have permission to access this resource.
+        code: forbidden
     github-project_2:
       type: object
       properties:
@@ -2016,6 +1947,382 @@ components:
       - publishStatus
       - publishMessage
       additionalProperties: false
+    github-install_2:
+      type: object
+      properties:
+        id:
+          type: integer
+          minimum: -9007199254740991
+          maximum: 9007199254740991
+        name:
+          type: string
+        icon:
+          type: string
+        repos:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: integer
+                minimum: -9007199254740991
+                maximum: 9007199254740991
+              name:
+                type: string
+              defaultBranch:
+                type: string
+            required:
+            - id
+            - name
+            additionalProperties: false
+      required:
+      - id
+      - name
+      - repos
+      additionalProperties: false
+    active-deployment_2:
+      type: object
+      properties:
+        uid:
+          type: string
+          examples:
+          - UakgbKJ5m9gl0JDMbcJqL
+        domain:
+          type: string
+          examples:
+          - docs.example.com
+        publishedAt:
+          $ref: '#/components/schemas/timestamp_2'
+      required:
+      - uid
+      - domain
+      - publishedAt
+      additionalProperties: false
+    nanoid_2:
+      type: string
+      minLength: 5
+      examples:
+      - UakgbKJ5m9gl0JDMbcJqL
+    '400_2':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+      examples:
+      - message: Invalid request parameters.
+        code: bad-request
+    github-project-repository_3:
+      type: object
+      properties:
+        linkedBy:
+          type: string
+          examples:
+          - UakgbKJ5m9gl0JDMbcJqL
+        id:
+          type: number
+          examples:
+          - 123456789
+        name:
+          type: string
+          minLength: 2
+          examples:
+          - Acme Documentation
+        configPath:
+          default: ''
+          examples:
+          - scalar.config.json
+          type: string
+        branch:
+          default: ''
+          examples:
+          - main
+          type: string
+        publishOnMerge:
+          default: false
+          examples:
+          - true
+          type: boolean
+        publishPreviews:
+          default: false
+          examples:
+          - true
+          type: boolean
+        prComments:
+          default: false
+          examples:
+          - true
+          type: boolean
+        expired:
+          default: false
+          examples:
+          - false
+          type: boolean
+      required:
+      - linkedBy
+      - id
+      - name
+      - configPath
+      - branch
+      - publishOnMerge
+      - publishPreviews
+      - prComments
+      - expired
+      additionalProperties: false
+    '500_3':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+      examples:
+      - message: An unexpected error occurred.
+        code: unknown
+    slug_3:
+      type: string
+      minLength: 1
+      maxLength: 60
+      pattern: ^[a-z](?:[a-z0-9-]*[a-z0-9])?$
+      examples:
+      - acme-api
+    timestamp_3:
+      type: integer
+      minimum: 0
+      maximum: 9007199254740991
+      examples:
+      - 1735689600
+    '401_3':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+      examples:
+      - message: Invalid authentication token.
+        code: unauthorized
+    '404_3':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+      examples:
+      - message: Resource not found.
+        code: not-found
+    '422_3':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+      examples:
+      - message: The request body contains invalid values.
+        code: invalid-payload
+    '403_3':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+      examples:
+      - message: You do not have permission to access this resource.
+        code: forbidden
+    github-project_3:
+      type: object
+      properties:
+        uid:
+          $ref: '#/components/schemas/nanoid_3'
+        createdAt:
+          $ref: '#/components/schemas/timestamp_3'
+        updatedAt:
+          $ref: '#/components/schemas/timestamp_3'
+        name:
+          type: string
+          examples:
+          - Acme Documentation
+        activeDeployment:
+          default: null
+          anyOf:
+          - $ref: '#/components/schemas/active-deployment_3'
+          - type: 'null'
+        lastPublished:
+          default: null
+          anyOf:
+          - $ref: '#/components/schemas/timestamp_3'
+          - type: 'null'
+        lastPublishedUid:
+          default: null
+          examples:
+          - PakgbKJ5m9gl0JDMbcJqL
+          anyOf:
+          - type: string
+          - type: 'null'
+        loginPortalUid:
+          default: ''
+          examples:
+          - LakgbKJ5m9gl0JDMbcJqL
+          type: string
+        userInfoHookUrl:
+          default: ''
+          examples:
+          - https://example.com/hooks/user-info
+          type: string
+        activeThemeId:
+          default: ''
+          examples:
+          - TakgbKJ5m9gl0JDMbcJqL
+          type: string
+        typesenseId:
+          examples:
+          - 42
+          type: number
+        isPrivate:
+          default: false
+          examples:
+          - false
+          type: boolean
+        agentEnabled:
+          default: false
+          examples:
+          - true
+          type: boolean
+        analyticsEnabled:
+          default: true
+          examples:
+          - true
+          type: boolean
+        accessGroups:
+          default: []
+          examples:
+          - - UakgbKJ5m9gl0JDMbcJqL
+        slug:
+          $ref: '#/components/schemas/slug_3'
+        publishStatus:
+          default: ''
+          examples:
+          - published
+          type: string
+        publishMessage:
+          default: ''
+          examples:
+          - Documentation published successfully.
+          type: string
+        repository:
+          anyOf:
+          - $ref: '#/components/schemas/github-project-repository_3'
+          - type: 'null'
+      required:
+      - uid
+      - createdAt
+      - updatedAt
+      - name
+      - activeDeployment
+      - lastPublished
+      - lastPublishedUid
+      - loginPortalUid
+      - userInfoHookUrl
+      - activeThemeId
+      - isPrivate
+      - agentEnabled
+      - analyticsEnabled
+      - accessGroups
+      - slug
+      - publishStatus
+      - publishMessage
+      additionalProperties: false
+    github-install_3:
+      type: object
+      properties:
+        id:
+          type: integer
+          minimum: -9007199254740991
+          maximum: 9007199254740991
+        name:
+          type: string
+        icon:
+          type: string
+        repos:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: integer
+                minimum: -9007199254740991
+                maximum: 9007199254740991
+              name:
+                type: string
+              defaultBranch:
+                type: string
+            required:
+            - id
+            - name
+            additionalProperties: false
+      required:
+      - id
+      - name
+      - repos
+      additionalProperties: false
+    active-deployment_3:
+      type: object
+      properties:
+        uid:
+          type: string
+          examples:
+          - UakgbKJ5m9gl0JDMbcJqL
+        domain:
+          type: string
+          examples:
+          - docs.example.com
+        publishedAt:
+          $ref: '#/components/schemas/timestamp_3'
+      required:
+      - uid
+      - domain
+      - publishedAt
+      additionalProperties: false
+    nanoid_3:
+      type: string
+      minLength: 5
+      examples:
+      - UakgbKJ5m9gl0JDMbcJqL
+    '400_3':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+      examples:
+      - message: Invalid request parameters.
+        code: bad-request
   securitySchemes:
     BearerAuth:
       type: http
@@ -2023,4 +2330,5 @@ components:
       bearerFormat: JWT
 x-refined-from:
 - scalar-core.json
+- scalar-openapi.json
 - scalar-openapi.json

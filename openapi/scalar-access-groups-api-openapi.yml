@@ -6,7 +6,7 @@ info:
     url: https://scalar.com
     email: support@scalar.com
   version: '1.0'
-  description: 'Operations tagged access-groups across 2 of this provider''s published API definitions: scalar-core.json, scalar-openapi.json. Each path carries the servers of the definition it was published in.'
+  description: 'Operations tagged access-groups across 3 of this provider''s published API definitions: scalar-core.json, scalar-openapi.json, scalar-openapi.json. Each path carries the servers of the definition it was published in.'
 servers:
 - url: https://api.scalar.com/core
 security:
@@ -232,7 +232,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/500_2'
-      summary: Get V1 access groups
+      summary: Get V1Access groups
       x-summary-source: derived
   /v1/access-groups/{uid}:
     delete:
@@ -635,89 +635,19 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    nanoid:
-      type: string
-      minLength: 5
-    '404':
-      type: object
-      properties:
-        message:
-          type: string
-        code:
-          type: string
-      required:
-      - message
-      - code
-    timestamp:
-      type: integer
-      minimum: 0
-      maximum: 9007199254740991
     slug:
       type: string
       minLength: 3
       maxLength: 60
       pattern: ^[a-z](?:[a-z0-9-]*[a-z0-9])?$
-    '403':
-      type: object
-      properties:
-        message:
-          type: string
-        code:
-          type: string
-      required:
-      - message
-      - code
+    timestamp:
+      type: integer
+      minimum: 0
+      maximum: 9007199254740991
     email:
       type: string
       format: email
       pattern: ^(?!\.)(?!.*\.\.)([A-Za-z0-9_'+\-\.]*)[A-Za-z0-9_+-]@([A-Za-z0-9][A-Za-z0-9\-]*\.)+[A-Za-z]{2,}$
-    '422':
-      type: object
-      properties:
-        message:
-          type: string
-        code:
-          type: string
-      required:
-      - message
-      - code
-    '401':
-      type: object
-      properties:
-        message:
-          type: string
-        code:
-          type: string
-      required:
-      - message
-      - code
-    '400':
-      type: object
-      properties:
-        message:
-          type: string
-        code:
-          type: string
-      required:
-      - message
-      - code
-    '500':
-      type: object
-      properties:
-        message:
-          type: string
-        code:
-          type: string
-      required:
-      - message
-      - code
-    email-domain:
-      type: string
-      maxLength: 253
-      pattern: ^([A-Za-z0-9]+(-[A-Za-z0-9]+)*\.)+[A-Za-z]{2,}$
-    access-group-name:
-      type: string
-      maxLength: 40
     access-group:
       type: object
       properties:
@@ -749,12 +679,7 @@ components:
       - allowedEmails
       - allowedDomains
       additionalProperties: false
-    nanoid_2:
-      type: string
-      minLength: 5
-      examples:
-      - UakgbKJ5m9gl0JDMbcJqL
-    '404_2':
+    '401':
       type: object
       properties:
         message:
@@ -764,15 +689,66 @@ components:
       required:
       - message
       - code
-      examples:
-      - message: Resource not found.
-        code: not-found
-    timestamp_2:
-      type: integer
-      minimum: 0
-      maximum: 9007199254740991
-      examples:
-      - 1735689600
+    '422':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+    nanoid:
+      type: string
+      minLength: 5
+    '404':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+    '403':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+    access-group-name:
+      type: string
+      maxLength: 40
+    email-domain:
+      type: string
+      maxLength: 253
+      pattern: ^([A-Za-z0-9]+(-[A-Za-z0-9]+)*\.)+[A-Za-z]{2,}$
+    '500':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+    '400':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
     slug_2:
       type: string
       minLength: 1
@@ -780,88 +756,18 @@ components:
       pattern: ^[a-z](?:[a-z0-9-]*[a-z0-9])?$
       examples:
       - acme-api
-    '403_2':
-      type: object
-      properties:
-        message:
-          type: string
-        code:
-          type: string
-      required:
-      - message
-      - code
+    timestamp_2:
+      type: integer
+      minimum: 0
+      maximum: 9007199254740991
       examples:
-      - message: You do not have permission to access this resource.
-        code: forbidden
+      - 1735689600
     email_2:
       type: string
       format: email
       pattern: ^(?!\.)(?!.*\.\.)([A-Za-z0-9_'+\-\.]*)[A-Za-z0-9_+-]@([A-Za-z0-9][A-Za-z0-9\-]*\.)+[A-Za-z]{2,}$
       examples:
       - alex@example.com
-    '422_2':
-      type: object
-      properties:
-        message:
-          type: string
-        code:
-          type: string
-      required:
-      - message
-      - code
-      examples:
-      - message: The request body contains invalid values.
-        code: invalid-payload
-    '401_2':
-      type: object
-      properties:
-        message:
-          type: string
-        code:
-          type: string
-      required:
-      - message
-      - code
-      examples:
-      - message: Invalid authentication token.
-        code: unauthorized
-    '400_2':
-      type: object
-      properties:
-        message:
-          type: string
-        code:
-          type: string
-      required:
-      - message
-      - code
-      examples:
-      - message: Invalid request parameters.
-        code: bad-request
-    '500_2':
-      type: object
-      properties:
-        message:
-          type: string
-        code:
-          type: string
-      required:
-      - message
-      - code
-      examples:
-      - message: An unexpected error occurred.
-        code: unknown
-    email-domain_2:
-      type: string
-      maxLength: 253
-      pattern: ^([A-Za-z0-9]+(-[A-Za-z0-9]+)*\.)+[A-Za-z]{2,}$
-      examples:
-      - example.com
-    access-group-name_2:
-      type: string
-      maxLength: 40
-      examples:
-      - Engineering
     access-group_2:
       type: object
       properties:
@@ -895,6 +801,246 @@ components:
       - allowedEmails
       - allowedDomains
       additionalProperties: false
+    '401_2':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+      examples:
+      - message: Invalid authentication token.
+        code: unauthorized
+    '422_2':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+      examples:
+      - message: The request body contains invalid values.
+        code: invalid-payload
+    nanoid_2:
+      type: string
+      minLength: 5
+      examples:
+      - UakgbKJ5m9gl0JDMbcJqL
+    '404_2':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+      examples:
+      - message: Resource not found.
+        code: not-found
+    '403_2':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+      examples:
+      - message: You do not have permission to access this resource.
+        code: forbidden
+    access-group-name_2:
+      type: string
+      maxLength: 40
+      examples:
+      - Engineering
+    email-domain_2:
+      type: string
+      maxLength: 253
+      pattern: ^([A-Za-z0-9]+(-[A-Za-z0-9]+)*\.)+[A-Za-z]{2,}$
+      examples:
+      - example.com
+    '500_2':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+      examples:
+      - message: An unexpected error occurred.
+        code: unknown
+    '400_2':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+      examples:
+      - message: Invalid request parameters.
+        code: bad-request
+    slug_3:
+      type: string
+      minLength: 1
+      maxLength: 60
+      pattern: ^[a-z](?:[a-z0-9-]*[a-z0-9])?$
+      examples:
+      - acme-api
+    timestamp_3:
+      type: integer
+      minimum: 0
+      maximum: 9007199254740991
+      examples:
+      - 1735689600
+    email_3:
+      type: string
+      format: email
+      pattern: ^(?!\.)(?!.*\.\.)([A-Za-z0-9_'+\-\.]*)[A-Za-z0-9_+-]@([A-Za-z0-9][A-Za-z0-9\-]*\.)+[A-Za-z]{2,}$
+      examples:
+      - alex@example.com
+    access-group_3:
+      type: object
+      properties:
+        uid:
+          $ref: '#/components/schemas/nanoid_3'
+        createdAt:
+          $ref: '#/components/schemas/timestamp_3'
+        updatedAt:
+          $ref: '#/components/schemas/timestamp_3'
+        name:
+          default: ''
+          $ref: '#/components/schemas/access-group-name_3'
+        slug:
+          examples:
+          - engineering
+          $ref: '#/components/schemas/slug_3'
+        allowedEmails:
+          default: []
+          examples:
+          - - alex@example.com
+        allowedDomains:
+          default: []
+          examples:
+          - - example.com
+      required:
+      - uid
+      - createdAt
+      - updatedAt
+      - name
+      - slug
+      - allowedEmails
+      - allowedDomains
+      additionalProperties: false
+    '401_3':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+      examples:
+      - message: Invalid authentication token.
+        code: unauthorized
+    '422_3':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+      examples:
+      - message: The request body contains invalid values.
+        code: invalid-payload
+    nanoid_3:
+      type: string
+      minLength: 5
+      examples:
+      - UakgbKJ5m9gl0JDMbcJqL
+    '404_3':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+      examples:
+      - message: Resource not found.
+        code: not-found
+    '403_3':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+      examples:
+      - message: You do not have permission to access this resource.
+        code: forbidden
+    access-group-name_3:
+      type: string
+      maxLength: 40
+      examples:
+      - Engineering
+    email-domain_3:
+      type: string
+      maxLength: 253
+      pattern: ^([A-Za-z0-9]+(-[A-Za-z0-9]+)*\.)+[A-Za-z]{2,}$
+      examples:
+      - example.com
+    '500_3':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+      examples:
+      - message: An unexpected error occurred.
+        code: unknown
+    '400_3':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+      examples:
+      - message: Invalid request parameters.
+        code: bad-request
   securitySchemes:
     BearerAuth:
       type: http
@@ -902,4 +1048,5 @@ components:
       bearerFormat: JWT
 x-refined-from:
 - scalar-core.json
+- scalar-openapi.json
 - scalar-openapi.json

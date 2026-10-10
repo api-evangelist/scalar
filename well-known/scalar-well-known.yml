@@ -1,0 +1,510 @@
+generated: '2026-10-10'
+method: probed
+generator: harvest-well-known.py
+source: Live GET of the named /.well-known/ path list on every host the record knows; every row is a request that
+  was issued.
+summary:
+  hosts_probed: 11
+  paths_probed: 121
+  documents_served: 14
+hosts:
+- host: scalar.com
+  control:
+    path: /.well-known/apis-io-negative-control-7f3ab91c.json
+    status: 404
+    bytes: 0
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+    standard: RFC 9116
+  - path: /.well-known/openid-configuration
+    status: 200
+    standard: OpenID Connect Discovery 1.0
+    content_type: application/json
+    file: scalar-openid-configuration.json
+  - path: /.well-known/oauth-authorization-server
+    status: 200
+    standard: RFC 8414
+    content_type: application/json
+    file: scalar-oauth-authorization-server.json
+  - path: /.well-known/oauth-protected-resource
+    status: 404
+    standard: RFC 9728
+  - path: /.well-known/api-catalog
+    status: 200
+    standard: RFC 9727
+    content_type: application/linkset+json; profile="https://www.rfc-editor.org/info/rfc9727"
+    file: scalar-api-catalog.json
+  - path: /.well-known/apis.json
+    status: 404
+    standard: APIs.json
+  - path: /.well-known/ai-plugin.json
+    status: 404
+    standard: OpenAI plugin manifest
+  - path: /.well-known/aauth-resource.json
+    status: 404
+    standard: AAuth
+  - path: /.well-known/ucp.json
+    status: 404
+    standard: UCP
+  - path: /.well-known/acp.json
+    status: 404
+    standard: ACP
+  - path: /.well-known/mcp/server-card.json
+    status: 200
+    standard: MCP server card
+    content_type: application/json
+    file: scalar-mcp-server-card.json
+- host: guides.scalar.com
+  control:
+    path: /.well-known/apis-io-negative-control-7f3ab91c.json
+    status: 404
+    bytes: 0
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+    standard: RFC 9116
+  - path: /.well-known/openid-configuration
+    status: 200
+    standard: OpenID Connect Discovery 1.0
+    content_type: application/json
+    file: scalar-guides-openid-configuration.json
+  - path: /.well-known/oauth-authorization-server
+    status: 200
+    standard: RFC 8414
+    content_type: application/json
+    file: scalar-guides-oauth-authorization-server.json
+  - path: /.well-known/oauth-protected-resource
+    status: 404
+    standard: RFC 9728
+  - path: /.well-known/api-catalog
+    status: 200
+    standard: RFC 9727
+    content_type: application/linkset+json; profile="https://www.rfc-editor.org/info/rfc9727"
+    file: scalar-guides-api-catalog.json
+  - path: /.well-known/apis.json
+    status: 404
+    standard: APIs.json
+  - path: /.well-known/ai-plugin.json
+    status: 404
+    standard: OpenAI plugin manifest
+  - path: /.well-known/aauth-resource.json
+    status: 404
+    standard: AAuth
+  - path: /.well-known/ucp.json
+    status: 404
+    standard: UCP
+  - path: /.well-known/acp.json
+    status: 404
+    standard: ACP
+  - path: /.well-known/mcp/server-card.json
+    status: 200
+    standard: MCP server card
+    content_type: application/json
+    file: scalar-guides-mcp-server-card.json
+- host: dashboard.scalar.com
+  control:
+    path: /.well-known/apis-io-negative-control-7f3ab91c.json
+    status: 200
+    bytes: 4692
+  documents:
+  - path: /.well-known/security.txt
+    status: 200
+    standard: RFC 9116
+    content_type: text/plain; charset=utf-8
+    file: scalar-dashboard-security.txt
+  - path: /.well-known/openid-configuration
+    status: 200
+    standard: OpenID Connect Discovery 1.0
+    note: '200 carrying an HTML/SPA shell: not a document'
+  - path: /.well-known/oauth-authorization-server
+    status: 200
+    standard: RFC 8414
+    note: '200 carrying an HTML/SPA shell: not a document'
+  - path: /.well-known/oauth-protected-resource
+    status: 200
+    standard: RFC 9728
+    note: '200 carrying an HTML/SPA shell: not a document'
+  - path: /.well-known/api-catalog
+    status: 200
+    standard: RFC 9727
+    note: '200 carrying an HTML/SPA shell: not a document'
+  - path: /.well-known/apis.json
+    status: 200
+    standard: APIs.json
+    note: '200 carrying an HTML/SPA shell: not a document'
+  - path: /.well-known/ai-plugin.json
+    status: 200
+    standard: OpenAI plugin manifest
+    note: '200 carrying an HTML/SPA shell: not a document'
+  - path: /.well-known/aauth-resource.json
+    status: 200
+    standard: AAuth
+    note: '200 carrying an HTML/SPA shell: not a document'
+  - path: /.well-known/ucp.json
+    status: 200
+    standard: UCP
+    note: '200 carrying an HTML/SPA shell: not a document'
+  - path: /.well-known/acp.json
+    status: 200
+    standard: ACP
+    note: '200 carrying an HTML/SPA shell: not a document'
+  - path: /.well-known/mcp/server-card.json
+    status: 200
+    standard: MCP server card
+    note: '200 carrying an HTML/SPA shell: not a document'
+- host: docs.scalar.com
+  control:
+    path: /.well-known/apis-io-negative-control-7f3ab91c.json
+    status: 200
+    bytes: 4692
+  documents:
+  - path: /.well-known/security.txt
+    status: 200
+    standard: RFC 9116
+    note: '200 carrying an HTML/SPA shell: not a document'
+  - path: /.well-known/openid-configuration
+    status: 200
+    standard: OpenID Connect Discovery 1.0
+    note: '200 carrying an HTML/SPA shell: not a document'
+  - path: /.well-known/oauth-authorization-server
+    status: 200
+    standard: RFC 8414
+    note: '200 carrying an HTML/SPA shell: not a document'
+  - path: /.well-known/oauth-protected-resource
+    status: 200
+    standard: RFC 9728
+    note: '200 carrying an HTML/SPA shell: not a document'
+  - path: /.well-known/api-catalog
+    status: 200
+    standard: RFC 9727
+    note: '200 carrying an HTML/SPA shell: not a document'
+  - path: /.well-known/apis.json
+    status: 200
+    standard: APIs.json
+    note: '200 carrying an HTML/SPA shell: not a document'
+  - path: /.well-known/ai-plugin.json
+    status: 200
+    standard: OpenAI plugin manifest
+    note: '200 carrying an HTML/SPA shell: not a document'
+  - path: /.well-known/aauth-resource.json
+    status: 200
+    standard: AAuth
+    note: '200 carrying an HTML/SPA shell: not a document'
+  - path: /.well-known/ucp.json
+    status: 200
+    standard: UCP
+    note: '200 carrying an HTML/SPA shell: not a document'
+  - path: /.well-known/acp.json
+    status: 200
+    standard: ACP
+    note: '200 carrying an HTML/SPA shell: not a document'
+  - path: /.well-known/mcp/server-card.json
+    status: 200
+    standard: MCP server card
+    note: '200 carrying an HTML/SPA shell: not a document'
+- host: api.readme.dev
+  control:
+    path: /.well-known/apis-io-negative-control-7f3ab91c.json
+    status: 404
+    bytes: 0
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+    standard: RFC 9116
+  - path: /.well-known/openid-configuration
+    status: 404
+    standard: OpenID Connect Discovery 1.0
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+    standard: RFC 8414
+  - path: /.well-known/oauth-protected-resource
+    status: 404
+    standard: RFC 9728
+  - path: /.well-known/api-catalog
+    status: 404
+    standard: RFC 9727
+  - path: /.well-known/apis.json
+    status: 404
+    standard: APIs.json
+  - path: /.well-known/ai-plugin.json
+    status: 404
+    standard: OpenAI plugin manifest
+  - path: /.well-known/aauth-resource.json
+    status: 404
+    standard: AAuth
+  - path: /.well-known/ucp.json
+    status: 404
+    standard: UCP
+  - path: /.well-known/acp.json
+    status: 404
+    standard: ACP
+  - path: /.well-known/mcp/server-card.json
+    status: 404
+    standard: MCP server card
+- host: api.scalar.com
+  control:
+    path: /.well-known/apis-io-negative-control-7f3ab91c.json
+    status: 404
+    bytes: 0
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+    standard: RFC 9116
+  - path: /.well-known/openid-configuration
+    status: 404
+    standard: OpenID Connect Discovery 1.0
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+    standard: RFC 8414
+  - path: /.well-known/oauth-protected-resource
+    status: 404
+    standard: RFC 9728
+  - path: /.well-known/api-catalog
+    status: 404
+    standard: RFC 9727
+  - path: /.well-known/apis.json
+    status: 404
+    standard: APIs.json
+  - path: /.well-known/ai-plugin.json
+    status: 404
+    standard: OpenAI plugin manifest
+  - path: /.well-known/aauth-resource.json
+    status: 404
+    standard: AAuth
+  - path: /.well-known/ucp.json
+    status: 404
+    standard: UCP
+  - path: /.well-known/acp.json
+    status: 404
+    standard: ACP
+  - path: /.well-known/mcp/server-card.json
+    status: 404
+    standard: MCP server card
+- host: gitbook.com
+  control:
+    path: /.well-known/apis-io-negative-control-7f3ab91c.json
+    status: 404
+    bytes: 0
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+    standard: RFC 9116
+  - path: /.well-known/openid-configuration
+    status: 404
+    standard: OpenID Connect Discovery 1.0
+  - path: /.well-known/oauth-authorization-server
+    status: 200
+    standard: RFC 8414
+    content_type: application/json
+    file: scalar-gitbook-oauth-authorization-server.json
+  - path: /.well-known/oauth-protected-resource
+    status: 200
+    standard: RFC 9728
+    content_type: application/json
+    file: scalar-gitbook-oauth-protected-resource.json
+  - path: /.well-known/api-catalog
+    status: 200
+    standard: RFC 9727
+    content_type: application/json;charset=utf-8
+    file: scalar-gitbook-api-catalog.json
+  - path: /.well-known/apis.json
+    status: 404
+    standard: APIs.json
+  - path: /.well-known/ai-plugin.json
+    status: 404
+    standard: OpenAI plugin manifest
+  - path: /.well-known/aauth-resource.json
+    status: 404
+    standard: AAuth
+  - path: /.well-known/ucp.json
+    status: 404
+    standard: UCP
+  - path: /.well-known/acp.json
+    status: 404
+    standard: ACP
+  - path: /.well-known/mcp/server-card.json
+    status: 200
+    standard: MCP server card
+    content_type: application/mcp-server-card+json; charset=utf-8
+    file: scalar-gitbook-mcp-server-card.json
+- host: learn.microsoft.com
+  control:
+    path: /.well-known/apis-io-negative-control-7f3ab91c.json
+    status: 404
+    bytes: 0
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+    standard: RFC 9116
+  - path: /.well-known/openid-configuration
+    status: 404
+    standard: OpenID Connect Discovery 1.0
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+    standard: RFC 8414
+  - path: /.well-known/oauth-protected-resource
+    status: 404
+    standard: RFC 9728
+  - path: /.well-known/api-catalog
+    status: 404
+    standard: RFC 9727
+  - path: /.well-known/apis.json
+    status: 404
+    standard: APIs.json
+  - path: /.well-known/ai-plugin.json
+    status: 404
+    standard: OpenAI plugin manifest
+  - path: /.well-known/aauth-resource.json
+    status: 404
+    standard: AAuth
+  - path: /.well-known/ucp.json
+    status: 404
+    standard: UCP
+  - path: /.well-known/acp.json
+    status: 404
+    standard: ACP
+  - path: /.well-known/mcp/server-card.json
+    status: 404
+    standard: MCP server card
+- host: sandbox.scalar.com
+  control:
+    path: /.well-known/apis-io-negative-control-7f3ab91c.json
+    status: 200
+    bytes: 885
+  documents:
+  - path: /.well-known/security.txt
+    status: 200
+    standard: RFC 9116
+    note: '200 carrying an HTML/SPA shell: not a document'
+  - path: /.well-known/openid-configuration
+    status: 200
+    standard: OpenID Connect Discovery 1.0
+    note: '200 carrying an HTML/SPA shell: not a document'
+  - path: /.well-known/oauth-authorization-server
+    status: 200
+    standard: RFC 8414
+    note: '200 carrying an HTML/SPA shell: not a document'
+  - path: /.well-known/oauth-protected-resource
+    status: 200
+    standard: RFC 9728
+    note: '200 carrying an HTML/SPA shell: not a document'
+  - path: /.well-known/api-catalog
+    status: 200
+    standard: RFC 9727
+    note: '200 carrying an HTML/SPA shell: not a document'
+  - path: /.well-known/apis.json
+    status: 200
+    standard: APIs.json
+    note: '200 carrying an HTML/SPA shell: not a document'
+  - path: /.well-known/ai-plugin.json
+    status: 200
+    standard: OpenAI plugin manifest
+    note: '200 carrying an HTML/SPA shell: not a document'
+  - path: /.well-known/aauth-resource.json
+    status: 200
+    standard: AAuth
+    note: '200 carrying an HTML/SPA shell: not a document'
+  - path: /.well-known/ucp.json
+    status: 200
+    standard: UCP
+    note: '200 carrying an HTML/SPA shell: not a document'
+  - path: /.well-known/acp.json
+    status: 200
+    standard: ACP
+    note: '200 carrying an HTML/SPA shell: not a document'
+  - path: /.well-known/mcp/server-card.json
+    status: 200
+    standard: MCP server card
+    note: '200 carrying an HTML/SPA shell: not a document'
+- host: trust.scalar.com
+  control:
+    path: /.well-known/apis-io-negative-control-7f3ab91c.json
+    status: 200
+    bytes: 7527
+  documents:
+  - path: /.well-known/security.txt
+    status: 200
+    standard: RFC 9116
+    note: '200 carrying an HTML/SPA shell: not a document'
+  - path: /.well-known/openid-configuration
+    status: 200
+    standard: OpenID Connect Discovery 1.0
+    note: '200 carrying an HTML/SPA shell: not a document'
+  - path: /.well-known/oauth-authorization-server
+    status: 200
+    standard: RFC 8414
+    note: '200 carrying an HTML/SPA shell: not a document'
+  - path: /.well-known/oauth-protected-resource
+    status: 200
+    standard: RFC 9728
+    note: '200 carrying an HTML/SPA shell: not a document'
+  - path: /.well-known/api-catalog
+    status: 200
+    standard: RFC 9727
+    note: '200 carrying an HTML/SPA shell: not a document'
+  - path: /.well-known/apis.json
+    status: 200
+    standard: APIs.json
+    note: '200 carrying an HTML/SPA shell: not a document'
+  - path: /.well-known/ai-plugin.json
+    status: 200
+    standard: OpenAI plugin manifest
+    note: '200 carrying an HTML/SPA shell: not a document'
+  - path: /.well-known/aauth-resource.json
+    status: 200
+    standard: AAuth
+    note: '200 carrying an HTML/SPA shell: not a document'
+  - path: /.well-known/ucp.json
+    status: 200
+    standard: UCP
+    note: '200 carrying an HTML/SPA shell: not a document'
+  - path: /.well-known/acp.json
+    status: 200
+    standard: ACP
+    note: '200 carrying an HTML/SPA shell: not a document'
+  - path: /.well-known/mcp/server-card.json
+    status: 200
+    standard: MCP server card
+    note: '200 carrying an HTML/SPA shell: not a document'
+- host: oauth.gitbook.com
+  control:
+    path: /.well-known/apis-io-negative-control-7f3ab91c.json
+    status: 404
+    bytes: 0
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+    standard: RFC 9116
+  - path: /.well-known/openid-configuration
+    status: 404
+    standard: OpenID Connect Discovery 1.0
+  - path: /.well-known/oauth-authorization-server
+    status: 200
+    standard: RFC 8414
+    content_type: application/json
+    file: scalar-oauth-oauth-authorization-server.json
+  - path: /.well-known/oauth-protected-resource
+    status: 404
+    standard: RFC 9728
+  - path: /.well-known/api-catalog
+    status: 404
+    standard: RFC 9727
+  - path: /.well-known/apis.json
+    status: 404
+    standard: APIs.json
+  - path: /.well-known/ai-plugin.json
+    status: 404
+    standard: OpenAI plugin manifest
+  - path: /.well-known/aauth-resource.json
+    status: 404
+    standard: AAuth
+  - path: /.well-known/ucp.json
+    status: 404
+    standard: UCP
+  - path: /.well-known/acp.json
+    status: 404
+    standard: ACP
+  - path: /.well-known/mcp/server-card.json
+    status: 404
+    standard: MCP server card

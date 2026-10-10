@@ -6,7 +6,7 @@ info:
     url: https://scalar.com
     email: support@scalar.com
   version: '1.0'
-  description: 'Operations tagged Forgejo across 2 of this provider''s published API definitions: scalar-core.json, scalar-openapi.json. Each path carries the servers of the definition it was published in.'
+  description: 'Operations tagged Forgejo across 3 of this provider''s published API definitions: scalar-core.json, scalar-openapi.json, scalar-openapi.json. Each path carries the servers of the definition it was published in.'
 servers:
 - url: https://api.scalar.com/core
 security:
@@ -79,6 +79,26 @@ paths:
       x-summary-source: derived
 components:
   schemas:
+    '401':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+    '422':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
     '404':
       type: object
       properties:
@@ -99,17 +119,7 @@ components:
       required:
       - message
       - code
-    '422':
-      type: object
-      properties:
-        message:
-          type: string
-        code:
-          type: string
-      required:
-      - message
-      - code
-    '401':
+    '500':
       type: object
       properties:
         message:
@@ -129,7 +139,7 @@ components:
       required:
       - message
       - code
-    '500':
+    '401_2':
       type: object
       properties:
         message:
@@ -139,6 +149,22 @@ components:
       required:
       - message
       - code
+      examples:
+      - message: Invalid authentication token.
+        code: unauthorized
+    '422_2':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+      examples:
+      - message: The request body contains invalid values.
+        code: invalid-payload
     '404_2':
       type: object
       properties:
@@ -165,45 +191,6 @@ components:
       examples:
       - message: You do not have permission to access this resource.
         code: forbidden
-    '422_2':
-      type: object
-      properties:
-        message:
-          type: string
-        code:
-          type: string
-      required:
-      - message
-      - code
-      examples:
-      - message: The request body contains invalid values.
-        code: invalid-payload
-    '401_2':
-      type: object
-      properties:
-        message:
-          type: string
-        code:
-          type: string
-      required:
-      - message
-      - code
-      examples:
-      - message: Invalid authentication token.
-        code: unauthorized
-    '400_2':
-      type: object
-      properties:
-        message:
-          type: string
-        code:
-          type: string
-      required:
-      - message
-      - code
-      examples:
-      - message: Invalid request parameters.
-        code: bad-request
     '500_2':
       type: object
       properties:
@@ -217,6 +204,97 @@ components:
       examples:
       - message: An unexpected error occurred.
         code: unknown
+    '400_2':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+      examples:
+      - message: Invalid request parameters.
+        code: bad-request
+    '401_3':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+      examples:
+      - message: Invalid authentication token.
+        code: unauthorized
+    '422_3':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+      examples:
+      - message: The request body contains invalid values.
+        code: invalid-payload
+    '404_3':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+      examples:
+      - message: Resource not found.
+        code: not-found
+    '403_3':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+      examples:
+      - message: You do not have permission to access this resource.
+        code: forbidden
+    '500_3':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+      examples:
+      - message: An unexpected error occurred.
+        code: unknown
+    '400_3':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+      examples:
+      - message: Invalid request parameters.
+        code: bad-request
   securitySchemes:
     BearerAuth:
       type: http
@@ -224,4 +302,5 @@ components:
       bearerFormat: JWT
 x-refined-from:
 - scalar-core.json
+- scalar-openapi.json
 - scalar-openapi.json

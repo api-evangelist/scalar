@@ -1,0 +1,113 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/scalar/main/json-schema/scalar-user-schema.json",
+  "title": "user",
+  "x-generated": "2026-10-04",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/scalar-auth-api-openapi.yml#/components/schemas/user",
+  "type": "object",
+  "properties": {
+    "uid": {
+      "default": "nanoid()",
+      "$ref": "#/$defs/nanoid"
+    },
+    "createdAt": {
+      "default": "unixTimestamp()",
+      "$ref": "#/$defs/timestamp"
+    },
+    "updatedAt": {
+      "default": "unixTimestamp()",
+      "$ref": "#/$defs/timestamp"
+    },
+    "theme": {
+      "type": "string"
+    },
+    "userIndex": {
+      "type": "string"
+    },
+    "email": {
+      "$ref": "#/$defs/email"
+    },
+    "teams": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/team-ref"
+      }
+    },
+    "activeTeamId": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "hasGithub": {
+      "default": false,
+      "type": "boolean"
+    },
+    "hasBitbucket": {
+      "default": false,
+      "type": "boolean"
+    },
+    "forgejoToken": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "uid",
+    "createdAt",
+    "updatedAt",
+    "userIndex",
+    "email",
+    "teams",
+    "activeTeamId",
+    "hasGithub",
+    "hasBitbucket"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "email": {
+      "type": "string",
+      "format": "email",
+      "pattern": "^(?!\\.)(?!.*\\.\\.)([A-Za-z0-9_'+\\-\\.]*)[A-Za-z0-9_+-]@([A-Za-z0-9][A-Za-z0-9\\-]*\\.)+[A-Za-z]{2,}$"
+    },
+    "nanoid": {
+      "type": "string",
+      "minLength": 5
+    },
+    "team-image": {
+      "type": "string"
+    },
+    "team-name": {
+      "type": "string"
+    },
+    "team-ref": {
+      "type": "object",
+      "properties": {
+        "teamUid": {
+          "type": "string"
+        },
+        "teamName": {
+          "$ref": "#/$defs/team-name"
+        },
+        "teamImageUri": {
+          "$ref": "#/$defs/team-image"
+        }
+      },
+      "required": [
+        "teamUid",
+        "teamName"
+      ],
+      "additionalProperties": false
+    },
+    "timestamp": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 9007199254740991
+    }
+  }
+}

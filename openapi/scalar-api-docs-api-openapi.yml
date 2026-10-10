@@ -6,7 +6,7 @@ info:
     url: https://scalar.com
     email: support@scalar.com
   version: '1.0'
-  description: 'Operations tagged api-docs across 2 of this provider''s published API definitions: scalar-core.json, scalar-openapi.json. Each path carries the servers of the definition it was published in.'
+  description: 'Operations tagged api-docs across 3 of this provider''s published API definitions: scalar-core.json, scalar-openapi.json, scalar-openapi.json. Each path carries the servers of the definition it was published in.'
 servers:
 - url: https://api.scalar.com/core
 security:
@@ -2319,43 +2319,79 @@ paths:
     - url: https://api.scalar.com/core
 components:
   schemas:
-    nanoid:
-      type: string
-      minLength: 5
     namespace:
       type: string
       minLength: 3
       maxLength: 50
       pattern: ^[a-zA-Z0-9-_]+$
-    timestamp:
-      type: integer
-      minimum: 0
-      maximum: 9007199254740991
-    '404':
-      type: object
-      properties:
-        message:
-          type: string
-        code:
-          type: string
-      required:
-      - message
-      - code
+    version:
+      type: string
+      minLength: 1
     slug:
       type: string
       minLength: 3
       maxLength: 60
       pattern: ^[a-z](?:[a-z0-9-]*[a-z0-9])?$
-    '403':
+    managed-doc-version:
       type: object
       properties:
-        message:
+        uid:
+          $ref: '#/components/schemas/nanoid'
+        createdAt:
+          type: number
+        version:
+          $ref: '#/components/schemas/version'
+        upgraded:
+          default: false
+          type: boolean
+        embedStatus:
+          default: null
+          anyOf:
+          - type: string
+            enum:
+            - complete
+            - failed
+          - type: 'null'
+        tags:
+          default: []
+          type: array
+          items:
+            type: string
+        tools:
+          type: array
+          items:
+            type: object
+            properties:
+              path:
+                type: string
+              method:
+                $ref: '#/components/schemas/method'
+              enabledTools:
+                type: array
+                items:
+                  type: string
+                  enum:
+                  - execute-request
+                  - get-mini-openapi-spec
+            required:
+            - path
+            - method
+            - enabledTools
+            additionalProperties: false
+        yamlSha:
           type: string
-        code:
+        jsonSha:
+          type: string
+        versionSha:
           type: string
       required:
-      - message
-      - code
+      - uid
+      - createdAt
+      - version
+      - upgraded
+      - embedStatus
+      - tags
+      additionalProperties: false
     method:
       type: string
       enum:
@@ -2367,29 +2403,10 @@ components:
       - post
       - put
       - trace
-    version:
-      type: string
-      minLength: 1
-    '400':
-      type: object
-      properties:
-        message:
-          type: string
-        code:
-          type: string
-      required:
-      - message
-      - code
-    '401':
-      type: object
-      properties:
-        message:
-          type: string
-        code:
-          type: string
-      required:
-      - message
-      - code
+    timestamp:
+      type: integer
+      minimum: 0
+      maximum: 9007199254740991
     managed-doc:
       type: object
       properties:
@@ -2496,7 +2513,37 @@ components:
       - agentEnabled
       - verified
       additionalProperties: false
+    '401':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+    '404':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
     '422':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+    '403':
       type: object
       properties:
         message:
@@ -2516,85 +2563,10 @@ components:
       required:
       - message
       - code
-    managed-doc-version:
-      type: object
-      properties:
-        uid:
-          $ref: '#/components/schemas/nanoid'
-        createdAt:
-          type: number
-        version:
-          $ref: '#/components/schemas/version'
-        upgraded:
-          default: false
-          type: boolean
-        embedStatus:
-          default: null
-          anyOf:
-          - type: string
-            enum:
-            - complete
-            - failed
-          - type: 'null'
-        tags:
-          default: []
-          type: array
-          items:
-            type: string
-        tools:
-          type: array
-          items:
-            type: object
-            properties:
-              path:
-                type: string
-              method:
-                $ref: '#/components/schemas/method'
-              enabledTools:
-                type: array
-                items:
-                  type: string
-                  enum:
-                  - execute-request
-                  - get-mini-openapi-spec
-            required:
-            - path
-            - method
-            - enabledTools
-            additionalProperties: false
-        yamlSha:
-          type: string
-        jsonSha:
-          type: string
-        versionSha:
-          type: string
-      required:
-      - uid
-      - createdAt
-      - version
-      - upgraded
-      - embedStatus
-      - tags
-      additionalProperties: false
-    nanoid_2:
+    nanoid:
       type: string
       minLength: 5
-      examples:
-      - UakgbKJ5m9gl0JDMbcJqL
-    namespace_2:
-      type: string
-      minLength: 2
-      maxLength: 50
-      pattern: ^[a-zA-Z0-9-_]+$
-      examples:
-      - acme
-    timestamp_2:
-      type: integer
-      minimum: 0
-      maximum: 9007199254740991
-      examples:
-      - 1735689600
-    '404_2':
+    '400':
       type: object
       properties:
         message:
@@ -2604,151 +2576,6 @@ components:
       required:
       - message
       - code
-      examples:
-      - message: Resource not found.
-        code: not-found
-    slug_2:
-      type: string
-      minLength: 1
-      maxLength: 60
-      pattern: ^[a-z](?:[a-z0-9-]*[a-z0-9])?$
-      examples:
-      - acme-api
-    '403_2':
-      type: object
-      properties:
-        message:
-          type: string
-        code:
-          type: string
-      required:
-      - message
-      - code
-      examples:
-      - message: You do not have permission to access this resource.
-        code: forbidden
-    doc-instance:
-      type: object
-      properties:
-        uid:
-          default: nanoid()
-          $ref: '#/components/schemas/nanoid_2'
-        createdAt:
-          $ref: '#/components/schemas/timestamp_2'
-        updatedAt:
-          $ref: '#/components/schemas/timestamp_2'
-        version:
-          $ref: '#/components/schemas/version_2'
-        jsonSha:
-          type: string
-          pattern: ^[a-f0-9]{64}$
-        yamlSha:
-          type: string
-          pattern: ^[a-f0-9]{64}$
-        uploadedBy:
-          default: null
-          anyOf:
-          - type: string
-          - type: 'null'
-        source:
-          $ref: '#/components/schemas/doc-instance-source'
-        origin:
-          default:
-            type: platform
-          $ref: '#/components/schemas/doc-instance-origin'
-        message:
-          default: ''
-          type: string
-        parentInstanceUid:
-          default: null
-          anyOf:
-          - $ref: '#/components/schemas/nanoid_2'
-          - type: 'null'
-        mergeParentUid:
-          default: null
-          anyOf:
-          - $ref: '#/components/schemas/nanoid_2'
-          - type: 'null'
-        revertOf:
-          default: null
-          anyOf:
-          - $ref: '#/components/schemas/nanoid_2'
-          - type: 'null'
-        servable:
-          default: true
-          type: boolean
-      required:
-      - uid
-      - createdAt
-      - updatedAt
-      - version
-      - jsonSha
-      - yamlSha
-      - uploadedBy
-      - source
-      - origin
-      - message
-      - parentInstanceUid
-      - mergeParentUid
-      - revertOf
-      - servable
-      additionalProperties: false
-    method_2:
-      type: string
-      enum:
-      - delete
-      - get
-      - head
-      - options
-      - patch
-      - post
-      - put
-      - query
-      - trace
-    version_2:
-      type: string
-      minLength: 1
-      examples:
-      - 1.2.0
-    '400_2':
-      type: object
-      properties:
-        message:
-          type: string
-        code:
-          type: string
-      required:
-      - message
-      - code
-      examples:
-      - message: Invalid request parameters.
-        code: bad-request
-    '401_2':
-      type: object
-      properties:
-        message:
-          type: string
-        code:
-          type: string
-      required:
-      - message
-      - code
-      examples:
-      - message: Invalid authentication token.
-        code: unauthorized
-    '422_2':
-      type: object
-      properties:
-        message:
-          type: string
-        code:
-          type: string
-      required:
-      - message
-      - code
-      examples:
-      - message: The request body contains invalid values.
-        code: invalid-payload
     doc-instance-origin:
       oneOf:
       - type: object
@@ -2815,28 +2642,25 @@ components:
         - type
         - url
         additionalProperties: false
-    doc-instance-source:
+    namespace_2:
       type: string
-      enum:
-      - manual
-      - cli
-      - api
-      - git-sync
-      - url-sync
-      - migration
-    '500_2':
-      type: object
-      properties:
-        message:
-          type: string
-        code:
-          type: string
-      required:
-      - message
-      - code
+      minLength: 2
+      maxLength: 50
+      pattern: ^[a-zA-Z0-9-_]+$
       examples:
-      - message: An unexpected error occurred.
-        code: unknown
+      - acme
+    version_2:
+      type: string
+      minLength: 1
+      examples:
+      - 1.2.0
+    slug_2:
+      type: string
+      minLength: 1
+      maxLength: 60
+      pattern: ^[a-z](?:[a-z0-9-]*[a-z0-9])?$
+      examples:
+      - acme-api
     managed-doc-version_2:
       type: object
       properties:
@@ -2920,6 +2744,451 @@ components:
       - embedStatus
       - tags
       additionalProperties: false
+    method_2:
+      type: string
+      enum:
+      - delete
+      - get
+      - head
+      - options
+      - patch
+      - post
+      - put
+      - query
+      - trace
+    timestamp_2:
+      type: integer
+      minimum: 0
+      maximum: 9007199254740991
+      examples:
+      - 1735689600
+    doc-instance:
+      type: object
+      properties:
+        uid:
+          default: nanoid()
+          $ref: '#/components/schemas/nanoid_2'
+        createdAt:
+          $ref: '#/components/schemas/timestamp_2'
+        updatedAt:
+          $ref: '#/components/schemas/timestamp_2'
+        version:
+          $ref: '#/components/schemas/version_2'
+        jsonSha:
+          type: string
+          pattern: ^[a-f0-9]{64}$
+        yamlSha:
+          type: string
+          pattern: ^[a-f0-9]{64}$
+        uploadedBy:
+          default: null
+          anyOf:
+          - type: string
+          - type: 'null'
+        source:
+          $ref: '#/components/schemas/doc-instance-source'
+        origin:
+          default:
+            type: platform
+          $ref: '#/components/schemas/doc-instance-origin'
+        message:
+          default: ''
+          type: string
+        parentInstanceUid:
+          default: null
+          anyOf:
+          - $ref: '#/components/schemas/nanoid_2'
+          - type: 'null'
+        mergeParentUid:
+          default: null
+          anyOf:
+          - $ref: '#/components/schemas/nanoid_2'
+          - type: 'null'
+        revertOf:
+          default: null
+          anyOf:
+          - $ref: '#/components/schemas/nanoid_2'
+          - type: 'null'
+        servable:
+          default: true
+          type: boolean
+      required:
+      - uid
+      - createdAt
+      - updatedAt
+      - version
+      - jsonSha
+      - yamlSha
+      - uploadedBy
+      - source
+      - origin
+      - message
+      - parentInstanceUid
+      - mergeParentUid
+      - revertOf
+      - servable
+      additionalProperties: false
+    doc-instance-source:
+      type: string
+      enum:
+      - manual
+      - cli
+      - api
+      - git-sync
+      - url-sync
+      - migration
+    '401_2':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+      examples:
+      - message: Invalid authentication token.
+        code: unauthorized
+    '404_2':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+      examples:
+      - message: Resource not found.
+        code: not-found
+    '422_2':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+      examples:
+      - message: The request body contains invalid values.
+        code: invalid-payload
+    '403_2':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+      examples:
+      - message: You do not have permission to access this resource.
+        code: forbidden
+    '500_2':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+      examples:
+      - message: An unexpected error occurred.
+        code: unknown
+    nanoid_2:
+      type: string
+      minLength: 5
+      examples:
+      - UakgbKJ5m9gl0JDMbcJqL
+    '400_2':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+      examples:
+      - message: Invalid request parameters.
+        code: bad-request
+    namespace_3:
+      type: string
+      minLength: 2
+      maxLength: 50
+      pattern: ^[a-zA-Z0-9-_]+$
+      examples:
+      - acme
+    version_3:
+      type: string
+      minLength: 1
+      examples:
+      - 1.2.0
+    slug_3:
+      type: string
+      minLength: 1
+      maxLength: 60
+      pattern: ^[a-z](?:[a-z0-9-]*[a-z0-9])?$
+      examples:
+      - acme-api
+    managed-doc-version_3:
+      type: object
+      properties:
+        uid:
+          $ref: '#/components/schemas/nanoid_3'
+        createdAt:
+          type: number
+          examples:
+          - 1735689600000
+        version:
+          $ref: '#/components/schemas/version_3'
+        upgraded:
+          default: false
+          examples:
+          - false
+          type: boolean
+        endpointCount:
+          default: null
+          examples:
+          - 12
+          anyOf:
+          - type: integer
+            minimum: -9007199254740991
+            maximum: 9007199254740991
+          - type: 'null'
+        embedStatus:
+          default: null
+          examples:
+          - complete
+          anyOf:
+          - type: string
+            enum:
+            - complete
+            - failed
+          - type: 'null'
+        tags:
+          default: []
+          examples:
+          - - products
+            - orders
+          type: array
+          items:
+            type: string
+        tools:
+          type: array
+          items:
+            type: object
+            properties:
+              path:
+                type: string
+                examples:
+                - /products
+              method:
+                $ref: '#/components/schemas/method_3'
+              enabledTools:
+                type: array
+                items:
+                  type: string
+                  enum:
+                  - execute-request
+                  - get-mini-openapi-spec
+            required:
+            - path
+            - method
+            - enabledTools
+            additionalProperties: false
+        yamlSha:
+          examples:
+          - abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789
+          type: string
+        jsonSha:
+          examples:
+          - 0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef
+          type: string
+      required:
+      - uid
+      - createdAt
+      - version
+      - upgraded
+      - endpointCount
+      - embedStatus
+      - tags
+      additionalProperties: false
+    method_3:
+      type: string
+      enum:
+      - delete
+      - get
+      - head
+      - options
+      - patch
+      - post
+      - put
+      - query
+      - trace
+    timestamp_3:
+      type: integer
+      minimum: 0
+      maximum: 9007199254740991
+      examples:
+      - 1735689600
+    doc-instance_2:
+      type: object
+      properties:
+        uid:
+          default: nanoid()
+          $ref: '#/components/schemas/nanoid_3'
+        createdAt:
+          $ref: '#/components/schemas/timestamp_3'
+        updatedAt:
+          $ref: '#/components/schemas/timestamp_3'
+        version:
+          $ref: '#/components/schemas/version_3'
+        jsonSha:
+          type: string
+          pattern: ^[a-f0-9]{64}$
+        yamlSha:
+          type: string
+          pattern: ^[a-f0-9]{64}$
+        uploadedBy:
+          default: null
+          anyOf:
+          - type: string
+          - type: 'null'
+        source:
+          $ref: '#/components/schemas/doc-instance-source'
+        origin:
+          default:
+            type: platform
+          $ref: '#/components/schemas/doc-instance-origin'
+        message:
+          default: ''
+          type: string
+        parentInstanceUid:
+          default: null
+          anyOf:
+          - $ref: '#/components/schemas/nanoid_3'
+          - type: 'null'
+        mergeParentUid:
+          default: null
+          anyOf:
+          - $ref: '#/components/schemas/nanoid_3'
+          - type: 'null'
+        revertOf:
+          default: null
+          anyOf:
+          - $ref: '#/components/schemas/nanoid_3'
+          - type: 'null'
+        servable:
+          default: true
+          type: boolean
+      required:
+      - uid
+      - createdAt
+      - updatedAt
+      - version
+      - jsonSha
+      - yamlSha
+      - uploadedBy
+      - source
+      - origin
+      - message
+      - parentInstanceUid
+      - mergeParentUid
+      - revertOf
+      - servable
+      additionalProperties: false
+    '401_3':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+      examples:
+      - message: Invalid authentication token.
+        code: unauthorized
+    '404_3':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+      examples:
+      - message: Resource not found.
+        code: not-found
+    '422_3':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+      examples:
+      - message: The request body contains invalid values.
+        code: invalid-payload
+    '403_3':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+      examples:
+      - message: You do not have permission to access this resource.
+        code: forbidden
+    '500_3':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+      examples:
+      - message: An unexpected error occurred.
+        code: unknown
+    nanoid_3:
+      type: string
+      minLength: 5
+      examples:
+      - UakgbKJ5m9gl0JDMbcJqL
+    '400_3':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+      examples:
+      - message: Invalid request parameters.
+        code: bad-request
   securitySchemes:
     BearerAuth:
       type: http
@@ -2927,4 +3196,5 @@ components:
       bearerFormat: JWT
 x-refined-from:
 - scalar-core.json
+- scalar-openapi.json
 - scalar-openapi.json

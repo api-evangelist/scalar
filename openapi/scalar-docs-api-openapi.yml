@@ -6,7 +6,7 @@ info:
     url: https://scalar.com
     email: support@scalar.com
   version: '1.0'
-  description: 'Operations tagged docs across 2 of this provider''s published API definitions: scalar-core.json, scalar-openapi.json. Each path carries the servers of the definition it was published in.'
+  description: 'Operations tagged docs across 3 of this provider''s published API definitions: scalar-core.json, scalar-openapi.json, scalar-openapi.json. Each path carries the servers of the definition it was published in.'
 servers:
 - url: https://api.scalar.com/core
 security:
@@ -439,338 +439,8 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    '404':
-      type: object
-      properties:
-        message:
-          type: string
-        code:
-          type: string
-      required:
-      - message
-      - code
-    header-link-version-selector:
-      type: object
-      properties:
-        uid:
-          $ref: '#/components/schemas/nanoid'
-        title:
-          type: string
-        show:
-          default: true
-          type: boolean
-        isStarred:
-          default: false
-          type: boolean
-        type:
-          type: string
-          const: version-selector
-      required:
-      - uid
-      - title
-      - show
-      - isStarred
-      - type
-      additionalProperties: false
-    header-link-group:
-      type: object
-      properties:
-        uid:
-          $ref: '#/components/schemas/nanoid'
-        title:
-          type: string
-        show:
-          default: true
-          type: boolean
-        isStarred:
-          default: false
-          type: boolean
-        type:
-          type: string
-          const: group
-        children:
-          type: array
-          items:
-            anyOf:
-            - $ref: '#/components/schemas/header-link-guide'
-            - $ref: '#/components/schemas/header-link-reference'
-            - $ref: '#/components/schemas/header-link-external'
-          description: Children of the group. Groups cannot contain other groups, spacers, or the version selector
-      required:
-      - uid
-      - title
-      - show
-      - isStarred
-      - type
-      - children
-      additionalProperties: false
-    '422':
-      type: object
-      properties:
-        message:
-          type: string
-        code:
-          type: string
-      required:
-      - message
-      - code
-    project-version:
-      type: object
-      properties:
-        uid:
-          $ref: '#/components/schemas/nanoid'
-        name:
-          default: Default Version
-          type: string
-        primaryGuideId:
-          type: string
-        primaryReferenceId:
-          type: string
-        references:
-          type: object
-          propertyNames:
-            type: string
-          additionalProperties:
-            $ref: '#/components/schemas/reference'
-        guides:
-          type: object
-          propertyNames:
-            type: string
-          additionalProperties:
-            $ref: '#/components/schemas/guide'
-        header:
-          type: array
-          items:
-            $ref: '#/components/schemas/header-link'
-        footer:
-          default: ''
-          type: string
-        footerCss:
-          default: ''
-          type: string
-        footerBelowSidebar:
-          default: false
-          type: boolean
-        headScript:
-          default: ''
-          type: string
-        bodyScript:
-          default: ''
-          type: string
-      required:
-      - uid
-      - name
-      - primaryGuideId
-      - primaryReferenceId
-      - references
-      - guides
-      - header
-      - footer
-      - footerCss
-      - footerBelowSidebar
-      - headScript
-      - bodyScript
-      additionalProperties: false
-    project-icon-info:
-      type: object
-      properties:
-        src:
-          default: ''
-          type: string
-        title:
-          type: string
-        mask:
-          type: boolean
-      required:
-      - src
-      additionalProperties: false
-    header-link-spacer:
-      type: object
-      properties:
-        uid:
-          $ref: '#/components/schemas/nanoid'
-        title:
-          type: string
-        show:
-          default: true
-          type: boolean
-        isStarred:
-          default: false
-          type: boolean
-        type:
-          type: string
-          const: spacer
-      required:
-      - uid
-      - title
-      - show
-      - isStarred
-      - type
-      additionalProperties: false
-    nanoid:
-      type: string
-      minLength: 5
-    sidebar-page:
-      type: object
-      properties:
-        uid:
-          $ref: '#/components/schemas/nanoid'
-        title:
-          type: string
-          minLength: 1
-        type:
-          type: string
-          const: Page
-        link:
-          type: string
-        icon:
-          $ref: '#/components/schemas/project-icon'
-        children:
-          default: []
-          type: array
-          items:
-            type: string
-        description:
-          type: string
-        show:
-          type: boolean
-        sidebarTitle:
-          type: string
-        defaultOpen:
-          type: boolean
-        yjsReference:
-          type: string
-        backgroundImage:
-          type: string
-        isMdx:
-          default: false
-          type: boolean
-        isHtml:
-          default: false
-          type: boolean
-      required:
-      - uid
-      - title
-      - type
-      - children
-      - description
-      - show
-      - yjsReference
-      - isMdx
-      - isHtml
-      additionalProperties: false
-    logo:
-      type: object
-      properties:
-        darkMode:
-          type: string
-        lightMode:
-          type: string
-      required:
-      - darkMode
-      - lightMode
-      additionalProperties: false
-    slug:
-      type: string
-      minLength: 3
-      maxLength: 60
-      pattern: ^[a-z](?:[a-z0-9-]*[a-z0-9])?$
-    website:
-      type: object
-      properties:
-        lastDeployed:
-          $ref: '#/components/schemas/timestamp'
-        subdomainPrefix:
-          type: string
-        customUrl:
-          type: string
-        subPath:
-          type: string
-        title:
-          type: string
-        description:
-          type: string
-        favicon:
-          type: string
-        ogImage:
-          type: string
-        proxy:
-          type: string
-          format: uri
-        routing:
-          default:
-            guidePathPattern: ''
-            referencePathPattern: ''
-          type: object
-          properties:
-            guidePathPattern:
-              type: string
-            referencePathPattern:
-              type: string
-          additionalProperties: false
-        redirects:
-          default: []
-          type: array
-          items:
-            type: object
-            properties:
-              from:
-                type: string
-              to:
-                type: string
-            required:
-            - from
-            - to
-            additionalProperties: false
-      required:
-      - lastDeployed
-      - subdomainPrefix
-      - customUrl
-      - routing
-      - redirects
-      additionalProperties: false
-    sidebar-folder:
-      type: object
-      properties:
-        uid:
-          $ref: '#/components/schemas/nanoid'
-        title:
-          type: string
-          minLength: 1
-        type:
-          type: string
-          const: Folder
-        link:
-          type: string
-        icon:
-          $ref: '#/components/schemas/project-icon'
-        children:
-          default: []
-          type: array
-          items:
-            type: string
-        description:
-          type: string
-        show:
-          type: boolean
-        defaultOpen:
-          type: boolean
-      required:
-      - uid
-      - title
-      - type
-      - children
-      - show
-      additionalProperties: false
-    namespace:
-      type: string
-      minLength: 3
-      maxLength: 50
-      pattern: ^[a-zA-Z0-9-_]+$
-    timestamp:
-      type: integer
-      minimum: 0
-      maximum: 9007199254740991
+    project-icon:
+      $ref: '#/components/schemas/project-icon-info'
     header-link-guide:
       type: object
       properties:
@@ -794,6 +464,10 @@ components:
       - isStarred
       - type
       additionalProperties: false
+    timestamp:
+      type: integer
+      minimum: 0
+      maximum: 9007199254740991
     project:
       type: object
       properties:
@@ -883,6 +557,16 @@ components:
       - website
       - insertPageTitles
       additionalProperties: false
+    '401':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
     header-link-reference:
       type: object
       properties:
@@ -916,6 +600,322 @@ components:
       - hasPermalink
       - hasManagedDoc
       additionalProperties: false
+    sidebar-folder:
+      type: object
+      properties:
+        uid:
+          $ref: '#/components/schemas/nanoid'
+        title:
+          type: string
+          minLength: 1
+        type:
+          type: string
+          const: Folder
+        link:
+          type: string
+        icon:
+          $ref: '#/components/schemas/project-icon'
+        children:
+          default: []
+          type: array
+          items:
+            type: string
+        description:
+          type: string
+        show:
+          type: boolean
+        defaultOpen:
+          type: boolean
+      required:
+      - uid
+      - title
+      - type
+      - children
+      - show
+      additionalProperties: false
+    '403':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+    project-icon-info:
+      type: object
+      properties:
+        src:
+          default: ''
+          type: string
+        title:
+          type: string
+        mask:
+          type: boolean
+      required:
+      - src
+      additionalProperties: false
+    '400':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+    slug:
+      type: string
+      minLength: 3
+      maxLength: 60
+      pattern: ^[a-z](?:[a-z0-9-]*[a-z0-9])?$
+    sidebar-item:
+      anyOf:
+      - $ref: '#/components/schemas/sidebar-link'
+      - $ref: '#/components/schemas/sidebar-page'
+      - $ref: '#/components/schemas/sidebar-folder'
+    sidebar-page:
+      type: object
+      properties:
+        uid:
+          $ref: '#/components/schemas/nanoid'
+        title:
+          type: string
+          minLength: 1
+        type:
+          type: string
+          const: Page
+        link:
+          type: string
+        icon:
+          $ref: '#/components/schemas/project-icon'
+        children:
+          default: []
+          type: array
+          items:
+            type: string
+        description:
+          type: string
+        show:
+          type: boolean
+        sidebarTitle:
+          type: string
+        defaultOpen:
+          type: boolean
+        yjsReference:
+          type: string
+        backgroundImage:
+          type: string
+        isMdx:
+          default: false
+          type: boolean
+        isHtml:
+          default: false
+          type: boolean
+      required:
+      - uid
+      - title
+      - type
+      - children
+      - description
+      - show
+      - yjsReference
+      - isMdx
+      - isHtml
+      additionalProperties: false
+    reference-managed-doc:
+      type: object
+      properties:
+        namespace:
+          $ref: '#/components/schemas/namespace'
+        slug:
+          $ref: '#/components/schemas/slug'
+        versions:
+          default:
+          - latest
+          type: array
+          items:
+            type: string
+      required:
+      - namespace
+      - slug
+      - versions
+      additionalProperties: false
+    '422':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+    active-deployment:
+      type: object
+      properties:
+        uid:
+          type: string
+        domain:
+          type: string
+        publishedAt:
+          $ref: '#/components/schemas/timestamp'
+      required:
+      - uid
+      - domain
+      - publishedAt
+      additionalProperties: false
+    namespace:
+      type: string
+      minLength: 3
+      maxLength: 50
+      pattern: ^[a-zA-Z0-9-_]+$
+    header-link-version-selector:
+      type: object
+      properties:
+        uid:
+          $ref: '#/components/schemas/nanoid'
+        title:
+          type: string
+        show:
+          default: true
+          type: boolean
+        isStarred:
+          default: false
+          type: boolean
+        type:
+          type: string
+          const: version-selector
+      required:
+      - uid
+      - title
+      - show
+      - isStarred
+      - type
+      additionalProperties: false
+    logo:
+      type: object
+      properties:
+        darkMode:
+          type: string
+        lightMode:
+          type: string
+      required:
+      - darkMode
+      - lightMode
+      additionalProperties: false
+    header-link-external:
+      type: object
+      properties:
+        uid:
+          $ref: '#/components/schemas/nanoid'
+        title:
+          type: string
+        show:
+          default: true
+          type: boolean
+        isStarred:
+          default: false
+          type: boolean
+        type:
+          type: string
+          const: link
+        isButton:
+          default: false
+          type: boolean
+        link:
+          type: string
+      required:
+      - uid
+      - title
+      - show
+      - isStarred
+      - type
+      - isButton
+      - link
+      additionalProperties: false
+    header-link-spacer:
+      type: object
+      properties:
+        uid:
+          $ref: '#/components/schemas/nanoid'
+        title:
+          type: string
+        show:
+          default: true
+          type: boolean
+        isStarred:
+          default: false
+          type: boolean
+        type:
+          type: string
+          const: spacer
+      required:
+      - uid
+      - title
+      - show
+      - isStarred
+      - type
+      additionalProperties: false
+    project-version:
+      type: object
+      properties:
+        uid:
+          $ref: '#/components/schemas/nanoid'
+        name:
+          default: Default Version
+          type: string
+        primaryGuideId:
+          type: string
+        primaryReferenceId:
+          type: string
+        references:
+          type: object
+          propertyNames:
+            type: string
+          additionalProperties:
+            $ref: '#/components/schemas/reference'
+        guides:
+          type: object
+          propertyNames:
+            type: string
+          additionalProperties:
+            $ref: '#/components/schemas/guide'
+        header:
+          type: array
+          items:
+            $ref: '#/components/schemas/header-link'
+        footer:
+          default: ''
+          type: string
+        footerCss:
+          default: ''
+          type: string
+        footerBelowSidebar:
+          default: false
+          type: boolean
+        headScript:
+          default: ''
+          type: string
+        bodyScript:
+          default: ''
+          type: string
+      required:
+      - uid
+      - name
+      - primaryGuideId
+      - primaryReferenceId
+      - references
+      - guides
+      - header
+      - footer
+      - footerCss
+      - footerBelowSidebar
+      - headScript
+      - bodyScript
+      additionalProperties: false
     sidebar-link:
       type: object
       properties:
@@ -946,16 +946,38 @@ components:
       - link
       - show
       additionalProperties: false
-    '401':
+    header-link-group:
       type: object
       properties:
-        message:
+        uid:
+          $ref: '#/components/schemas/nanoid'
+        title:
           type: string
-        code:
+        show:
+          default: true
+          type: boolean
+        isStarred:
+          default: false
+          type: boolean
+        type:
           type: string
+          const: group
+        children:
+          type: array
+          items:
+            anyOf:
+            - $ref: '#/components/schemas/header-link-guide'
+            - $ref: '#/components/schemas/header-link-reference'
+            - $ref: '#/components/schemas/header-link-external'
+          description: Children of the group. Groups cannot contain other groups, spacers, or the version selector
       required:
-      - message
-      - code
+      - uid
+      - title
+      - show
+      - isStarred
+      - type
+      - children
+      additionalProperties: false
     header-link:
       anyOf:
       - $ref: '#/components/schemas/header-link-guide'
@@ -981,50 +1003,6 @@ components:
       - items
       - children
       additionalProperties: false
-    project-icon:
-      $ref: '#/components/schemas/project-icon-info'
-    active-deployment:
-      type: object
-      properties:
-        uid:
-          type: string
-        domain:
-          type: string
-        publishedAt:
-          $ref: '#/components/schemas/timestamp'
-      required:
-      - uid
-      - domain
-      - publishedAt
-      additionalProperties: false
-    reference-managed-doc:
-      type: object
-      properties:
-        namespace:
-          $ref: '#/components/schemas/namespace'
-        slug:
-          $ref: '#/components/schemas/slug'
-        versions:
-          default:
-          - latest
-          type: array
-          items:
-            type: string
-      required:
-      - namespace
-      - slug
-      - versions
-      additionalProperties: false
-    '403':
-      type: object
-      properties:
-        message:
-          type: string
-        code:
-          type: string
-      required:
-      - message
-      - code
     guide:
       type: object
       properties:
@@ -1054,7 +1032,71 @@ components:
       - isButton
       - isStarred
       additionalProperties: false
-    '400':
+    website:
+      type: object
+      properties:
+        lastDeployed:
+          $ref: '#/components/schemas/timestamp'
+        subdomainPrefix:
+          type: string
+        customUrl:
+          type: string
+        subPath:
+          type: string
+        title:
+          type: string
+        description:
+          type: string
+        favicon:
+          type: string
+        ogImage:
+          type: string
+        proxy:
+          type: string
+          format: uri
+        routing:
+          default:
+            guidePathPattern: ''
+            referencePathPattern: ''
+          type: object
+          properties:
+            guidePathPattern:
+              type: string
+            referencePathPattern:
+              type: string
+          additionalProperties: false
+        redirects:
+          default: []
+          type: array
+          items:
+            type: object
+            properties:
+              from:
+                type: string
+              to:
+                type: string
+            required:
+            - from
+            - to
+            additionalProperties: false
+      required:
+      - lastDeployed
+      - subdomainPrefix
+      - customUrl
+      - routing
+      - redirects
+      additionalProperties: false
+    '404':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+    '500':
       type: object
       properties:
         message:
@@ -1107,95 +1149,9 @@ components:
       - isButton
       - isStarred
       additionalProperties: false
-    header-link-external:
-      type: object
-      properties:
-        uid:
-          $ref: '#/components/schemas/nanoid'
-        title:
-          type: string
-        show:
-          default: true
-          type: boolean
-        isStarred:
-          default: false
-          type: boolean
-        type:
-          type: string
-          const: link
-        isButton:
-          default: false
-          type: boolean
-        link:
-          type: string
-      required:
-      - uid
-      - title
-      - show
-      - isStarred
-      - type
-      - isButton
-      - link
-      additionalProperties: false
-    '500':
-      type: object
-      properties:
-        message:
-          type: string
-        code:
-          type: string
-      required:
-      - message
-      - code
-    sidebar-item:
-      anyOf:
-      - $ref: '#/components/schemas/sidebar-link'
-      - $ref: '#/components/schemas/sidebar-page'
-      - $ref: '#/components/schemas/sidebar-folder'
-    nanoid_2:
+    nanoid:
       type: string
       minLength: 5
-      examples:
-      - UakgbKJ5m9gl0JDMbcJqL
-    '404_2':
-      type: object
-      properties:
-        message:
-          type: string
-        code:
-          type: string
-      required:
-      - message
-      - code
-      examples:
-      - message: Resource not found.
-        code: not-found
-    '403_2':
-      type: object
-      properties:
-        message:
-          type: string
-        code:
-          type: string
-      required:
-      - message
-      - code
-      examples:
-      - message: You do not have permission to access this resource.
-        code: forbidden
-    '422_2':
-      type: object
-      properties:
-        message:
-          type: string
-        code:
-          type: string
-      required:
-      - message
-      - code
-      examples:
-      - message: The request body contains invalid values.
-        code: invalid-payload
     '401_2':
       type: object
       properties:
@@ -1209,7 +1165,7 @@ components:
       examples:
       - message: Invalid authentication token.
         code: unauthorized
-    '400_2':
+    '404_2':
       type: object
       properties:
         message:
@@ -1220,8 +1176,34 @@ components:
       - message
       - code
       examples:
-      - message: Invalid request parameters.
-        code: bad-request
+      - message: Resource not found.
+        code: not-found
+    '422_2':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+      examples:
+      - message: The request body contains invalid values.
+        code: invalid-payload
+    '403_2':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+      examples:
+      - message: You do not have permission to access this resource.
+        code: forbidden
     '500_2':
       type: object
       properties:
@@ -1235,6 +1217,107 @@ components:
       examples:
       - message: An unexpected error occurred.
         code: unknown
+    nanoid_2:
+      type: string
+      minLength: 5
+      examples:
+      - UakgbKJ5m9gl0JDMbcJqL
+    '400_2':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+      examples:
+      - message: Invalid request parameters.
+        code: bad-request
+    '401_3':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+      examples:
+      - message: Invalid authentication token.
+        code: unauthorized
+    '404_3':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+      examples:
+      - message: Resource not found.
+        code: not-found
+    '422_3':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+      examples:
+      - message: The request body contains invalid values.
+        code: invalid-payload
+    '403_3':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+      examples:
+      - message: You do not have permission to access this resource.
+        code: forbidden
+    '500_3':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+      examples:
+      - message: An unexpected error occurred.
+        code: unknown
+    nanoid_3:
+      type: string
+      minLength: 5
+      examples:
+      - UakgbKJ5m9gl0JDMbcJqL
+    '400_3':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+      examples:
+      - message: Invalid request parameters.
+        code: bad-request
   securitySchemes:
     BearerAuth:
       type: http
@@ -1242,4 +1325,5 @@ components:
       bearerFormat: JWT
 x-refined-from:
 - scalar-core.json
+- scalar-openapi.json
 - scalar-openapi.json

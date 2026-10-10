@@ -1,0 +1,22 @@
+generated: '2026-10-05'
+method: searched
+source:
+- https://registry.npmjs.org/-/v1/search?text=scalar%20sdk&size=20
+- https://pypi.org/pypi/scalar/json
+packages:
+- name: '@scalar/sdk'
+  registry: npm
+  url: https://www.npmjs.com/package/@scalar/sdk
+  language: JavaScript
+  official: true
+  version: 0.5.0
+  published: '2026-09-29'
+  ownership_audit: metadata names scalar.com
+- name: scalar
+  registry: pypi
+  url: https://pypi.org/project/scalar/
+  language: Python
+  official: false
+  version: 0.1.0
+  published: '2026-09-15'
+  ownership_audit: 'registry metadata names neither the provider''s domain nor its GitHub org: official downgraded (harvest-packages.py --audit)'

@@ -1,0 +1,19 @@
+{
+  "linkset": [
+    {
+      "anchor": "https://access.scalar.com/",
+      "service-desc": [
+        {
+          "href": "https://scalar.com/tools/api/openapi.json",
+          "type": "application/json"
+        }
+      ],
+      "service-doc": [
+        {
+          "href": "https://scalar.com/tools/api",
+          "type": "text/html"
+        }
+      ]
+    }
+  ]
+}

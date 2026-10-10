@@ -6,7 +6,7 @@ info:
     url: https://scalar.com
     email: support@scalar.com
   version: '1.0'
-  description: 'Operations tagged team across 2 of this provider''s published API definitions: scalar-core.json, scalar-openapi.json. Each path carries the servers of the definition it was published in.'
+  description: 'Operations tagged team across 3 of this provider''s published API definitions: scalar-core.json, scalar-openapi.json, scalar-openapi.json. Each path carries the servers of the definition it was published in.'
 servers:
 - url: https://api.scalar.com/core
 security:
@@ -2952,475 +2952,10 @@ paths:
     - url: https://api.scalar.com/core
 components:
   schemas:
-    '404':
-      type: object
-      properties:
-        message:
-          type: string
-        code:
-          type: string
-      required:
-      - message
-      - code
-    header-link-version-selector:
-      type: object
-      properties:
-        uid:
-          $ref: '#/components/schemas/nanoid'
-        title:
-          type: string
-        show:
-          default: true
-          type: boolean
-        isStarred:
-          default: false
-          type: boolean
-        type:
-          type: string
-          const: version-selector
-      required:
-      - uid
-      - title
-      - show
-      - isStarred
-      - type
-      additionalProperties: false
-    header-link-group:
-      type: object
-      properties:
-        uid:
-          $ref: '#/components/schemas/nanoid'
-        title:
-          type: string
-        show:
-          default: true
-          type: boolean
-        isStarred:
-          default: false
-          type: boolean
-        type:
-          type: string
-          const: group
-        children:
-          type: array
-          items:
-            anyOf:
-            - $ref: '#/components/schemas/header-link-guide'
-            - $ref: '#/components/schemas/header-link-reference'
-            - $ref: '#/components/schemas/header-link-external'
-          description: Children of the group. Groups cannot contain other groups, spacers, or the version selector
-      required:
-      - uid
-      - title
-      - show
-      - isStarred
-      - type
-      - children
-      additionalProperties: false
-    '422':
-      type: object
-      properties:
-        message:
-          type: string
-        code:
-          type: string
-      required:
-      - message
-      - code
-    billing-info:
-      type: object
-      properties:
-        billingId:
-          $ref: '#/components/schemas/nanoid'
-        email:
-          $ref: '#/components/schemas/email'
-        plan:
-          $ref: '#/components/schemas/billing-plan'
-        expires:
-          type: number
-      required:
-      - email
-      - plan
-      additionalProperties: false
-    project-version:
-      type: object
-      properties:
-        uid:
-          $ref: '#/components/schemas/nanoid'
-        name:
-          default: Default Version
-          type: string
-        primaryGuideId:
-          type: string
-        primaryReferenceId:
-          type: string
-        references:
-          type: object
-          propertyNames:
-            type: string
-          additionalProperties:
-            $ref: '#/components/schemas/reference'
-        guides:
-          type: object
-          propertyNames:
-            type: string
-          additionalProperties:
-            $ref: '#/components/schemas/guide'
-        header:
-          type: array
-          items:
-            $ref: '#/components/schemas/header-link'
-        footer:
-          default: ''
-          type: string
-        footerCss:
-          default: ''
-          type: string
-        footerBelowSidebar:
-          default: false
-          type: boolean
-        headScript:
-          default: ''
-          type: string
-        bodyScript:
-          default: ''
-          type: string
-      required:
-      - uid
-      - name
-      - primaryGuideId
-      - primaryReferenceId
-      - references
-      - guides
-      - header
-      - footer
-      - footerCss
-      - footerBelowSidebar
-      - headScript
-      - bodyScript
-      additionalProperties: false
-    project-icon-info:
-      type: object
-      properties:
-        src:
-          default: ''
-          type: string
-        title:
-          type: string
-        mask:
-          type: boolean
-      required:
-      - src
-      additionalProperties: false
-    header-link-spacer:
-      type: object
-      properties:
-        uid:
-          $ref: '#/components/schemas/nanoid'
-        title:
-          type: string
-        show:
-          default: true
-          type: boolean
-        isStarred:
-          default: false
-          type: boolean
-        type:
-          type: string
-          const: spacer
-      required:
-      - uid
-      - title
-      - show
-      - isStarred
-      - type
-      additionalProperties: false
-    nanoid:
-      type: string
-      minLength: 5
-    sidebar-page:
-      type: object
-      properties:
-        uid:
-          $ref: '#/components/schemas/nanoid'
-        title:
-          type: string
-          minLength: 1
-        type:
-          type: string
-          const: Page
-        link:
-          type: string
-        icon:
-          $ref: '#/components/schemas/project-icon'
-        children:
-          default: []
-          type: array
-          items:
-            type: string
-        description:
-          type: string
-        show:
-          type: boolean
-        sidebarTitle:
-          type: string
-        defaultOpen:
-          type: boolean
-        yjsReference:
-          type: string
-        backgroundImage:
-          type: string
-        isMdx:
-          default: false
-          type: boolean
-        isHtml:
-          default: false
-          type: boolean
-      required:
-      - uid
-      - title
-      - type
-      - children
-      - description
-      - show
-      - yjsReference
-      - isMdx
-      - isHtml
-      additionalProperties: false
-    custom-project-icon:
-      type: object
-      properties:
-        src:
-          default: ''
-          type: string
-        title:
-          type: string
-        mask:
-          type: boolean
-        tags:
-          default: []
-          type: array
-          items:
-            type: string
-        group:
-          type: string
-          const: custom
-        createdAt:
-          $ref: '#/components/schemas/timestamp'
-        uploadedBy:
-          type: string
-      required:
-      - src
-      - tags
-      - group
-      - createdAt
-      - uploadedBy
-      additionalProperties: false
-    logo:
-      type: object
-      properties:
-        darkMode:
-          type: string
-        lightMode:
-          type: string
-      required:
-      - darkMode
-      - lightMode
-      additionalProperties: false
-    slug:
-      type: string
-      minLength: 3
-      maxLength: 60
-      pattern: ^[a-z](?:[a-z0-9-]*[a-z0-9])?$
-    role:
-      type: string
-      enum:
-      - owner
-      - admin
-      - editor
-      - viewer
-    email:
-      type: string
-      format: email
-      pattern: ^(?!\.)(?!.*\.\.)([A-Za-z0-9_'+\-\.]*)[A-Za-z0-9_+-]@([A-Za-z0-9][A-Za-z0-9\-]*\.)+[A-Za-z]{2,}$
-    billing-plan:
-      type: string
-      enum:
-      - trial
-      - free
-      - pro_monthly
-      - pro_yearly
-      - premium
-      - enterprise
-    website:
-      type: object
-      properties:
-        lastDeployed:
-          $ref: '#/components/schemas/timestamp'
-        subdomainPrefix:
-          type: string
-        customUrl:
-          type: string
-        subPath:
-          type: string
-        title:
-          type: string
-        description:
-          type: string
-        favicon:
-          type: string
-        ogImage:
-          type: string
-        proxy:
-          type: string
-          format: uri
-        routing:
-          default:
-            guidePathPattern: ''
-            referencePathPattern: ''
-          type: object
-          properties:
-            guidePathPattern:
-              type: string
-            referencePathPattern:
-              type: string
-          additionalProperties: false
-        redirects:
-          default: []
-          type: array
-          items:
-            type: object
-            properties:
-              from:
-                type: string
-              to:
-                type: string
-            required:
-            - from
-            - to
-            additionalProperties: false
-      required:
-      - lastDeployed
-      - subdomainPrefix
-      - customUrl
-      - routing
-      - redirects
-      additionalProperties: false
-    team-name:
-      type: string
-    billing-invoice:
-      type: object
-      properties:
-        id:
-          type: string
-        total:
-          type: number
-        status:
-          anyOf:
-          - $ref: '#/components/schemas/invoice-status'
-          - type: 'null'
-        paymentDate:
-          type: number
-        currency:
-          type: string
-        downloadUrl:
-          anyOf:
-          - type: string
-          - type: 'null'
-      required:
-      - id
-      - total
-      - status
-      - paymentDate
-      - currency
-      additionalProperties: false
-    team-list-mine-entry:
-      type: object
-      properties:
-        uid:
-          $ref: '#/components/schemas/nanoid'
-        name:
-          $ref: '#/components/schemas/team-name'
-        slug:
-          $ref: '#/components/schemas/slug'
-        imageUri:
-          $ref: '#/components/schemas/team-image'
-        theme:
-          type: string
-      required:
-      - uid
-      - name
-      - slug
-      - theme
-      additionalProperties: false
     team-image:
       type: string
-    sidebar-folder:
-      type: object
-      properties:
-        uid:
-          $ref: '#/components/schemas/nanoid'
-        title:
-          type: string
-          minLength: 1
-        type:
-          type: string
-          const: Folder
-        link:
-          type: string
-        icon:
-          $ref: '#/components/schemas/project-icon'
-        children:
-          default: []
-          type: array
-          items:
-            type: string
-        description:
-          type: string
-        show:
-          type: boolean
-        defaultOpen:
-          type: boolean
-      required:
-      - uid
-      - title
-      - type
-      - children
-      - show
-      additionalProperties: false
-    team-billing-summary:
-      type: object
-      properties:
-        invoices:
-          default: []
-          type: array
-          items:
-            $ref: '#/components/schemas/billing-invoice'
-        address:
-          anyOf:
-          - type: string
-          - type: 'null'
-        card:
-          anyOf:
-          - $ref: '#/components/schemas/card'
-          - type: 'null'
-        billingInfo:
-          $ref: '#/components/schemas/billing-info'
-      required:
-      - invoices
-      - address
-      - card
-      - billingInfo
-      additionalProperties: false
-    namespace:
-      type: string
-      minLength: 3
-      maxLength: 50
-      pattern: ^[a-zA-Z0-9-_]+$
-    timestamp:
-      type: integer
-      minimum: 0
-      maximum: 9007199254740991
+    project-icon:
+      $ref: '#/components/schemas/project-icon-info'
     header-link-guide:
       type: object
       properties:
@@ -3444,6 +2979,29 @@ components:
       - isStarred
       - type
       additionalProperties: false
+    team-list-mine-entry:
+      type: object
+      properties:
+        uid:
+          $ref: '#/components/schemas/nanoid'
+        name:
+          $ref: '#/components/schemas/team-name'
+        slug:
+          $ref: '#/components/schemas/slug'
+        imageUri:
+          $ref: '#/components/schemas/team-image'
+        theme:
+          type: string
+      required:
+      - uid
+      - name
+      - slug
+      - theme
+      additionalProperties: false
+    timestamp:
+      type: integer
+      minimum: 0
+      maximum: 9007199254740991
     project:
       type: object
       properties:
@@ -3533,6 +3091,16 @@ components:
       - website
       - insertPageTitles
       additionalProperties: false
+    '401':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
     header-link-reference:
       type: object
       properties:
@@ -3566,6 +3134,462 @@ components:
       - hasPermalink
       - hasManagedDoc
       additionalProperties: false
+    sidebar-folder:
+      type: object
+      properties:
+        uid:
+          $ref: '#/components/schemas/nanoid'
+        title:
+          type: string
+          minLength: 1
+        type:
+          type: string
+          const: Folder
+        link:
+          type: string
+        icon:
+          $ref: '#/components/schemas/project-icon'
+        children:
+          default: []
+          type: array
+          items:
+            type: string
+        description:
+          type: string
+        show:
+          type: boolean
+        defaultOpen:
+          type: boolean
+      required:
+      - uid
+      - title
+      - type
+      - children
+      - show
+      additionalProperties: false
+    billing-plan:
+      type: string
+      enum:
+      - trial
+      - free
+      - pro_monthly
+      - pro_yearly
+      - premium
+      - enterprise
+    '403':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+    role:
+      type: string
+      enum:
+      - owner
+      - admin
+      - editor
+      - viewer
+    project-icon-info:
+      type: object
+      properties:
+        src:
+          default: ''
+          type: string
+        title:
+          type: string
+        mask:
+          type: boolean
+      required:
+      - src
+      additionalProperties: false
+    '400':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+    billing-info:
+      type: object
+      properties:
+        billingId:
+          $ref: '#/components/schemas/nanoid'
+        email:
+          $ref: '#/components/schemas/email'
+        plan:
+          $ref: '#/components/schemas/billing-plan'
+        expires:
+          type: number
+      required:
+      - email
+      - plan
+      additionalProperties: false
+    team-name:
+      type: string
+    slug:
+      type: string
+      minLength: 3
+      maxLength: 60
+      pattern: ^[a-z](?:[a-z0-9-]*[a-z0-9])?$
+    custom-project-icon:
+      type: object
+      properties:
+        src:
+          default: ''
+          type: string
+        title:
+          type: string
+        mask:
+          type: boolean
+        tags:
+          default: []
+          type: array
+          items:
+            type: string
+        group:
+          type: string
+          const: custom
+        createdAt:
+          $ref: '#/components/schemas/timestamp'
+        uploadedBy:
+          type: string
+      required:
+      - src
+      - tags
+      - group
+      - createdAt
+      - uploadedBy
+      additionalProperties: false
+    sidebar-item:
+      anyOf:
+      - $ref: '#/components/schemas/sidebar-link'
+      - $ref: '#/components/schemas/sidebar-page'
+      - $ref: '#/components/schemas/sidebar-folder'
+    sidebar-page:
+      type: object
+      properties:
+        uid:
+          $ref: '#/components/schemas/nanoid'
+        title:
+          type: string
+          minLength: 1
+        type:
+          type: string
+          const: Page
+        link:
+          type: string
+        icon:
+          $ref: '#/components/schemas/project-icon'
+        children:
+          default: []
+          type: array
+          items:
+            type: string
+        description:
+          type: string
+        show:
+          type: boolean
+        sidebarTitle:
+          type: string
+        defaultOpen:
+          type: boolean
+        yjsReference:
+          type: string
+        backgroundImage:
+          type: string
+        isMdx:
+          default: false
+          type: boolean
+        isHtml:
+          default: false
+          type: boolean
+      required:
+      - uid
+      - title
+      - type
+      - children
+      - description
+      - show
+      - yjsReference
+      - isMdx
+      - isHtml
+      additionalProperties: false
+    reference-managed-doc:
+      type: object
+      properties:
+        namespace:
+          $ref: '#/components/schemas/namespace'
+        slug:
+          $ref: '#/components/schemas/slug'
+        versions:
+          default:
+          - latest
+          type: array
+          items:
+            type: string
+      required:
+      - namespace
+      - slug
+      - versions
+      additionalProperties: false
+    '422':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+    card:
+      type: object
+      properties:
+        last4:
+          type: string
+          minLength: 4
+          maxLength: 4
+        expMonth:
+          type: number
+        expYear:
+          type: number
+      required:
+      - last4
+      - expMonth
+      - expYear
+      additionalProperties: false
+    active-deployment:
+      type: object
+      properties:
+        uid:
+          type: string
+        domain:
+          type: string
+        publishedAt:
+          $ref: '#/components/schemas/timestamp'
+      required:
+      - uid
+      - domain
+      - publishedAt
+      additionalProperties: false
+    namespace:
+      type: string
+      minLength: 3
+      maxLength: 50
+      pattern: ^[a-zA-Z0-9-_]+$
+    header-link-version-selector:
+      type: object
+      properties:
+        uid:
+          $ref: '#/components/schemas/nanoid'
+        title:
+          type: string
+        show:
+          default: true
+          type: boolean
+        isStarred:
+          default: false
+          type: boolean
+        type:
+          type: string
+          const: version-selector
+      required:
+      - uid
+      - title
+      - show
+      - isStarred
+      - type
+      additionalProperties: false
+    invoice-status:
+      type: string
+      enum:
+      - open
+      - paid
+      - draft
+      - void
+      - uncollectible
+    email:
+      type: string
+      format: email
+      pattern: ^(?!\.)(?!.*\.\.)([A-Za-z0-9_'+\-\.]*)[A-Za-z0-9_+-]@([A-Za-z0-9][A-Za-z0-9\-]*\.)+[A-Za-z]{2,}$
+    logo:
+      type: object
+      properties:
+        darkMode:
+          type: string
+        lightMode:
+          type: string
+      required:
+      - darkMode
+      - lightMode
+      additionalProperties: false
+    header-link-external:
+      type: object
+      properties:
+        uid:
+          $ref: '#/components/schemas/nanoid'
+        title:
+          type: string
+        show:
+          default: true
+          type: boolean
+        isStarred:
+          default: false
+          type: boolean
+        type:
+          type: string
+          const: link
+        isButton:
+          default: false
+          type: boolean
+        link:
+          type: string
+      required:
+      - uid
+      - title
+      - show
+      - isStarred
+      - type
+      - isButton
+      - link
+      additionalProperties: false
+    header-link-spacer:
+      type: object
+      properties:
+        uid:
+          $ref: '#/components/schemas/nanoid'
+        title:
+          type: string
+        show:
+          default: true
+          type: boolean
+        isStarred:
+          default: false
+          type: boolean
+        type:
+          type: string
+          const: spacer
+      required:
+      - uid
+      - title
+      - show
+      - isStarred
+      - type
+      additionalProperties: false
+    billing-invoice:
+      type: object
+      properties:
+        id:
+          type: string
+        total:
+          type: number
+        status:
+          anyOf:
+          - $ref: '#/components/schemas/invoice-status'
+          - type: 'null'
+        paymentDate:
+          type: number
+        currency:
+          type: string
+        downloadUrl:
+          anyOf:
+          - type: string
+          - type: 'null'
+      required:
+      - id
+      - total
+      - status
+      - paymentDate
+      - currency
+      additionalProperties: false
+    project-version:
+      type: object
+      properties:
+        uid:
+          $ref: '#/components/schemas/nanoid'
+        name:
+          default: Default Version
+          type: string
+        primaryGuideId:
+          type: string
+        primaryReferenceId:
+          type: string
+        references:
+          type: object
+          propertyNames:
+            type: string
+          additionalProperties:
+            $ref: '#/components/schemas/reference'
+        guides:
+          type: object
+          propertyNames:
+            type: string
+          additionalProperties:
+            $ref: '#/components/schemas/guide'
+        header:
+          type: array
+          items:
+            $ref: '#/components/schemas/header-link'
+        footer:
+          default: ''
+          type: string
+        footerCss:
+          default: ''
+          type: string
+        footerBelowSidebar:
+          default: false
+          type: boolean
+        headScript:
+          default: ''
+          type: string
+        bodyScript:
+          default: ''
+          type: string
+      required:
+      - uid
+      - name
+      - primaryGuideId
+      - primaryReferenceId
+      - references
+      - guides
+      - header
+      - footer
+      - footerCss
+      - footerBelowSidebar
+      - headScript
+      - bodyScript
+      additionalProperties: false
+    team-billing-summary:
+      type: object
+      properties:
+        invoices:
+          default: []
+          type: array
+          items:
+            $ref: '#/components/schemas/billing-invoice'
+        address:
+          anyOf:
+          - type: string
+          - type: 'null'
+        card:
+          anyOf:
+          - $ref: '#/components/schemas/card'
+          - type: 'null'
+        billingInfo:
+          $ref: '#/components/schemas/billing-info'
+      required:
+      - invoices
+      - address
+      - card
+      - billingInfo
+      additionalProperties: false
     sidebar-link:
       type: object
       properties:
@@ -3596,31 +3620,37 @@ components:
       - link
       - show
       additionalProperties: false
-    '401':
+    header-link-group:
       type: object
       properties:
-        message:
+        uid:
+          $ref: '#/components/schemas/nanoid'
+        title:
           type: string
-        code:
+        show:
+          default: true
+          type: boolean
+        isStarred:
+          default: false
+          type: boolean
+        type:
           type: string
+          const: group
+        children:
+          type: array
+          items:
+            anyOf:
+            - $ref: '#/components/schemas/header-link-guide'
+            - $ref: '#/components/schemas/header-link-reference'
+            - $ref: '#/components/schemas/header-link-external'
+          description: Children of the group. Groups cannot contain other groups, spacers, or the version selector
       required:
-      - message
-      - code
-    card:
-      type: object
-      properties:
-        last4:
-          type: string
-          minLength: 4
-          maxLength: 4
-        expMonth:
-          type: number
-        expYear:
-          type: number
-      required:
-      - last4
-      - expMonth
-      - expYear
+      - uid
+      - title
+      - show
+      - isStarred
+      - type
+      - children
       additionalProperties: false
     header-link:
       anyOf:
@@ -3647,84 +3677,6 @@ components:
       - items
       - children
       additionalProperties: false
-    feature-flag:
-      type: object
-      properties:
-        rules:
-          $ref: '#/components/schemas/feature'
-        registry:
-          $ref: '#/components/schemas/feature'
-        schemas:
-          $ref: '#/components/schemas/feature'
-        sdk:
-          $ref: '#/components/schemas/feature'
-        cli:
-          $ref: '#/components/schemas/feature'
-        agent:
-          $ref: '#/components/schemas/feature'
-        workspaces:
-          $ref: '#/components/schemas/feature'
-        mcp:
-          $ref: '#/components/schemas/feature'
-        export:
-          $ref: '#/components/schemas/feature'
-        docsMcp:
-          $ref: '#/components/schemas/feature'
-        disableApiSSR:
-          $ref: '#/components/schemas/feature'
-        unifiedDocs:
-          $ref: '#/components/schemas/feature'
-        docsAnalytics:
-          $ref: '#/components/schemas/feature'
-        mcpAnalytics:
-          $ref: '#/components/schemas/feature'
-      additionalProperties: false
-    project-icon:
-      $ref: '#/components/schemas/project-icon-info'
-    active-deployment:
-      type: object
-      properties:
-        uid:
-          type: string
-        domain:
-          type: string
-        publishedAt:
-          $ref: '#/components/schemas/timestamp'
-      required:
-      - uid
-      - domain
-      - publishedAt
-      additionalProperties: false
-    feature:
-      type: boolean
-    reference-managed-doc:
-      type: object
-      properties:
-        namespace:
-          $ref: '#/components/schemas/namespace'
-        slug:
-          $ref: '#/components/schemas/slug'
-        versions:
-          default:
-          - latest
-          type: array
-          items:
-            type: string
-      required:
-      - namespace
-      - slug
-      - versions
-      additionalProperties: false
-    '403':
-      type: object
-      properties:
-        message:
-          type: string
-        code:
-          type: string
-      required:
-      - message
-      - code
     guide:
       type: object
       properties:
@@ -3754,15 +3706,73 @@ components:
       - isButton
       - isStarred
       additionalProperties: false
-    invoice-status:
-      type: string
-      enum:
-      - open
-      - paid
-      - draft
-      - void
-      - uncollectible
-    '400':
+    feature:
+      type: boolean
+    website:
+      type: object
+      properties:
+        lastDeployed:
+          $ref: '#/components/schemas/timestamp'
+        subdomainPrefix:
+          type: string
+        customUrl:
+          type: string
+        subPath:
+          type: string
+        title:
+          type: string
+        description:
+          type: string
+        favicon:
+          type: string
+        ogImage:
+          type: string
+        proxy:
+          type: string
+          format: uri
+        routing:
+          default:
+            guidePathPattern: ''
+            referencePathPattern: ''
+          type: object
+          properties:
+            guidePathPattern:
+              type: string
+            referencePathPattern:
+              type: string
+          additionalProperties: false
+        redirects:
+          default: []
+          type: array
+          items:
+            type: object
+            properties:
+              from:
+                type: string
+              to:
+                type: string
+            required:
+            - from
+            - to
+            additionalProperties: false
+      required:
+      - lastDeployed
+      - subdomainPrefix
+      - customUrl
+      - routing
+      - redirects
+      additionalProperties: false
+    '404':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+    '500':
       type: object
       properties:
         message:
@@ -3815,253 +3825,45 @@ components:
       - isButton
       - isStarred
       additionalProperties: false
-    header-link-external:
+    feature-flag:
       type: object
       properties:
-        uid:
-          $ref: '#/components/schemas/nanoid'
-        title:
-          type: string
-        show:
-          default: true
-          type: boolean
-        isStarred:
-          default: false
-          type: boolean
-        type:
-          type: string
-          const: link
-        isButton:
-          default: false
-          type: boolean
-        link:
-          type: string
-      required:
-      - uid
-      - title
-      - show
-      - isStarred
-      - type
-      - isButton
-      - link
+        rules:
+          $ref: '#/components/schemas/feature'
+        registry:
+          $ref: '#/components/schemas/feature'
+        schemas:
+          $ref: '#/components/schemas/feature'
+        sdk:
+          $ref: '#/components/schemas/feature'
+        cli:
+          $ref: '#/components/schemas/feature'
+        agent:
+          $ref: '#/components/schemas/feature'
+        workspaces:
+          $ref: '#/components/schemas/feature'
+        mcp:
+          $ref: '#/components/schemas/feature'
+        export:
+          $ref: '#/components/schemas/feature'
+        docsMcp:
+          $ref: '#/components/schemas/feature'
+        disableApiSSR:
+          $ref: '#/components/schemas/feature'
+        unifiedDocs:
+          $ref: '#/components/schemas/feature'
+        docsAnalytics:
+          $ref: '#/components/schemas/feature'
+        mcpAnalytics:
+          $ref: '#/components/schemas/feature'
       additionalProperties: false
-    '500':
-      type: object
-      properties:
-        message:
-          type: string
-        code:
-          type: string
-      required:
-      - message
-      - code
-    sidebar-item:
-      anyOf:
-      - $ref: '#/components/schemas/sidebar-link'
-      - $ref: '#/components/schemas/sidebar-page'
-      - $ref: '#/components/schemas/sidebar-folder'
-    '404_2':
-      type: object
-      properties:
-        message:
-          type: string
-        code:
-          type: string
-      required:
-      - message
-      - code
-      examples:
-      - message: Resource not found.
-        code: not-found
-    pending-invite:
-      type: object
-      properties:
-        uid:
-          $ref: '#/components/schemas/nanoid_2'
-        role:
-          default: editor
-          $ref: '#/components/schemas/role'
-        email:
-          $ref: '#/components/schemas/email_2'
-        expires:
-          examples:
-          - 1735776000
-          type: number
-      required:
-      - uid
-      - role
-      - email
-      additionalProperties: false
-    '422_2':
-      type: object
-      properties:
-        message:
-          type: string
-        code:
-          type: string
-      required:
-      - message
-      - code
-      examples:
-      - message: The request body contains invalid values.
-        code: invalid-payload
-    billing-info_2:
-      type: object
-      properties:
-        billingId:
-          $ref: '#/components/schemas/nanoid_2'
-        email:
-          $ref: '#/components/schemas/email_2'
-        plan:
-          $ref: '#/components/schemas/billing-plan_2'
-        expires:
-          type: number
-        sdkTrialReminderSentAt:
-          type: number
-        trialEndedReminderSentAt:
-          type: number
-        trialExtendedAt:
-          type: number
-        includedCreditsOverride:
-          type: number
-        pastDue:
-          type: boolean
-        pricingModel:
-          anyOf:
-          - type: string
-            enum:
-            - flat_2026
-          - type: 'null'
-      required:
-      - email
-      - plan
-      additionalProperties: false
-    nanoid_2:
+    nanoid:
       type: string
       minLength: 5
-      examples:
-      - UakgbKJ5m9gl0JDMbcJqL
-    slug_2:
-      type: string
-      minLength: 1
-      maxLength: 60
-      pattern: ^[a-z](?:[a-z0-9-]*[a-z0-9])?$
-      examples:
-      - acme-api
-    email_2:
-      type: string
-      format: email
-      pattern: ^(?!\.)(?!.*\.\.)([A-Za-z0-9_'+\-\.]*)[A-Za-z0-9_+-]@([A-Za-z0-9][A-Za-z0-9\-]*\.)+[A-Za-z]{2,}$
-      examples:
-      - alex@example.com
-    billing-plan_2:
-      type: string
-      enum:
-      - trial
-      - free
-      - pro_monthly
-      - pro_yearly
-      - premium
-      - business_monthly
-      - business_yearly
-      - enterprise
-    team-name_2:
-      type: string
-      examples:
-      - Acme
-    team-sdk-pricing:
-      type: object
-      properties:
-        sdks:
-          default: []
-          type: array
-          items:
-            type: object
-            properties:
-              uid:
-                $ref: '#/components/schemas/nanoid_2'
-              endpointCount:
-                anyOf:
-                - type: integer
-                  minimum: -9007199254740991
-                  maximum: 9007199254740991
-                - type: 'null'
-              billedTargets:
-                type: integer
-                minimum: -9007199254740991
-                maximum: 9007199254740991
-              band:
-                type: string
-                enum:
-                - standard
-                - large
-            required:
-            - uid
-            - endpointCount
-            - billedTargets
-            - band
-            additionalProperties: false
-        apis:
-          default: []
-          type: array
-          items:
-            type: object
-            properties:
-              uid:
-                $ref: '#/components/schemas/nanoid_2'
-              endpointCount:
-                anyOf:
-                - type: integer
-                  minimum: -9007199254740991
-                  maximum: 9007199254740991
-                - type: 'null'
-              band:
-                type: string
-                enum:
-                - standard
-                - large
-            required:
-            - uid
-            - endpointCount
-            - band
-            additionalProperties: false
-        bands:
-          type: object
-          propertyNames:
-            type: string
-            enum:
-            - standard
-            - large
-          additionalProperties:
-            type: integer
-            minimum: -9007199254740991
-            maximum: 9007199254740991
-          required:
-          - standard
-          - large
-        requiredTier:
-          type: string
-          enum:
-          - pro
-          - business
-          - enterprise
-      required:
-      - sdks
-      - apis
-      - bands
-      - requiredTier
-      additionalProperties: false
     team-image_2:
       examples:
       - https://example.com/logo.svg
       type: string
-    namespace_2:
-      type: string
-      minLength: 2
-      maxLength: 50
-      pattern: ^[a-zA-Z0-9-_]+$
-      examples:
-      - acme
     timestamp_2:
       type: integer
       minimum: 0
@@ -4191,6 +3993,224 @@ components:
       examples:
       - message: Invalid authentication token.
         code: unauthorized
+    billing-plan_2:
+      type: string
+      enum:
+      - trial
+      - free
+      - pro_monthly
+      - pro_yearly
+      - premium
+      - business_monthly
+      - business_yearly
+      - enterprise
+    '403_2':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+      examples:
+      - message: You do not have permission to access this resource.
+        code: forbidden
+    billing-info_2:
+      type: object
+      properties:
+        billingId:
+          $ref: '#/components/schemas/nanoid_2'
+        email:
+          $ref: '#/components/schemas/email_2'
+        plan:
+          $ref: '#/components/schemas/billing-plan_2'
+        expires:
+          type: number
+        sdkTrialReminderSentAt:
+          type: number
+        trialEndedReminderSentAt:
+          type: number
+        trialExtendedAt:
+          type: number
+        includedCreditsOverride:
+          type: number
+        pastDue:
+          type: boolean
+        pricingModel:
+          anyOf:
+          - type: string
+            enum:
+            - flat_2026
+          - type: 'null'
+      required:
+      - email
+      - plan
+      additionalProperties: false
+    '400_2':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+      examples:
+      - message: Invalid request parameters.
+        code: bad-request
+    team-name_2:
+      type: string
+      examples:
+      - Acme
+    slug_2:
+      type: string
+      minLength: 1
+      maxLength: 60
+      pattern: ^[a-z](?:[a-z0-9-]*[a-z0-9])?$
+      examples:
+      - acme-api
+    team-sdk-pricing:
+      type: object
+      properties:
+        sdks:
+          default: []
+          type: array
+          items:
+            type: object
+            properties:
+              uid:
+                $ref: '#/components/schemas/nanoid_2'
+              endpointCount:
+                anyOf:
+                - type: integer
+                  minimum: -9007199254740991
+                  maximum: 9007199254740991
+                - type: 'null'
+              billedTargets:
+                type: integer
+                minimum: -9007199254740991
+                maximum: 9007199254740991
+              band:
+                type: string
+                enum:
+                - standard
+                - large
+            required:
+            - uid
+            - endpointCount
+            - billedTargets
+            - band
+            additionalProperties: false
+        apis:
+          default: []
+          type: array
+          items:
+            type: object
+            properties:
+              uid:
+                $ref: '#/components/schemas/nanoid_2'
+              endpointCount:
+                anyOf:
+                - type: integer
+                  minimum: -9007199254740991
+                  maximum: 9007199254740991
+                - type: 'null'
+              band:
+                type: string
+                enum:
+                - standard
+                - large
+            required:
+            - uid
+            - endpointCount
+            - band
+            additionalProperties: false
+        bands:
+          type: object
+          propertyNames:
+            type: string
+            enum:
+            - standard
+            - large
+          additionalProperties:
+            type: integer
+            minimum: -9007199254740991
+            maximum: 9007199254740991
+          required:
+          - standard
+          - large
+        requiredTier:
+          type: string
+          enum:
+          - pro
+          - business
+          - enterprise
+      required:
+      - sdks
+      - apis
+      - bands
+      - requiredTier
+      additionalProperties: false
+    '422_2':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+      examples:
+      - message: The request body contains invalid values.
+        code: invalid-payload
+    pending-invite:
+      type: object
+      properties:
+        uid:
+          $ref: '#/components/schemas/nanoid_2'
+        role:
+          default: editor
+          $ref: '#/components/schemas/role'
+        email:
+          $ref: '#/components/schemas/email_2'
+        expires:
+          examples:
+          - 1735776000
+          type: number
+      required:
+      - uid
+      - role
+      - email
+      additionalProperties: false
+    active-deployment_2:
+      type: object
+      properties:
+        uid:
+          type: string
+          examples:
+          - UakgbKJ5m9gl0JDMbcJqL
+        domain:
+          type: string
+          examples:
+          - docs.example.com
+        publishedAt:
+          $ref: '#/components/schemas/timestamp_2'
+      required:
+      - uid
+      - domain
+      - publishedAt
+      additionalProperties: false
+    namespace_2:
+      type: string
+      minLength: 2
+      maxLength: 50
+      pattern: ^[a-zA-Z0-9-_]+$
+      examples:
+      - acme
     user-ref:
       type: object
       properties:
@@ -4220,56 +4240,30 @@ components:
       - displayName
       - activeProjectUid
       additionalProperties: false
-    active-deployment_2:
-      type: object
-      properties:
-        uid:
-          type: string
-          examples:
-          - UakgbKJ5m9gl0JDMbcJqL
-        domain:
-          type: string
-          examples:
-          - docs.example.com
-        publishedAt:
-          $ref: '#/components/schemas/timestamp_2'
-      required:
-      - uid
-      - domain
-      - publishedAt
-      additionalProperties: false
-    '403_2':
-      type: object
-      properties:
-        message:
-          type: string
-        code:
-          type: string
-      required:
-      - message
-      - code
-      examples:
-      - message: You do not have permission to access this resource.
-        code: forbidden
-    '400_2':
-      type: object
-      properties:
-        message:
-          type: string
-        code:
-          type: string
-      required:
-      - message
-      - code
-      examples:
-      - message: Invalid request parameters.
-        code: bad-request
-    team-name-input:
+    email_2:
       type: string
-      maxLength: 100
+      format: email
+      pattern: ^(?!\.)(?!.*\.\.)([A-Za-z0-9_'+\-\.]*)[A-Za-z0-9_+-]@([A-Za-z0-9][A-Za-z0-9\-]*\.)+[A-Za-z]{2,}$
       examples:
-      - Acme
-      $ref: '#/components/schemas/team-name_2'
+      - alex@example.com
+    '404_2':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+      examples:
+      - message: Resource not found.
+        code: not-found
+    nanoid_2:
+      type: string
+      minLength: 5
+      examples:
+      - UakgbKJ5m9gl0JDMbcJqL
     '500_2':
       type: object
       properties:
@@ -4283,6 +4277,435 @@ components:
       examples:
       - message: An unexpected error occurred.
         code: unknown
+    team-name-input:
+      type: string
+      maxLength: 100
+      examples:
+      - Acme
+      $ref: '#/components/schemas/team-name_2'
+    team-image_3:
+      examples:
+      - https://example.com/logo.svg
+      type: string
+    timestamp_3:
+      type: integer
+      minimum: 0
+      maximum: 9007199254740991
+      examples:
+      - 1735689600
+    project_3:
+      type: object
+      properties:
+        uid:
+          $ref: '#/components/schemas/nanoid_3'
+        createdAt:
+          $ref: '#/components/schemas/timestamp_3'
+        updatedAt:
+          $ref: '#/components/schemas/timestamp_3'
+        name:
+          type: string
+          examples:
+          - Acme Documentation
+        activeDeployment:
+          default: null
+          anyOf:
+          - $ref: '#/components/schemas/active-deployment_3'
+          - type: 'null'
+        lastPublished:
+          default: null
+          anyOf:
+          - $ref: '#/components/schemas/timestamp_3'
+          - type: 'null'
+        lastPublishedUid:
+          default: null
+          examples:
+          - PakgbKJ5m9gl0JDMbcJqL
+          anyOf:
+          - type: string
+          - type: 'null'
+        loginPortalUid:
+          default: ''
+          examples:
+          - LakgbKJ5m9gl0JDMbcJqL
+          type: string
+        userInfoHookUrl:
+          default: ''
+          examples:
+          - https://example.com/hooks/user-info
+          type: string
+        activeThemeId:
+          default: ''
+          examples:
+          - TakgbKJ5m9gl0JDMbcJqL
+          type: string
+        typesenseId:
+          examples:
+          - 42
+          type: number
+        isPrivate:
+          default: false
+          examples:
+          - false
+          type: boolean
+        agentEnabled:
+          default: false
+          examples:
+          - true
+          type: boolean
+        analyticsEnabled:
+          default: true
+          examples:
+          - true
+          type: boolean
+        accessGroups:
+          default: []
+          examples:
+          - - UakgbKJ5m9gl0JDMbcJqL
+        versions:
+          type: object
+          propertyNames:
+            type: string
+          additionalProperties:
+            $ref: '#/components/schemas/project-version'
+        activeTemplateId:
+          default: ''
+          type: string
+        activeVersionId:
+          default: ''
+          type: string
+        logo:
+          $ref: '#/components/schemas/logo'
+        website:
+          description: Deployed site configuration for a project
+          $ref: '#/components/schemas/website'
+        insertPageTitles:
+          default: true
+          type: boolean
+      required:
+      - uid
+      - createdAt
+      - updatedAt
+      - name
+      - activeDeployment
+      - lastPublished
+      - lastPublishedUid
+      - loginPortalUid
+      - userInfoHookUrl
+      - activeThemeId
+      - isPrivate
+      - agentEnabled
+      - analyticsEnabled
+      - accessGroups
+      - versions
+      - activeTemplateId
+      - activeVersionId
+      - logo
+      - website
+      - insertPageTitles
+      additionalProperties: false
+    '401_3':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+      examples:
+      - message: Invalid authentication token.
+        code: unauthorized
+    billing-plan_3:
+      type: string
+      enum:
+      - trial
+      - free
+      - pro_monthly
+      - pro_yearly
+      - premium
+      - business_monthly
+      - business_yearly
+      - enterprise
+    '403_3':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+      examples:
+      - message: You do not have permission to access this resource.
+        code: forbidden
+    billing-info_3:
+      type: object
+      properties:
+        billingId:
+          $ref: '#/components/schemas/nanoid_3'
+        email:
+          $ref: '#/components/schemas/email_3'
+        plan:
+          $ref: '#/components/schemas/billing-plan_3'
+        expires:
+          type: number
+        sdkTrialReminderSentAt:
+          type: number
+        trialEndedReminderSentAt:
+          type: number
+        trialExtendedAt:
+          type: number
+        includedCreditsOverride:
+          type: number
+        pastDue:
+          type: boolean
+        pricingModel:
+          anyOf:
+          - type: string
+            enum:
+            - flat_2026
+          - type: 'null'
+      required:
+      - email
+      - plan
+      additionalProperties: false
+    '400_3':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+      examples:
+      - message: Invalid request parameters.
+        code: bad-request
+    team-name_3:
+      type: string
+      examples:
+      - Acme
+    slug_3:
+      type: string
+      minLength: 1
+      maxLength: 60
+      pattern: ^[a-z](?:[a-z0-9-]*[a-z0-9])?$
+      examples:
+      - acme-api
+    team-sdk-pricing_2:
+      type: object
+      properties:
+        sdks:
+          default: []
+          type: array
+          items:
+            type: object
+            properties:
+              uid:
+                $ref: '#/components/schemas/nanoid_3'
+              endpointCount:
+                anyOf:
+                - type: integer
+                  minimum: -9007199254740991
+                  maximum: 9007199254740991
+                - type: 'null'
+              billedTargets:
+                type: integer
+                minimum: -9007199254740991
+                maximum: 9007199254740991
+              band:
+                type: string
+                enum:
+                - standard
+                - large
+            required:
+            - uid
+            - endpointCount
+            - billedTargets
+            - band
+            additionalProperties: false
+        apis:
+          default: []
+          type: array
+          items:
+            type: object
+            properties:
+              uid:
+                $ref: '#/components/schemas/nanoid_3'
+              endpointCount:
+                anyOf:
+                - type: integer
+                  minimum: -9007199254740991
+                  maximum: 9007199254740991
+                - type: 'null'
+              band:
+                type: string
+                enum:
+                - standard
+                - large
+            required:
+            - uid
+            - endpointCount
+            - band
+            additionalProperties: false
+        bands:
+          type: object
+          propertyNames:
+            type: string
+            enum:
+            - standard
+            - large
+          additionalProperties:
+            type: integer
+            minimum: -9007199254740991
+            maximum: 9007199254740991
+          required:
+          - standard
+          - large
+        requiredTier:
+          type: string
+          enum:
+          - pro
+          - business
+          - enterprise
+      required:
+      - sdks
+      - apis
+      - bands
+      - requiredTier
+      additionalProperties: false
+    '422_3':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+      examples:
+      - message: The request body contains invalid values.
+        code: invalid-payload
+    pending-invite_2:
+      type: object
+      properties:
+        uid:
+          $ref: '#/components/schemas/nanoid_3'
+        role:
+          default: editor
+          $ref: '#/components/schemas/role'
+        email:
+          $ref: '#/components/schemas/email_3'
+        expires:
+          examples:
+          - 1735776000
+          type: number
+      required:
+      - uid
+      - role
+      - email
+      additionalProperties: false
+    active-deployment_3:
+      type: object
+      properties:
+        uid:
+          type: string
+          examples:
+          - UakgbKJ5m9gl0JDMbcJqL
+        domain:
+          type: string
+          examples:
+          - docs.example.com
+        publishedAt:
+          $ref: '#/components/schemas/timestamp_3'
+      required:
+      - uid
+      - domain
+      - publishedAt
+      additionalProperties: false
+    namespace_3:
+      type: string
+      minLength: 2
+      maxLength: 50
+      pattern: ^[a-zA-Z0-9-_]+$
+      examples:
+      - acme
+    user-ref_2:
+      type: object
+      properties:
+        uid:
+          $ref: '#/components/schemas/nanoid_3'
+        role:
+          $ref: '#/components/schemas/role'
+        displayName:
+          type: string
+          examples:
+          - Alex Morgan
+        imageUri:
+          examples:
+          - https://example.com/alex.png
+          type: string
+        activeProjectUid:
+          default: ''
+          type: string
+        nonBillable:
+          examples:
+          - false
+          default: false
+          type: boolean
+      required:
+      - uid
+      - role
+      - displayName
+      - activeProjectUid
+      additionalProperties: false
+    email_3:
+      type: string
+      format: email
+      pattern: ^(?!\.)(?!.*\.\.)([A-Za-z0-9_'+\-\.]*)[A-Za-z0-9_+-]@([A-Za-z0-9][A-Za-z0-9\-]*\.)+[A-Za-z]{2,}$
+      examples:
+      - alex@example.com
+    '404_3':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+      examples:
+      - message: Resource not found.
+        code: not-found
+    nanoid_3:
+      type: string
+      minLength: 5
+      examples:
+      - UakgbKJ5m9gl0JDMbcJqL
+    '500_3':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+      examples:
+      - message: An unexpected error occurred.
+        code: unknown
+    team-name-input_2:
+      type: string
+      maxLength: 100
+      examples:
+      - Acme
+      $ref: '#/components/schemas/team-name_3'
   securitySchemes:
     BearerAuth:
       type: http
@@ -4290,4 +4713,5 @@ components:
       bearerFormat: JWT
 x-refined-from:
 - scalar-core.json
+- scalar-openapi.json
 - scalar-openapi.json

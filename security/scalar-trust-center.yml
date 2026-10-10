@@ -1,13 +1,13 @@
-generated: '2026-07-11'
+generated: '2026-10-10'
 method: searched
 probe: true
-source: https://scalar.com/trust
-url: https://scalar.com/trust
+source: https://scalar.com/security
+url: https://scalar.com/security
 certifications:
 - SOC 2
 - GDPR
 evidence:
-- source: https://scalar.com/trust
+- source: https://scalar.com/security
   keywords:
   - soc 2
   - trust center

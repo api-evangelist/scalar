@@ -1,0 +1,54 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/scalar/main/json-schema/scalar-custom-project-icon-schema.json",
+  "title": "custom-project-icon",
+  "x-generated": "2026-10-04",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/scalar-team-api-openapi.yml#/components/schemas/custom-project-icon",
+  "type": "object",
+  "properties": {
+    "src": {
+      "default": "",
+      "type": "string"
+    },
+    "title": {
+      "type": "string"
+    },
+    "mask": {
+      "type": "boolean"
+    },
+    "tags": {
+      "default": [],
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "group": {
+      "type": "string",
+      "const": "custom"
+    },
+    "createdAt": {
+      "$ref": "#/$defs/timestamp"
+    },
+    "uploadedBy": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "src",
+    "tags",
+    "group",
+    "createdAt",
+    "uploadedBy"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "timestamp": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 9007199254740991
+    }
+  }
+}

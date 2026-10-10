@@ -1,0 +1,26 @@
+generated: '2026-10-04'
+method: generated
+generator: extract-docs-artifacts.py skills (local)
+source: openapi/scalar-openapi.json
+skills:
+- file: skills/scalar-payment-start-flow.md
+  name: scalar-payment-start-flow
+  api: openapi/scalar-openapi.json
+  operations:
+  - postPaymentStart
+  - postStripe
+  - postPaymentBillingStart
+- file: skills/scalar-webhook-create-test-fetch.md
+  name: scalar-webhook-create-test-fetch
+  api: openapi/scalar-openapi.json
+  operations:
+  - postV1Webhooks
+  - postV1WebhooksUidTest
+  - getV1WebhooksUidDeliveries
+- file: skills/scalar-access-groups-create.md
+  name: scalar-access-groups-create
+  api: openapi/scalar-openapi.json
+  operations:
+  - postV1AccessGroups
+  - postV1AccessGroupsUidEmails
+  - getV1AccessGroupsSlug

@@ -1,0 +1,203 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/scalar/main/json-schema/scalar-login-portal-schema.json",
+  "title": "login-portal",
+  "x-generated": "2026-10-04",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/scalar-login-portals-api-openapi.yml#/components/schemas/login-portal",
+  "type": "object",
+  "properties": {
+    "uid": {
+      "$ref": "#/$defs/nanoid"
+    },
+    "title": {
+      "type": "string",
+      "maxLength": 200
+    },
+    "slug": {
+      "$ref": "#/$defs/slug"
+    },
+    "email": {
+      "$ref": "#/$defs/login-portal-email"
+    },
+    "page": {
+      "$ref": "#/$defs/login-portal-page"
+    }
+  },
+  "required": [
+    "uid",
+    "title",
+    "slug",
+    "email",
+    "page"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "login-portal-email": {
+      "type": "object",
+      "properties": {
+        "logo": {
+          "default": "",
+          "type": "string"
+        },
+        "logoSize": {
+          "default": "100",
+          "type": "string"
+        },
+        "buttonText": {
+          "default": "Login",
+          "type": "string",
+          "maxLength": 50
+        },
+        "message": {
+          "default": "Click to access private documentation hosted by scalar.com",
+          "type": "string",
+          "maxLength": 1000
+        },
+        "title": {
+          "default": "Private Docs",
+          "type": "string",
+          "maxLength": 100
+        },
+        "mainColor": {
+          "default": "#2a2f45",
+          "type": "string",
+          "maxLength": 100
+        },
+        "mainBackground": {
+          "default": "#f6f6f6",
+          "type": "string",
+          "maxLength": 100
+        },
+        "cardColor": {
+          "default": "2a2f45",
+          "type": "string",
+          "maxLength": 100
+        },
+        "cardBackground": {
+          "default": "#fff",
+          "type": "string",
+          "maxLength": 100
+        },
+        "buttonColor": {
+          "default": "#fff",
+          "type": "string",
+          "maxLength": 100
+        },
+        "buttonBackground": {
+          "default": "#0f0f0f",
+          "type": "string",
+          "maxLength": 100
+        }
+      },
+      "required": [
+        "logo",
+        "logoSize",
+        "buttonText",
+        "message",
+        "title",
+        "mainColor",
+        "mainBackground",
+        "cardColor",
+        "cardBackground",
+        "buttonColor",
+        "buttonBackground"
+      ],
+      "additionalProperties": false
+    },
+    "login-portal-page": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "default": "Scalar Private Docs",
+          "type": "string",
+          "maxLength": 100
+        },
+        "description": {
+          "default": "Login to access your documentation",
+          "type": "string",
+          "maxLength": 500
+        },
+        "head": {
+          "default": "",
+          "type": "string"
+        },
+        "script": {
+          "default": "",
+          "type": "string"
+        },
+        "theme": {
+          "default": "",
+          "type": "string"
+        },
+        "companyName": {
+          "default": "",
+          "type": "string",
+          "maxLength": 100
+        },
+        "logo": {
+          "default": "",
+          "type": "string"
+        },
+        "logoURL": {
+          "default": "",
+          "type": "string"
+        },
+        "favicon": {
+          "default": "",
+          "type": "string"
+        },
+        "termsLink": {
+          "default": "",
+          "type": "string"
+        },
+        "privacyLink": {
+          "default": "",
+          "type": "string"
+        },
+        "formTitle": {
+          "default": "Scalar Private Docs",
+          "type": "string",
+          "maxLength": 100
+        },
+        "formDescription": {
+          "default": "Login to access your documentation",
+          "type": "string",
+          "maxLength": 500
+        },
+        "formImage": {
+          "default": "",
+          "type": "string"
+        }
+      },
+      "required": [
+        "title",
+        "description",
+        "head",
+        "script",
+        "theme",
+        "companyName",
+        "logo",
+        "logoURL",
+        "favicon",
+        "termsLink",
+        "privacyLink",
+        "formTitle",
+        "formDescription",
+        "formImage"
+      ],
+      "additionalProperties": false
+    },
+    "nanoid": {
+      "type": "string",
+      "minLength": 5
+    },
+    "slug": {
+      "type": "string",
+      "minLength": 3,
+      "maxLength": 60,
+      "pattern": "^[a-z](?:[a-z0-9-]*[a-z0-9])?$"
+    }
+  }
+}

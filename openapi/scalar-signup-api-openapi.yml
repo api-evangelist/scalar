@@ -6,7 +6,7 @@ info:
     url: https://scalar.com
     email: support@scalar.com
   version: '1.0'
-  description: 'Operations tagged signup across 2 of this provider''s published API definitions: scalar-core.json, scalar-openapi.json. Each path carries the servers of the definition it was published in.'
+  description: 'Operations tagged signup across 3 of this provider''s published API definitions: scalar-core.json, scalar-openapi.json, scalar-openapi.json. Each path carries the servers of the definition it was published in.'
 servers:
 - url: https://api.scalar.com/core
 security:
@@ -102,7 +102,32 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    '404':
+    project-icon:
+      $ref: '#/components/schemas/project-icon-info'
+    header-link-guide:
+      type: object
+      properties:
+        uid:
+          $ref: '#/components/schemas/nanoid'
+        title:
+          type: string
+        show:
+          default: true
+          type: boolean
+        isStarred:
+          default: false
+          type: boolean
+        type:
+          type: string
+          const: guide
+      required:
+      - uid
+      - title
+      - show
+      - isStarred
+      - type
+      additionalProperties: false
+    '401':
       type: object
       properties:
         message:
@@ -112,6 +137,197 @@ components:
       required:
       - message
       - code
+    header-link-reference:
+      type: object
+      properties:
+        uid:
+          $ref: '#/components/schemas/nanoid'
+        title:
+          type: string
+        show:
+          default: true
+          type: boolean
+        isStarred:
+          default: false
+          type: boolean
+        type:
+          type: string
+          const: reference
+        hasPermalink:
+          default: false
+          description: Whether the reference has a permalinked reference or not
+          type: boolean
+        hasManagedDoc:
+          default: false
+          description: Whether the reference has a linked registry API
+          type: boolean
+      required:
+      - uid
+      - title
+      - show
+      - isStarred
+      - type
+      - hasPermalink
+      - hasManagedDoc
+      additionalProperties: false
+    sidebar-folder:
+      type: object
+      properties:
+        uid:
+          $ref: '#/components/schemas/nanoid'
+        title:
+          type: string
+          minLength: 1
+        type:
+          type: string
+          const: Folder
+        link:
+          type: string
+        icon:
+          $ref: '#/components/schemas/project-icon'
+        children:
+          default: []
+          type: array
+          items:
+            type: string
+        description:
+          type: string
+        show:
+          type: boolean
+        defaultOpen:
+          type: boolean
+      required:
+      - uid
+      - title
+      - type
+      - children
+      - show
+      additionalProperties: false
+    '403':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+    project-icon-info:
+      type: object
+      properties:
+        src:
+          default: ''
+          type: string
+        title:
+          type: string
+        mask:
+          type: boolean
+      required:
+      - src
+      additionalProperties: false
+    '400':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+    slug:
+      type: string
+      minLength: 3
+      maxLength: 60
+      pattern: ^[a-z](?:[a-z0-9-]*[a-z0-9])?$
+    sidebar-item:
+      anyOf:
+      - $ref: '#/components/schemas/sidebar-link'
+      - $ref: '#/components/schemas/sidebar-page'
+      - $ref: '#/components/schemas/sidebar-folder'
+    sidebar-page:
+      type: object
+      properties:
+        uid:
+          $ref: '#/components/schemas/nanoid'
+        title:
+          type: string
+          minLength: 1
+        type:
+          type: string
+          const: Page
+        link:
+          type: string
+        icon:
+          $ref: '#/components/schemas/project-icon'
+        children:
+          default: []
+          type: array
+          items:
+            type: string
+        description:
+          type: string
+        show:
+          type: boolean
+        sidebarTitle:
+          type: string
+        defaultOpen:
+          type: boolean
+        yjsReference:
+          type: string
+        backgroundImage:
+          type: string
+        isMdx:
+          default: false
+          type: boolean
+        isHtml:
+          default: false
+          type: boolean
+      required:
+      - uid
+      - title
+      - type
+      - children
+      - description
+      - show
+      - yjsReference
+      - isMdx
+      - isHtml
+      additionalProperties: false
+    reference-managed-doc:
+      type: object
+      properties:
+        namespace:
+          $ref: '#/components/schemas/namespace'
+        slug:
+          $ref: '#/components/schemas/slug'
+        versions:
+          default:
+          - latest
+          type: array
+          items:
+            type: string
+      required:
+      - namespace
+      - slug
+      - versions
+      additionalProperties: false
+    '422':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+    namespace:
+      type: string
+      minLength: 3
+      maxLength: 50
+      pattern: ^[a-zA-Z0-9-_]+$
     header-link-version-selector:
       type: object
       properties:
@@ -135,7 +351,7 @@ components:
       - isStarred
       - type
       additionalProperties: false
-    header-link-group:
+    header-link-external:
       type: object
       properties:
         uid:
@@ -150,33 +366,64 @@ components:
           type: boolean
         type:
           type: string
-          const: group
-        children:
-          type: array
-          items:
-            anyOf:
-            - $ref: '#/components/schemas/header-link-guide'
-            - $ref: '#/components/schemas/header-link-reference'
-            - $ref: '#/components/schemas/header-link-external'
-          description: Children of the group. Groups cannot contain other groups, spacers, or the version selector
+          const: link
+        isButton:
+          default: false
+          type: boolean
+        link:
+          type: string
       required:
       - uid
       - title
       - show
       - isStarred
       - type
-      - children
+      - isButton
+      - link
       additionalProperties: false
-    '422':
+    theme:
       type: object
       properties:
-        message:
+        uid:
+          $ref: '#/components/schemas/nanoid'
+        name:
           type: string
-        code:
+        description:
           type: string
+        theme:
+          type: string
+        slug:
+          $ref: '#/components/schemas/slug'
       required:
-      - message
-      - code
+      - uid
+      - name
+      - description
+      - theme
+      - slug
+      additionalProperties: false
+    header-link-spacer:
+      type: object
+      properties:
+        uid:
+          $ref: '#/components/schemas/nanoid'
+        title:
+          type: string
+        show:
+          default: true
+          type: boolean
+        isStarred:
+          default: false
+          type: boolean
+        type:
+          type: string
+          const: spacer
+      required:
+      - uid
+      - title
+      - show
+      - isStarred
+      - type
+      additionalProperties: false
     project-version:
       type: object
       properties:
@@ -234,213 +481,6 @@ components:
       - headScript
       - bodyScript
       additionalProperties: false
-    project-icon-info:
-      type: object
-      properties:
-        src:
-          default: ''
-          type: string
-        title:
-          type: string
-        mask:
-          type: boolean
-      required:
-      - src
-      additionalProperties: false
-    header-link-spacer:
-      type: object
-      properties:
-        uid:
-          $ref: '#/components/schemas/nanoid'
-        title:
-          type: string
-        show:
-          default: true
-          type: boolean
-        isStarred:
-          default: false
-          type: boolean
-        type:
-          type: string
-          const: spacer
-      required:
-      - uid
-      - title
-      - show
-      - isStarred
-      - type
-      additionalProperties: false
-    nanoid:
-      type: string
-      minLength: 5
-    sidebar-page:
-      type: object
-      properties:
-        uid:
-          $ref: '#/components/schemas/nanoid'
-        title:
-          type: string
-          minLength: 1
-        type:
-          type: string
-          const: Page
-        link:
-          type: string
-        icon:
-          $ref: '#/components/schemas/project-icon'
-        children:
-          default: []
-          type: array
-          items:
-            type: string
-        description:
-          type: string
-        show:
-          type: boolean
-        sidebarTitle:
-          type: string
-        defaultOpen:
-          type: boolean
-        yjsReference:
-          type: string
-        backgroundImage:
-          type: string
-        isMdx:
-          default: false
-          type: boolean
-        isHtml:
-          default: false
-          type: boolean
-      required:
-      - uid
-      - title
-      - type
-      - children
-      - description
-      - show
-      - yjsReference
-      - isMdx
-      - isHtml
-      additionalProperties: false
-    slug:
-      type: string
-      minLength: 3
-      maxLength: 60
-      pattern: ^[a-z](?:[a-z0-9-]*[a-z0-9])?$
-    sidebar-folder:
-      type: object
-      properties:
-        uid:
-          $ref: '#/components/schemas/nanoid'
-        title:
-          type: string
-          minLength: 1
-        type:
-          type: string
-          const: Folder
-        link:
-          type: string
-        icon:
-          $ref: '#/components/schemas/project-icon'
-        children:
-          default: []
-          type: array
-          items:
-            type: string
-        description:
-          type: string
-        show:
-          type: boolean
-        defaultOpen:
-          type: boolean
-      required:
-      - uid
-      - title
-      - type
-      - children
-      - show
-      additionalProperties: false
-    namespace:
-      type: string
-      minLength: 3
-      maxLength: 50
-      pattern: ^[a-zA-Z0-9-_]+$
-    theme:
-      type: object
-      properties:
-        uid:
-          $ref: '#/components/schemas/nanoid'
-        name:
-          type: string
-        description:
-          type: string
-        theme:
-          type: string
-        slug:
-          $ref: '#/components/schemas/slug'
-      required:
-      - uid
-      - name
-      - description
-      - theme
-      - slug
-      additionalProperties: false
-    header-link-guide:
-      type: object
-      properties:
-        uid:
-          $ref: '#/components/schemas/nanoid'
-        title:
-          type: string
-        show:
-          default: true
-          type: boolean
-        isStarred:
-          default: false
-          type: boolean
-        type:
-          type: string
-          const: guide
-      required:
-      - uid
-      - title
-      - show
-      - isStarred
-      - type
-      additionalProperties: false
-    header-link-reference:
-      type: object
-      properties:
-        uid:
-          $ref: '#/components/schemas/nanoid'
-        title:
-          type: string
-        show:
-          default: true
-          type: boolean
-        isStarred:
-          default: false
-          type: boolean
-        type:
-          type: string
-          const: reference
-        hasPermalink:
-          default: false
-          description: Whether the reference has a permalinked reference or not
-          type: boolean
-        hasManagedDoc:
-          default: false
-          description: Whether the reference has a linked registry API
-          type: boolean
-      required:
-      - uid
-      - title
-      - show
-      - isStarred
-      - type
-      - hasPermalink
-      - hasManagedDoc
-      additionalProperties: false
     sidebar-link:
       type: object
       properties:
@@ -471,16 +511,38 @@ components:
       - link
       - show
       additionalProperties: false
-    '401':
+    header-link-group:
       type: object
       properties:
-        message:
+        uid:
+          $ref: '#/components/schemas/nanoid'
+        title:
           type: string
-        code:
+        show:
+          default: true
+          type: boolean
+        isStarred:
+          default: false
+          type: boolean
+        type:
           type: string
+          const: group
+        children:
+          type: array
+          items:
+            anyOf:
+            - $ref: '#/components/schemas/header-link-guide'
+            - $ref: '#/components/schemas/header-link-reference'
+            - $ref: '#/components/schemas/header-link-external'
+          description: Children of the group. Groups cannot contain other groups, spacers, or the version selector
       required:
-      - message
-      - code
+      - uid
+      - title
+      - show
+      - isStarred
+      - type
+      - children
+      additionalProperties: false
     header-link:
       anyOf:
       - $ref: '#/components/schemas/header-link-guide'
@@ -506,36 +568,6 @@ components:
       - items
       - children
       additionalProperties: false
-    project-icon:
-      $ref: '#/components/schemas/project-icon-info'
-    reference-managed-doc:
-      type: object
-      properties:
-        namespace:
-          $ref: '#/components/schemas/namespace'
-        slug:
-          $ref: '#/components/schemas/slug'
-        versions:
-          default:
-          - latest
-          type: array
-          items:
-            type: string
-      required:
-      - namespace
-      - slug
-      - versions
-      additionalProperties: false
-    '403':
-      type: object
-      properties:
-        message:
-          type: string
-        code:
-          type: string
-      required:
-      - message
-      - code
     guide:
       type: object
       properties:
@@ -565,7 +597,17 @@ components:
       - isButton
       - isStarred
       additionalProperties: false
-    '400':
+    '404':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+    '500':
       type: object
       properties:
         message:
@@ -618,124 +660,9 @@ components:
       - isButton
       - isStarred
       additionalProperties: false
-    header-link-external:
-      type: object
-      properties:
-        uid:
-          $ref: '#/components/schemas/nanoid'
-        title:
-          type: string
-        show:
-          default: true
-          type: boolean
-        isStarred:
-          default: false
-          type: boolean
-        type:
-          type: string
-          const: link
-        isButton:
-          default: false
-          type: boolean
-        link:
-          type: string
-      required:
-      - uid
-      - title
-      - show
-      - isStarred
-      - type
-      - isButton
-      - link
-      additionalProperties: false
-    '500':
-      type: object
-      properties:
-        message:
-          type: string
-        code:
-          type: string
-      required:
-      - message
-      - code
-    sidebar-item:
-      anyOf:
-      - $ref: '#/components/schemas/sidebar-link'
-      - $ref: '#/components/schemas/sidebar-page'
-      - $ref: '#/components/schemas/sidebar-folder'
-    '404_2':
-      type: object
-      properties:
-        message:
-          type: string
-        code:
-          type: string
-      required:
-      - message
-      - code
-      examples:
-      - message: Resource not found.
-        code: not-found
-    '422_2':
-      type: object
-      properties:
-        message:
-          type: string
-        code:
-          type: string
-      required:
-      - message
-      - code
-      examples:
-      - message: The request body contains invalid values.
-        code: invalid-payload
-    nanoid_2:
+    nanoid:
       type: string
       minLength: 5
-      examples:
-      - UakgbKJ5m9gl0JDMbcJqL
-    slug_2:
-      type: string
-      minLength: 1
-      maxLength: 60
-      pattern: ^[a-z](?:[a-z0-9-]*[a-z0-9])?$
-      examples:
-      - acme-api
-    namespace_2:
-      type: string
-      minLength: 2
-      maxLength: 50
-      pattern: ^[a-zA-Z0-9-_]+$
-      examples:
-      - acme
-    theme_2:
-      type: object
-      properties:
-        uid:
-          $ref: '#/components/schemas/nanoid_2'
-        name:
-          type: string
-          examples:
-          - Acme Theme
-        description:
-          type: string
-          examples:
-          - Custom colors for Acme documentation.
-        theme:
-          type: string
-          examples:
-          - ':root { --scalar-color-1: #1f2937; }'
-        slug:
-          examples:
-          - acme-theme
-          $ref: '#/components/schemas/slug_2'
-      required:
-      - uid
-      - name
-      - description
-      - theme
-      - slug
-      additionalProperties: false
     '401_2':
       type: object
       properties:
@@ -775,6 +702,74 @@ components:
       examples:
       - message: Invalid request parameters.
         code: bad-request
+    slug_2:
+      type: string
+      minLength: 1
+      maxLength: 60
+      pattern: ^[a-z](?:[a-z0-9-]*[a-z0-9])?$
+      examples:
+      - acme-api
+    '422_2':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+      examples:
+      - message: The request body contains invalid values.
+        code: invalid-payload
+    namespace_2:
+      type: string
+      minLength: 2
+      maxLength: 50
+      pattern: ^[a-zA-Z0-9-_]+$
+      examples:
+      - acme
+    theme_2:
+      type: object
+      properties:
+        uid:
+          $ref: '#/components/schemas/nanoid_2'
+        name:
+          type: string
+          examples:
+          - Acme Theme
+        description:
+          type: string
+          examples:
+          - Custom colors for Acme documentation.
+        theme:
+          type: string
+          examples:
+          - ':root { --scalar-color-1: #1f2937; }'
+        slug:
+          examples:
+          - acme-theme
+          $ref: '#/components/schemas/slug_2'
+      required:
+      - uid
+      - name
+      - description
+      - theme
+      - slug
+      additionalProperties: false
+    '404_2':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+      examples:
+      - message: Resource not found.
+        code: not-found
     '500_2':
       type: object
       properties:
@@ -788,6 +783,136 @@ components:
       examples:
       - message: An unexpected error occurred.
         code: unknown
+    nanoid_2:
+      type: string
+      minLength: 5
+      examples:
+      - UakgbKJ5m9gl0JDMbcJqL
+    '401_3':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+      examples:
+      - message: Invalid authentication token.
+        code: unauthorized
+    '403_3':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+      examples:
+      - message: You do not have permission to access this resource.
+        code: forbidden
+    '400_3':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+      examples:
+      - message: Invalid request parameters.
+        code: bad-request
+    slug_3:
+      type: string
+      minLength: 1
+      maxLength: 60
+      pattern: ^[a-z](?:[a-z0-9-]*[a-z0-9])?$
+      examples:
+      - acme-api
+    '422_3':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+      examples:
+      - message: The request body contains invalid values.
+        code: invalid-payload
+    namespace_3:
+      type: string
+      minLength: 2
+      maxLength: 50
+      pattern: ^[a-zA-Z0-9-_]+$
+      examples:
+      - acme
+    theme_3:
+      type: object
+      properties:
+        uid:
+          $ref: '#/components/schemas/nanoid_3'
+        name:
+          type: string
+          examples:
+          - Acme Theme
+        description:
+          type: string
+          examples:
+          - Custom colors for Acme documentation.
+        theme:
+          type: string
+          examples:
+          - ':root { --scalar-color-1: #1f2937; }'
+        slug:
+          examples:
+          - acme-theme
+          $ref: '#/components/schemas/slug_3'
+      required:
+      - uid
+      - name
+      - description
+      - theme
+      - slug
+      additionalProperties: false
+    '404_3':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+      examples:
+      - message: Resource not found.
+        code: not-found
+    '500_3':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+      examples:
+      - message: An unexpected error occurred.
+        code: unknown
+    nanoid_3:
+      type: string
+      minLength: 5
+      examples:
+      - UakgbKJ5m9gl0JDMbcJqL
   securitySchemes:
     BearerAuth:
       type: http
@@ -795,4 +920,5 @@ components:
       bearerFormat: JWT
 x-refined-from:
 - scalar-core.json
+- scalar-openapi.json
 - scalar-openapi.json

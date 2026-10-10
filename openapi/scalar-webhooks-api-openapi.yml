@@ -1,12 +1,12 @@
 openapi: 3.2.0
 info:
-  title: Core Webhooks API
-  description: Core services for Scalar
+  title: Scalar Webhooks API
   version: 0.1.0
   contact:
     name: Marc from Scalar
     url: https://scalar.com
     email: support@scalar.com
+  description: 'Operations tagged webhooks across 2 of this provider''s published API definitions: scalar-openapi.json, scalar-openapi.json. Each path carries the servers of the definition it was published in.'
 servers:
 - url: https://api.scalar.com/core
 security:
@@ -132,8 +132,10 @@ paths:
               - description
               additionalProperties: false
         required: true
-      summary: Post V1 webhooks
+      summary: Post V1Webhooks
       x-summary-source: derived
+    servers:
+    - url: https://api.scalar.com/core
   /v1/webhooks/{uid}:
     patch:
       tags:
@@ -251,7 +253,7 @@ paths:
         in: path
         name: uid
         required: true
-      summary: Patch V1 webhooks uid
+      summary: Patch V1Webhooks uid
       x-summary-source: derived
     delete:
       tags:
@@ -307,8 +309,10 @@ paths:
         in: path
         name: uid
         required: true
-      summary: Delete V1 webhooks uid
+      summary: Delete V1Webhooks uid
       x-summary-source: derived
+    servers:
+    - url: https://api.scalar.com/core
   /v1/webhooks/{uid}/secret:
     post:
       tags:
@@ -390,8 +394,10 @@ paths:
         in: path
         name: uid
         required: true
-      summary: Post V1 webhooks uid secret
+      summary: Post V1Webhooks uid secret
       x-summary-source: derived
+    servers:
+    - url: https://api.scalar.com/core
   /v1/webhooks/delivery-counts:
     get:
       tags:
@@ -452,8 +458,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/500'
-      summary: Get V1 webhooks delivery counts
+      summary: Get V1Webhooks delivery counts
       x-summary-source: derived
+    servers:
+    - url: https://api.scalar.com/core
   /v1/webhooks/{uid}/deliveries:
     get:
       tags:
@@ -558,8 +566,10 @@ paths:
         in: path
         name: uid
         required: true
-      summary: Get V1 webhooks uid deliveries
+      summary: Get V1Webhooks uid deliveries
       x-summary-source: derived
+    servers:
+    - url: https://api.scalar.com/core
   /v1/webhooks/{uid}/test:
     post:
       tags:
@@ -621,8 +631,10 @@ paths:
         in: path
         name: uid
         required: true
-      summary: Post V1 webhooks uid test
+      summary: Post V1Webhooks uid test
       x-summary-source: derived
+    servers:
+    - url: https://api.scalar.com/core
 webhooks:
   sdk.build.completed:
     post:
@@ -660,6 +672,8 @@ webhooks:
         required: true
         schema:
           type: string
+    servers:
+    - url: https://api.scalar.com/core
 components:
   schemas:
     sdk-build-outcome:
@@ -668,115 +682,12 @@ components:
       - succeeded
       - partial
       - failed
-    nanoid:
-      type: string
-      minLength: 5
-      examples:
-      - UakgbKJ5m9gl0JDMbcJqL
-    '404':
-      type: object
-      properties:
-        message:
-          type: string
-        code:
-          type: string
-      required:
-      - message
-      - code
-      examples:
-      - message: Resource not found.
-        code: not-found
     timestamp:
       type: integer
       minimum: 0
       maximum: 9007199254740991
       examples:
       - 1735689600
-    webhook-disabled-reason:
-      type: string
-      enum:
-      - consecutive-failures
-    '403':
-      type: object
-      properties:
-        message:
-          type: string
-        code:
-          type: string
-      required:
-      - message
-      - code
-      examples:
-      - message: You do not have permission to access this resource.
-        code: forbidden
-    sdk-build-status:
-      type: string
-      enum:
-      - pending
-      - error
-      - generated
-    '422':
-      type: object
-      properties:
-        message:
-          type: string
-        code:
-          type: string
-      required:
-      - message
-      - code
-      examples:
-      - message: The request body contains invalid values.
-        code: invalid-payload
-    '401':
-      type: object
-      properties:
-        message:
-          type: string
-        code:
-          type: string
-      required:
-      - message
-      - code
-      examples:
-      - message: Invalid authentication token.
-        code: unauthorized
-    webhook-delivery-status:
-      type: string
-      enum:
-      - pending
-      - succeeded
-      - failed
-    webhook-event:
-      type: string
-      enum:
-      - sdk.build.completed
-    '400':
-      type: object
-      properties:
-        message:
-          type: string
-        code:
-          type: string
-      required:
-      - message
-      - code
-      examples:
-      - message: Invalid request parameters.
-        code: bad-request
-    '500':
-      type: object
-      properties:
-        message:
-          type: string
-        code:
-          type: string
-      required:
-      - message
-      - code
-      examples:
-      - message: An unexpected error occurred.
-        code: unknown
     sdk-build-completed-event:
       type: object
       properties:
@@ -858,8 +769,114 @@ components:
       - createdAt
       - data
       additionalProperties: false
+    webhook-delivery-status:
+      type: string
+      enum:
+      - pending
+      - succeeded
+      - failed
+    '401':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+      examples:
+      - message: Invalid authentication token.
+        code: unauthorized
+    '422':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+      examples:
+      - message: The request body contains invalid values.
+        code: invalid-payload
+    nanoid:
+      type: string
+      minLength: 5
+      examples:
+      - UakgbKJ5m9gl0JDMbcJqL
+    '404':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+      examples:
+      - message: Resource not found.
+        code: not-found
+    '403':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+      examples:
+      - message: You do not have permission to access this resource.
+        code: forbidden
+    sdk-build-status:
+      type: string
+      enum:
+      - pending
+      - error
+      - generated
+    webhook-disabled-reason:
+      type: string
+      enum:
+      - consecutive-failures
+    webhook-event:
+      type: string
+      enum:
+      - sdk.build.completed
+    '500':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+      examples:
+      - message: An unexpected error occurred.
+        code: unknown
+    '400':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+      examples:
+      - message: Invalid request parameters.
+        code: bad-request
   securitySchemes:
     BearerAuth:
       type: http
       scheme: bearer
       bearerFormat: JWT
+x-refined-from:
+- scalar-openapi.json
+- scalar-openapi.json

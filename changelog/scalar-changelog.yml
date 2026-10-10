@@ -1,0 +1,88 @@
+generated: '2026-10-04'
+method: searched
+generator: extract-docs-artifacts.py (local)
+source: https://scalar.com/products/docs/configuration/migration/index.md
+sources:
+- https://scalar.com/products/docs/configuration/migration/index.md
+- https://scalar.com/products/docs/components/row/index.md
+- https://scalar.com/products/agent/release-notes/index.md
+- https://scalar.com/products/api-references/changelog/index.md
+entries:
+- breaking: false
+  highlights:
+  - API Reference UI localization, AsyncAPI protocol filters, and custom legal links
+  - Configure API Reference UI language with built‑in English, Russian, Spanish, French, German, Simplified Chinese, and Arabic translations,
+    plus automatic RTL direction for Arabic locales
+  - Filter AsyncAPI sidebar navigation by protocol and server to narrow down operations reachable over a selected protocol or server
+  - Render custom legal links (privacy policy, imprint) in the introduction using the new `x-scalar-links` OpenAPI extension
+  date: '2026-06-26'
+- breaking: false
+  highlights:
+  - AsyncAPI operations, messages, and protocols now render inline
+  - AsyncAPI operations and their messages (with payload and header schemas) now render nested inside each channel in both modern and classic
+    layouts
+  - Channel headers show which servers they are available on and their protocols, while message headers display every protocol they are carried
+    over
+  - New requestBuilt client plugin hook and onRequestBuilt callback expose the exact fetch Request sent over the wire, enabling request signing
+    with accurate body hashes
+  date: '2026-06-22'
+- breaking: false
+  highlights:
+  - Plugin view slots, sidebar customization, and layout polish
+  - Plugins can now inject components before the introduction section with the new content.start view slot
+  - Plugin views can opt in to sidebar navigation with the sidebar visibility option
+  - Deep links to nested schema properties now expand collapsed sections and scroll into view automatically
+  date: '2026-06-17'
+- breaking: false
+  highlights:
+  - Path item references, redirects, and SDK tab sync
+  - Operations now appear correctly when OpenAPI path items reference components.pathItems instead of inlining methods
+  - Old model bookmarks automatically redirect to custom section slugs when you have renamed the models section
+  - Selecting a language in SDK installation tabs now switches every operation's code sample to that language
+  date: '2026-06-11'
+- breaking: false
+  highlights:
+  - Restore deprecated source field for SDK installation commands
+  - The deprecated `source` field on `x-scalar-sdk-installation` is now supported again for backward compatibility
+  - When present, it is automatically appended to the `description` as a fenced code block, or used on its own when there is no `description`
+  date: '2026-06-09'
+- breaking: false
+  highlights:
+  - Fixed examples panel layout in operation view
+  date: '2026-06-09'
+- breaking: false
+  highlights:
+  - AsyncAPI server and channel parameters, CSP nonce support, and expanded schemas
+  - AsyncAPI channel address parameters are now rendered in the API reference, showing their enum, default, and example values alongside operation
+    parameters
+  - A server selector for AsyncAPI documents displays constructed connection URLs and persists selection and variable changes to the workspace
+    store
+  - Pass a nonce option to run the API reference under a strict Content Security Policy with no unsafe‑inline or unsafe‑eval
+  date: '2026-06-08'
+- breaking: false
+  highlights:
+  - AsyncAPI support and improved bundle performance
+  - AsyncAPI schemas render as Models in the sidebar, content, and search alongside OpenAPI schemas
+  - AsyncAPI channels appear in the content area with their address and description, grouped by tags when configured
+  - New ESM standalone bundle with code splitting drops initial load from 3.32 MB to 2.73 MB by lazy‑loading the API client modal and icon library
+  date: '2026-06-01'
+- breaking: false
+  highlights:
+  - Response content type selector works with expanded responses
+  - When every response is expanded by default, the content type picker now stays above the response body and remains clickable
+  date: '2026-05-27'
+- breaking: false
+  highlights:
+  - Custom fetch support and clearer schema examples
+  - You can now pass a custom fetch implementation through API Reference configuration so Test Request calls honor options like credentials
+  - Added customFetch configuration and deprecated the previous fetch option with an automatic migration path
+  - Fixed rendering for null, whitespace‑only, and value or externalValue schema examples
+  date: '2026-05-21'
+- breaking: false
+  highlights:
+  - Security badge layout stays intact
+  - The security badge no longer shrinks in tight layouts, so operation headers stay readable on smaller screens
+  date: '2026-05-15'
+current_version: 1.62.0
+note: Versioning scheme follows semantic versioning (major.minor.patch).
+docs: https://scalar.com/products/docs/configuration/migration/index.md

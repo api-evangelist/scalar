@@ -1,0 +1,155 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/scalar/main/json-schema/scalar-linked-repository-schema.json",
+  "title": "linked-repository",
+  "x-generated": "2026-10-05",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/scalar-registry-git-api-openapi.yml#/components/schemas/linked-repository",
+  "type": "object",
+  "properties": {
+    "uid": {
+      "default": "nanoid()",
+      "$ref": "#/$defs/nanoid"
+    },
+    "createdAt": {
+      "$ref": "#/$defs/timestamp"
+    },
+    "updatedAt": {
+      "$ref": "#/$defs/timestamp"
+    },
+    "remote": {
+      "$ref": "#/$defs/linked-repository-remote"
+    },
+    "forgejo": {
+      "default": null,
+      "anyOf": [
+        {
+          "type": "object",
+          "properties": {
+            "owner": {
+              "type": "string"
+            },
+            "repo": {
+              "type": "string"
+            },
+            "branch": {
+              "default": "main",
+              "type": "string"
+            }
+          },
+          "required": [
+            "owner",
+            "repo",
+            "branch"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "linkedBy": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "uid",
+    "createdAt",
+    "updatedAt",
+    "remote",
+    "forgejo",
+    "linkedBy"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "linked-repository-remote": {
+      "oneOf": [
+        {
+          "type": "object",
+          "properties": {
+            "provider": {
+              "type": "string",
+              "const": "github"
+            },
+            "installationId": {
+              "type": "integer",
+              "minimum": -9007199254740991,
+              "maximum": 9007199254740991
+            },
+            "id": {
+              "type": "integer",
+              "minimum": -9007199254740991,
+              "maximum": 9007199254740991
+            },
+            "name": {
+              "type": "string",
+              "minLength": 2
+            },
+            "defaultBranch": {
+              "default": "main",
+              "type": "string"
+            }
+          },
+          "required": [
+            "provider",
+            "installationId",
+            "id",
+            "name",
+            "defaultBranch"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "provider": {
+              "type": "string",
+              "const": "bitbucket"
+            },
+            "workspaceUuid": {
+              "type": "string"
+            },
+            "workspaceSlug": {
+              "type": "string"
+            },
+            "repoUuid": {
+              "type": "string"
+            },
+            "repoSlug": {
+              "type": "string"
+            },
+            "name": {
+              "type": "string",
+              "minLength": 2
+            },
+            "defaultBranch": {
+              "default": "main",
+              "type": "string"
+            }
+          },
+          "required": [
+            "provider",
+            "workspaceUuid",
+            "workspaceSlug",
+            "repoUuid",
+            "repoSlug",
+            "name",
+            "defaultBranch"
+          ],
+          "additionalProperties": false
+        }
+      ]
+    },
+    "nanoid": {
+      "type": "string",
+      "minLength": 5
+    },
+    "timestamp": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 9007199254740991
+    }
+  }
+}

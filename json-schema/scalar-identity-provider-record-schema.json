@@ -1,0 +1,89 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/scalar/main/json-schema/scalar-identity-provider-record-schema.json",
+  "title": "identity-provider-record",
+  "x-generated": "2026-10-04",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/scalar-auth-api-openapi.yml#/components/schemas/identity-provider-record",
+  "type": "object",
+  "properties": {
+    "uid": {
+      "$ref": "#/$defs/nanoid"
+    },
+    "createdAt": {
+      "default": "unixTimestamp()",
+      "$ref": "#/$defs/timestamp"
+    },
+    "updatedAt": {
+      "default": "unixTimestamp()",
+      "$ref": "#/$defs/timestamp"
+    },
+    "name": {
+      "type": "string"
+    },
+    "provider": {
+      "type": "string",
+      "enum": [
+        "local",
+        "google",
+        "okta",
+        "auth0",
+        "azure",
+        "one-login",
+        "ping-identity"
+      ]
+    },
+    "createUsers": {
+      "default": false,
+      "type": "boolean"
+    },
+    "signRequests": {
+      "default": false,
+      "type": "boolean"
+    },
+    "ssoUrl": {
+      "default": "",
+      "description": "This URL is used by Scalar to initiate a SAML login.",
+      "type": "string"
+    },
+    "issuer": {
+      "default": "",
+      "description": "This is the URI that identifies your SAML identity provider. Any assertions must use a matching <saml:Issuer> attribute.",
+      "type": "string"
+    },
+    "x509Cert": {
+      "default": "",
+      "description": "The authentication certificate issued by your identity provider",
+      "type": "string"
+    },
+    "consumerOnly": {
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "uid",
+    "createdAt",
+    "updatedAt",
+    "name",
+    "provider",
+    "createUsers",
+    "signRequests",
+    "ssoUrl",
+    "issuer",
+    "x509Cert",
+    "consumerOnly"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "nanoid": {
+      "type": "string",
+      "minLength": 5
+    },
+    "timestamp": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 9007199254740991
+    }
+  }
+}

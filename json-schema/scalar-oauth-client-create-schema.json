@@ -1,0 +1,61 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/scalar/main/json-schema/scalar-oauth-client-create-schema.json",
+  "title": "oauth-client-create",
+  "x-generated": "2026-10-05",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/scalar-oauth-api-openapi.yml#/components/schemas/oauth-client-create",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 100
+    },
+    "type": {
+      "$ref": "#/$defs/oauth-client-type"
+    },
+    "redirectUris": {
+      "minItems": 1,
+      "maxItems": 10,
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 2048
+      }
+    },
+    "allowedScopes": {
+      "minItems": 1,
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/oauth-scope"
+      }
+    }
+  },
+  "required": [
+    "name",
+    "type",
+    "redirectUris",
+    "allowedScopes"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "oauth-client-type": {
+      "type": "string",
+      "enum": [
+        "confidential",
+        "public"
+      ]
+    },
+    "oauth-scope": {
+      "type": "string",
+      "enum": [
+        "read",
+        "write",
+        "admin"
+      ]
+    }
+  }
+}

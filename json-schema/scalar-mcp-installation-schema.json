@@ -1,0 +1,174 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/scalar/main/json-schema/scalar-mcp-installation-schema.json",
+  "title": "mcp-installation",
+  "x-generated": "2026-10-05",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/scalar-mcp-servers-api-openapi.yml#/components/schemas/mcp-installation",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "mcpServerId": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    },
+    "slug": {
+      "$ref": "#/$defs/slug"
+    },
+    "documentAuth": {
+      "type": "object",
+      "propertyNames": {
+        "type": "string"
+      },
+      "additionalProperties": {}
+    },
+    "isPrivate": {
+      "type": "boolean"
+    },
+    "accessGroups": {
+      "default": [],
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "loginPortalUid": {
+      "default": null,
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "authConfig": {
+      "default": {},
+      "type": "object",
+      "propertyNames": {
+        "type": "string"
+      },
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "mode": {
+            "default": "global",
+            "type": "string",
+            "enum": [
+              "global",
+              "passthrough",
+              "identity",
+              "oauth"
+            ]
+          },
+          "passthrough": {
+            "default": [],
+            "maxItems": 20,
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "in": {
+                  "type": "string",
+                  "enum": [
+                    "header",
+                    "query"
+                  ]
+                },
+                "name": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 128,
+                  "pattern": "^[A-Za-z0-9!#$%&'*+\\-.^_`|~]+$"
+                }
+              },
+              "required": [
+                "in",
+                "name"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "oauth": {
+            "type": "object",
+            "properties": {
+              "authorizationServer": {
+                "type": "string",
+                "format": "uri"
+              },
+              "scopes": {
+                "default": [],
+                "maxItems": 50,
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 200,
+                  "pattern": "^[\\x21\\x23-\\x5B\\x5D-\\x7E]+$"
+                }
+              }
+            },
+            "required": [
+              "authorizationServer",
+              "scopes"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "required": [
+          "mode",
+          "passthrough"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "mcpVersion": {
+      "default": null,
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "piiRedactionEnabled": {
+      "default": false,
+      "type": "boolean"
+    },
+    "credentialRedactionEnabled": {
+      "default": false,
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "id",
+    "mcpServerId",
+    "name",
+    "slug",
+    "documentAuth",
+    "isPrivate",
+    "accessGroups",
+    "loginPortalUid",
+    "authConfig",
+    "mcpVersion",
+    "piiRedactionEnabled",
+    "credentialRedactionEnabled"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "slug": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 60,
+      "pattern": "^[a-z](?:[a-z0-9-]*[a-z0-9])?$"
+    }
+  }
+}

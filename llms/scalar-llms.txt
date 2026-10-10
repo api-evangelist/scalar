@@ -1,0 +1,35 @@
+# Scalar Documentation
+
+> Guides for Scalar, covering your favorite frameworks, languages and use cases.
+
+## Scalar
+
+- [Introduction](https://scalar.com/index.md): Create beautiful docs, SDKs and secure MCP servers from your API. Scalar keeps every interface in sync as your API evolves.
+- [Pricing](https://scalar.com/pricing/index.md): Transparent pricing for developer documentation, SDKs, and API tools. Start free and scale as you grow.
+- [Customers](https://scalar.com/customers/index.md): Trusted by the world's best API teams.
+- [Enterprise](https://scalar.com/enterprise/index.md): Enterprise-grade API platform: one OpenAPI system of record for docs, SDKs, governance, and MCP servers with SSO and enterprise support.
+- [Company](https://scalar.com/company/index.md): Learn about Scalar, the API platform built for developers and agents.
+- [Security](https://scalar.com/security/index.md): Learn how Scalar approaches security, privacy, identity, access controls, and responsible disclosure.
+- [OpenAPI Documentation](https://scalar.com/solutions/openapi-documentation/index.md): Turn an OpenAPI document into an interactive API reference, API client, SDKs, and MCP server. OpenAPI 3.0/3.1 support, Swagger 2.0 upgraded on load, MIT-licensed renderer.
+- [API Documentation for Developer Tools Companies](https://scalar.com/solutions/api-documentation-for-developer-tools-companies/index.md): How developer tools companies keep API docs, SDK code samples, and an interactive API client in sync with one OpenAPI document using Scalar.
+- [Developer Portals](https://scalar.com/solutions/developer-portal/index.md): Build a developer portal on Scalar: API reference from OpenAPI, guides in Markdown and MDX, a built-in API client, generated SDKs, and hosted MCP servers that stay in sync from one document.
+- [How PAR Modernized Its Developer Experience With Scalar](https://scalar.com/customers/partech/index.md): How PAR Technology modernized its developer experience with Scalar, a modern, open-standards API platform.
+- [Accelerating Warp's AI-Native HR Platform with Scalar](https://scalar.com/customers/warp/index.md): How Warp made every button in its HR platform callable by API, and moved its Go, TypeScript, Python and CLI SDKs to Scalar with no breaking changes.
+- [SVG Playground](https://scalar.com/svg-playground/index.md): Scratch page for iterating on landing page artwork.
+- [Brand](https://scalar.com/brand/index.md): Scalar brand guidelines, logos, wordmark, icon, and color palette. Download official brand assets.
+
+## Docs
+
+- [Overview](https://scalar.com/products/index.md): Explore documentation for Scalar products, developer tools, and APIs.
+- [Scalar Docs](https://scalar.com/products/docs/index.md): Publish API references and guides in one developer portal. Markdown and MDX in Git, previews on every PR, custom domains, llms.txt, and a free plan to start.
+- [Getting Started](https://scalar.com/products/docs/getting-started/index.md): Create and publish your first documentation site with Scalar Docs in minutes.
+- [Privacy](https://scalar.com/products/docs/privacy/index.md): How Scalar Docs handles privacy: first-party page view analytics, no third-party tracking, and only technically required cookies.
+- [Starter Kit](https://scalar.com/products/docs/configuration/starter-kit/index.md): Scaffold a documentation site in minutes with the Scalar Docs starter kit: example pages, scalar.config.json, and GitHub deployment.
+- [Agent Skills](https://scalar.com/products/docs/configuration/agent-skills/index.md): Add Agent Skills to your repository so AI coding agents can write and update Scalar Docs content and configuration.
+- [scalar.config.json](https://scalar.com/products/docs/configuration/scalar.config.json/index.md): Complete configuration reference for scalar.config.json including routing, navigation, and site settings.
+- [Site Config](https://scalar.com/products/docs/configuration/site-config/index.md): Configure site-wide settings for Scalar Docs: branding, logo, theme, custom head tags, footer, and routing.
+- [Domains](https://scalar.com/products/docs/configuration/domains/index.md): Publish Scalar Docs on a free apidocumentation.com subdomain or connect a custom domain with a simple CNAME record.
+- [Navigation](https://scalar.com/products/docs/configuration/navigation/index.md): Structure your documentation with navigation routes: pages, groups, tabs, links, and OpenAPI references.
+- [Mega Menus](https://scalar.com/products/docs/configuration/mega-menus/index.md): Lay out a header or tab dropdown in titled columns by adding section to its links.
+- [Versions](https://scalar.com/products/docs/configuration/versions/index.md): Publish multiple documentation versions with a version selector using the versions key in scalar.config.json.
+- [Redirects](https://scalar.com/products/docs/configuration/redirects/index.md): Keep old URLs working with redirects in Scalar Docs, including wildcard "

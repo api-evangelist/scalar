@@ -1,0 +1,170 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/scalar/main/json-schema/scalar-team-billing-summary-schema.json",
+  "title": "team-billing-summary",
+  "x-generated": "2026-10-04",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/scalar-team-api-openapi.yml#/components/schemas/team-billing-summary",
+  "type": "object",
+  "properties": {
+    "invoices": {
+      "default": [],
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/billing-invoice"
+      }
+    },
+    "address": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "card": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/card"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "billingInfo": {
+      "$ref": "#/$defs/billing-info"
+    }
+  },
+  "required": [
+    "invoices",
+    "address",
+    "card",
+    "billingInfo"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "billing-info": {
+      "type": "object",
+      "properties": {
+        "billingId": {
+          "$ref": "#/$defs/nanoid"
+        },
+        "email": {
+          "$ref": "#/$defs/email"
+        },
+        "plan": {
+          "$ref": "#/$defs/billing-plan"
+        },
+        "expires": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "email",
+        "plan"
+      ],
+      "additionalProperties": false
+    },
+    "billing-invoice": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "total": {
+          "type": "number"
+        },
+        "status": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/invoice-status"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "paymentDate": {
+          "type": "number"
+        },
+        "currency": {
+          "type": "string"
+        },
+        "downloadUrl": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "id",
+        "total",
+        "status",
+        "paymentDate",
+        "currency"
+      ],
+      "additionalProperties": false
+    },
+    "billing-plan": {
+      "type": "string",
+      "enum": [
+        "trial",
+        "free",
+        "pro_monthly",
+        "pro_yearly",
+        "premium",
+        "enterprise"
+      ]
+    },
+    "card": {
+      "type": "object",
+      "properties": {
+        "last4": {
+          "type": "string",
+          "minLength": 4,
+          "maxLength": 4
+        },
+        "expMonth": {
+          "type": "number"
+        },
+        "expYear": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "last4",
+        "expMonth",
+        "expYear"
+      ],
+      "additionalProperties": false
+    },
+    "email": {
+      "type": "string",
+      "format": "email",
+      "pattern": "^(?!\\.)(?!.*\\.\\.)([A-Za-z0-9_'+\\-\\.]*)[A-Za-z0-9_+-]@([A-Za-z0-9][A-Za-z0-9\\-]*\\.)+[A-Za-z]{2,}$"
+    },
+    "invoice-status": {
+      "type": "string",
+      "enum": [
+        "open",
+        "paid",
+        "draft",
+        "void",
+        "uncollectible"
+      ]
+    },
+    "nanoid": {
+      "type": "string",
+      "minLength": 5
+    }
+  }
+}

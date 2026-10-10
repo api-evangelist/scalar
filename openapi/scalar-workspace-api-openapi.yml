@@ -6,7 +6,7 @@ info:
     url: https://scalar.com
     email: support@scalar.com
   version: '1.0'
-  description: 'Operations tagged workspace across 2 of this provider''s published API definitions: scalar-core.json, scalar-openapi.json. Each path carries the servers of the definition it was published in.'
+  description: 'Operations tagged workspace across 3 of this provider''s published API definitions: scalar-core.json, scalar-openapi.json, scalar-openapi.json. Each path carries the servers of the definition it was published in.'
 servers:
 - url: https://api.scalar.com/core
 security:
@@ -615,66 +615,14 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    nanoid:
-      type: string
-      minLength: 5
     namespace:
       type: string
       minLength: 3
       maxLength: 50
       pattern: ^[a-zA-Z0-9-_]+$
-    timestamp:
-      type: integer
-      minimum: 0
-      maximum: 9007199254740991
-    '404':
-      type: object
-      properties:
-        message:
-          type: string
-        code:
-          type: string
-      required:
-      - message
-      - code
-    slug:
-      type: string
-      minLength: 3
-      maxLength: 60
-      pattern: ^[a-z](?:[a-z0-9-]*[a-z0-9])?$
-    '403':
-      type: object
-      properties:
-        message:
-          type: string
-        code:
-          type: string
-      required:
-      - message
-      - code
     version:
       type: string
       minLength: 1
-    '422':
-      type: object
-      properties:
-        message:
-          type: string
-        code:
-          type: string
-      required:
-      - message
-      - code
-    '401':
-      type: object
-      properties:
-        message:
-          type: string
-        code:
-          type: string
-      required:
-      - message
-      - code
     workspace:
       type: object
       properties:
@@ -729,37 +677,15 @@ components:
       - version
       - versions
       additionalProperties: false
-    '400':
-      type: object
-      properties:
-        message:
-          type: string
-        code:
-          type: string
-      required:
-      - message
-      - code
-    '500':
-      type: object
-      properties:
-        message:
-          type: string
-        code:
-          type: string
-      required:
-      - message
-      - code
-    registry-meta:
-      type: object
-      properties:
-        namespace:
-          type: string
-        slug:
-          type: string
-      required:
-      - namespace
-      - slug
-      additionalProperties: false
+    slug:
+      type: string
+      minLength: 3
+      maxLength: 60
+      pattern: ^[a-z](?:[a-z0-9-]*[a-z0-9])?$
+    timestamp:
+      type: integer
+      minimum: 0
+      maximum: 9007199254740991
     workspace-version:
       type: object
       properties:
@@ -781,6 +707,296 @@ components:
       - createdAt
       - updatedAt
       additionalProperties: false
+    '401':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+    '404':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+    '422':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+    nanoid:
+      type: string
+      minLength: 5
+    '403':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+    registry-meta:
+      type: object
+      properties:
+        namespace:
+          type: string
+        slug:
+          type: string
+      required:
+      - namespace
+      - slug
+      additionalProperties: false
+    '500':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+    '400':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+    registry-git-binding:
+      type: object
+      properties:
+        forgejo:
+          type: object
+          properties:
+            owner:
+              type: string
+            repo:
+              type: string
+            branch:
+              default: main
+              type: string
+          required:
+          - owner
+          - repo
+          - branch
+          additionalProperties: false
+        publishOnPush:
+          default: true
+          type: boolean
+        publishOnMerge:
+          default: false
+          type: boolean
+        trackedBranch:
+          default: main
+          type: string
+        webhookId:
+          default: null
+          anyOf:
+          - type: number
+          - type: 'null'
+        external:
+          default: null
+          anyOf:
+          - $ref: '#/components/schemas/registry-git-external'
+          - type: 'null'
+        currentPublishedSha:
+          default: null
+          anyOf:
+          - type: string
+          - type: 'null'
+        lastPublishedAt:
+          default: null
+          anyOf:
+          - $ref: '#/components/schemas/timestamp_2'
+          - type: 'null'
+      required:
+      - forgejo
+      - publishOnPush
+      - publishOnMerge
+      - trackedBranch
+      - webhookId
+      - external
+      - currentPublishedSha
+      - lastPublishedAt
+      additionalProperties: false
+    namespace_2:
+      type: string
+      minLength: 2
+      maxLength: 50
+      pattern: ^[a-zA-Z0-9-_]+$
+      examples:
+      - acme
+    version_2:
+      type: string
+      minLength: 1
+      examples:
+      - 1.2.0
+    workspace_2:
+      type: object
+      properties:
+        uid:
+          $ref: '#/components/schemas/nanoid_2'
+        createdAt:
+          $ref: '#/components/schemas/timestamp_2'
+        updatedAt:
+          $ref: '#/components/schemas/timestamp_2'
+        namespace:
+          $ref: '#/components/schemas/namespace_2'
+        title:
+          default: ''
+          examples:
+          - Acme API
+          type: string
+          maxLength: 100
+        slug:
+          $ref: '#/components/schemas/slug_2'
+        description:
+          default: ''
+          examples:
+          - API for managing Acme products and orders.
+          type: string
+        isPrivate:
+          default: false
+          examples:
+          - false
+          type: boolean
+        pinned:
+          default: false
+          type: boolean
+        tags:
+          default: []
+          examples:
+          - - products
+            - orders
+        accessGroups:
+          default: []
+          examples:
+          - - UakgbKJ5m9gl0JDMbcJqL
+        loginPortalUid:
+          examples:
+          - LakgbKJ5m9gl0JDMbcJqL
+          type: string
+        verifiedContent:
+          type: boolean
+        source:
+          default:
+            type: platform
+          $ref: '#/components/schemas/doc-source'
+        git:
+          anyOf:
+          - $ref: '#/components/schemas/registry-git-binding'
+          - type: 'null'
+        version:
+          $ref: '#/components/schemas/version_2'
+        versions:
+          type: array
+          items:
+            $ref: '#/components/schemas/workspace-version'
+      required:
+      - uid
+      - createdAt
+      - updatedAt
+      - namespace
+      - title
+      - slug
+      - description
+      - isPrivate
+      - pinned
+      - tags
+      - accessGroups
+      - source
+      - version
+      - versions
+      additionalProperties: false
+    slug_2:
+      type: string
+      minLength: 1
+      maxLength: 60
+      pattern: ^[a-z](?:[a-z0-9-]*[a-z0-9])?$
+      examples:
+      - acme-api
+    timestamp_2:
+      type: integer
+      minimum: 0
+      maximum: 9007199254740991
+      examples:
+      - 1735689600
+    '401_2':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+      examples:
+      - message: Invalid authentication token.
+        code: unauthorized
+    '404_2':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+      examples:
+      - message: Resource not found.
+        code: not-found
+    '422_2':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+      examples:
+      - message: The request body contains invalid values.
+        code: invalid-payload
+    nanoid_2:
+      type: string
+      minLength: 5
+      examples:
+      - UakgbKJ5m9gl0JDMbcJqL
+    '403_2':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+      examples:
+      - message: You do not have permission to access this resource.
+        code: forbidden
     doc-source:
       oneOf:
       - type: object
@@ -859,235 +1075,6 @@ components:
         - etag
         - lastFetchedAt
         additionalProperties: false
-    nanoid_2:
-      type: string
-      minLength: 5
-      examples:
-      - UakgbKJ5m9gl0JDMbcJqL
-    namespace_2:
-      type: string
-      minLength: 2
-      maxLength: 50
-      pattern: ^[a-zA-Z0-9-_]+$
-      examples:
-      - acme
-    timestamp_2:
-      type: integer
-      minimum: 0
-      maximum: 9007199254740991
-      examples:
-      - 1735689600
-    registry-git-binding:
-      type: object
-      properties:
-        forgejo:
-          type: object
-          properties:
-            owner:
-              type: string
-            repo:
-              type: string
-            branch:
-              default: main
-              type: string
-          required:
-          - owner
-          - repo
-          - branch
-          additionalProperties: false
-        publishOnPush:
-          default: true
-          type: boolean
-        publishOnMerge:
-          default: false
-          type: boolean
-        trackedBranch:
-          default: main
-          type: string
-        webhookId:
-          default: null
-          anyOf:
-          - type: number
-          - type: 'null'
-        external:
-          default: null
-          anyOf:
-          - $ref: '#/components/schemas/registry-git-external'
-          - type: 'null'
-        currentPublishedSha:
-          default: null
-          anyOf:
-          - type: string
-          - type: 'null'
-        lastPublishedAt:
-          default: null
-          anyOf:
-          - $ref: '#/components/schemas/timestamp_2'
-          - type: 'null'
-      required:
-      - forgejo
-      - publishOnPush
-      - publishOnMerge
-      - trackedBranch
-      - webhookId
-      - external
-      - currentPublishedSha
-      - lastPublishedAt
-      additionalProperties: false
-    slug_2:
-      type: string
-      minLength: 1
-      maxLength: 60
-      pattern: ^[a-z](?:[a-z0-9-]*[a-z0-9])?$
-      examples:
-      - acme-api
-    '403_2':
-      type: object
-      properties:
-        message:
-          type: string
-        code:
-          type: string
-      required:
-      - message
-      - code
-      examples:
-      - message: You do not have permission to access this resource.
-        code: forbidden
-    '404_2':
-      type: object
-      properties:
-        message:
-          type: string
-        code:
-          type: string
-      required:
-      - message
-      - code
-      examples:
-      - message: Resource not found.
-        code: not-found
-    version_2:
-      type: string
-      minLength: 1
-      examples:
-      - 1.2.0
-    '422_2':
-      type: object
-      properties:
-        message:
-          type: string
-        code:
-          type: string
-      required:
-      - message
-      - code
-      examples:
-      - message: The request body contains invalid values.
-        code: invalid-payload
-    '401_2':
-      type: object
-      properties:
-        message:
-          type: string
-        code:
-          type: string
-      required:
-      - message
-      - code
-      examples:
-      - message: Invalid authentication token.
-        code: unauthorized
-    workspace_2:
-      type: object
-      properties:
-        uid:
-          $ref: '#/components/schemas/nanoid_2'
-        createdAt:
-          $ref: '#/components/schemas/timestamp_2'
-        updatedAt:
-          $ref: '#/components/schemas/timestamp_2'
-        namespace:
-          $ref: '#/components/schemas/namespace_2'
-        title:
-          default: ''
-          examples:
-          - Acme API
-          type: string
-          maxLength: 100
-        slug:
-          $ref: '#/components/schemas/slug_2'
-        description:
-          default: ''
-          examples:
-          - API for managing Acme products and orders.
-          type: string
-        isPrivate:
-          default: false
-          examples:
-          - false
-          type: boolean
-        pinned:
-          default: false
-          type: boolean
-        tags:
-          default: []
-          examples:
-          - - products
-            - orders
-        accessGroups:
-          default: []
-          examples:
-          - - UakgbKJ5m9gl0JDMbcJqL
-        loginPortalUid:
-          examples:
-          - LakgbKJ5m9gl0JDMbcJqL
-          type: string
-        verifiedContent:
-          type: boolean
-        source:
-          default:
-            type: platform
-          $ref: '#/components/schemas/doc-source'
-        git:
-          anyOf:
-          - $ref: '#/components/schemas/registry-git-binding'
-          - type: 'null'
-        version:
-          $ref: '#/components/schemas/version_2'
-        versions:
-          type: array
-          items:
-            $ref: '#/components/schemas/workspace-version'
-      required:
-      - uid
-      - createdAt
-      - updatedAt
-      - namespace
-      - title
-      - slug
-      - description
-      - isPrivate
-      - pinned
-      - tags
-      - accessGroups
-      - source
-      - version
-      - versions
-      additionalProperties: false
-    '400_2':
-      type: object
-      properties:
-        message:
-          type: string
-        code:
-          type: string
-      required:
-      - message
-      - code
-      examples:
-      - message: Invalid request parameters.
-        code: bad-request
     '500_2':
       type: object
       properties:
@@ -1101,6 +1088,19 @@ components:
       examples:
       - message: An unexpected error occurred.
         code: unknown
+    '400_2':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+      examples:
+      - message: Invalid request parameters.
+        code: bad-request
     registry-git-external:
       oneOf:
       - type: object
@@ -1175,6 +1175,326 @@ components:
         - branch
         - webhookUuid
         additionalProperties: false
+    registry-git-binding_2:
+      type: object
+      properties:
+        forgejo:
+          type: object
+          properties:
+            owner:
+              type: string
+            repo:
+              type: string
+            branch:
+              default: main
+              type: string
+          required:
+          - owner
+          - repo
+          - branch
+          additionalProperties: false
+        publishOnPush:
+          default: true
+          type: boolean
+        publishOnMerge:
+          default: false
+          type: boolean
+        trackedBranch:
+          default: main
+          type: string
+        webhookId:
+          default: null
+          anyOf:
+          - type: number
+          - type: 'null'
+        external:
+          default: null
+          anyOf:
+          - $ref: '#/components/schemas/registry-git-external'
+          - type: 'null'
+        currentPublishedSha:
+          default: null
+          anyOf:
+          - type: string
+          - type: 'null'
+        lastPublishedAt:
+          default: null
+          anyOf:
+          - $ref: '#/components/schemas/timestamp_3'
+          - type: 'null'
+      required:
+      - forgejo
+      - publishOnPush
+      - publishOnMerge
+      - trackedBranch
+      - webhookId
+      - external
+      - currentPublishedSha
+      - lastPublishedAt
+      additionalProperties: false
+    namespace_3:
+      type: string
+      minLength: 2
+      maxLength: 50
+      pattern: ^[a-zA-Z0-9-_]+$
+      examples:
+      - acme
+    version_3:
+      type: string
+      minLength: 1
+      examples:
+      - 1.2.0
+    workspace_3:
+      type: object
+      properties:
+        uid:
+          $ref: '#/components/schemas/nanoid_3'
+        createdAt:
+          $ref: '#/components/schemas/timestamp_3'
+        updatedAt:
+          $ref: '#/components/schemas/timestamp_3'
+        namespace:
+          $ref: '#/components/schemas/namespace_3'
+        title:
+          default: ''
+          examples:
+          - Acme API
+          type: string
+          maxLength: 100
+        slug:
+          $ref: '#/components/schemas/slug_3'
+        description:
+          default: ''
+          examples:
+          - API for managing Acme products and orders.
+          type: string
+        isPrivate:
+          default: false
+          examples:
+          - false
+          type: boolean
+        pinned:
+          default: false
+          type: boolean
+        tags:
+          default: []
+          examples:
+          - - products
+            - orders
+        accessGroups:
+          default: []
+          examples:
+          - - UakgbKJ5m9gl0JDMbcJqL
+        loginPortalUid:
+          examples:
+          - LakgbKJ5m9gl0JDMbcJqL
+          type: string
+        verifiedContent:
+          type: boolean
+        source:
+          default:
+            type: platform
+          $ref: '#/components/schemas/doc-source_2'
+        git:
+          anyOf:
+          - $ref: '#/components/schemas/registry-git-binding_2'
+          - type: 'null'
+        version:
+          $ref: '#/components/schemas/version_3'
+        versions:
+          type: array
+          items:
+            $ref: '#/components/schemas/workspace-version'
+      required:
+      - uid
+      - createdAt
+      - updatedAt
+      - namespace
+      - title
+      - slug
+      - description
+      - isPrivate
+      - pinned
+      - tags
+      - accessGroups
+      - source
+      - version
+      - versions
+      additionalProperties: false
+    slug_3:
+      type: string
+      minLength: 1
+      maxLength: 60
+      pattern: ^[a-z](?:[a-z0-9-]*[a-z0-9])?$
+      examples:
+      - acme-api
+    timestamp_3:
+      type: integer
+      minimum: 0
+      maximum: 9007199254740991
+      examples:
+      - 1735689600
+    '401_3':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+      examples:
+      - message: Invalid authentication token.
+        code: unauthorized
+    '404_3':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+      examples:
+      - message: Resource not found.
+        code: not-found
+    '422_3':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+      examples:
+      - message: The request body contains invalid values.
+        code: invalid-payload
+    nanoid_3:
+      type: string
+      minLength: 5
+      examples:
+      - UakgbKJ5m9gl0JDMbcJqL
+    '403_3':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+      examples:
+      - message: You do not have permission to access this resource.
+        code: forbidden
+    doc-source_2:
+      oneOf:
+      - type: object
+        properties:
+          type:
+            type: string
+            const: platform
+        required:
+        - type
+        additionalProperties: false
+      - type: object
+        properties:
+          type:
+            type: string
+            const: git
+          repositoryUid:
+            $ref: '#/components/schemas/nanoid_3'
+          path:
+            type: string
+            minLength: 1
+          branch:
+            default: null
+            anyOf:
+            - type: string
+            - type: 'null'
+          publishOnPush:
+            default: true
+            type: boolean
+          publishOnMerge:
+            default: false
+            type: boolean
+          currentPublishedSha:
+            default: null
+            anyOf:
+            - type: string
+            - type: 'null'
+          lastPublishedAt:
+            default: null
+            anyOf:
+            - $ref: '#/components/schemas/timestamp_3'
+            - type: 'null'
+        required:
+        - type
+        - repositoryUid
+        - path
+        - branch
+        - publishOnPush
+        - publishOnMerge
+        - currentPublishedSha
+        - lastPublishedAt
+        additionalProperties: false
+      - type: object
+        properties:
+          type:
+            type: string
+            const: url
+          url:
+            type: string
+            format: uri
+          linkedBy:
+            type: string
+          etag:
+            default: null
+            anyOf:
+            - type: string
+            - type: 'null'
+          lastFetchedAt:
+            default: null
+            anyOf:
+            - $ref: '#/components/schemas/timestamp_3'
+            - type: 'null'
+        required:
+        - type
+        - url
+        - linkedBy
+        - etag
+        - lastFetchedAt
+        additionalProperties: false
+    '500_3':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+      examples:
+      - message: An unexpected error occurred.
+        code: unknown
+    '400_3':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+      examples:
+      - message: Invalid request parameters.
+        code: bad-request
   securitySchemes:
     BearerAuth:
       type: http
@@ -1182,4 +1502,5 @@ components:
       bearerFormat: JWT
 x-refined-from:
 - scalar-core.json
+- scalar-openapi.json
 - scalar-openapi.json

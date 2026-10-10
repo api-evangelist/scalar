@@ -1,0 +1,208 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/scalar/main/json-schema/scalar-registry-git-binding-schema.json",
+  "title": "registry-git-binding",
+  "x-generated": "2026-10-05",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/scalar-registry-git-api-openapi.yml#/components/schemas/registry-git-binding",
+  "type": "object",
+  "properties": {
+    "forgejo": {
+      "type": "object",
+      "properties": {
+        "owner": {
+          "type": "string"
+        },
+        "repo": {
+          "type": "string"
+        },
+        "branch": {
+          "default": "main",
+          "type": "string"
+        }
+      },
+      "required": [
+        "owner",
+        "repo",
+        "branch"
+      ],
+      "additionalProperties": false
+    },
+    "publishOnPush": {
+      "default": true,
+      "type": "boolean"
+    },
+    "publishOnMerge": {
+      "default": false,
+      "type": "boolean"
+    },
+    "trackedBranch": {
+      "default": "main",
+      "type": "string"
+    },
+    "webhookId": {
+      "default": null,
+      "anyOf": [
+        {
+          "type": "number"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "external": {
+      "default": null,
+      "anyOf": [
+        {
+          "$ref": "#/$defs/registry-git-external"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "currentPublishedSha": {
+      "default": null,
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "lastPublishedAt": {
+      "default": null,
+      "anyOf": [
+        {
+          "$ref": "#/$defs/timestamp"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    }
+  },
+  "required": [
+    "forgejo",
+    "publishOnPush",
+    "publishOnMerge",
+    "trackedBranch",
+    "webhookId",
+    "external",
+    "currentPublishedSha",
+    "lastPublishedAt"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "registry-git-external": {
+      "oneOf": [
+        {
+          "type": "object",
+          "properties": {
+            "provider": {
+              "type": "string",
+              "const": "github"
+            },
+            "linkedBy": {
+              "type": "string"
+            },
+            "installationId": {
+              "type": "integer",
+              "minimum": -9007199254740991,
+              "maximum": 9007199254740991
+            },
+            "id": {
+              "type": "integer",
+              "minimum": -9007199254740991,
+              "maximum": 9007199254740991
+            },
+            "name": {
+              "type": "string",
+              "minLength": 2
+            },
+            "branch": {
+              "default": "main",
+              "type": "string"
+            },
+            "path": {
+              "default": "",
+              "type": "string"
+            },
+            "webhookId": {
+              "default": "",
+              "type": "string"
+            }
+          },
+          "required": [
+            "provider",
+            "linkedBy",
+            "installationId",
+            "id",
+            "name",
+            "branch",
+            "path",
+            "webhookId"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "provider": {
+              "type": "string",
+              "const": "bitbucket"
+            },
+            "linkedBy": {
+              "type": "string"
+            },
+            "workspaceUuid": {
+              "type": "string"
+            },
+            "workspaceSlug": {
+              "type": "string"
+            },
+            "repoUuid": {
+              "type": "string"
+            },
+            "repoSlug": {
+              "type": "string"
+            },
+            "name": {
+              "type": "string",
+              "minLength": 2
+            },
+            "branch": {
+              "default": "main",
+              "type": "string"
+            },
+            "webhookUuid": {
+              "default": "",
+              "type": "string"
+            }
+          },
+          "required": [
+            "provider",
+            "linkedBy",
+            "workspaceUuid",
+            "workspaceSlug",
+            "repoUuid",
+            "repoSlug",
+            "name",
+            "branch",
+            "webhookUuid"
+          ],
+          "additionalProperties": false
+        }
+      ]
+    },
+    "timestamp": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 9007199254740991
+    }
+  }
+}

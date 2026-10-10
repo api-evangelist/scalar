@@ -1,0 +1,22 @@
+generated: '2026-10-10'
+method: searched
+generator: extract-docs-artifacts.py (local)
+source: https://scalar.com/products/sdk-generator/pagination/index.md
+sources:
+- https://scalar.com/products/sdk-generator/pagination/index.md
+- https://scalar.com/learn/sdk/sdk-pagination/index.md
+- https://scalar.com/products/sdk-generator/pagination
+- https://scalar.com/products/docs/getting-started/index.md
+idempotency:
+  coverage: none
+pagination:
+  style: offset
+  params:
+  - offset
+  - size
+  response_fields:
+  - assets
+  - total
+  evidence: Pagination is declared via a scheme named `offsetPage` with type `offset`; request fields `offset` and `size` (limit) and response
+    fields `assets` (items) and `total`.
+docs: https://scalar.com/products/sdk-generator/pagination/index.md

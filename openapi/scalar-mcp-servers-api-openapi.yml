@@ -1,12 +1,12 @@
 openapi: 3.2.0
 info:
-  title: Core MCP Servers API
-  description: Core services for Scalar
+  title: Scalar MCP Servers API
   version: 0.1.0
   contact:
     name: Marc from Scalar
     url: https://scalar.com
     email: support@scalar.com
+  description: 'Operations tagged mcp-servers across 2 of this provider''s published API definitions: scalar-openapi.json, scalar-openapi.json. Each path carries the servers of the definition it was published in.'
 servers:
 - url: https://api.scalar.com/core
 security:
@@ -139,8 +139,10 @@ paths:
               - name
               additionalProperties: false
         required: true
-      summary: Post V1 mcp servers
+      summary: Post V1Mcp servers
       x-summary-source: derived
+    servers:
+    - url: https://api.scalar.com/core
   /v1/mcp-servers/instant:
     post:
       tags:
@@ -241,8 +243,10 @@ paths:
               - documentAuth
               additionalProperties: false
         required: true
-      summary: Post V1 mcp servers instant
+      summary: Post V1Mcp servers instant
       x-summary-source: derived
+    servers:
+    - url: https://api.scalar.com/core
   /v1/mcp-servers/{uid}:
     patch:
       tags:
@@ -312,7 +316,7 @@ paths:
         in: path
         name: uid
         required: true
-      summary: Patch V1 mcp servers uid
+      summary: Patch V1Mcp servers uid
       x-summary-source: derived
     delete:
       tags:
@@ -368,8 +372,10 @@ paths:
         in: path
         name: uid
         required: true
-      summary: Delete V1 mcp servers uid
+      summary: Delete V1Mcp servers uid
       x-summary-source: derived
+    servers:
+    - url: https://api.scalar.com/core
   /v1/mcp-servers/{uid}/domain:
     put:
       tags:
@@ -447,7 +453,7 @@ paths:
         in: path
         name: uid
         required: true
-      summary: Put V1 mcp servers uid domain
+      summary: Put V1Mcp servers uid domain
       x-summary-source: derived
     delete:
       tags:
@@ -511,8 +517,10 @@ paths:
         in: path
         name: uid
         required: true
-      summary: Delete V1 mcp servers uid domain
+      summary: Delete V1Mcp servers uid domain
       x-summary-source: derived
+    servers:
+    - url: https://api.scalar.com/core
   /v1/mcp-servers/{uid}/domain/check:
     post:
       tags:
@@ -612,10 +620,79 @@ paths:
         in: path
         name: uid
         required: true
-      summary: Post V1 mcp servers uid domain check
+      summary: Post V1Mcp servers uid domain check
       x-summary-source: derived
+    servers:
+    - url: https://api.scalar.com/core
 components:
   schemas:
+    namespace:
+      type: string
+      minLength: 2
+      maxLength: 50
+      pattern: ^[a-zA-Z0-9-_]+$
+      examples:
+      - acme
+    slug:
+      type: string
+      minLength: 1
+      maxLength: 60
+      pattern: ^[a-z](?:[a-z0-9-]*[a-z0-9])?$
+      examples:
+      - acme-api
+    mcp-server:
+      type: object
+      properties:
+        id:
+          type: string
+          examples:
+          - '42'
+        teamUid:
+          type: string
+        name:
+          type: string
+          examples:
+          - Acme API
+        slug:
+          $ref: '#/components/schemas/slug'
+        uid:
+          type: string
+          examples:
+          - UakgbKJ5m9gl0JDMbcJqL
+        namespace:
+          $ref: '#/components/schemas/namespace'
+        autoAddOperations:
+          default: false
+          examples:
+          - true
+          type: boolean
+        domain:
+          default: null
+          examples:
+          - docs.example.com
+          anyOf:
+          - type: string
+          - type: 'null'
+        createdAt:
+          type: string
+          examples:
+          - '2025-01-01T00:00:00.000Z'
+        updatedAt:
+          type: string
+          examples:
+          - '2025-01-01T00:00:00.000Z'
+      required:
+      - id
+      - teamUid
+      - name
+      - slug
+      - uid
+      - namespace
+      - autoAddOperations
+      - domain
+      - createdAt
+      - updatedAt
+      additionalProperties: false
     mcp-installation:
       type: object
       properties:
@@ -747,130 +824,6 @@ components:
       - piiRedactionEnabled
       - credentialRedactionEnabled
       additionalProperties: false
-    nanoid:
-      type: string
-      minLength: 5
-      examples:
-      - UakgbKJ5m9gl0JDMbcJqL
-    namespace:
-      type: string
-      minLength: 2
-      maxLength: 50
-      pattern: ^[a-zA-Z0-9-_]+$
-      examples:
-      - acme
-    mcp-server:
-      type: object
-      properties:
-        id:
-          type: string
-          examples:
-          - '42'
-        teamUid:
-          type: string
-        name:
-          type: string
-          examples:
-          - Acme API
-        slug:
-          $ref: '#/components/schemas/slug'
-        uid:
-          type: string
-          examples:
-          - UakgbKJ5m9gl0JDMbcJqL
-        namespace:
-          $ref: '#/components/schemas/namespace'
-        autoAddOperations:
-          default: false
-          examples:
-          - true
-          type: boolean
-        domain:
-          default: null
-          examples:
-          - docs.example.com
-          anyOf:
-          - type: string
-          - type: 'null'
-        createdAt:
-          type: string
-          examples:
-          - '2025-01-01T00:00:00.000Z'
-        updatedAt:
-          type: string
-          examples:
-          - '2025-01-01T00:00:00.000Z'
-      required:
-      - id
-      - teamUid
-      - name
-      - slug
-      - uid
-      - namespace
-      - autoAddOperations
-      - domain
-      - createdAt
-      - updatedAt
-      additionalProperties: false
-    '404':
-      type: object
-      properties:
-        message:
-          type: string
-        code:
-          type: string
-      required:
-      - message
-      - code
-      examples:
-      - message: Resource not found.
-        code: not-found
-    slug:
-      type: string
-      minLength: 1
-      maxLength: 60
-      pattern: ^[a-z](?:[a-z0-9-]*[a-z0-9])?$
-      examples:
-      - acme-api
-    '403':
-      type: object
-      properties:
-        message:
-          type: string
-        code:
-          type: string
-      required:
-      - message
-      - code
-      examples:
-      - message: You do not have permission to access this resource.
-        code: forbidden
-    '422':
-      type: object
-      properties:
-        message:
-          type: string
-        code:
-          type: string
-      required:
-      - message
-      - code
-      examples:
-      - message: The request body contains invalid values.
-        code: invalid-payload
-    '400':
-      type: object
-      properties:
-        message:
-          type: string
-        code:
-          type: string
-      required:
-      - message
-      - code
-      examples:
-      - message: Invalid request parameters.
-        code: bad-request
     '401':
       type: object
       properties:
@@ -884,6 +837,45 @@ components:
       examples:
       - message: Invalid authentication token.
         code: unauthorized
+    '422':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+      examples:
+      - message: The request body contains invalid values.
+        code: invalid-payload
+    '404':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+      examples:
+      - message: Resource not found.
+        code: not-found
+    '403':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+      examples:
+      - message: You do not have permission to access this resource.
+        code: forbidden
     '500':
       type: object
       properties:
@@ -897,8 +889,29 @@ components:
       examples:
       - message: An unexpected error occurred.
         code: unknown
+    nanoid:
+      type: string
+      minLength: 5
+      examples:
+      - UakgbKJ5m9gl0JDMbcJqL
+    '400':
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - message
+      - code
+      examples:
+      - message: Invalid request parameters.
+        code: bad-request
   securitySchemes:
     BearerAuth:
       type: http
       scheme: bearer
       bearerFormat: JWT
+x-refined-from:
+- scalar-openapi.json
+- scalar-openapi.json

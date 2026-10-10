@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/scalar/main/json-schema/scalar-theme-schema.json",
+  "title": "theme",
+  "x-generated": "2026-10-04",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/scalar-signup-api-openapi.yml#/components/schemas/theme",
+  "type": "object",
+  "properties": {
+    "uid": {
+      "$ref": "#/$defs/nanoid"
+    },
+    "name": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "theme": {
+      "type": "string"
+    },
+    "slug": {
+      "$ref": "#/$defs/slug"
+    }
+  },
+  "required": [
+    "uid",
+    "name",
+    "description",
+    "theme",
+    "slug"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "nanoid": {
+      "type": "string",
+      "minLength": 5
+    },
+    "slug": {
+      "type": "string",
+      "minLength": 3,
+      "maxLength": 60,
+      "pattern": "^[a-z](?:[a-z0-9-]*[a-z0-9])?$"
+    }
+  }
+}

@@ -1,0 +1,32 @@
+generated: '2026-10-04'
+method: searched
+generator: extract-docs-artifacts.py (local)
+source: https://scalar.com/security/index.md
+sources:
+- https://scalar.com/security/index.md
+- https://scalar.com/products/docs/privacy/index.md
+- https://scalar.com/blog/posts/2025-03-26-a-guide-to-openapi-security-and-how/index.md
+- https://scalar.com/learn/mcp/mcp-server-security/index.md
+standards:
+- id: soc2
+  conforms: false
+  evidence: Scalar has received a SOC 2® Type 1 report on controls relevant to security
+- id: gdpr
+  conforms: true
+  evidence: Scalar has received a SOC 2® Type 1 report on controls relevant to security and maintains GDPR-compliant privacy practices.
+- id: openapi-3.2
+  conforms: true
+  evidence: the document declares 3.2.0
+- id: oauth2
+  conforms: false
+  evidence: 'securitySchemes: BearerAuth (http)'
+- id: rfc9457
+  conforms: false
+  evidence: no response declares application/problem+json
+- id: idempotency
+  conforms: false
+  evidence: no idempotency key parameter on mutating operations
+- id: pagination
+  conforms: true
+  evidence: list operations take limit, page
+docs: https://scalar.com/security/index.md

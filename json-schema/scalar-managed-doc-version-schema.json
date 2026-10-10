@@ -1,0 +1,118 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/scalar/main/json-schema/scalar-managed-doc-version-schema.json",
+  "title": "managed-doc-version",
+  "x-generated": "2026-10-04",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/scalar-api-docs-api-openapi.yml#/components/schemas/managed-doc-version",
+  "type": "object",
+  "properties": {
+    "uid": {
+      "$ref": "#/$defs/nanoid"
+    },
+    "createdAt": {
+      "type": "number"
+    },
+    "version": {
+      "$ref": "#/$defs/version"
+    },
+    "upgraded": {
+      "default": false,
+      "type": "boolean"
+    },
+    "embedStatus": {
+      "default": null,
+      "anyOf": [
+        {
+          "type": "string",
+          "enum": [
+            "complete",
+            "failed"
+          ]
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "tags": {
+      "default": [],
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "tools": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "path": {
+            "type": "string"
+          },
+          "method": {
+            "$ref": "#/$defs/method"
+          },
+          "enabledTools": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "execute-request",
+                "get-mini-openapi-spec"
+              ]
+            }
+          }
+        },
+        "required": [
+          "path",
+          "method",
+          "enabledTools"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "yamlSha": {
+      "type": "string"
+    },
+    "jsonSha": {
+      "type": "string"
+    },
+    "versionSha": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "uid",
+    "createdAt",
+    "version",
+    "upgraded",
+    "embedStatus",
+    "tags"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "method": {
+      "type": "string",
+      "enum": [
+        "delete",
+        "get",
+        "head",
+        "options",
+        "patch",
+        "post",
+        "put",
+        "trace"
+      ]
+    },
+    "nanoid": {
+      "type": "string",
+      "minLength": 5
+    },
+    "version": {
+      "type": "string",
+      "minLength": 1
+    }
+  }
+}

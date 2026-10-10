@@ -1,0 +1,48 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/scalar/main/json-schema/scalar-oauth-token-request-schema.json",
+  "title": "oauth-token-request",
+  "x-generated": "2026-10-05",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/scalar-oauth-api-openapi.yml#/components/schemas/oauth-token-request",
+  "type": "object",
+  "properties": {
+    "grant_type": {
+      "type": "string",
+      "maxLength": 64
+    },
+    "client_id": {
+      "type": "string",
+      "maxLength": 256
+    },
+    "client_secret": {
+      "type": "string",
+      "maxLength": 256
+    },
+    "code": {
+      "type": "string",
+      "maxLength": 256
+    },
+    "redirect_uri": {
+      "type": "string",
+      "maxLength": 2048
+    },
+    "code_verifier": {
+      "type": "string",
+      "maxLength": 256
+    },
+    "refresh_token": {
+      "type": "string",
+      "maxLength": 4096
+    },
+    "scope": {
+      "type": "string",
+      "maxLength": 256
+    }
+  },
+  "required": [
+    "grant_type"
+  ],
+  "additionalProperties": false
+}

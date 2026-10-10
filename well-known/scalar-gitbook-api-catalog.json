@@ -1,0 +1,55 @@
+{
+  "linkset": [
+    {
+      "anchor": "https://api.gitbook.com/v1",
+      "service-doc": [
+        {
+          "href": "https://gitbook.com/docs/developers/gitbook-api/api-reference.md",
+          "type": "text/markdown",
+          "title": "GitBook REST API reference"
+        },
+        {
+          "href": "https://gitbook.com/docs/developers/gitbook-api/api-reference",
+          "type": "text/html",
+          "title": "GitBook REST API reference"
+        }
+      ],
+      "service-meta": [
+        {
+          "href": "https://gitbook.com/docs/developers/gitbook-api/authentication.md",
+          "type": "text/markdown",
+          "title": "GitBook API authentication"
+        },
+        {
+          "href": "https://gitbook.com/docs/developers/gitbook-api/rate-limiting.md",
+          "type": "text/markdown",
+          "title": "GitBook API rate limits"
+        }
+      ],
+      "author": [
+        {
+          "href": "https://www.gitbook.com",
+          "type": "text/html",
+          "title": "GitBook"
+        }
+      ],
+      "status": [
+        {
+          "href": "https://www.gitbookstatus.com/",
+          "type": "text/html",
+          "title": "GitBook status"
+        }
+      ]
+    },
+    {
+      "anchor": "https://mcp.gitbook.com/mcp",
+      "service-doc": [
+        {
+          "href": "https://gitbook.com/docs/docs-as-code/gitbook-mcp.md",
+          "type": "text/markdown",
+          "title": "GitBook MCP documentation"
+        }
+      ]
+    }
+  ]
+}

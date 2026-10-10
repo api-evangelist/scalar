@@ -1,0 +1,151 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/scalar/main/json-schema/scalar-registry-publish-schema.json",
+  "title": "registry-publish",
+  "x-generated": "2026-10-05",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/scalar-registry-git-api-openapi.yml#/components/schemas/registry-publish",
+  "type": "object",
+  "properties": {
+    "uid": {
+      "$ref": "#/$defs/nanoid"
+    },
+    "createdAt": {
+      "$ref": "#/$defs/timestamp"
+    },
+    "updatedAt": {
+      "$ref": "#/$defs/timestamp"
+    },
+    "resourceUid": {
+      "$ref": "#/$defs/nanoid"
+    },
+    "asset": {
+      "$ref": "#/$defs/registry-asset"
+    },
+    "namespace": {
+      "$ref": "#/$defs/namespace"
+    },
+    "slug": {
+      "$ref": "#/$defs/slug"
+    },
+    "version": {
+      "default": null,
+      "anyOf": [
+        {
+          "$ref": "#/$defs/version"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "commitSha": {
+      "type": "string"
+    },
+    "parentSha": {
+      "default": null,
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "source": {
+      "$ref": "#/$defs/registry-publish-source"
+    },
+    "message": {
+      "default": "",
+      "type": "string"
+    },
+    "author": {
+      "default": null,
+      "anyOf": [
+        {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "email": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "name",
+            "email"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "null"
+        }
+      ]
+    }
+  },
+  "required": [
+    "uid",
+    "createdAt",
+    "updatedAt",
+    "resourceUid",
+    "asset",
+    "namespace",
+    "slug",
+    "version",
+    "commitSha",
+    "parentSha",
+    "source",
+    "message",
+    "author"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "namespace": {
+      "type": "string",
+      "minLength": 2,
+      "maxLength": 50,
+      "pattern": "^[a-zA-Z0-9-_]+$"
+    },
+    "nanoid": {
+      "type": "string",
+      "minLength": 5
+    },
+    "registry-asset": {
+      "type": "string",
+      "enum": [
+        "apis",
+        "rules",
+        "schemas",
+        "sdks",
+        "workspaces"
+      ]
+    },
+    "registry-publish-source": {
+      "type": "string",
+      "enum": [
+        "manual",
+        "git-hook",
+        "external-push",
+        "migration"
+      ]
+    },
+    "slug": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 60,
+      "pattern": "^[a-z](?:[a-z0-9-]*[a-z0-9])?$"
+    },
+    "timestamp": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 9007199254740991
+    },
+    "version": {
+      "type": "string",
+      "minLength": 1
+    }
+  }
+}

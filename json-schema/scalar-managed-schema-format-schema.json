@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/scalar/main/json-schema/scalar-managed-schema-format-schema.json",
+  "title": "managed-schema-format",
+  "x-generated": "2026-10-04",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/scalar-schemas-api-openapi.yml#/components/schemas/managed-schema-format",
+  "type": "string",
+  "enum": [
+    "json",
+    "yaml"
+  ]
+}
