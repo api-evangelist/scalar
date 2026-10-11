@@ -81,6 +81,11 @@ maintainers:
   - type: OpenAPI
     url: openapi/scalar-openapi.json
 common:
+- type: CapabilityMap
+  url: capabilities/scalar-capability-edges.yml
+  name: Scalar Business Capability Map
+- type: Integrations
+  url: https://scalar.com/integrations
 - type: Packages
   url: packages/scalar-packages.yml
 - type: FinOps
