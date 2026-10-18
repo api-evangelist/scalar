@@ -592,7 +592,7 @@ apis:
   description: The pubsub API from Scalar — 7 operation(s) for pubsub.
   humanURL: https://scalar.com/products/api-references/getting-started
   tags:
-  - Pub-Sub
+  - Pub/Sub
   tags_raw:
   - pubsub
   properties:
