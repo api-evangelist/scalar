@@ -1,28 +1,4 @@
 edges:
-- partner_name: OpenAPI Initiative (members)
-  partner: openapi-initiative
-  partner_match: register
-  type: register
-  direction: partner-built
-  category: API description standard
-  evidence: https://api-gw.platform.linuxfoundation.org/project-service/v1/public/projects/a0941000002wBykAAE/members
-  channel: standard-directory
-  relationship: standard-participant
-  contract_reference:
-    register: OpenAPI Initiative members (Linux Foundation project service, public members endpoint)
-    spec_file: null
-    standard: OpenAPI
-    role: oai-member
-    registered_name: Scalar
-    member_tier: Participating Membership
-    membership_status: Active
-    matched_domain: scalar.com
-    matched_by: domain
-    signal_note: 'participation only: a membership is not conformance'
-    detected_by: sweep-api-management.py
-    detected: '2026-10-18'
-  detected_by: sweep-api-management.py
-  first_seen: '2026-10-18'
 - partner_name: npm registry
   partner: npm
   partner_match: register
@@ -53,6 +29,123 @@ edges:
     detected: '2026-10-18'
   detected_by: sweep-official-sdks.py
   first_seen: '2026-10-18'
+- partner_name: OpenAPI Initiative (members)
+  partner: openapi-initiative
+  partner_match: register
+  type: register
+  direction: partner-built
+  category: API description standard
+  evidence: https://api-gw.platform.linuxfoundation.org/project-service/v1/public/projects/a0941000002wBykAAE/members
+  channel: standard-directory
+  relationship: standard-participant
+  contract_reference:
+    register: OpenAPI Initiative members (Linux Foundation project service, public members endpoint)
+    spec_file: null
+    standard: OpenAPI
+    role: oai-member
+    registered_name: Scalar
+    member_tier: Participating Membership
+    membership_status: Active
+    matched_domain: scalar.com
+    matched_by: domain
+    signal_note: 'participation only: a membership is not conformance'
+    detected_by: sweep-api-management.py
+    detected: '2026-10-19'
+  detected_by: sweep-api-management.py
+  first_seen: '2026-10-18'
+- partner_name: Agent Skills (own GitHub org)
+  partner: null
+  partner_match: register
+  type: register
+  direction: provider-built
+  category: Agent Skills package
+  evidence: https://github.com/scalar/scalar
+  channel: provider-built
+  relationship: compatible
+  shape: agent-skills
+  evidence_kind: own-repo
+  degree: skill-repo
+  report_only: true
+  agent_skills:
+    org: scalar
+    current: true
+    repos:
+    - repo: scalar/scalar
+      archived: false
+      lapsed: false
+      pushed: '2026-10-20'
+  contract_reference:
+    register: 'provider''s own GitHub org (GitHub REST API: repo + git tree holds SKILL.md)'
+    spec_file: null
+    standard: Agent Skills (agentskills.io)
+    role: agent-skills-repo
+    matched_org: scalar
+    matched_by: org-profile-domain:scalar.com
+    detected_by: sweep-agent-skills.py
+    detected: '2026-10-20'
+  detected_by: sweep-agent-skills.py
+  first_seen: '2026-10-20'
+- partner_name: skills.sh
+  partner: null
+  partner_match: register
+  type: register
+  direction: partner-built
+  category: Agent Skills register
+  evidence: https://www.skills.sh/scalar/scalar
+  channel: standard-directory
+  relationship: compatible
+  shape: agent-skills
+  evidence_kind: register-listing
+  degree: listed
+  report_only: true
+  agent_skills_register:
+    repos:
+    - scalar/scalar
+    repo_verified: true
+    signal_note: the provider's own-org repos the register lists; skill / install counts never read
+  contract_reference:
+    register: skills.sh (public sitemap / list)
+    spec_file: null
+    standard: Agent Skills (agentskills.io)
+    role: agent-skills-listing
+    matched_org: scalar
+    matched_by: org-profile-domain:scalar.com
+    sample_skills:
+    - scalar-docs
+    detected_by: sweep-agent-skills.py
+    detected: '2026-10-20'
+  detected_by: sweep-agent-skills.py
+  first_seen: '2026-10-20'
+- partner_name: SkillsMP (skillsmp.com)
+  partner: null
+  partner_match: register
+  type: register
+  direction: partner-built
+  category: Agent Skills register
+  evidence: https://skillsmp.com/creators/scalar
+  channel: standard-directory
+  relationship: compatible
+  shape: agent-skills
+  evidence_kind: register-listing
+  degree: listed
+  report_only: true
+  agent_skills_register:
+    repos:
+    - scalar
+    repo_verified: false
+    signal_note: the provider's own-org repos the register lists; skill / install counts never read
+  contract_reference:
+    register: SkillsMP (skillsmp.com) (public sitemap / list)
+    spec_file: null
+    standard: Agent Skills (agentskills.io)
+    role: agent-skills-listing
+    matched_org: scalar
+    matched_by: org-profile-domain:scalar.com
+    sample_skills: []
+    detected_by: sweep-agent-skills.py
+    detected: '2026-10-20'
+  detected_by: sweep-agent-skills.py
+  first_seen: '2026-10-20'
 generated: '2026-10-18'
 method: searched
 source:
@@ -66,3 +159,9 @@ checked:
 - https://registry.npmjs.org
 - https://repo1.maven.org/maven2
 - https://rubygems.org/api/v1
+- https://api.github.com
+- https://claude-plugins.dev/sitemap.xml
+- https://github.com/VoltAgent/awesome-agent-skills
+- https://officialskills.sh/sitemap.xml
+- https://skillsmp.com/sitemap.xml
+- https://www.skills.sh/sitemap.xml
