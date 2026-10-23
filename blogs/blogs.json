@@ -5,8 +5,15 @@
       "source": "https://scalar.com/blog",
       "feed_url": "https://scalar.com/blog/rss.xml",
       "title": "",
-      "saved": 2,
+      "saved": 0,
       "method": "discovered"
+    },
+    {
+      "source": "https://scalar.com/blog/rss.xml",
+      "feed_url": "https://scalar.com/blog/rss.xml",
+      "title": "",
+      "saved": 0,
+      "method": "feed"
     },
     {
       "source": "https://discord.gg/scalar",
@@ -16,8 +23,8 @@
       "method": "none"
     }
   ],
-  "fetched": "2026-10-10T13:15:00Z",
-  "post_count": 18,
+  "fetched": "2026-10-17T14:53:57Z",
+  "post_count": 30,
   "agent_pulled": "2026-07-04",
   "feed_nature": "vendor-blog",
   "feed_nature_basis": "path_blog",
