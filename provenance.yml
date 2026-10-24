@@ -6,8 +6,20 @@ artifacts:
   agentic-access/scalar-agentic-access.yml:
     method: generated
     evidence: declared in the artifact
+  asyncapi/scalar-webhooks.yml:
+    method: derived
+    evidence: declared in the artifact
   authentication/scalar-authentication.yml:
     method: derived
+    evidence: declared in the artifact
+  capabilities/scalar-capability-edges.yml:
+    method: unknown
+    evidence: no authorship recorded
+  changelog/scalar-changelog.yml:
+    method: searched
+    evidence: declared in the artifact
+  cli/scalar-cli.yml:
+    method: searched
     evidence: declared in the artifact
   collections/scalar-access-groups-api.opencollection.json:
     method: derived
@@ -159,6 +171,18 @@ artifacts:
   collections/scalar-workspace-api.postman_collection.json:
     method: derived
     evidence: openapi/scalar-workspace-api
+  conformance/scalar-conformance.yml:
+    method: searched
+    evidence: declared in the artifact
+  conventions/scalar-conventions.yml:
+    method: searched
+    evidence: declared in the artifact
+  data-model/scalar-data-model.yml:
+    method: derived
+    evidence: declared in the artifact
+  errors/scalar-problem-types.yml:
+    method: derived
+    evidence: declared in the artifact
   examples/scalar-api-reference-config-example.json:
     method: unknown
     evidence: no authorship recorded
@@ -174,9 +198,12 @@ artifacts:
   front-door-ai/2026-09-17.yml:
     method: unknown
     evidence: no authorship recorded
+  hosts/scalar-hosts.yml:
+    method: derived
+    evidence: declared in the artifact
   integrations/_index.yml:
-    method: unknown
-    evidence: no authorship recorded
+    method: generated
+    evidence: carries an API Evangelist house phrase
   integrations/scalar-anthropic.yaml:
     method: unknown
     evidence: no authorship recorded
@@ -193,6 +220,9 @@ artifacts:
     method: unknown
     evidence: no authorship recorded
   integrations/scalar-gitlab.yaml:
+    method: unknown
+    evidence: no authorship recorded
+  integrations/scalar-integration-edges.yml:
     method: unknown
     evidence: no authorship recorded
   integrations/scalar-linear.yaml:
@@ -219,133 +249,166 @@ artifacts:
   json-ld/scalar-context.jsonld:
     method: unknown
     evidence: no authorship recorded
+  json-schema/scalar-access-group-name-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/scalar-access-group-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/scalar-custom-project-icon-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/scalar-doc-source-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/scalar-docs-project-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/scalar-email-domain-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/scalar-email-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/scalar-feature-flag-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/scalar-github-install-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/scalar-github-project-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/scalar-identity-provider-record-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/scalar-linked-repository-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/scalar-login-portal-email-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/scalar-login-portal-page-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/scalar-login-portal-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/scalar-managed-doc-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/scalar-managed-doc-version-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/scalar-managed-schema-format-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/scalar-managed-schema-version-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/scalar-mcp-installation-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/scalar-mcp-server-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/scalar-method-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/scalar-namespace-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/scalar-nanoid-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/scalar-oauth-authorization-request-view-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/scalar-oauth-authorize-result-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/scalar-oauth-client-create-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/scalar-oauth-client-created-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/scalar-oauth-client-list-item-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/scalar-oauth-token-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/scalar-object-schema.json:
+    method: unknown
+    evidence: no authorship recorded
   json-schema/scalar-openapi-document-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/scalar-project-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/scalar-project-version-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/scalar-publish-record-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/scalar-registry-git-binding-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/scalar-registry-publish-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/scalar-sdk-preview-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/scalar-slug-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/scalar-team-billing-summary-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/scalar-team-list-mine-entry-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/scalar-theme-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/scalar-timestamp-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/scalar-token-response-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/scalar-user-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/scalar-version-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/scalar-webhook-delivery-status-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/scalar-webhook-disabled-reason-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/scalar-webhook-event-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/scalar-workspace-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/scalar-workspace-version-schema.json:
     method: unknown
     evidence: no authorship recorded
   json-structure/scalar-openapi-document-structure.json:
     method: unknown
     evidence: no authorship recorded
-  kin/checks-2026-09-24T161608.yml:
+  kin/checks-2026-10-09T213714.yml:
     method: generated
     evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-25T125852.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-25T133943.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-25T143147.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-25T154045.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-26T215308.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-27T094438.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-27T103455.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-27T123021.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-27T132314.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-27T140727.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-28T221322.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-29T213958.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-29T230545.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-30T203505.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-30T220315.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-31T223420.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-01T063623.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-01T210448.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-01T222808.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-02T211804.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-02T224043.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-03T161828.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-03T174231.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-04T062714.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-04T212454.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-04T224856.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-05T055819.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-05T072335.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-05T144739.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-05T195450.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-05T211839.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-06T011047.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-06T211804.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-06T224210.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-07T200636.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-07T213054.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-08T214843.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-08T232836.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-10T204815.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-10T222408.yml:
+  kin/checks-2026-10-11T110117.yml:
     method: generated
     evidence: Kin Score snapshot written by score.rb
   kin/score-2026-09-12T062655.yml:
@@ -429,13 +492,54 @@ artifacts:
   kin/score-2026-09-24T161608.yml:
     method: generated
     evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-25T210408.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-25T232841.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-10-03T000835.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-10-03T024842.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-10-04T202412.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-10-04T225258.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-10-09T213714.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-10-11T110117.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
   llms/scalar-llms-probe.yml:
     method: searched
     evidence: 'derive-llms-provenance.py: harvested'
+  llms/scalar-llms-provenance.yml:
+    method: searched
+    evidence: 'derive-llms-provenance.py: harvested'
+  llms/scalar-llms.txt:
+    method: searched
+    evidence: 'derive-llms-provenance.py: harvested'
+  mcp/scalar-mcp-tools.json:
+    method: unknown
+    evidence: no authorship recorded
   mcp/scalar-mcp.yml:
     method: unknown
     evidence: no authorship recorded
   openapi/_original/scalar-core.json:
+    method: harvested
+    evidence: found in openapi/_original/; the fetch URL and bytes were not recorded, so byte-identity
+      to the provider's source is unverified
+  openapi/_original/scalar-openapi.json:
+    method: harvested
+    evidence: found in openapi/_original/; the fetch URL and bytes were not recorded, so byte-identity
+      to the provider's source is unverified
+  openapi/_original/scalar-openapi_2.json:
     method: harvested
     evidence: found in openapi/_original/; the fetch URL and bytes were not recorded, so byte-identity
       to the provider's source is unverified
@@ -469,6 +573,12 @@ artifacts:
   openapi/scalar-login-portals-api-openapi.yml:
     method: derived
     evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/scalar-mcp-servers-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/scalar-oauth-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
   openapi/scalar-payment-api-openapi.yml:
     method: derived
     evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
@@ -476,6 +586,9 @@ artifacts:
     method: derived
     evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
   openapi/scalar-pubsub-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/scalar-registry-git-api-openapi.yml:
     method: derived
     evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
   openapi/scalar-rules-api-openapi.yml:
@@ -499,6 +612,9 @@ artifacts:
   openapi/scalar-themes-api-openapi.yml:
     method: derived
     evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/scalar-user-info-hooks-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
   openapi/scalar-utility-api-openapi.yml:
     method: derived
     evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
@@ -508,21 +624,33 @@ artifacts:
   openapi/scalar-waitlist-api-openapi.yml:
     method: derived
     evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/scalar-webhooks-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
   openapi/scalar-workspace-api-openapi.yml:
     method: derived
     evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  packages/scalar-packages.yml:
+    method: searched
+    evidence: declared in the artifact
   plans/scalar-plans-pricing.yml:
     method: generated
     evidence: declared in the artifact
   rate-limits/scalar-rate-limits.yml:
     method: generated
     evidence: declared in the artifact
+  regulatory/scalar-regulatory-posture.yml:
+    method: unknown
+    evidence: no authorship recorded
   rules/scalar-jsonschema-spectral-rules.yml:
     method: generated
     evidence: declared in the artifact
   rules/scalar-rules.yml:
     method: unknown
     evidence: no authorship recorded
+  rules/scalar-scalar-spectral-rules.yml:
+    method: harvested
+    evidence: https://github.com/scalar/scalar/blob/6d5c9b633e48259f9238bcb8be8f3b2631503647/packages/galaxy/galaxy.ruleset.yaml
   security/scalar-domain-security.yml:
     method: unknown
     evidence: no authorship recorded
@@ -532,9 +660,69 @@ artifacts:
   security/scalar-vulnerability-disclosure.yml:
     method: searched
     evidence: declared in the artifact
+  skills/_index.yml:
+    method: generated
+    evidence: declared in the artifact
+  skills/scalar-access-groups-create.md:
+    method: generated
+    evidence: declared in the artifact
+  skills/scalar-payment-start-flow.md:
+    method: generated
+    evidence: declared in the artifact
+  skills/scalar-webhook-create-test-fetch.md:
+    method: generated
+    evidence: declared in the artifact
   vendor-facets/scalar-vendor-facets.yml:
     method: unknown
     evidence: no authorship recorded
+  vendors/scalar-vendors.yml:
+    method: unknown
+    evidence: no authorship recorded
   vocabulary/scalar-vocabulary.yml:
+    method: unknown
+    evidence: no authorship recorded
+  well-known/scalar-api-catalog.json:
+    method: unknown
+    evidence: no authorship recorded
+  well-known/scalar-dashboard-security.txt:
+    method: unknown
+    evidence: no authorship recorded
+  well-known/scalar-gitbook-api-catalog.json:
+    method: unknown
+    evidence: no authorship recorded
+  well-known/scalar-gitbook-mcp-server-card.json:
+    method: unknown
+    evidence: no authorship recorded
+  well-known/scalar-gitbook-oauth-authorization-server.json:
+    method: unknown
+    evidence: no authorship recorded
+  well-known/scalar-gitbook-oauth-protected-resource.json:
+    method: unknown
+    evidence: no authorship recorded
+  well-known/scalar-guides-api-catalog.json:
+    method: unknown
+    evidence: no authorship recorded
+  well-known/scalar-guides-mcp-server-card.json:
+    method: unknown
+    evidence: no authorship recorded
+  well-known/scalar-guides-oauth-authorization-server.json:
+    method: unknown
+    evidence: no authorship recorded
+  well-known/scalar-guides-openid-configuration.json:
+    method: unknown
+    evidence: no authorship recorded
+  well-known/scalar-mcp-server-card.json:
+    method: unknown
+    evidence: no authorship recorded
+  well-known/scalar-oauth-authorization-server.json:
+    method: unknown
+    evidence: no authorship recorded
+  well-known/scalar-oauth-oauth-authorization-server.json:
+    method: unknown
+    evidence: no authorship recorded
+  well-known/scalar-openid-configuration.json:
+    method: unknown
+    evidence: no authorship recorded
+  well-known/scalar-well-known.yml:
     method: unknown
     evidence: no authorship recorded
