@@ -1,4 +1,4 @@
-# Scalar (scalar)
+# Scalar
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -66,197 +66,267 @@
 
 Scalar is an open-source API platform built around the OpenAPI standard. It provides API documentation (API References), an offline-first API client, a centralized API registry for managing OpenAPI documents, JSON schemas and Spectral rules, and automated SDK generation for TypeScript, Python, Go, PHP, Java, and Ruby. Used by teams at SmartBear, Microsoft ASP.NET, and 30+ framework ecosystems including Express, FastAPI, NestJS, and Spring Boot. The platform has 14.9k GitHub stars and is MIT licensed. Scalar is backed by a strong open-source community and positions itself as the modern, open alternative to Swagger UI and Postman.
 
-**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/scalar/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/scalar/refs/heads/main/apis.yml)
+**Areas:** API Client · API Documentation · API Reference · Code Generation · Developer Tools · OpenAPI · Registry · SDK · Swagger
 
-## Scope
+## Scalar on APIs.io
 
-- **Type:** Index
-- **Position:** Consumer
-- **Access:** 3rd-Party
+Everything profiled for Scalar is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/scalar/](https://apis.io/providers/scalar/)** — or go straight to one of the APIs or properties below.
 
-## Tags
+### APIs (39)
 
-- API Client
-- API Documentation
-- API References
-- Code Generation
-- Developer Tools
-- OpenAPI
-- Registry
-- SDKs
-- Swagger
+- [Scalar API References](https://apis.io/apis/scalar/scalar-api-references/) — Scalar API References renders modern, interactive API documentation from OpenAPI and Swagger specifications. Features include multiple themes, custom…
+- [Scalar API Client](https://apis.io/apis/scalar/scalar-api-client/) — Scalar API Client is a fully open-source, offline-first REST API client built on the OpenAPI standard. Supports collections, environments, pre/post-response…
+- [Scalar Docs](https://apis.io/apis/scalar/scalar-docs/) — Scalar Docs enables teams to create and publish developer documentation that stays in sync with their API and code. Supports writing with a WYSIWYG editor,…
+- [Scalar Registry](https://apis.io/apis/scalar/scalar-registry/) — Scalar Registry provides centralized management and versioning of OpenAPI Documents, JSON Schemas, and Spectral Rules with deep Git integration. Serves as…
+- [Scalar SDKs](https://apis.io/apis/scalar/scalar-sdks/) — Scalar SDKs generates type-safe client libraries from OpenAPI specifications. Supported languages include TypeScript, Python, Golang, PHP, Java, and Ruby.…
+- [Scalar CLI](https://apis.io/apis/scalar/scalar-cli/) — The Scalar CLI is a command-line interface for managing OpenAPI files, generating documentation, running mock servers, validating specs, and publishing to…
+- [Scalar Access Groups API](https://apis.io/apis/scalar/scalar-access-groups-api/) — The access-groups API from Scalar — 5 operation(s) for access-groups.
+- [Scalar Analytics API](https://apis.io/apis/scalar/scalar-analytics-api/) — The analytics API from Scalar — 4 operation(s) for analytics.
+- [Scalar API Docs API](https://apis.io/apis/scalar/scalar-api-docs-api/) — The api-docs API from Scalar — 13 operation(s) for api-docs.
+- [Scalar Auth API](https://apis.io/apis/scalar/scalar-auth-api/) — The auth API from Scalar — 27 operation(s) for auth.
+- [Scalar Docs API](https://apis.io/apis/scalar/scalar-docs-api/) — The docs API from Scalar — 6 operation(s) for docs.
+- [Scalar Docs Projects API](https://apis.io/apis/scalar/scalar-docs-projects-api/) — The Docs Projects API from Scalar — 9 operation(s) for docs projects.
+- [Scalar Forgejo API](https://apis.io/apis/scalar/scalar-forgejo-api/) — The Forgejo API from Scalar — 1 operation(s) for forgejo.
+- [Scalar Github API](https://apis.io/apis/scalar/scalar-github-api/) — The github API from Scalar — 16 operation(s) for github.
+- [Scalar Internal API](https://apis.io/apis/scalar/scalar-internal-api/) — The Internal API from Scalar — 1 operation(s) for internal.
+- [Scalar Login Portals API](https://apis.io/apis/scalar/scalar-login-portals-api/) — The login-portals API from Scalar — 3 operation(s) for login-portals.
+- [Scalar Payment API](https://apis.io/apis/scalar/scalar-payment-api/) — The payment API from Scalar — 6 operation(s) for payment.
+- [Scalar Publish API](https://apis.io/apis/scalar/scalar-publish-api/) — The publish API from Scalar — 11 operation(s) for publish.
+- [Scalar Pubsub API](https://apis.io/apis/scalar/scalar-pubsub-api/) — The pubsub API from Scalar — 7 operation(s) for pubsub.
+- [Scalar Rules API](https://apis.io/apis/scalar/scalar-rules-api/) — The rules API from Scalar — 6 operation(s) for rules.
+- [Scalar Schemas API](https://apis.io/apis/scalar/scalar-schemas-api/) — The schemas API from Scalar — 7 operation(s) for schemas.
+- [Scalar Share API](https://apis.io/apis/scalar/scalar-share-api/) — The share API from Scalar — 1 operation(s) for share.
+- [Scalar Signup API](https://apis.io/apis/scalar/scalar-signup-api/) — The signup API from Scalar — 1 operation(s) for signup.
+- [Scalar Team API](https://apis.io/apis/scalar/scalar-team-api/) — The team API from Scalar — 36 operation(s) for team.
+- [Scalar Themes API](https://apis.io/apis/scalar/scalar-themes-api/) — The themes API from Scalar — 4 operation(s) for themes.
+- [Scalar Utility API](https://apis.io/apis/scalar/scalar-utility-api/) — The utility API from Scalar — 3 operation(s) for utility.
+- [Scalar VCS API](https://apis.io/apis/scalar/scalar-vcs-api/) — The vcs API from Scalar — 6 operation(s) for vcs.
+- [Scalar Waitlist API](https://apis.io/apis/scalar/scalar-waitlist-api/) — The waitlist API from Scalar — 1 operation(s) for waitlist.
+- [Scalar Workspace API](https://apis.io/apis/scalar/scalar-workspace-api/) — The workspace API from Scalar — 6 operation(s) for workspace.
+- [Scalar API Reference](https://apis.io/apis/scalar/scalar-api-reference/) — Open-source (MIT) renderer that turns an OpenAPI/Swagger or AsyncAPI document into an interactive API reference with a built-in request-testing panel and…
+- [Scalar Docs Platform](https://apis.io/apis/scalar/scalar-docs-platform/) — Hosted developer-portal product that combines Markdown/MDX guides with generated API references, custom domains and subdomains, themes, versions, and…
+- [Scalar SDK Generation](https://apis.io/apis/scalar/scalar-sdk-generation/) — Hosted SDK generation that produces type-safe client libraries from an OpenAPI document for TypeScript, Python, Go, Java, PHP, C#, and Ruby, kept in sync…
+- [Scalar Agent and MCP](https://apis.io/apis/scalar/scalar-agent-mcp/) — AI layer that lets developers chat with an API inside the docs and exposes hosted MCP (Model Context Protocol) servers generated from an OpenAPI document so…
+- [Scalar SDKS API](https://apis.io/apis/scalar/scalar-sdks-api/) — The sdks API from Scalar — 18 operation(s) for sdks.
+- [Scalar MCP Servers API](https://apis.io/apis/scalar/scalar-mcp-servers-api/) — The mcp-servers API from Scalar — 5 operation(s) for mcp-servers.
+- [Scalar OAuth API](https://apis.io/apis/scalar/scalar-oauth-api/) — The OAuth API from Scalar — 7 operation(s) for oauth.
+- [Scalar Registry Git API](https://apis.io/apis/scalar/scalar-registry-git-api/) — The registry-git API from Scalar — 11 operation(s) for registry-git.
+- [Scalar User Info Hooks API](https://apis.io/apis/scalar/scalar-user-info-hooks-api/) — The user-info-hooks API from Scalar — 2 operation(s) for user-info-hooks.
+- [Scalar Webhooks API](https://apis.io/apis/scalar/scalar-webhooks-api/) — Register endpoints for platform events, and inspect what was delivered to them.
 
-## Timestamps
+### Published properties
 
-- **Created:** 2025-01-08
-- **Modified:** 2026-05-02
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-## APIs
+#### AsyncAPI (1)
 
-### Scalar API References
+Event-driven and webhook contracts.
 
-Scalar API References renders modern, interactive API documentation from OpenAPI and Swagger specifications. Features include multiple themes, custom styling, dark mode, mobile responsiveness, built-in search, and an interactive request panel for testing APIs directly in the docs. Supports OpenAPI 3.0 and 3.1, $ref resolution, allOf/oneOf/anyOf, and authentication schemes. Framework integrations include React, Vue, FastAPI, ASP.NET Core, Spring Boot, NestJS, Express, and 30+ others.
+- [Scalar Webhooks](https://apis.io/asyncapis/scalar/scalar-webhooks/)
 
-- **Human URL:** [https://scalar.com/products/api-references/getting-started](https://scalar.com/products/api-references/getting-started)
+#### MCP servers (1)
 
-#### Tags
+Model Context Protocol servers that expose the API to agents.
 
-- Documentation
-- Interactive
-- OpenAPI
-- References
-- Swagger
+- [scalar](https://apis.io/servers/scalar/scalar/)
 
-#### Properties
+#### Agentic access (1)
 
-- [Getting Started](https://scalar.com/products/api-references/getting-started)
-- [Documentation](https://guides.scalar.com/scalar/scalar-api-references/getting-started)
-- [Git Hub](https://github.com/scalar/scalar)
-- [N P M](https://www.npmjs.com/package/@scalar/api-reference)
-- [Postman Collection](collections/scalar-core.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/scalar-core.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+Which operations an agent can call, which act, and which need a human in the loop.
 
-### Scalar API Client
+- [Scalar Agentic Access](https://apis.io/agentic-access/scalar/scalar-agentic-access/)
 
-Scalar API Client is a fully open-source, offline-first REST API client built on the OpenAPI standard. Supports collections, environments, pre/post-response scripting, test results, and collection runners. Available for Windows, macOS, and Linux as a desktop application and as a browser-based version at client.scalar.com. Imports OpenAPI files to auto-generate request collections with authentication pre-configured.
+#### JSON Schema (51)
 
-- **Human URL:** [https://scalar.com/products/api-client/getting-started](https://scalar.com/products/api-client/getting-started)
+The data models the API reads and writes.
 
-#### Tags
+- [access-group](https://apis.io/schemas/scalar/scalar-access-group/)
+- [access-group-name](https://apis.io/schemas/scalar/scalar-access-group-name/)
+- [custom-project-icon](https://apis.io/schemas/scalar/scalar-custom-project-icon/)
+- [doc-source](https://apis.io/schemas/scalar/scalar-doc-source/)
+- [docs-project](https://apis.io/schemas/scalar/scalar-docs-project/)
+- [email](https://apis.io/schemas/scalar/scalar-email/)
+- [email-domain](https://apis.io/schemas/scalar/scalar-email-domain/)
+- [feature-flag](https://apis.io/schemas/scalar/scalar-feature-flag/)
+- [github-install](https://apis.io/schemas/scalar/scalar-github-install/)
+- [github-project](https://apis.io/schemas/scalar/scalar-github-project/)
+- [identity-provider-record](https://apis.io/schemas/scalar/scalar-identity-provider-record/)
+- [linked-repository](https://apis.io/schemas/scalar/scalar-linked-repository/)
+- [login-portal](https://apis.io/schemas/scalar/scalar-login-portal/)
+- [login-portal-email](https://apis.io/schemas/scalar/scalar-login-portal-email/)
+- [login-portal-page](https://apis.io/schemas/scalar/scalar-login-portal-page/)
+- [managed-doc](https://apis.io/schemas/scalar/scalar-managed-doc/)
+- [managed-doc-version](https://apis.io/schemas/scalar/scalar-managed-doc-version/)
+- [managed-schema-format](https://apis.io/schemas/scalar/scalar-managed-schema-format/)
+- [managed-schema-version](https://apis.io/schemas/scalar/scalar-managed-schema-version/)
+- [mcp-installation](https://apis.io/schemas/scalar/scalar-mcp-installation/)
+- [mcp-server](https://apis.io/schemas/scalar/scalar-mcp-server/)
+- [method](https://apis.io/schemas/scalar/scalar-method/)
+- [namespace](https://apis.io/schemas/scalar/scalar-namespace/)
+- [nanoid](https://apis.io/schemas/scalar/scalar-nanoid/)
+- [oauth-authorization-request-view](https://apis.io/schemas/scalar/scalar-oauth-authorization-request-view/)
+- …and 26 more published on APIs.io
 
-- API Client
-- Collections
-- OpenAPI
-- REST
-- Testing
+#### JSON Structure (1)
 
-#### Properties
+Data models expressed in JSON Structure.
 
-- [Getting Started](https://scalar.com/products/api-client/getting-started)
-- [Application](https://client.scalar.com/)
-- [Download](https://scalar.com/download)
-- [Git Hub](https://github.com/scalar/scalar)
-- [Postman Collection](collections/scalar-core.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/scalar-core.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [Scalar Openapi Document Structure](https://apis.io/json-structure/scalar/scalar-openapi-document-structure/)
 
-### Scalar Docs
+#### JSON-LD (1)
 
-Scalar Docs enables teams to create and publish developer documentation that stays in sync with their API and code. Supports writing with a WYSIWYG editor, pulling Markdown and MDX files from repositories, and generating API references from OpenAPI documents with Git Sync and CI/CD integration. Custom domains, team collaboration, and versioning are available on paid plans.
+Linked-data contexts for the provider's vocabulary.
 
-- **Human URL:** [https://scalar.com/products/docs/getting-started](https://scalar.com/products/docs/getting-started)
+- [Scalar Context](https://apis.io/jsonld/scalar/scalar-context/)
 
-#### Tags
+#### Vocabulary (1)
 
-- Developer Portal
-- Documentation
-- Git Sync
-- Markdown
-- MDX
+The provider's domain terms, defined.
 
-#### Properties
+- [Scalar Vocabulary](https://apis.io/vocabularies/scalar/scalar-vocabulary/)
 
-- [Getting Started](https://scalar.com/products/docs/getting-started)
-- [Portal](https://docs.scalar.com/)
-- [Documentation](https://guides.scalar.com/scalar/scalar-docs/getting-started)
-- [Git Hub Actions](https://scalar.com/products/docs/github-actions)
-- [Postman Collection](collections/scalar-core.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/scalar-core.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+#### Examples (3)
 
-### Scalar Registry
+Example requests and responses.
 
-Scalar Registry provides centralized management and versioning of OpenAPI Documents, JSON Schemas, and Spectral Rules with deep Git integration. Serves as the single source of truth for API definitions across teams. Supports both private and public registries with CI/CD workflows via CLI and GitHub Actions. Publish via the scalar CLI: `scalar registry publish`.
+- [Scalar Api Reference Config Example](https://apis.io/examples/scalar/scalar-api-reference-config-example/)
+- [Scalar Registry Publish Example](https://apis.io/examples/scalar/scalar-registry-publish-example/)
+- [Scalar Sdk Generation Example](https://apis.io/examples/scalar/scalar-sdk-generation-example/)
 
-- **Human URL:** [https://scalar.com/products/registry/getting-started](https://scalar.com/products/registry/getting-started)
+#### Collections (25)
 
-#### Tags
+Postman and Open Collection request collections.
 
-- Git Integration
-- Governance
-- JSON Schema
-- OpenAPI
-- Registry
-- Spectral
-- Versioning
+- [Core access-groups API](https://apis.io/collections/scalar/open-scalar-access-groups-api/)
+- [Core access-groups analytics API](https://apis.io/collections/scalar/open-scalar-analytics-api/)
+- [Core access-groups api-docs API](https://apis.io/collections/scalar/open-scalar-api-docs-api/)
+- [Core access-groups auth API](https://apis.io/collections/scalar/open-scalar-auth-api/)
+- [Core](https://apis.io/collections/scalar/open-scalar-core/)
+- [Core access-groups docs API](https://apis.io/collections/scalar/open-scalar-docs-api/)
+- [Core access-groups Docs Projects API](https://apis.io/collections/scalar/open-scalar-docs-projects-api/)
+- [Core access-groups Forgejo API](https://apis.io/collections/scalar/open-scalar-forgejo-api/)
+- [Core access-groups github API](https://apis.io/collections/scalar/open-scalar-github-api/)
+- [Core access-groups Internal API](https://apis.io/collections/scalar/open-scalar-internal-api/)
+- [Core access-groups login-portals API](https://apis.io/collections/scalar/open-scalar-login-portals-api/)
+- [Core access-groups payment API](https://apis.io/collections/scalar/open-scalar-payment-api/)
+- [Core access-groups publish API](https://apis.io/collections/scalar/open-scalar-publish-api/)
+- [Core access-groups pubsub API](https://apis.io/collections/scalar/open-scalar-pubsub-api/)
+- [Core access-groups rules API](https://apis.io/collections/scalar/open-scalar-rules-api/)
+- [Core access-groups schemas API](https://apis.io/collections/scalar/open-scalar-schemas-api/)
+- [Core access-groups sdks API](https://apis.io/collections/scalar/open-scalar-sdks-api/)
+- [Core access-groups share API](https://apis.io/collections/scalar/open-scalar-share-api/)
+- [Core access-groups signup API](https://apis.io/collections/scalar/open-scalar-signup-api/)
+- [Core access-groups team API](https://apis.io/collections/scalar/open-scalar-team-api/)
+- [Core access-groups themes API](https://apis.io/collections/scalar/open-scalar-themes-api/)
+- [Core access-groups utility API](https://apis.io/collections/scalar/open-scalar-utility-api/)
+- [Core access-groups vcs API](https://apis.io/collections/scalar/open-scalar-vcs-api/)
+- [Core access-groups waitlist API](https://apis.io/collections/scalar/open-scalar-waitlist-api/)
+- [Core access-groups workspace API](https://apis.io/collections/scalar/open-scalar-workspace-api/)
 
-#### Properties
+#### Governance rules (3)
 
-- [Getting Started](https://scalar.com/products/registry/getting-started)
-- [Documentation](https://guides.scalar.com/scalar/scalar-registry/getting-started)
-- [C L I](https://guides.scalar.com/scalar/scalar-cli/getting-started)
-- [Git Hub Actions](https://scalar.com/scalar/scalar-registry/github-actions)
-- [Postman Collection](collections/scalar-core.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/scalar-core.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+Spectral rulesets for the provider's contracts.
 
-### Scalar SDKs
+- [Scalar — jsonschema rules](https://apis.io/rules/scalar/scalar-jsonschema-spectral-rules/)
+- [Scalar API Rules](https://apis.io/rules/scalar/scalar-rules/)
+- [Scalar — scalar rules](https://apis.io/rules/scalar/scalar-scalar-spectral-rules/)
 
-Scalar SDKs generates type-safe client libraries from OpenAPI specifications. Supported languages include TypeScript, Python, Golang, PHP, Java, and Ruby. Features include automated GitHub workflows, code samples, full OpenAPI auth support, file streaming, and webhook support. SDK generation is $100 per month per language on paid plans.
+#### Security (4)
 
-- **Human URL:** [https://scalar.com/products/sdks/getting-started](https://scalar.com/products/sdks/getting-started)
+Authentication, trust centre, and vulnerability disclosure.
 
-#### Tags
+- [Scalar Authentication](https://apis.io/security/scalar/scalar-authentication/)
+- [Scalar Domain Security](https://apis.io/security/scalar/scalar-domain-security/)
+- [Scalar Trust Center](https://apis.io/security/scalar/scalar-trust-center/)
+- [Scalar Vulnerability Disclosure](https://apis.io/security/scalar/scalar-vulnerability-disclosure/)
 
-- Code Generation
-- Go
-- Java
-- PHP
-- Python
-- Ruby
-- SDKs
-- TypeScript
+#### Plans and pricing (1)
 
-#### Properties
+Published plans, tiers and prices.
 
-- [Getting Started](https://scalar.com/products/sdks/getting-started)
-- [Documentation](https://guides.scalar.com/scalar/scalar-sdks/getting-started)
-- [Pricing](https://guides.scalar.com/scalar/pricing)
-- [Postman Collection](collections/scalar-core.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/scalar-core.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [Scalar Plans Pricing](https://apis.io/plans/scalar/scalar-plans-pricing/)
 
-### Scalar CLI
+#### Rate limits (1)
 
-The Scalar CLI is a command-line interface for managing OpenAPI files, generating documentation, running mock servers, validating specs, and publishing to the Scalar Registry. Enables CI/CD integration and automation of the API documentation workflow.
+Published request limits.
 
-- **Human URL:** [https://guides.scalar.com/scalar/scalar-cli/getting-started](https://guides.scalar.com/scalar/scalar-cli/getting-started)
+- [Scalar Rate Limits](https://apis.io/rate-limits/scalar/scalar-rate-limits/)
 
-#### Tags
+#### FinOps (1)
 
-- CLI
-- Developer Tools
-- Mock Server
-- OpenAPI
-- Validation
+What the API costs to run, by operation.
 
-#### Properties
+- [Scalar Finops](https://apis.io/finops/scalar/scalar-finops/)
 
-- [Getting Started](https://guides.scalar.com/scalar/scalar-cli/getting-started)
-- [Documentation](https://guides.scalar.com/scalar/scalar-cli/getting-started)
-- [N P M](https://www.npmjs.com/package/@scalar/cli)
-- [Postman Collection](collections/scalar-core.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/scalar-core.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+## Where to find this API
 
-## Common Properties
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
 
-- [LinkedIn](https://www.linkedin.com/company/scalar)
 - [Website](https://scalar.com/)
 - [Documentation](https://guides.scalar.com/scalar/introduction)
+- [Getting started](https://scalar.com/products/docs/getting-started/index)
+- [API reference](https://scalar.com/llms.txt)
 - [Pricing](https://guides.scalar.com/scalar/pricing)
-- [Git Hub](https://github.com/scalar/scalar)
-- [Discord](https://discord.gg/scalar)
-- [Blog](https://scalar.com/blog)
 - [Changelog](https://github.com/scalar/scalar/releases)
-- [Support](mailto:support@scalar.com)
-- [Dashboard](https://dashboard.scalar.com/)
-- [Spectral Rules](https://github.com/api-evangelist/scalar/blob/main/rules/scalar-rules.yml)
-- [JSON Schema](https://github.com/api-evangelist/scalar/blob/main/json-schema/scalar-openapi-document-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [JSON Structure](https://github.com/api-evangelist/scalar/blob/main/json-structure/scalar-openapi-document-structure.json)
-- [J S O N L D Context](https://github.com/api-evangelist/scalar/blob/main/json-ld/scalar-context.jsonld)
-- [Vocabulary](https://github.com/api-evangelist/scalar/blob/main/vocabulary/scalar-vocabulary.yml)
-- [Examples](https://github.com/api-evangelist/scalar/blob/main/examples/)
-- [Integrations](https://scalar.com/integrations)
-- [L L Ms Txt](https://docs.scalar.com/llms.txt)
+- [Blog](https://scalar.com/blog)
+- [Security](https://scalar.com/security)
+- [Compliance](https://scalar.com/security)
+- [Terms of service](https://scalar.com/legal/terms-and-conditions)
+- [Privacy policy](https://scalar.com/legal/privacy-policy)
+- [GitHub](https://github.com/scalar)
+- [Status](https://scalar.com/tools/api/tag/scalar-docs/get/v1/docs/slug/domain/status)
 
-## Maintainers
+## API Evangelist rating
 
-**FN:** Kin Lane
-**Email:** kin@apievangelist.com
-**URL:** https://apievangelist.com
+**Kin Score 70.3** — exemplar · rubric 0.25.0 · scored 2026-10-23
+
+| Facet | Score |
+|---|---|
+| Discoverability | 68.3 |
+| Contract quality | 78.1 |
+| Contract governance | 45.5 |
+| Operational transparency | 60.5 |
+| Developer ergonomics | 73.2 |
+| Access clarity | 68.4 |
+
+**Agent readiness 56.5** — agent-ready (gated down from agent-native)
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | documented (partial credit) |
+| MCP Server | verified |
+| Auth Clarity | served (partial credit) |
+| Idempotency | — |
+| Error Semantics | verified |
+| OpenAPI Examples | partial |
+| Rate Limit Signal | derived (partial credit) |
+| Event Surface Described | derived (partial credit) |
+| Agent Skills | derived (partial credit) |
+| Well Known Catalog | yes |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | served (partial credit) |
+| Protected Resource Metadata | verified |
+| Dynamic Client Registration | yes |
+| Agentic Commerce | — |
+| Pagination Ratio | — |
+| Operation Distinctiveness | distinct |
+
+**Regulatory alignment 35.3** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/scalar/](https://apis.io/providers/scalar/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Scalar: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/scalar/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
